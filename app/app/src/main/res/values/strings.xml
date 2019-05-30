@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Pediatry</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="menu_title">Меню</string>
+    <string name="news_title">Новости</string>
+    <string name="translations_title">Трансляции</string>
+    <string name="messages_title">Сообщения</string>
+    <string name="profile_title">Профиль</string>
+    <string name="go_to_profile">Перейти в профиль</string>
+    <string name="edit">Редактировать</string>
+    <string name="friends">Друзья</string>
+    <string name="support">Поддержка</string>
+    <string name="webinars">Вебинары</string>
+    <string name="conferentions">конференции</string>
+    <string name="testing">Тестирование</string>
+    <string name="details">Разборы</string>
+    <string name="image_transition">imageTransition</string>
+    <string name="username_transition">userNameTransition</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="menu_array">
+        <item>Друзья</item>
+        <item>Конференции</item>
+        <item>Вебинары</item>
+        <item>Поддержка</item>
+    </string-array>
+</resources>
