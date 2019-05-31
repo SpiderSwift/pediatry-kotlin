@@ -33,10 +33,10 @@ class MenuAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.apply {
-            holder?.title?.text =  dataset[position].title
-            holder?.image?.setImageResource(dataset[position].img)
+            holder.title?.text =  dataset[position].title
+            holder.image?.setImageResource(dataset[position].img)
 
-            holder?.container?.setOnClickListener{view -> listener.onClick(view, position)}
+            holder.container?.setOnClickListener{view -> listener.onClick(view, position)}
         }
     }
 }
