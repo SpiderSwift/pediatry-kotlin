@@ -1,3 +1,3 @@
-package com.develop.grizzzly.pediatrynew.models
+package com.develop.grizzzly.pediatry.models
 
 class NavigationItem(val img: Int, val title: String )

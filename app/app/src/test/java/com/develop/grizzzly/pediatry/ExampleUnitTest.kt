@@ -1,4 +1,4 @@
-package com.develop.grizzzly.pediatrynew
+package com.develop.grizzzly.pediatry
 
 import org.junit.Test
 
