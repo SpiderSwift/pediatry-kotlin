@@ -61,10 +61,15 @@
  
 #### Фрагмент "Трансляции"
 Данный фрагмент представляет список карточек с прошедшими и текущими трансляциями.
+Каждая карточка содержит:
+  1. Изображение
+  2. индикатор трансляции(прошедшая или текущая
+  3. Если трансляция прошедшая, то должны быть указаны дата и время трансляции
+  3. Название
+При нажатии на карточку происходит переход в активити "Трансляция".
 
- ![Пример карточки](https://github.com/HungryGrizzzly/pediatry-kotlin/raw/master/design/translations_card.png)
+ ![Пример карточки](https://github.com/HungryGrizzzly/pediatry-kotlin/raw/master/design/translation_card.png)
 
 #### Фрагмент "Сообщения"
 
 ![Пример карточки](https://github.com/HungryGrizzzly/pediatry-kotlin/raw/master/design/messages_card.png)
-#### Фрагмент ""
