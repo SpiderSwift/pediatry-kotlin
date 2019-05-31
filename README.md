@@ -62,5 +62,9 @@
 #### Фрагмент "Трансляции"
 Данный фрагмент представляет список карточек с прошедшими и текущими трансляциями.
 
+ ![Пример карточки](https://github.com/HungryGrizzzly/pediatry-kotlin/raw/master/design/translations_card.png)
+
 #### Фрагмент "Сообщения"
+
+![Пример карточки](https://github.com/HungryGrizzzly/pediatry-kotlin/raw/master/design/messages_card.png)
 #### Фрагмент ""
