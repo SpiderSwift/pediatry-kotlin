@@ -1,3 +1,5 @@
 package com.develop.grizzzly.pediatry.models
 
-class NavigationItem(val img: Int, val title: String )
+import android.support.v4.app.Fragment
+
+class NavigationItem(val img: Int, val title: String, val fragment: Fragment )

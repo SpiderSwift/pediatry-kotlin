@@ -10,9 +10,7 @@ import android.view.Gravity
 import android.view.View
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.MenuAdapter
-import com.develop.grizzzly.pediatry.fragments.MessagesFragment
-import com.develop.grizzzly.pediatry.fragments.NewsFragment
-import com.develop.grizzzly.pediatry.fragments.TranslationsFragment
+import com.develop.grizzzly.pediatry.fragments.*
 import com.develop.grizzzly.pediatry.models.NavigationItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -24,22 +22,14 @@ class MainActivity : AppCompatActivity(),MenuAdapter.OnItemClickListener {
     private lateinit var newsFragment: NewsFragment
 
     private  val menuList: ArrayList<NavigationItem> = arrayListOf<NavigationItem>(
-        NavigationItem(R.drawable.ic_friends, "Друзья"),
-        NavigationItem(R.drawable.ic_webinars, "Вебинары"),
-        NavigationItem(R.drawable.ic_conferations, "Конференции"),
-        NavigationItem(R.drawable.ic_testing, "Тестирование"),
-        NavigationItem(R.drawable.ic_details, "Разборы"),
-        NavigationItem(R.drawable.ic_support, "Поддержка")
+        NavigationItem(R.drawable.ic_friends, "Друзья", FriendsFragment()),
+        NavigationItem(R.drawable.ic_webinars, "Вебинары", WebinarsFragment()),
+        NavigationItem(R.drawable.ic_conferations, "Конференции", ConferentionsFragment()),
+        NavigationItem(R.drawable.ic_testing, "Тестирование", TestingFragment()),
+        NavigationItem(R.drawable.ic_details, "Разборы", DetailsFragment()),
+        NavigationItem(R.drawable.ic_support, "Поддержка", SupportFragment())
     )
 
-    private val fragments: ArrayList<Fragment> = arrayListOf(
-        NewsFragment(),
-        TranslationsFragment(),
-        MessagesFragment(),
-        NewsFragment(),
-        TranslationsFragment(),
-        MessagesFragment()
-    )
 
     private val mOnNavigationItemSelectedListener =  BottomNavigationView.OnNavigationItemSelectedListener{ item ->
         when (item.itemId){
@@ -89,6 +79,6 @@ class MainActivity : AppCompatActivity(),MenuAdapter.OnItemClickListener {
     /**menu item click listener**/
     override fun onClick(view: View, position: Int){
         drawerLayout.closeDrawer(Gravity.LEFT)
-        supportFragmentManager.beginTransaction().replace(R.id.root_container, fragments[position]).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.root_container, menuList[position].fragment).commitAllowingStateLoss()
     }
 }
