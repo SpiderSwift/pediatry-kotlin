@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navigation"
+            app:startDestination="@id/news_btn">
+
+
+    <fragment
+            android:id="@+id/news_btn"
+            android:name="com.develop.grizzzly.pediatry.fragments.NewsFragment"/>
+
+    <fragment
+            android:id="@+id/translations_btn"
+            android:name="com.develop.grizzzly.pediatry.fragments.TranslationsFragment"/>
+
+    <fragment
+            android:id="@+id/messages_btn"
+            android:name="com.develop.grizzzly.pediatry.fragments.MessagesFragment">
+        <action android:id="@+id/action_messages_btn_to_hello_btn" app:destination="@id/hello_btn"/>
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/hello_btn"
+            android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment" />
+
+</navigation>
