@@ -9,7 +9,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.models.NavigationItem
 import kotlinx.android.synthetic.main.menu_item.view.*
 
-/**Adapter for menu navigation items**/
+/**Adapter for menu messages_navigation items**/
 
 //class MenuAdapter(
 //    private val dataset: ArrayList<NavigationItem>,

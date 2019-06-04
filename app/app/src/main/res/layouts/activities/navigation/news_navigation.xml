@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/news_btn"
+            app:startDestination="@+id/news_btn">
+
+
+    <fragment
+            android:id="@+id/news_btn"
+            android:label="label3"
+            android:name="com.develop.grizzzly.pediatry.fragments.NewsFragment"/>
+
+</navigation>

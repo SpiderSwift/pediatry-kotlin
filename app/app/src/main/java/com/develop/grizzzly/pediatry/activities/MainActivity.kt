@@ -1,29 +1,23 @@
 package com.develop.grizzzly.pediatry.activities
 
 import android.os.Bundle
-//import android.support.design.widget.BottomNavigationView
-//import android.support.v4.app.Fragment
-//import android.support.v4.widget.DrawerLayout
-//import android.support.v7.app.AppCompatActivity
-//import android.support.v7.widget.RecyclerView
-import android.view.Gravity
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.develop.grizzzly.pediatry.R
-//import com.develop.grizzzly.pediatry.adapters.MenuAdapter
-import com.develop.grizzzly.pediatry.fragments.*
-import com.develop.grizzzly.pediatry.models.NavigationItem
+import com.develop.grizzzly.pediatry.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar_main.*
 
 class MainActivity : AppCompatActivity() { //,MenuAdapter.OnItemClickListener {
 
     //private lateinit var drawerLayout: DrawerLayout
     //private lateinit var drawerList: RecyclerView
     //private lateinit var newsFragment: NewsFragment
+
+    private var currentNavController: LiveData<NavController>? = null
 
 
 
@@ -62,28 +56,45 @@ class MainActivity : AppCompatActivity() { //,MenuAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        drawerLayout = findViewById(R.id.drawer_layout)
-//
-//        drawerList = findViewById<RecyclerView>(R.id.left_drawer).apply {
-//            setHasFixedSize(true)
-//            adapter = MenuAdapter(menuList, this@MainActivity)
-//        }
+        if (savedInstanceState == null) {
+            setupBottomNavigationBar()
+        }
 
-        setSupportActionBar(toolbar)
-
-        //newsFragment = NewsFragment()
-
-//        if (savedInstanceState == null)
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.root_container, newsFragment)
-//                .commitAllowingStateLoss()
-
-
-        val navController = Navigation.findNavController(this, R.id.bottomNavFragment)
-        bottom_nav.setupWithNavController(navController)
-
-        //bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupBottomNavigationBar()
+    }
+
+
+
+    private fun setupBottomNavigationBar() {
+
+        val navGraphIds = listOf(R.navigation.news_navigation, R.navigation.tranlations_navigation, R.navigation.messages_navigation)
+
+        // Setup the bottom navigation view with a list of navigation graphs
+        val controller = bottom_nav.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.bottomNavFragment,
+            intent = intent
+        )
+
+        // Whenever the selected controller changes, setup the action bar.
+        controller.observe(this, Observer { navController ->
+            NavigationUI.setupActionBarWithNavController(this, navController)
+        })
+        currentNavController = controller
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
+    }
+
+
+
+
 
     /**menu item click listener**/
     //override fun onClick(view: View, position: Int){

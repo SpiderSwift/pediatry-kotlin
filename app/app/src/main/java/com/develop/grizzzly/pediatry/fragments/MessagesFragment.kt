@@ -27,7 +27,7 @@ class MessagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         tv_text.setOnClickListener {
-            val navController = Navigation.findNavController(activity!!, R.id.bottomNavFragment)
+            val navController = Navigation.findNavController(it)
             navController.navigate(R.id.action_messages_btn_to_hello_btn)
         }
         super.onViewCreated(view, savedInstanceState)
