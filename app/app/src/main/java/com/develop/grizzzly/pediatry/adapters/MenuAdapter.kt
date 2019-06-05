@@ -1,13 +1,6 @@
 package com.develop.grizzzly.pediatry.adapters
 
 //import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.models.NavigationItem
-import kotlinx.android.synthetic.main.menu_item.view.*
 
 /**Adapter for menu messages_navigation items**/
 

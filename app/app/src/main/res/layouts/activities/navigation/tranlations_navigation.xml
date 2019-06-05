@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/translations_btn"
-            android:label="label4"
+            android:label="@string/translations_title"
             android:name="com.develop.grizzzly.pediatry.fragments.TranslationsFragment"/>
 
 </navigation>

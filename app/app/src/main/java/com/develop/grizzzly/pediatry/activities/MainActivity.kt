@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -59,7 +60,15 @@ class MainActivity : AppCompatActivity() { //,MenuAdapter.OnItemClickListener {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
+        
 
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        supportActionBar?.hide()
+        supportActionBar?.show()
+        //bottom_nav.visibility = View.GONE
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {

@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/news_btn"
-            android:label="label3"
+            android:label="@string/news_title"
             android:name="com.develop.grizzzly.pediatry.fragments.NewsFragment"/>
 
 </navigation>
