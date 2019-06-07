@@ -2,21 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="com.develop.grizzzly.pediatry">
 
-    <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.develop.grizzzly.pediatry.activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+<application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
+    <activity android:name="com.develop.grizzzly.pediatry.activities.MainActivity">
+        <!--<nav-graph android:value="@navigation/news_navigation"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            <nav-graph android:value="@navigation/news_navigation" />
-        </activity>
-    </application>
+
+    </activity>
+
+    <activity android:name="com.develop.grizzzly.pediatry.activities.StartActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+    </activity>
+
+</application>
 
 </manifest>
+

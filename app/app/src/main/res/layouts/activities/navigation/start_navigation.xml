@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/start_navigation"
+            app:startDestination="@id/start">
+
+    <fragment
+            android:id="@+id/start"
+            android:name="com.develop.grizzzly.pediatry.fragments.StartFragment">
+        <action android:id="@+id/action_start_to_login"
+                app:destination="@id/login"
+                app:popUpToInclusive="true"
+                app:popUpTo="@+id/start"
+                app:launchSingleTop="true"/>
+    </fragment>
+
+
+
+    <fragment
+            android:id="@+id/login"
+            android:name="com.develop.grizzzly.pediatry.fragments.LoginFragment"
+    />
+
+
+    <fragment
+            android:id="@+id/registration_start"
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationStartFragment"
+    />
+
+
+
+</navigation>
