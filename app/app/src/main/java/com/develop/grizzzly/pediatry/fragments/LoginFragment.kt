@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.network.WebAccess
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class LoginFragment : Fragment() {
@@ -22,8 +25,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val navController = findNavController()
-        navController.navigate(R.id.registration_start)
+        //val navController = findNavController()
+
+
+        //navController.navigate(R.id.registration_start)
         super.onViewCreated(view, savedInstanceState)
     }
 }

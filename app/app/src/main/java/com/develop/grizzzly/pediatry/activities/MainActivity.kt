@@ -10,8 +10,11 @@ import androidx.navigation.NavController
 
 import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
-
 
         //supportActionBar?.hide()
     }

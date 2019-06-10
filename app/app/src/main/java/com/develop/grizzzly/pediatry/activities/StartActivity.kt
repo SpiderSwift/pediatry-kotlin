@@ -11,11 +11,12 @@ import kotlinx.android.synthetic.main.activity_start.*
 class StartActivity : AppCompatActivity() {
 
 
-    var registered = false
+    private var registered = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
         if (registered) {
             val intent = Intent(baseContext, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -24,9 +25,6 @@ class StartActivity : AppCompatActivity() {
             val navController = nav_host_fragment.findNavController()
             navController.navigate(R.id.action_start_to_login)
         }
-
-
-
     }
 
 
