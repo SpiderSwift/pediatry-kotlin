@@ -8,6 +8,16 @@
     <string name="forgot_password">Забыли пароль?</string>
     <string name="registration">Регистрация</string>
     <string name="no_account">У вас ещё нет аккаунта?</string>
+    <string name="enter_phone">Введите ваш номер телефона</string>
+    <string name="enter_code">Введите полученный код</string>
+    <string name="recover_password">Восстановление пароля</string>
+    <string name="enter_new_password">Введите новый пароль</string>
+    <string name="repeat_new_password">Повторите новый пароль</string>
+    <string name="code">Полученный код</string>
+    <string name="recover">Восстановить</string>
+    <string name="success_recovery">Пароль успешно изменен</string>
+    <string name="next">Далее</string>
+    <string name="finish">Завершить</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="menu_title">Меню</string>
