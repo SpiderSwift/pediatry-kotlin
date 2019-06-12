@@ -31,6 +31,10 @@ class LoginFragment : Fragment() {
         }
 
 
+        tvRegister.setOnClickListener {
+            navController.navigate(R.id.action_login_to_registration)
+        }
+
         btnLogin.setOnClickListener {
             val intent = Intent(activity?.baseContext, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

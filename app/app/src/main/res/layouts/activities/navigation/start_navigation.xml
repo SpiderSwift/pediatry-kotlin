@@ -24,13 +24,54 @@
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
                 app:destination="@id/recovery_start" />
 
+
+        <action android:id="@+id/action_login_to_registration"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/registration_start" />
+
     </fragment>
 
 
     <fragment
             android:id="@+id/registration_start"
-            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationStartFragment"
-    />
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationStartFragment">
+        <action android:id="@+id/action_registration_start_to_registration_code"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/registration_code" />
+    </fragment>
+
+
+
+    <fragment
+            android:id="@+id/registration_code"
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationCodeFragment">
+
+        <action android:id="@+id/action_registration_code_to_registration_info"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/registration_info" />
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/registration_info"
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationInfoFragment">
+
+        <action android:id="@+id/action_registration_info_to_registration_speciality"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/registration_speciality" />
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/registration_speciality"
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationSpecialityFragment">
+
+    </fragment>
+
 
     <fragment
             android:id="@+id/recovery_start"
