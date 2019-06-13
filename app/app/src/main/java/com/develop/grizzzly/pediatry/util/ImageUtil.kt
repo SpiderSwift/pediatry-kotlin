@@ -12,5 +12,5 @@ fun setImage(path: String, imageView: ImageView, placeholderId: Int) {
         .error(placeholderId)
         .into(imageView)
 
-
 }
+

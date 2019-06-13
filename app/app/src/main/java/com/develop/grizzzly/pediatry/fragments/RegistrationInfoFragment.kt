@@ -10,10 +10,15 @@ import com.develop.grizzzly.pediatry.R
 import kotlinx.android.synthetic.main.fragment_registration_info.*
 import android.content.Intent
 import android.app.Activity
+import android.net.Uri
 import com.develop.grizzzly.pediatry.util.setImage
 
 
+
 class RegistrationInfoFragment : Fragment() {
+
+
+    var mImageUri : Uri? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_registration_info, container, false)
@@ -36,6 +41,9 @@ class RegistrationInfoFragment : Fragment() {
             navController.navigate(R.id.action_registration_info_to_registration_speciality)
         }
 
+        mImageUri?.let { setImage(mImageUri.toString(), ivPhoto, android.R.color.white)}
+
+
     }
 
 
@@ -43,9 +51,8 @@ class RegistrationInfoFragment : Fragment() {
         data?: return
 
         if (resultCode == Activity.RESULT_OK) {
-            //todo save image url in fragment
-            val mImageUri = data.data
-            mImageUri?.toString()?.let { setImage(it, ivPhoto, android.R.color.white) }
+            mImageUri = data.data
+            mImageUri?.let { setImage(mImageUri.toString(), ivPhoto, android.R.color.white)}
         }
 
         super.onActivityResult(requestCode, resultCode, data)

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
 import android.telephony.PhoneNumberFormattingTextWatcher
 import androidx.navigation.fragment.findNavController
+import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationStartBinding
+import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationStartViewModel
 import kotlinx.android.synthetic.main.fragment_registration_start.*
 
 
@@ -25,6 +27,9 @@ class RegistrationStartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = findNavController()
+
+        val bind = FragmentRegistrationStartBinding.bind(view)
+        bind.model = RegistrationStartViewModel()
 
         tePhone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 

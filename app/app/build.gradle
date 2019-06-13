@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: "kotlin-kapt"
+
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -13,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding {
+        enabled = true
     }
     buildTypes {
         release {
@@ -38,6 +43,9 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
     implementation 'androidx.core:core-ktx:1.0.2'
+
+    implementation 'com.googlecode.libphonenumber:libphonenumber:5.5'
+
 
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'androidx.appcompat:appcompat:1.0.2'
