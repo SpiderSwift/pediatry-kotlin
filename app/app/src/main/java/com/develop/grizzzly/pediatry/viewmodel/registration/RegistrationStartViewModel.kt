@@ -1,24 +1,30 @@
 package com.develop.grizzzly.pediatry.viewmodel.registration
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import com.develop.grizzzly.pediatry.BR
-import com.develop.grizzzly.pediatry.util.isPhoneNumber
+import android.view.View
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
+import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.network.WebAccess
+import kotlinx.coroutines.launch
+
+class RegistrationStartViewModel : ViewModel()  {
 
 
-class RegistrationStartViewModel : BaseObservable() {
+    val phoneNumber = MutableLiveData<String>().apply { value = "" }
 
-    var phoneNumber : String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.phoneNumber)
+    var valid = MutableLiveData<Boolean>().apply { value = false }
+
+
+    fun onRegister(view : View) {
+        viewModelScope.launch {
+            val login = WebAccess.pediatryApi.login("", "")
+            val navController = Navigation.findNavController(view)
+            navController.navigate(R.id.action_registration_start_to_registration_code)
         }
-        @Bindable get
 
 
-    fun isValid(phoneNumber : String) : Boolean {
-        return phoneNumber.isPhoneNumber()
     }
-
 
 }
