@@ -8,13 +8,13 @@ import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.network.model.News
 
 class NewsViewModel : ViewModel() {
-    var postsLiveData  : LiveData<PagedList<News>>
+    var newsLiveData  : LiveData<PagedList<News>>
 
     init {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .build()
-        postsLiveData  = initializedPagedListBuilder(config)
+        newsLiveData  = initializedPagedListBuilder(config)
     }
 
 
@@ -31,5 +31,5 @@ class NewsViewModel : ViewModel() {
         return LivePagedListBuilder<Long,News>(dataSourceFactory, config).build()
     }
 
-    //fun getPosts():LiveData<PagedList<PartData>> = postsLiveData
+    fun getNews():LiveData<PagedList<News>> = newsLiveData
 }

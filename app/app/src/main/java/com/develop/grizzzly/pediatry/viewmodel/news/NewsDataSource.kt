@@ -1,10 +1,12 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class NewsDataSource : PageKeyedDataSource<Long, News>() {
 
@@ -19,10 +21,14 @@ class NewsDataSource : PageKeyedDataSource<Long, News>() {
             val response = apiService.getNews(0 , pageSize)
             when{
                 response.isSuccessful -> {
-                    val listing = response.body()
-                    callback.onResult(listing ?: listOf(), null, 2)
+                    val listing = response.body() //?: listOf()
+                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
+
+                    //todo ???
+                    //callback.onResult(listOf(), null, 2)
                 }
             }
+
 
         }
 
@@ -34,7 +40,9 @@ class NewsDataSource : PageKeyedDataSource<Long, News>() {
             when{
                 response.isSuccessful -> {
                     val listing = response.body()
-                    callback.onResult(listing ?: listOf(), params.key + 1)
+                    Log.d("TAG", listing.toString())
+
+                    //callback.onResult(listing ?: listOf(), params.key + 1)
                 }
             }
         }
@@ -47,7 +55,9 @@ class NewsDataSource : PageKeyedDataSource<Long, News>() {
             when{
                 response.isSuccessful -> {
                     val listing = response.body()
-                    callback.onResult(listing ?: listOf(), params.key - 1)
+                    Log.d("TAG", listing.toString())
+//                    val listing = response.body()
+//                    callback.onResult(listing ?: listOf(), params.key - 1)
                 }
             }
         }

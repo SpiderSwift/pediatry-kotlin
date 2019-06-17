@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.network.WebAccess
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class RegistrationStartViewModel : ViewModel()  {
@@ -19,6 +20,7 @@ class RegistrationStartViewModel : ViewModel()  {
 
     fun onRegister(view : View) {
         viewModelScope.launch {
+            abc()
             val login = WebAccess.pediatryApi.login("", "")
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_registration_start_to_registration_code)
@@ -26,5 +28,11 @@ class RegistrationStartViewModel : ViewModel()  {
 
 
     }
+
+
+    suspend fun abc() {
+        delay(2000)
+    }
+
 
 }

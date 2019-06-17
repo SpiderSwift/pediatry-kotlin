@@ -7,21 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
-import kotlinx.android.synthetic.main.fragment_registration_speciality.*
+import kotlinx.android.synthetic.main.fragment_registration_finish.*
 
-class RegistrationSpecialityFragment : Fragment() {
+class RegistrationFinishFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_registration_speciality, container, false)
+        return inflater.inflate(R.layout.fragment_registration_finish, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = findNavController()
 
-        btnContinue.setOnClickListener {
-            navController.navigate(R.id.action_registration_speciality_to_registration_finish)
+        btnFinish.setOnClickListener {
+            navController.navigate(R.id.action_registration_finish_to_login)
         }
+
     }
+
 }

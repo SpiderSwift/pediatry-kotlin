@@ -7,6 +7,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.network.model.News
+import kotlinx.android.synthetic.main.news_item.view.*
 
 class NewsAdapter: PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUtilCallBack()) {
 
@@ -22,13 +23,10 @@ class NewsAdapter: PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUt
 
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(news: News) {
-//            itemView.setOnClickListener {
-//                val action = PartListFragmentDirections.actionPartListFragmentToPartDetailFragment(part)
-//                Navigation.findNavController(it).navigate(action)
-//            }
-//            itemView.tv_part_item_name.text = part.email
-//            itemView.tv_part_id.text = part.id.toString()
-//            Picasso.get().load(part.avatar).into(itemView.profile_image)
+            itemView.tvTitle.text = news.title
+            itemView.tvLike.text = news.liked.toString()
+            itemView.tvTime.text = news.date.toString()
+
         }
     }
 

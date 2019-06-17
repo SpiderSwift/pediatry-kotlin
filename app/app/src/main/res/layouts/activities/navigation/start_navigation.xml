@@ -70,7 +70,30 @@
             android:id="@+id/registration_speciality"
             android:name="com.develop.grizzzly.pediatry.fragments.RegistrationSpecialityFragment">
 
+        <action android:id="@+id/action_registration_speciality_to_registration_finish"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/registration_finish" />
+
+
     </fragment>
+
+
+    <fragment
+            android:id="@+id/registration_finish"
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationFinishFragment">
+
+        <action android:id="@+id/action_registration_finish_to_login"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/login"
+                app:popUpToInclusive="true"
+                app:popUpTo="@+id/login"/>
+
+    </fragment>
+
+
+
 
 
     <fragment

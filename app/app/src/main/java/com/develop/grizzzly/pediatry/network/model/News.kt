@@ -2,4 +2,11 @@ package com.develop.grizzzly.pediatry.network.model
 
 import java.util.*
 
-data class News constructor(val id : Long, val title : String, val announce : String, val date : Date, val liked : Long, val likedByUsers : List<Long>)
+class News  {
+    var id : Long = 0
+    var title : String = ""
+    var announce : String = ""
+    var date : Date = Date()
+    var liked : Long = 0
+    var likedByUsers : List<Long> = listOf()
+}

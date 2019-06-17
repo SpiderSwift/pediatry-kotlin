@@ -16,6 +16,7 @@
     <string name="code">Полученный код</string>
     <string name="recover">Восстановить</string>
     <string name="success_recovery">Пароль успешно изменен</string>
+    <string name="success_registration">Регистрация успешно пройдена</string>
     <string name="next">Далее</string>
     <string name="finish">Завершить</string>
     <string name="enter_email">Электронная почта</string>
