@@ -14,6 +14,7 @@
     <string name="enter_new_password">Введите новый пароль</string>
     <string name="repeat_new_password">Повторите новый пароль</string>
     <string name="code">Полученный код</string>
+    <string name="news_post">Новость</string>
     <string name="recover">Восстановить</string>
     <string name="success_recovery">Пароль успешно изменен</string>
     <string name="success_registration">Регистрация успешно пройдена</string>

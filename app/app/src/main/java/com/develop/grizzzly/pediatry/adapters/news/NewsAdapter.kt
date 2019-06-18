@@ -3,6 +3,7 @@ package com.develop.grizzzly.pediatry.adapters.news
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
@@ -26,7 +27,10 @@ class NewsAdapter: PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUt
             itemView.tvTitle.text = news.title
             itemView.tvLike.text = news.liked.toString()
             itemView.tvTime.text = news.date.toString()
-
+            itemView.setOnClickListener {
+                val navController = findNavController(it)
+                navController.navigate(R.id.action_news_to_news_post)
+            }
         }
     }
 

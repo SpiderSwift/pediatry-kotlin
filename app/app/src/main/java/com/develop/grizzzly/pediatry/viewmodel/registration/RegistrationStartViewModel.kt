@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.viewmodel.registration
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,7 @@ class RegistrationStartViewModel : ViewModel()  {
     fun onRegister(view : View) {
         viewModelScope.launch {
             abc()
-            val login = WebAccess.pediatryApi.login("", "")
+            Log.d("TAG", view.toString())
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_registration_start_to_registration_code)
         }

@@ -8,28 +8,31 @@ import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.network.model.News
 
 class NewsViewModel : ViewModel() {
-    var newsLiveData  : LiveData<PagedList<News>>
+
+    companion object {
+        const val pageSize = 10
+    }
+
+    var newsLiveData : LiveData<PagedList<News>>
 
     init {
         val config = PagedList.Config.Builder()
+            .setPageSize(pageSize)
             .setEnablePlaceholders(false)
             .build()
-        newsLiveData  = initializedPagedListBuilder(config)
+        newsLiveData = initializedPagedListBuilder(config)
     }
 
+    private fun initializedPagedListBuilder(config: PagedList.Config): LiveData<PagedList<News>> {
 
-
-    private fun initializedPagedListBuilder(config: PagedList.Config):
-            LiveData<PagedList<News>> {
-
-        val dataSourceFactory = object : DataSource.Factory<Long, News>() {
-            override fun create(): DataSource<Long, News> {
+        val dataSourceFactory = object : DataSource.Factory<Int, News>() {
+            override fun create(): DataSource<Int, News> {
                 return NewsDataSource()
             }
         }
 
-        return LivePagedListBuilder<Long,News>(dataSourceFactory, config).build()
+        return LivePagedListBuilder<Int, News>(dataSourceFactory, config).build()
     }
 
-    fun getNews():LiveData<PagedList<News>> = newsLiveData
+    fun getNews() : LiveData<PagedList<News>> = newsLiveData
 }
