@@ -1,9 +1,7 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +11,10 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news_post.*
+import android.view.MenuInflater
+
+
+
 
 class NewsPostFragment : Fragment() {
 
@@ -23,6 +25,7 @@ class NewsPostFragment : Fragment() {
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.show()
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
+        setHasOptionsMenu(true)
 
         viewModel = ViewModelProviders.of(this).get(NewsPostViewModel::class.java)
 
@@ -36,4 +39,9 @@ class NewsPostFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.action_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 }

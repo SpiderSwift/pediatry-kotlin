@@ -16,12 +16,11 @@ class RegistrationStartViewModel : ViewModel()  {
 
     val phoneNumber = MutableLiveData<String>().apply { value = "" }
 
-    var valid = MutableLiveData<Boolean>().apply { value = false }
+    val valid = MutableLiveData<Boolean>().apply { value = false }
 
 
     fun onRegister(view : View) {
         viewModelScope.launch {
-            abc()
             Log.d("TAG", view.toString())
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_registration_start_to_registration_code)
@@ -29,11 +28,5 @@ class RegistrationStartViewModel : ViewModel()  {
 
 
     }
-
-
-    suspend fun abc() {
-        delay(2000)
-    }
-
 
 }
