@@ -40,10 +40,18 @@ class NewsFragment : Fragment() {
         adapter = NewsAdapter()
         listNews.adapter = adapter
         listNews.layoutManager = LinearLayoutManager(activity)
+        //val manager = GridLayoutManager(activity ,2)
+        //listNews.layoutManager = manager
 
-        viewModel.getNews().observe(this, Observer {
+        viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)
+            refreshLayout.isRefreshing = false
         })
+
+
+        refreshLayout.setOnRefreshListener {
+            viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
+        }
 
 
         super.onViewCreated(view, savedInstanceState)

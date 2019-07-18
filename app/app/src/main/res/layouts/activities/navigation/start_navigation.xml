@@ -75,8 +75,21 @@
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
                 app:destination="@id/registration_finish" />
 
+        <action android:id="@+id/action_registration_speciality_to_specialities_list"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/specialities_list" />
+
 
     </fragment>
+
+
+    <fragment
+        android:id="@+id/specialities_list"
+        android:name="com.develop.grizzzly.pediatry.fragments.SpecialitiesFragment">
+
+    </fragment>
+
 
 
     <fragment

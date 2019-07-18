@@ -15,14 +15,16 @@ class NewsDataSource : PositionalDataSource<News>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<News>) {
         GlobalScope.launch {
-            val response = apiService.getNews(params.requestedStartPosition.toLong() , params.requestedLoadSize.toLong())
-            when{
-                response.isSuccessful -> {
-                    val listing = response.body()
-                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
-                    callback.onResult(listOf(News()),0)
-                }
-            }
+            //val response = apiService.getNews(params.requestedStartPosition.toLong() , params.requestedLoadSize.toLong())
+//            when{
+//                response.isSuccessful -> {
+//                    val listing = response.body()
+//                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
+//
+//                }
+//            }
+
+            callback.onResult(listOf(),0)
 
 
         }
@@ -31,17 +33,17 @@ class NewsDataSource : PositionalDataSource<News>() {
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
         //todo another scope?
-        GlobalScope.launch {
-            val response = apiService.getNews(params.loadSize.toLong(), params.startPosition.toLong())
-            when{
-                response.isSuccessful -> {
-                    val listing = response.body()
-                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
-                    callback.onResult(listing?.response ?: listOf())
-                }
-            }
-
-        }
+//        GlobalScope.launch {
+//            val response = apiService.getNews(params.loadSize.toLong(), params.startPosition.toLong())
+//            when{
+//                response.isSuccessful -> {
+//                    val listing = response.body()
+//                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
+//                    callback.onResult(listing?.response ?: listOf())
+//                }
+//            }
+//
+//        }
     }
 
 

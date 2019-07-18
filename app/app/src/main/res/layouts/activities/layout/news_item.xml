@@ -79,11 +79,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
-                rttv:reference_time="@{model.news.date.time}"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"/>
 
+
+        <!--rttv:reference_time="@{model.news.date.time}"-->
 
         <ImageView
                 android:layout_width="15dp"
@@ -105,6 +107,7 @@
                 android:text="@{String.valueOf(model.news.liked)}"
                 android:textColor="@android:color/black"
                 android:lineSpacingExtra="10dp"
+                android:inputType="none"
                 android:textAlignment="textStart"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"

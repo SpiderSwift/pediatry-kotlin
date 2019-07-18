@@ -6,11 +6,11 @@
                 tools:context=".fragments.NewsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_text"
-            android:text="Messages Fragment"
-            android:layout_centerInParent="true"/>
+    <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </ImageView>
 
 </RelativeLayout>

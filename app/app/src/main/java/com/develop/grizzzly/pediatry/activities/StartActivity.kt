@@ -3,10 +3,14 @@ package com.develop.grizzzly.pediatry.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.network.WebAccess
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class StartActivity : AppCompatActivity() {
 
@@ -16,6 +20,11 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+
+
+
+
 
         if (registered) {
             val intent = Intent(baseContext, MainActivity::class.java)
