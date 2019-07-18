@@ -16,15 +16,16 @@ class NewsDataSource : PositionalDataSource<News>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<News>) {
         GlobalScope.launch {
             //val response = apiService.getNews(params.requestedStartPosition.toLong() , params.requestedLoadSize.toLong())
-//            when{
-//                response.isSuccessful -> {
-//                    val listing = response.body()
-//                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
-//
-//                }
-//            }
+            val response = apiService.getNews()
+            when{
+                response.isSuccessful -> {
+                    val listing = response.body()
+                    Log.d("TAG", response.toString() + "response body : ${response.body().toString()}")
+                    callback.onResult(listing?.response ?: listOf(),0)
+                }
+            }
 
-            callback.onResult(listOf(),0)
+
 
 
         }

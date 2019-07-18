@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationStartBinding
 import com.develop.grizzzly.pediatry.util.isPhoneNumber
-import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationStartViewModel
+import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import kotlinx.android.synthetic.main.fragment_registration_start.*
 
 class RegistrationStartFragment : Fragment() {
@@ -26,7 +26,7 @@ class RegistrationStartFragment : Fragment() {
             false
         )
 
-        val model = ViewModelProviders.of(this).get(RegistrationStartViewModel::class.java)
+        val model = ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
 
         binding.model = model
         binding.lifecycleOwner = this
