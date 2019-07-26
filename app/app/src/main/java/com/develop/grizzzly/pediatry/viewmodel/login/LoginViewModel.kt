@@ -6,6 +6,8 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
+import com.develop.grizzzly.pediatry.R
 
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.network.WebAccess
@@ -35,5 +37,16 @@ class LoginViewModel : ViewModel() {
 
         }
     }
+
+    fun onRegister(view : View) {
+        val navController = Navigation.findNavController(view)
+        navController.navigate(R.id.action_login_to_registration)
+    }
+
+    fun onRecover(view: View) {
+        val navController = Navigation.findNavController(view)
+        navController.navigate(R.id.action_login_to_recovery)
+    }
+
 
 }

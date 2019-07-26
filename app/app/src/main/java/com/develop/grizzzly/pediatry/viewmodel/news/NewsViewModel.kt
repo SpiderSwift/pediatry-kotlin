@@ -16,8 +16,6 @@ class NewsViewModel : ViewModel() {
     var newsLiveData : LiveData<PagedList<News>>
     var dataSourceFactory : NewsDataSourceFactory = NewsDataSourceFactory()
 
-
-
     init {
         val config = PagedList.Config.Builder()
             .setPageSize(pageSize)

@@ -3,17 +3,27 @@ package com.develop.grizzzly.pediatry.viewmodel.speciality
 import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.BasicResponse
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
-class SpecialitiesDataSource : PageKeyedDataSource<Int, Speciality>() {
+class SpecialitiesDataSource constructor(private val type : Int) : PageKeyedDataSource<Int, Speciality>() {
 
     private val apiService = WebAccess.pediatryApi
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Speciality>) {
         GlobalScope.launch {
-            val response = apiService.getMainSpecialities()
+            val response = when {
+                (type == 0) -> {
+                    apiService.getMainSpecialities()
+                }
+                else -> {
+                    apiService.getAdditionalSpecialities()
+                }
+            }
+
             when{
                 response.isSuccessful -> {
                     val listing = response.body()?.response

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="com.develop.grizzzly.pediatry">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
             android:allowBackup="true"
@@ -12,12 +13,14 @@
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
 
 
-        <activity android:name="com.develop.grizzzly.pediatry.activities.MainActivity">
-            <!--<nav-graph android:value="@navigation/news_navigation"/>-->
+        <activity android:name="com.develop.grizzzly.pediatry.activities.MainActivity"
+                  android:configChanges="orientation|screenSize">
+            <nav-graph android:value="@navigation/news_navigation"/>
 
         </activity>
 
-        <activity android:name="com.develop.grizzzly.pediatry.activities.StartActivity">
+        <activity android:name="com.develop.grizzzly.pediatry.activities.StartActivity"
+                  android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

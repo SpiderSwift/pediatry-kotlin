@@ -36,23 +36,15 @@
     <fragment
             android:id="@+id/registration_start"
             android:name="com.develop.grizzzly.pediatry.fragments.RegistrationStartFragment">
-        <action android:id="@+id/action_registration_start_to_registration_code"
-                app:enterAnim="@anim/nav_default_pop_enter_anim"
-                app:exitAnim="@anim/nav_default_pop_exit_anim"
-                app:destination="@id/registration_code" />
-    </fragment>
-
-
-
-    <fragment
-            android:id="@+id/registration_code"
-            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationCodeFragment">
-
-        <action android:id="@+id/action_registration_code_to_registration_info"
+        <action android:id="@+id/action_registration_start_to_registration_info"
                 app:enterAnim="@anim/nav_default_pop_enter_anim"
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
                 app:destination="@id/registration_info" />
     </fragment>
+
+
+
+
 
 
     <fragment
@@ -78,7 +70,12 @@
         <action android:id="@+id/action_registration_speciality_to_specialities_list"
                 app:enterAnim="@anim/nav_default_pop_enter_anim"
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
-                app:destination="@id/specialities_list" />
+                app:destination="@id/specialities_list">
+            <argument
+                    android:name="specialityType"
+                    app:argType="integer"
+                    android:defaultValue="0" />
+        </action>
 
 
     </fragment>
@@ -87,7 +84,10 @@
     <fragment
         android:id="@+id/specialities_list"
         android:name="com.develop.grizzzly.pediatry.fragments.SpecialitiesFragment">
-
+        <argument
+                android:name="specialityType"
+                app:argType="integer"
+                android:defaultValue="0" />
     </fragment>
 
 

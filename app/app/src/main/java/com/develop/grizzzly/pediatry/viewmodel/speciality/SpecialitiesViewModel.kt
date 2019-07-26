@@ -6,11 +6,11 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.network.model.Speciality
 
-class SpecialitiesViewModel : ViewModel() {
+class SpecialitiesViewModel constructor(type : Int) : ViewModel() {
 
 
     var specialitiesLiveData: LiveData<PagedList<Speciality>>
-    var dataSourceFactory: SpecialitiesDataSourceFactory = SpecialitiesDataSourceFactory()
+    var dataSourceFactory: SpecialitiesDataSourceFactory = SpecialitiesDataSourceFactory(type)
 
     init {
         val config = PagedList.Config.Builder()

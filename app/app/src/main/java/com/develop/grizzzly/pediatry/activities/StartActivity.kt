@@ -11,6 +11,7 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class StartActivity : AppCompatActivity() {
 
@@ -31,6 +32,11 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        Log.d("TAG", "on restore ${savedInstanceState}")
+        super.onRestoreInstanceState(savedInstanceState)
+    }
 
     override fun onStart() {
         supportActionBar?.hide()

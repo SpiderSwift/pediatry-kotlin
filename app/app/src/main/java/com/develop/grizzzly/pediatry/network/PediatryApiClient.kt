@@ -2,6 +2,8 @@ package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.network.model.*
 import com.fasterxml.jackson.databind.JsonNode
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -13,6 +15,8 @@ interface PediatryApiClient {
         @Field("password") password : String
     ) : Response<BasicResponse<TokenObject>>
 
+
+    //@Multipart
     @FormUrlEncoded
     @POST("register") suspend fun register(
         @Field("name") name : String,
@@ -24,10 +28,11 @@ interface PediatryApiClient {
         @Field("main_specialty_id") mainId : String,
         @Field("additional_specialty_1_id") additionalId1 : String?,
         @Field("additional_specialty_2_id") additionalId2: String?,
-        @Field("password") password : String
-    ) : Response<JsonNode>
+        @Field("password") password : String,
+        @Field("avatar") avatar : String
+    ) : Response<ResponseBody>
 
-    @GET("user/profile") suspend fun getProfile() : Response<JsonNode>
+    @GET("user/profile") suspend fun getProfile() : Response<ResponseBody>
     @FormUrlEncoded
     @POST("user/profile") suspend fun updateProfile(
         @Field("name") name : String,
@@ -44,11 +49,15 @@ interface PediatryApiClient {
         @Field("password") password: String,
         @Field("confirm_password") confirm : String
     ) : Response<JsonNode>
+    @FormUrlEncoded
     @POST("user/password/restore") suspend fun restorePassword(
         @Field("email") email: String
-    ) : Response<JsonNode>
+    ) : Response<ResponseBody>
 
-    @GET("news") suspend fun getNews() : Response<BasicResponse<List<News>>>
+    @GET("news") suspend fun getNews(
+        @Query("offset") offset : Long,
+        @Query("limit") limit : Long
+    ) : Response<BasicResponse<List<News>>>
     @GET("news/{id}") suspend fun getNewsById(
         @Path("id") newsId : Long
     ) : Response<JsonNode>

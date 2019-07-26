@@ -5,6 +5,7 @@
     <string name="phone_number">Номер телефона</string>
     <string name="password">Пароль</string>
     <string name="login">Войти</string>
+    <string name="city">Город</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="registration">Регистрация</string>
     <string name="no_account">У вас ещё нет аккаунта?</string>
@@ -25,7 +26,8 @@
     <string name="enter_full_name">ФИО</string>
     <string name="enter_speciality">Выберите вашу специальность</string>
     <string name="speciality">Специальность</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_speciality">Основная специальность</string>
+    <string name="additional_speciality">Дополнительная специальность</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="menu_title">Меню</string>
     <string name="news_title">Новости</string>

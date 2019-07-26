@@ -4,8 +4,8 @@ import java.util.*
 
 data class News constructor(val id : Long,
                             val title : String?,
-                            val announce : String?,
+                            var announce : String?,
                             val date : Date?,
-                            val liked : Long?,
-                            val likedByUsers : List<Long>)
+                            var liked : Long?,
+                            var likedByUsers : List<Long>)
 
