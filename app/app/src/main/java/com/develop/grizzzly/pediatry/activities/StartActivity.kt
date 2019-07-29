@@ -8,6 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,6 +24,12 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+
+        AppCenter.start(
+            application, "924aac8e-1298-49f0-92f9-f6b48b0ad367",
+            Analytics::class.java, Crashes::class.java
+        )
 
         if (registered) {
             val intent = Intent(baseContext, MainActivity::class.java)

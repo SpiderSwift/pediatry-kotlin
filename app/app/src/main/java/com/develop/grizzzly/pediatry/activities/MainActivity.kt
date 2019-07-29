@@ -15,6 +15,11 @@ import com.develop.grizzzly.pediatry.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import com.microsoft.appcenter.crashes.Crashes
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.AppCenter
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +27,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        AppCenter.start(
+            application, "924aac8e-1298-49f0-92f9-f6b48b0ad367",
+            Analytics::class.java, Crashes::class.java
+        )
+
         setContentView(R.layout.activity_main)
 
         Log.d("TAG", "TOKEN ${WebAccess.token}")

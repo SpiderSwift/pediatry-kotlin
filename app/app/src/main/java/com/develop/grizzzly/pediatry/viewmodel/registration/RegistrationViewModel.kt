@@ -69,11 +69,6 @@ class RegistrationViewModel : ViewModel()  {
 
             val file = File(getPath(view.context, imageUrl.value!!))
             val toString = Base64.encodeToString(file.readText().toByteArray(), Base64.DEFAULT)
-//
-//            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//
-//            val body = MultipartBody.Part.createFormData("avatar", file.name, requestFile)
-
 
             Log.d("TAG", toString)
 
