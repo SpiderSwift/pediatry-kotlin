@@ -112,31 +112,11 @@
     <fragment
             android:id="@+id/recovery_start"
             android:name="com.develop.grizzzly.pediatry.fragments.RecoveryStartFragment">
-        <action android:id="@+id/action_recovery_start_to_recovery_code"
+        <action android:id="@+id/action_recovery_start_to_recovery_finish"
                 app:enterAnim="@anim/nav_default_pop_enter_anim"
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
-                app:destination="@id/recovery_code" />
+                app:destination="@id/recovery_finish" />
 
-    </fragment>
-
-
-    <fragment
-            android:id="@+id/recovery_code"
-            android:name="com.develop.grizzzly.pediatry.fragments.RecoveryCodeFragment">
-        <action android:id="@+id/action_recovery_code_to_recovery_password"
-                app:enterAnim="@anim/nav_default_pop_enter_anim"
-                app:exitAnim="@anim/nav_default_pop_exit_anim"
-                app:destination="@id/recovery_password" />
-
-    </fragment>
-
-    <fragment
-            android:id="@+id/recovery_password"
-            android:name="com.develop.grizzzly.pediatry.fragments.RecoveryPasswordFragment">
-        <action android:id="@+id/action_recovery_password_to_recovery_finish"
-                app:enterAnim="@anim/nav_default_pop_enter_anim"
-                app:exitAnim="@anim/nav_default_pop_exit_anim"
-                app:destination="@id/recovery_finish"/>
     </fragment>
 
 

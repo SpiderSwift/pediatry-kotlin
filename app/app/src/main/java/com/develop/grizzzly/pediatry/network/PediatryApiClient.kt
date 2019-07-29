@@ -11,8 +11,8 @@ interface PediatryApiClient {
 
     @FormUrlEncoded
     @POST("login") suspend fun login(
-        @Field("login") login : String,
-        @Field("password") password : String
+        @Field("login") login : String?,
+        @Field("password") password : String?
     ) : Response<BasicResponse<TokenObject>>
 
 
