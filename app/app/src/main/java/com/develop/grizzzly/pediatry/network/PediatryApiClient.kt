@@ -60,13 +60,13 @@ interface PediatryApiClient {
     ) : Response<BasicResponse<List<News>>>
     @GET("news/{id}") suspend fun getNewsById(
         @Path("id") newsId : Long
-    ) : Response<JsonNode>
+    ) : Response<BasicResponse<NewsPost>>
     @POST("news/{id}/like") suspend fun likeNews(
-        @Path("id") newsId : Long
-    ) : Response<JsonNode>
+        @Path("id") newsId : Long?
+    ) : Response<ResponseBody>
     @DELETE("news/{id}/like") suspend fun unlikeNews(
-        @Path("id") newsId : Long
-    ) : Response<JsonNode>
+        @Path("id") newsId : Long?
+    ) : Response<ResponseBody>
 
     @GET("specialty/main") suspend fun getMainSpecialities() : Response<BasicResponse<List<Speciality>>>
     @GET("specialty/additional") suspend fun getAdditionalSpecialities() : Response<BasicResponse<List<Speciality>>>

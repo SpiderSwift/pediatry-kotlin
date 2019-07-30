@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.adapters.news
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.*
@@ -30,6 +31,7 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
     class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
+            Log.d("TAG", "binding ${news.announce} on position $position")
             val data = MutableLiveData<News>(news)
             val viewModel = NewsItemViewModel(data, adapter, position)
             binding.model = viewModel

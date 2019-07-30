@@ -13,6 +13,7 @@ object WebAccess {
 
     private const val url = "https://dev.edu-pediatrics.com/api/v1/"
     var token : String = ""
+    var id : Long = 0
 
     val pediatryApi : PediatryApiClient by lazy {
 

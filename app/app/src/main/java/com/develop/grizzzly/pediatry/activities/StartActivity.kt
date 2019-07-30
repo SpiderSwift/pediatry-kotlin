@@ -32,6 +32,7 @@ class StartActivity : AppCompatActivity() {
             val user = DatabaseAccess.database.userDao().findUser(0)
             val response = WebAccess.pediatryApi.login(user?.email, user?.password)
             if (response.isSuccessful) {
+                WebAccess.id = response.body()?.response?.id ?: 0
                 WebAccess.token = response.body()?.response?.token ?: ""
                 val intent = Intent(baseContext, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
+import android.util.Log
 import androidx.paging.PositionalDataSource
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
@@ -16,6 +17,7 @@ class NewsDataSource : PositionalDataSource<News>() {
             when {
                 response.isSuccessful -> {
                     val listing = response.body()
+                    Log.d("TAG", listing?.response.toString())
                     callback.onResult(listing?.response ?: listOf(),0)
                 }
             }

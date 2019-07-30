@@ -34,6 +34,16 @@ class MainActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
 
+
+        GlobalScope.launch {
+            val response = WebAccess.pediatryApi.getNewsById(146)
+            if (response.isSuccessful) {
+                Log.d("TAG", response.body()?.response.toString())
+            } else {
+                Log.d("TAG", response.errorBody()?.string())
+            }
+        }
+
         setContentView(R.layout.activity_main)
 
         Log.d("TAG", "TOKEN ${WebAccess.token}")

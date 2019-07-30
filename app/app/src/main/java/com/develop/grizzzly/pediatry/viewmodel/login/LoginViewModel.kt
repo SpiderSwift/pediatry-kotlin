@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.viewmodel.login
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,7 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             val response = WebAccess.pediatryApi.login(email.value.toString(), password.value.toString().md5())
             if (response.isSuccessful) {
+                Log.d("TAG", response.body()?.response.toString())
                 WebAccess.token = response.body()?.response?.token ?: ""
 
                 val user = User(0, email.value, password.value.toString().md5())

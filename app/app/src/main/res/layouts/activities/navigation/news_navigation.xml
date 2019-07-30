@@ -9,13 +9,23 @@
             android:id="@+id/news"
             android:label="@string/news_title"
             android:name="com.develop.grizzzly.pediatry.fragments.NewsFragment">
-        <action android:id="@+id/action_news_to_news_post" app:destination="@id/news_post"/>
+        <action android:id="@+id/action_news_to_news_post" app:destination="@id/news_post">
+            <argument
+                    android:name="newsId"
+                    app:argType="integer"
+                    android:defaultValue="0" />
+        </action>
     </fragment>
 
 
     <fragment
             android:id="@+id/news_post"
             android:label="@string/news_post"
-            android:name="com.develop.grizzzly.pediatry.fragments.NewsPostFragment" />
+            android:name="com.develop.grizzzly.pediatry.fragments.NewsPostFragment">
+        <argument
+                android:name="newsId"
+                app:argType="integer"
+                android:defaultValue="0" />
+    </fragment>
 
 </navigation>

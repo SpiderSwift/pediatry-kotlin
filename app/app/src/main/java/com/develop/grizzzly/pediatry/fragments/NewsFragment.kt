@@ -43,9 +43,14 @@ class NewsFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
+        listNews.setHasFixedSize(true)
+
         adapter = NewsAdapter()
         listNews.adapter = adapter
-        listNews.layoutManager = LinearLayoutManager(activity)
+
+        val llm = LinearLayoutManager(activity)
+        llm.isAutoMeasureEnabled = false
+        listNews.layoutManager = llm
         //val manager = GridLayoutManager(activity ,2)
         //listNews.layoutManager = manager
 
