@@ -44,6 +44,8 @@ class StartActivity : AppCompatActivity() {
                 val navController = nav_host_fragment.findNavController()
                 navController.navigate(R.id.action_start_to_login)
             }
+
+
         }
 
     }

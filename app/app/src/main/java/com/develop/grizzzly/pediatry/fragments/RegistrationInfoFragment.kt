@@ -14,6 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationInfoBinding
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import kotlinx.android.synthetic.main.fragment_registration_info.*
 
 
 class RegistrationInfoFragment : Fragment() {
@@ -50,6 +55,11 @@ class RegistrationInfoFragment : Fragment() {
         model.fullname.observe(this, Observer {
             model.infoValid.value = model.isInfoValid()
         })
+
+
+
+
+
 
         return binding.root
     }

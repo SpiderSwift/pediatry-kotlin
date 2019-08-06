@@ -5,18 +5,18 @@
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:autoPlay="true"
-            app:showSeekBar="false"
-            app:showVideoCurrentTime="false"
-            app:showVideoDuration="false"
-            app:showYouTubeButton="false"
-            app:showFullScreenButton="false"
-            app:layout_constraintTop_toTopOf="parent"
-    />
+    <!--<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView-->
+            <!--android:id="@+id/youtube_player_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:autoPlay="true"-->
+            <!--app:showSeekBar="false"-->
+            <!--app:showVideoCurrentTime="false"-->
+            <!--app:showVideoDuration="false"-->
+            <!--app:showYouTubeButton="false"-->
+            <!--app:showFullScreenButton="false"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--/>-->
 
 
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
