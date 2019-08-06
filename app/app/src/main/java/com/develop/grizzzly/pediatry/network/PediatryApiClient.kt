@@ -3,6 +3,7 @@ package com.develop.grizzzly.pediatry.network
 import com.develop.grizzzly.pediatry.network.model.*
 import com.fasterxml.jackson.databind.JsonNode
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -16,23 +17,24 @@ interface PediatryApiClient {
     ) : Response<BasicResponse<TokenObject>>
 
 
-    //@Multipart
-    @FormUrlEncoded
+    @Multipart
+    //@FormUrlEncoded
     @POST("register") suspend fun register(
-        @Field("name") name : String,
-        @Field("lastname") lastname : String,
-        @Field("middlename") middlename : String?,
-        @Field("email") email : String,
-        @Field("city") city : String,
-        @Field("phone") phone : String,
-        @Field("main_specialty_id") mainId : String,
-        @Field("additional_specialty_1_id") additionalId1 : String?,
-        @Field("additional_specialty_2_id") additionalId2: String?,
-        @Field("password") password : String,
-        @Field("avatar") avatar : String
+        @Part("name") name : RequestBody,
+        @Part("lastname") lastname : RequestBody,
+        @Part("middlename") middlename : RequestBody?,
+        @Part("email") email : RequestBody,
+        @Part("city") city : RequestBody,
+        @Part("phone") phone : RequestBody,
+        @Part("main_specialty_id") mainId : RequestBody,
+        @Part("additional_specialty_1_id") additionalId1 : RequestBody?,
+        @Part("additional_specialty_2_id") additionalId2: RequestBody?,
+        @Part("password") password : RequestBody,
+        //@Part avatar : MultipartBody.Part
+        @Part("avatar\"; filename=\"file.jpg\" ") avatar : RequestBody
     ) : Response<ResponseBody>
 
-    @GET("user/profile") suspend fun getProfile() : Response<ResponseBody>
+    @GET("user/profile") suspend fun getProfile() : Response<BasicResponse<Profile>>
     @FormUrlEncoded
     @POST("user/profile") suspend fun updateProfile(
         @Field("name") name : String,

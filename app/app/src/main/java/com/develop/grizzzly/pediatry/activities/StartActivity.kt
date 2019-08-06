@@ -14,6 +14,7 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -30,7 +31,9 @@ class StartActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val user = DatabaseAccess.database.userDao().findUser(0)
+            Log.d("TAG", user.toString())
             val response = WebAccess.pediatryApi.login(user?.email, user?.password)
+            delay(1500)
             if (response.isSuccessful) {
                 WebAccess.id = response.body()?.response?.id ?: 0
                 WebAccess.token = response.body()?.response?.token ?: ""

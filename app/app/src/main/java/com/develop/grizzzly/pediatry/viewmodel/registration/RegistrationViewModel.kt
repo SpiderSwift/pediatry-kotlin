@@ -7,6 +7,7 @@ import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,8 @@ import okhttp3.RequestBody
 import okhttp3.MediaType
 import java.io.File
 import java.util.*
+
+
 
 
 class RegistrationViewModel : ViewModel()  {
@@ -68,31 +71,30 @@ class RegistrationViewModel : ViewModel()  {
             val fullname = fullname.value?.split(" ")
 
             val file = File(getPath(view.context, imageUrl.value!!))
-            val toString = Base64.encodeToString(file.readText().toByteArray(), Base64.DEFAULT)
+            val requestFile = RequestBody.create(MediaType.parse(fragment!!.activity!!.contentResolver.getType(imageUrl.value!!)!!), file)
 
-            Log.d("TAG", toString)
-
+            val textType = MediaType.parse("text/plain")
 
             val response = WebAccess.pediatryApi.register(
-                fullname!![1],
-                fullname[0],
-                fullname[2],
-                email.value!!,
-                city.value!!,
-                phoneNumber.value!!,
-                mainSpeciality.value!!.id.toString(),
-                firstAdditionalSpeciality.value?.id?.toString(),
-                secondAdditionalSpeciality.value?.id?.toString(),
-                password.value!!.md5(),
-                toString
+                RequestBody.create(textType, fullname!![1]),
+                RequestBody.create(textType, fullname[0]),
+                RequestBody.create(textType, fullname[2]),
+                RequestBody.create(textType, email.value!!),
+                RequestBody.create(textType, city.value!!),
+                RequestBody.create(textType, phoneNumber.value!!),
+                RequestBody.create(textType, mainSpeciality.value!!.id.toString()),
+                RequestBody.create(textType, firstAdditionalSpeciality.value!!.id.toString()),
+                RequestBody.create(textType, secondAdditionalSpeciality.value!!.id.toString()),
+                RequestBody.create(textType, password.value!!.md5()),
+                requestFile
             )
 
             if (response.isSuccessful) {
-                Log.d("TAG", response.body()?.string())
+                Toast.makeText(view.context, response.body()?.string(), Toast.LENGTH_LONG).show()
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
-                Log.d("TAG", response.errorBody()?.string())
+                Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
             }
 
 

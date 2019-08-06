@@ -9,6 +9,8 @@
             android:name="com.develop.grizzzly.pediatry.fragments.StartFragment">
         <action android:id="@+id/action_start_to_login"
                 app:destination="@id/login"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
                 app:popUpToInclusive="true"
                 app:popUpTo="@+id/start"
                 app:launchSingleTop="true"/>

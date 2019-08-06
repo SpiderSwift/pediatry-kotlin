@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getNewsById(146)
+            val response = WebAccess.pediatryApi.getBroadcasts()
             if (response.isSuccessful) {
                 Log.d("TAG", response.body()?.response.toString())
             } else {
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationBar() {
 
-        val navGraphIds = listOf(R.navigation.news_navigation, R.navigation.translations_navigation, R.navigation.messages_navigation)
+        val navGraphIds = listOf(R.navigation.news_navigation, R.navigation.translations_navigation, R.navigation.messages_navigation, R.navigation.menu_navigation)
 
         val controller = bottom_nav.setupWithNavController(
             navGraphIds = navGraphIds,
@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        Log.d("MainActivity", currentNavController?.value?.toString())
         return currentNavController?.value?.navigateUp() ?: false
     }
 }

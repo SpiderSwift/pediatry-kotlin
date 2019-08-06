@@ -12,10 +12,8 @@ import android.os.Environment
 
 fun getPath(context: Context, uri: Uri): String? {
 
-    val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-
     // DocumentProvider
-    if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+    if (DocumentsContract.isDocumentUri(context, uri)) {
         // ExternalStorageProvider
         if (isExternalStorageDocument(uri)) {
             val docId = DocumentsContract.getDocumentId(uri)
@@ -26,7 +24,6 @@ fun getPath(context: Context, uri: Uri): String? {
                 return Environment.getExternalStorageDirectory().absolutePath + "/" + split[1]
             }
 
-            // TODO handle non-primary volumes
         } else if (isDownloadsDocument(uri)) {
 
             val id = DocumentsContract.getDocumentId(uri)

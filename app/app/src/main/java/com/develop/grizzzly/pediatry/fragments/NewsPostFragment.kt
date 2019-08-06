@@ -1,6 +1,8 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -11,8 +13,10 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuInflater
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.network.WebAccess
+import kotlinx.android.synthetic.main.fragment_news_post.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,17 +40,7 @@ class NewsPostFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(NewsPostViewModel::class.java)
 
-        GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getNewsById(args.newsId.toLong())
-            if (response.isSuccessful) {
-                val newsPost = response.body()?.response
-                withContext(Dispatchers.Main) {
-                    viewModel.text.value = newsPost?.text
-                    viewModel.title.value = newsPost?.title
-                }
 
-            }
-        }
 
 
 
@@ -63,8 +57,28 @@ class NewsPostFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        GlobalScope.launch {
+            val response = WebAccess.pediatryApi.getNewsById(args.newsId.toLong())
+            if (response.isSuccessful) {
+                val newsPost = response.body()?.response
+                withContext(Dispatchers.Main) {
+                    //viewModel.text.value = newsPost?.text
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+                    tvText.setHtml(newsPost?.text!!)
+
+                    viewModel.title.value = newsPost?.title
+                }
+
+            }
+        }
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+
+    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        activity?.menuInflater?.inflate(R.menu.action_menu, menu)
 //        super.onCreateOptionsMenu(menu, inflater)
 //    }
