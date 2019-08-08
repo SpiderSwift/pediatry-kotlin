@@ -2,12 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/menu_btn"
-            app:startDestination="@id/menu_btn">
+            app:startDestination="@id/menu">
 
 
     <fragment
-            android:id="@+id/menu_btn"
+            android:id="@+id/menu"
+            android:label="@string/menu_title"
+            android:name="com.develop.grizzzly.pediatry.fragments.MenuFragment">
+        <action android:id="@+id/action_menu_to_webinars" app:destination="@id/webinars"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/webinars"
             android:label="@string/webinars"
-            android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment" />
+            android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment">
+    </fragment>
+
 
 </navigation>

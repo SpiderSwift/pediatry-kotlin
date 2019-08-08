@@ -21,7 +21,7 @@ fun setImage(path: String, imageView: ImageView, placeholderId: Int) {
 
 }
 
-fun setAuthorizeMessage(path: String, imageView: ImageView) {
+fun setAuthorizeMessage(path: String, imageView: ImageView, placeholderId: Int) {
     val client = OkHttpClient.Builder()
         .authenticator { _, response ->
             val credential = Credentials.basic("m5edu_dev", "_p3Y3QPGuG")
@@ -36,8 +36,8 @@ fun setAuthorizeMessage(path: String, imageView: ImageView) {
     picasso.load(path)
         .fit()
         .centerCrop()
-        //.placeholder(placeholderId)
-        //.error(placeholderId)
+        .placeholder(placeholderId)
+        .error(placeholderId)
         .into(imageView)
 }
 

@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/menu_item_container"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?android:selectableItemBackground"
->
-    <ImageView
-            android:id="@+id/menu_item_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-    />
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/menu_item_text"
-          android:layout_width="wrap_content"
-          android:layout_height="20dp"
-          android:minHeight="?android:attr/listPreferredItemHeightSmall"
-          android:layout_marginLeft="70dp"
-          android:text="Title"
-          android:textAlignment="center"
-          android:layout_centerVertical="true"
-/>
-    <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:padding="10dp"
-            android:src="@drawable/ic_forward"
-    />
-</RelativeLayout>
+    <data>
+        <variable
+                name="model"
+                type="com.develop.grizzzly.pediatry.viewmodel.menu.MenuItemViewModel" />
+    </data>
+
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/menu_item_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="@{model::onMenuItem}"
+            android:background="?android:selectableItemBackground">
+        <ImageView
+                android:id="@+id/menu_item_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                app:resource="@{model.menuItem.icon}"
+        />
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/menu_item_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="20dp"
+                  android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                  android:layout_marginLeft="70dp"
+                  android:text="@{model.menuItem.name}"
+                  android:textAlignment="center"
+                  android:layout_centerVertical="true"
+        />
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_forward"
+        />
+    </RelativeLayout>
+
+</layout>
