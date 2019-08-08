@@ -22,17 +22,8 @@ fun setImage(path: String, imageView: ImageView, placeholderId: Int) {
 }
 
 fun setAuthorizeMessage(path: String, imageView: ImageView, placeholderId: Int) {
-    val client = OkHttpClient.Builder()
-        .authenticator { _, response ->
-            val credential = Credentials.basic("m5edu_dev", "_p3Y3QPGuG")
-            response.request().newBuilder()
-                .header("Authorization", credential)
-                .build()
-        }
-        .build()
 
-
-    val picasso = Picasso.Builder(MainApplication.get()!!.baseContext).downloader(OkHttp3Downloader(client)).build()
+    val picasso = MainApplication.get()!!.picasso
     picasso.load(path)
         .fit()
         .centerCrop()
