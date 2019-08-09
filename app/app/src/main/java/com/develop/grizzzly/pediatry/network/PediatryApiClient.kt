@@ -73,7 +73,10 @@ interface PediatryApiClient {
     @GET("specialty/main") suspend fun getMainSpecialities() : Response<BasicResponse<List<Speciality>>>
     @GET("specialty/additional") suspend fun getAdditionalSpecialities() : Response<BasicResponse<List<Speciality>>>
 
-    @GET("conference") suspend fun getConferences() : Response<BasicResponse<List<Conference>>>
+    @GET("conference") suspend fun getConferences(
+        @Query("offset") offset : Long,
+        @Query("limit") limit : Long
+    ) : Response<BasicResponse<List<Conference>>>
     @GET("conference/{id}") suspend fun getConference(
         @Path("id") conferenceId : Long
     ) : Response<JsonNode>

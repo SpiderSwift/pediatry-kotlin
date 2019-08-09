@@ -14,7 +14,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
     val list : List<MenuItem> = listOf(
         MenuItem("Друзья", R.drawable.ic_friends, R.id.action_menu_to_webinars),
         MenuItem("Вебинары", R.drawable.ic_webinars, R.id.action_menu_to_webinars),
-        MenuItem("Конференции", R.drawable.ic_conferations, R.id.action_menu_to_webinars),
+        MenuItem("Конференции", R.drawable.ic_conferations, R.id.action_menu_to_conferences),
         MenuItem("Тестирование", R.drawable.ic_testing, R.id.action_menu_to_webinars),
         MenuItem("Разборы", R.drawable.ic_details, R.id.action_menu_to_webinars)
     )
