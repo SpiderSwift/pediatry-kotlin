@@ -41,6 +41,8 @@
     <string name="support">Поддержка</string>
     <string name="webinars">Вебинары</string>
     <string name="conferentions">Конференции</string>
+    <string name="conference_program">Программа конференции</string>
+    <string name="enter_conference">Подать заявку</string>
     <string name="testing">Тестирование</string>
     <string name="details">Разборы</string>
     <string name="image_transition">imageTransition</string>

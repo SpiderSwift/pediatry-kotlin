@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,8 +45,8 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        retainInstance = true
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-
         listNews.setHasFixedSize(true)
 
         adapter = NewsAdapter()
@@ -70,7 +71,6 @@ class NewsFragment : Fragment() {
 //            }
 //        }
 
-
         viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)
             refreshLayout.isRefreshing = false
@@ -83,4 +83,6 @@ class NewsFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
+
+
 }

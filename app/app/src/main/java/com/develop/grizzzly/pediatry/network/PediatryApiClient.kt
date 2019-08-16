@@ -79,7 +79,7 @@ interface PediatryApiClient {
     ) : Response<BasicResponse<List<Conference>>>
     @GET("conference/{id}") suspend fun getConference(
         @Path("id") conferenceId : Long
-    ) : Response<JsonNode>
+    ) : Response<BasicResponse<ConferenceItem>>
     @POST("conference/{id}/register/offline") suspend fun registerForConference(
         @Path("id") conferenceId : Long
     ) : Response<JsonNode>

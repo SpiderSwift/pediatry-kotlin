@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.viewmodel.conference
 
+import android.util.Log
 import androidx.paging.PositionalDataSource
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Conference
@@ -12,10 +13,19 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Conference>) {
         GlobalScope.launch {
+
+            val resp = WebAccess.pediatryApi.getConference(115)
+            if (resp.isSuccessful) {
+                Log.d("TAG", resp.body().toString())
+            } else {
+                Log.d("TAG", resp.errorBody()?.string())
+            }
+
             val response = apiService.getConferences(0, params.requestedLoadSize.toLong())
             when {
                 response.isSuccessful -> {
                     val listing = response.body()
+                    Log.d("TAG", listing.toString())
                     callback.onResult(listing?.response ?: listOf(),0)
                 }
             }

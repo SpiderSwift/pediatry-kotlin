@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 
@@ -15,7 +16,9 @@ import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.network.PediatryApiClient
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.viewmodel.login.LoginViewModel
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -37,14 +40,6 @@ class LoginFragment : Fragment() {
 
         return binding.root
     }
-
-
-
-
-
-
-
-
 }
 
 

@@ -30,6 +30,9 @@ class StartActivity : AppCompatActivity() {
         )
 
         GlobalScope.launch {
+
+
+
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d("TAG", user.toString())
             val response = WebAccess.pediatryApi.login(user?.email, user?.password)

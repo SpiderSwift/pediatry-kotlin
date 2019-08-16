@@ -11,7 +11,7 @@ import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItemViewModel
 class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
 
-    val list : List<MenuItem> = listOf(
+    private val list : List<MenuItem> = listOf(
         MenuItem("Друзья", R.drawable.ic_friends, R.id.action_menu_to_webinars),
         MenuItem("Вебинары", R.drawable.ic_webinars, R.id.action_menu_to_webinars),
         MenuItem("Конференции", R.drawable.ic_conferations, R.id.action_menu_to_conferences),

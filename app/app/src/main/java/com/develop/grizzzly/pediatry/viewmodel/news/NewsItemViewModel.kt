@@ -16,31 +16,31 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class NewsItemViewModel constructor(val news : MutableLiveData<News>, val adapter : NewsAdapter, val item : Int) : ViewModel() {
+class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, val item : Int) : ViewModel() {
 
     fun onNews(view : View) {
         val navController = Navigation.findNavController(view)
         val toNewsPost = NewsFragmentDirections.actionNewsToNewsPost()
-        toNewsPost.newsId = news.value?.id?.toInt() ?: 0
+        toNewsPost.newsId = news.id.toInt()
         navController.navigate(toNewsPost)
     }
 
     fun onLike(view : View) {
-        if (news.value?.likedByUsers?.contains(WebAccess.id) == true) {
+        if (news.likedByUsers.contains(WebAccess.id)) {
             viewModelScope.launch {
-                val response = WebAccess.pediatryApi.unlikeNews(news.value?.id)
+                val response = WebAccess.pediatryApi.unlikeNews(news.id)
                 if (response.isSuccessful) {
-                    news.value?.liked = news.value?.liked?.minus(1)
-                    news.value?.likedByUsers?.remove(WebAccess.id)
+                    news.liked = news.liked?.minus(1)
+                    news.likedByUsers.remove(WebAccess.id)
                     adapter.notifyItemChanged(item)
                 }
             }
         } else {
             viewModelScope.launch {
-                val response = WebAccess.pediatryApi.likeNews(news.value?.id)
+                val response = WebAccess.pediatryApi.likeNews(news.id)
                 if (response.isSuccessful) {
-                    news.value?.liked = news.value?.liked?.plus(1)
-                    news.value?.likedByUsers?.add(WebAccess.id)
+                    news.liked = news.liked?.plus(1)
+                    news.likedByUsers.add(WebAccess.id)
                     adapter.notifyItemChanged(item)
                 }
             }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/menu_btn"
-            app:startDestination="@id/menu">
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/menu_btn"
+        app:startDestination="@id/menu">
 
 
     <fragment
@@ -24,6 +25,14 @@
             android:id="@+id/conferences"
             android:label="@string/conferentions"
             android:name="com.develop.grizzzly.pediatry.fragments.ConferentionsFragment">
+        <action android:id="@+id/action_conference_to_stage" app:destination="@id/conference_stage"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/conference_stage"
+            android:label="Конференция"
+            android:name="com.develop.grizzzly.pediatry.fragments.ConferenceStageFragment">
+
     </fragment>
 
 
