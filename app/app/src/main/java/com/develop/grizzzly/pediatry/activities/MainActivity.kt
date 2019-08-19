@@ -7,9 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.plusAssign
 
 import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.navigation.KeepStateNavigator
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
 
         AppCenter.start(
@@ -73,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         controller.observe(this, Observer { navController ->
+
             NavigationUI.setupActionBarWithNavController(this, navController)
         })
         currentNavController = controller

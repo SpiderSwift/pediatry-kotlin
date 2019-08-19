@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.develop.grizzzly.pediatry.adapters.news.NewsAdapter
 import com.develop.grizzzly.pediatry.network.model.News
 
 class NewsViewModel : ViewModel() {
@@ -13,6 +14,7 @@ class NewsViewModel : ViewModel() {
         const val pageSize = 10
     }
 
+    var adapter : NewsAdapter? = null
     var newsLiveData : LiveData<PagedList<News>>
     var dataSourceFactory : NewsDataSourceFactory = NewsDataSourceFactory()
 

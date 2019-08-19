@@ -45,11 +45,19 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        retainInstance = true
-        viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+
+
+        viewModel = activity?.run {
+            ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        }!!
         listNews.setHasFixedSize(true)
 
-        adapter = NewsAdapter()
+        if (viewModel.adapter == null) {
+            viewModel.adapter = NewsAdapter()
+        }
+
+        adapter = viewModel.adapter!!
         listNews.adapter = adapter
 
         val llm = LinearLayoutManager(activity)

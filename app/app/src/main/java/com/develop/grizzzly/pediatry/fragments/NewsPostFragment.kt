@@ -3,6 +3,7 @@ package com.develop.grizzzly.pediatry.fragments
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,6 +14,10 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuInflater
+import android.webkit.HttpAuthHandler
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.network.WebAccess
@@ -66,7 +71,24 @@ class NewsPostFragment : Fragment() {
                     //viewModel.text.value = newsPost?.text
 
 
-                    tvText.setHtml(newsPost?.text!!)
+                    //tvText.setText(newsPost?.text!!)
+                    val htmlString = "<!DOCTYPE html><html><body style = \"text-align:center\"><img src=\"https://www.belightsoft.com/products/imagetricks/img/intro-video-poster@2x.jpg\" alt=\"pageNo\" height=\"100%\" width=\"100%\"></body></html>";
+                    tvText.settings.javaScriptEnabled = true
+
+                    tvText.setPadding(16, 0, 16, 0)
+
+                    tvText.webViewClient = object : WebViewClient() {
+                        override fun onReceivedHttpAuthRequest(
+                            view: WebView?,
+                            handler: HttpAuthHandler?,
+                            host: String?,
+                            realm: String?
+                        ) {
+                            Log.d("TAG", "RECEIVED")
+                            handler!!.proceed("m5edu_dev", "_p3Y3QPGuG")
+                        }
+                    }
+                    tvText.loadDataWithBaseURL("https://dev.edu-pediatrics.com/", newsPost?.text, "text/html", "UTF-8", "about:blank")
 
                     viewModel.title.value = newsPost?.title
                 }
