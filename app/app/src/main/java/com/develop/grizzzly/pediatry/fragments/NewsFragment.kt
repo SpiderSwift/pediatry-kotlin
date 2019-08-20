@@ -1,8 +1,10 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,15 +40,19 @@ class NewsFragment : Fragment() {
         myActivity?.bottom_nav?.visibility = View.VISIBLE
         myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        Log.d("TAG", "onCreateView")
 
+        retainInstance = true
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
+        Log.d("TAG", "onViewCreated")
 
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(NewsViewModel::class.java)

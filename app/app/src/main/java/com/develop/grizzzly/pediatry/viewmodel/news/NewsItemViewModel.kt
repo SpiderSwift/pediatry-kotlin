@@ -25,6 +25,8 @@ class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, 
         val navController = Navigation.findNavController(view)
         val toNewsPost = NewsFragmentDirections.actionNewsToNewsPost()
         toNewsPost.newsId = news.id.toInt()
+        toNewsPost.date = news.date!!.time
+        toNewsPost.index = item
         navController.navigate(toNewsPost)
     }
 

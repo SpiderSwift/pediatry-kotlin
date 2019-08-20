@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.databinding.NewsItemBinding
 import com.develop.grizzzly.pediatry.network.model.News
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel
+import java.io.Serializable
 
 
 class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUtilCallBack()) {

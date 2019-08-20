@@ -21,6 +21,7 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_news_post.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -44,10 +45,7 @@ class NewsPostFragment : Fragment() {
         setHasOptionsMenu(true)
 
         viewModel = ViewModelProviders.of(this).get(NewsPostViewModel::class.java)
-
-
-
-
+        viewModel.time = args.date
 
         val binding = DataBindingUtil.inflate<FragmentNewsPostBinding>(
             inflater,
@@ -72,10 +70,17 @@ class NewsPostFragment : Fragment() {
 
 
                     //tvText.setText(newsPost?.text!!)
-                    val htmlString = "<!DOCTYPE html><html><body style = \"text-align:center\"><img src=\"https://www.belightsoft.com/products/imagetricks/img/intro-video-poster@2x.jpg\" alt=\"pageNo\" height=\"100%\" width=\"100%\"></body></html>";
+
                     tvText.settings.javaScriptEnabled = true
 
-                    tvText.setPadding(16, 0, 16, 0)
+
+                    val model = activity?.run {
+                        ViewModelProviders.of(this).get(NewsViewModel::class.java)
+                    }!!
+
+
+                    model.newsLiveData.value!![args.index]!!.liked = model.newsLiveData.value!![args.index]!!.liked?.plus(1L)
+                    model.adapter!!.notifyItemChanged(args.index)
 
                     tvText.webViewClient = object : WebViewClient() {
                         override fun onReceivedHttpAuthRequest(
@@ -91,6 +96,7 @@ class NewsPostFragment : Fragment() {
                     tvText.loadDataWithBaseURL("https://dev.edu-pediatrics.com/", newsPost?.text, "text/html", "UTF-8", "about:blank")
 
                     viewModel.title.value = newsPost?.title
+                    viewModel.announcePicture.value = newsPost?.picture
                 }
 
             }

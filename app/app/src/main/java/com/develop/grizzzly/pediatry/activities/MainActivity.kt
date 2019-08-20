@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -16,13 +17,15 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.navigation.KeepStateNavigator
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
+import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import com.microsoft.appcenter.crashes.Crashes
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.AppCenter
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,6 +59,23 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
+        }
+
+        val model = ViewModelProviders.of(this).get(MenuViewModel::class.java)
+
+
+        GlobalScope.launch {
+            val response = WebAccess.pediatryApi.getProfile()
+            if (response.isSuccessful) {
+                val name = response.body()?.response?.name
+                val lastname = response.body()?.response?.lastname
+                val avatarUrl = "${response.body()?.response?.avatar}"
+                withContext(Dispatchers.Main) {
+                    model.name.postValue(name)
+                    model.lastname.postValue(lastname)
+                    model.avatarUrl.postValue(avatarUrl)
+                }
+            }
         }
 
         //supportActionBar?.hide()

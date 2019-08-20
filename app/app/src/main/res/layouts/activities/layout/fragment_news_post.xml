@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:rttv="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -43,7 +43,7 @@
                         android:id="@+id/news_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/nature"
+                        app:newsImageUrl="@{model.announcePicture}"
                         android:scaleType="fitXY"/>
 
 
@@ -72,8 +72,8 @@
             <!--android:text="@={model.text}"-->
             <WebView
                     android:id="@+id/tvText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:fontFamily="@font/gothampro"
                     android:textColor="@color/colorSecondary"
@@ -83,22 +83,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                    android:layout_marginStart="16dp" android:layout_marginEnd="16dp"/>
+            />
 
 
-            <TextView
+            <com.github.curioustechizen.ago.RelativeTimeTextView
                     android:id="@+id/tvTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:fontFamily="@font/gothampro"
-                    android:text="2 часа назад"
                     android:textColor="@android:color/black"
                     android:lineSpacingExtra="10dp"
                     android:textAlignment="textStart"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginTop="16dp"
+                    rttv:reference_time="@{model.time}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvText"/>
@@ -128,40 +128,9 @@
                     android:textAlignment="textStart"
                     android:layout_marginBottom="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/tvText"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="20dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_comment"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tvComment"
-                    app:layout_constraintTop_toBottomOf="@+id/tvText"/>
-
-
-            <TextView
-                    android:id="@+id/tvComment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/gothampro"
-                    android:text="422"
-                    android:textColor="@android:color/black"
-                    android:lineSpacingExtra="10dp"
-                    android:textAlignment="textStart"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvText"/>
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
