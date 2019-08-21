@@ -1,16 +1,17 @@
 package com.develop.grizzzly.pediatry.adapters.news
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.*
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.develop.grizzzly.pediatry.R
 
 import com.develop.grizzzly.pediatry.databinding.NewsItemBinding
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
+import com.develop.grizzzly.pediatry.util.setImageGlide
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel
-import java.io.Serializable
+import kotlinx.android.synthetic.main.news_item.view.*
 
 
 class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUtilCallBack()) {
@@ -24,7 +25,6 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         getItem(position)?.let {
-            Log.d("TAG", "binding $position")
             holder.bind(it, this, position)
         }
     }
@@ -35,6 +35,11 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
             //val data = MutableLiveData<News>(news)
 
+            if (news.likedByUsers.contains(WebAccess.id)) {
+                setImageGlide("error", binding.root.ivLike, R.drawable.ic_heart)
+            } else {
+                setImageGlide("error", binding.root.ivLike, R.drawable.ic_unlike)
+            }
             val viewModel = NewsItemViewModel(news, adapter, position)
             binding.model = viewModel
         }

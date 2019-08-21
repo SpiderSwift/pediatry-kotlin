@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -46,7 +46,6 @@
                 android:elevation="5dp"
                 android:textAllCaps="false"
                 android:text="@{model.mainSpeciality.name}"
-                android:onClick="@{model::onMainSpeciality}"
                 android:hint="@string/main_speciality"
                 android:background="@drawable/te_drawable"
                 android:layout_marginStart="48dp"
@@ -69,7 +68,6 @@
                 android:elevation="5dp"
                 android:textAllCaps="false"
                 android:text="@{model.firstAdditionalSpeciality.name}"
-                android:onClick="@{model::onFirstAdditionalSpeciality}"
                 android:hint="@string/additional_speciality"
                 android:background="@drawable/te_drawable"
                 android:layout_marginStart="48dp"
@@ -92,7 +90,6 @@
                 android:elevation="5dp"
                 android:textAllCaps="false"
                 android:text="@{model.secondAdditionalSpeciality.name}"
-                android:onClick="@{model::onSecondAdditionalSpeciality}"
                 android:hint="@string/additional_speciality"
                 android:background="@drawable/te_drawable"
                 android:layout_marginStart="48dp"
@@ -101,6 +98,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnFirstAdditionalSpeciality"/>
+
 
 
         <Button
@@ -116,10 +114,52 @@
                 android:fontFamily="@font/gothampro"
                 android:onClick="@{model::onRegistration}"
                 android:enabled="@{model.specialityValid}"
+                android:stateListAnimator="@null"
                 android:background="@drawable/btn_selector"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/specialityLayout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                    android:id="@+id/tvChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Выбрать"
+                    android:gravity="center"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/gothampro"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:wheel_visible_item_count="3"
+                    app:wheel_cyclic="true"
+                    app:wheel_curved="true"
+                    app:wheel_item_text_color="@android:color/darker_gray"
+                    app:wheel_item_text_size="16sp"
+                    app:wheel_selected_item_text_color="@android:color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

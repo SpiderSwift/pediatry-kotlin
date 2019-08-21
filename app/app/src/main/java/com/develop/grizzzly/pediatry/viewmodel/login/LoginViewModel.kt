@@ -28,7 +28,7 @@ class LoginViewModel : ViewModel() {
             if (response.isSuccessful) {
                 Log.d("TAG", response.body()?.response.toString())
                 WebAccess.token = response.body()?.response?.token ?: ""
-
+                WebAccess.id = response.body()?.response?.id ?: 0
                 val user = User(0, email.value, password.value.toString().md5())
                 DatabaseAccess.database.userDao().saveUser(user)
 

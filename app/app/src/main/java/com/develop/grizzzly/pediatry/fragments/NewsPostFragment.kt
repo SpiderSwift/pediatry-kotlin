@@ -18,11 +18,16 @@ import android.webkit.HttpAuthHandler
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.util.setImageGlide
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_news_post.*
+import kotlinx.android.synthetic.main.fragment_news_post.tvLike
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -79,8 +84,23 @@ class NewsPostFragment : Fragment() {
                     }!!
 
 
-                    model.newsLiveData.value!![args.index]!!.liked = model.newsLiveData.value!![args.index]!!.liked?.plus(1L)
-                    model.adapter!!.notifyItemChanged(args.index)
+
+                    viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
+                    viewModel.liked.observe(this@NewsPostFragment, Observer {
+                        tvLike.text = it.toString()
+                    })
+
+                    viewModel.imageView = ivLike
+                    viewModel.newsViewModel = model
+                    viewModel.index = args.index
+
+
+
+                    if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.id)) {
+                        setImageGlide("error", ivLike, R.drawable.ic_heart)
+                    } else {
+                        setImageGlide("error", ivLike , R.drawable.ic_unlike)
+                    }
 
                     tvText.webViewClient = object : WebViewClient() {
                         override fun onReceivedHttpAuthRequest(
@@ -89,7 +109,6 @@ class NewsPostFragment : Fragment() {
                             host: String?,
                             realm: String?
                         ) {
-                            Log.d("TAG", "RECEIVED")
                             handler!!.proceed("m5edu_dev", "_p3Y3QPGuG")
                         }
                     }

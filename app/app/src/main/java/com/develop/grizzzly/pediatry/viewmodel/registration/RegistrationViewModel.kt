@@ -118,29 +118,29 @@ class RegistrationViewModel : ViewModel()  {
 
     }
 
-    fun onMainSpeciality(view : View) {
-        val navController = Navigation.findNavController(view)
-        val toSpecialitiesList =
-            RegistrationSpecialityFragmentDirections.actionRegistrationSpecialityToSpecialitiesList()
-        toSpecialitiesList.specialityType = 0
-        navController.navigate(toSpecialitiesList)
-    }
-
-    fun onFirstAdditionalSpeciality(view : View) {
-        val navController = Navigation.findNavController(view)
-        val toSpecialitiesList =
-            RegistrationSpecialityFragmentDirections.actionRegistrationSpecialityToSpecialitiesList()
-        toSpecialitiesList.specialityType = 1
-        navController.navigate(toSpecialitiesList)
-    }
-
-    fun onSecondAdditionalSpeciality(view : View) {
-        val navController = Navigation.findNavController(view)
-        val toSpecialitiesList =
-            RegistrationSpecialityFragmentDirections.actionRegistrationSpecialityToSpecialitiesList()
-        toSpecialitiesList.specialityType = 2
-        navController.navigate(toSpecialitiesList)
-    }
+//    fun onMainSpeciality(view : View) {
+//        val navController = Navigation.findNavController(view)
+//        val toSpecialitiesList =
+//            RegistrationSpecialityFragmentDirections.actionRegistrationSpecialityToSpecialitiesList()
+//        toSpecialitiesList.specialityType = 0
+//        navController.navigate(toSpecialitiesList)
+//    }
+//
+//    fun onFirstAdditionalSpeciality(view : View) {
+//        val navController = Navigation.findNavController(view)
+//        val toSpecialitiesList =
+//            RegistrationSpecialityFragmentDirections.actionRegistrationSpecialityToSpecialitiesList()
+//        toSpecialitiesList.specialityType = 1
+//        navController.navigate(toSpecialitiesList)
+//    }
+//
+//    fun onSecondAdditionalSpeciality(view : View) {
+//        val navController = Navigation.findNavController(view)
+//        val toSpecialitiesList =
+//            RegistrationSpecialityFragmentDirections.actionRegistrationSpecialityToSpecialitiesList()
+//        toSpecialitiesList.specialityType = 2
+//        navController.navigate(toSpecialitiesList)
+//    }
 
 
     fun isStartValid() : Boolean {
@@ -177,7 +177,7 @@ class RegistrationViewModel : ViewModel()  {
         @BindingAdapter("bind:imageUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: Uri?) {
-            imageUrl?.let { it -> setImage(it.toString(), view, android.R.color.white) }
+            imageUrl?.let { it -> setImageGlide(it.toString(), view, android.R.color.white) }
         }
     }
 
