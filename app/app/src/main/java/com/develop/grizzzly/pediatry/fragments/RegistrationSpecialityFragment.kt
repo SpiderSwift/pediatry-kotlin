@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.aigestudio.wheelpicker.WheelPicker
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationSpecialityBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
@@ -27,6 +28,7 @@ class RegistrationSpecialityFragment : Fragment() {
     lateinit var mainSpecialityList : List<Speciality>
     lateinit var additionalSpecialityList : List<Speciality>
     var currentSpeciality = 0
+    var pointer = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -66,12 +68,15 @@ class RegistrationSpecialityFragment : Fragment() {
 
 
         btnMainSpeciality.setOnClickListener {
+            pointer = 0
+            picker.setSelectedItemPosition(pointer, false)
             currentSpeciality = 1
             picker.data = mainSpecialityList
             specialityLayout.visibility = View.VISIBLE
         }
 
         btnFirstAdditionalSpeciality.setOnClickListener {
+            pointer = 0
             currentSpeciality = 2
             picker.data = additionalSpecialityList
             specialityLayout.visibility = View.VISIBLE
@@ -83,15 +88,20 @@ class RegistrationSpecialityFragment : Fragment() {
             specialityLayout.visibility = View.VISIBLE
         }
 
+
+        picker.setOnItemSelectedListener { _, _, position ->
+            pointer = position
+        }
         tvChoose.setOnClickListener {
             Log.d("TAG", picker.selectedItemPosition.toString())
             when (currentSpeciality) {
-                1 -> model.mainSpeciality.value = mainSpecialityList[picker.selectedItemPosition - 1]
-                2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[picker.selectedItemPosition - 1]
-                3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[picker.selectedItemPosition - 1]
+                1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
+                2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[pointer]
             }
             specialityLayout.visibility = View.GONE
         }
+
 
         super.onViewCreated(view, savedInstanceState)
     }

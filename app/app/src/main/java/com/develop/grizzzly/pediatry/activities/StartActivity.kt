@@ -37,7 +37,7 @@ class StartActivity : AppCompatActivity() {
             Log.d("TAG", user.toString())
             val response = WebAccess.pediatryApi.login(user?.email, user?.password)
             delay(1500)
-            if (!response.isSuccessful) {
+            if (response.isSuccessful) {
                 if (response.body()?.status != 200L) {
                     val navController = nav_host_fragment.findNavController()
                     navController.navigate(R.id.action_start_to_login)

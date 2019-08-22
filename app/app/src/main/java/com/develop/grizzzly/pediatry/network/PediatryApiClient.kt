@@ -110,7 +110,7 @@ interface PediatryApiClient {
     ) : Response<JsonNode>
 
     @GET("webinar") suspend fun getWebinars() : Response<BasicResponse<List<Webinar>>>
-    @GET("webinar/archive") suspend fun getArchiveWebinars() : Response<JsonNode>
+    @GET("webinar/archive") suspend fun getArchiveWebinars() : Response<ResponseBody>
     @GET("webinar/{id}") suspend fun getWebinar(
         @Path("id") webinarId : Long
     ) : Response<JsonNode>

@@ -24,8 +24,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.recyclerview.widget.SimpleItemAnimator
-
-
+import com.develop.grizzzly.pediatry.network.WebAccess
 
 
 class NewsFragment : Fragment() {
@@ -74,16 +73,14 @@ class NewsFragment : Fragment() {
         //listNews.layoutManager = manager
 
 
-//        GlobalScope.launch {
-//            val response = WebAccess.pediatryApi.getProfile()
-//            if (response.isSuccessful) {
-//                withContext(Dispatchers.Main) {
-//                    setAuthorizeMessage("https://dev.edu-pediatrics.com${response.body()?.response?.avatar}", image)
-//                }
-//            } else {
-//                Log.d("TAG", response.errorBody()?.string())
-//            }
-//        }
+        GlobalScope.launch {
+            val response = WebAccess.pediatryApi.getArchiveWebinars()
+            if (response.isSuccessful) {
+                Log.d("TAG", response.body()?.string())
+            } else {
+                Log.d("TAG", response.errorBody()?.string())
+            }
+        }
 
         viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)

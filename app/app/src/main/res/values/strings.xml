@@ -23,6 +23,8 @@
     <string name="success_registration">Регистрация успешно пройдена</string>
     <string name="next">Далее</string>
     <string name="finish">Завершить</string>
+    <string name="error_message">Что-то пошло не так, попробуйте еще раз…</string>
+    <string name="ok">OK</string>
     <string name="enter_email">Электронная почта</string>
     <string name="enter_full_name">ФИО</string>
     <string name="enter_speciality">Выберите вашу специальность</string>

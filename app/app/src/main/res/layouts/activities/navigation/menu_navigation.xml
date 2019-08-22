@@ -25,13 +25,23 @@
             android:id="@+id/conferences"
             android:label="@string/conferentions"
             android:name="com.develop.grizzzly.pediatry.fragments.ConferentionsFragment">
-        <action android:id="@+id/action_conference_to_stage" app:destination="@id/conference_stage"/>
+        <action android:id="@+id/action_conference_to_stage" app:destination="@id/conference_stage">
+
+            <argument
+                    android:name="id"
+                    app:argType="long"
+                    android:defaultValue="0L" />
+        </action>
     </fragment>
 
     <fragment
             android:id="@+id/conference_stage"
             android:label="Конференция"
             android:name="com.develop.grizzzly.pediatry.fragments.ConferenceStageFragment">
+        <argument
+                android:name="id"
+                app:argType="long"
+                android:defaultValue="0L" />
 
     </fragment>
 

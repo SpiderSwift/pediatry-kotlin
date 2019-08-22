@@ -90,11 +90,16 @@ class RegistrationViewModel : ViewModel()  {
             )
 
             if (response.isSuccessful) {
-                Toast.makeText(view.context, response.body()?.string(), Toast.LENGTH_LONG).show()
+                Log.d("TAG", response.toString())
+                Log.d("TAG", response.body()?.string())
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
-                Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
+                Log.d("TAG", response.toString())
+                Log.d("TAG", response.errorBody()?.string())
+                val navController = Navigation.findNavController(view)
+                navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
+                //Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
             }
 
 

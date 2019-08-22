@@ -69,6 +69,11 @@
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
                 app:destination="@id/registration_finish" />
 
+        <action android:id="@+id/action_registration_speciality_to_registration_finish_error"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/registration_finish_error" />
+
         <action android:id="@+id/action_registration_speciality_to_specialities_list"
                 app:enterAnim="@anim/nav_default_pop_enter_anim"
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
@@ -99,6 +104,20 @@
             android:name="com.develop.grizzzly.pediatry.fragments.RegistrationFinishFragment">
 
         <action android:id="@+id/action_registration_finish_to_login"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:destination="@id/login"
+                app:popUpToInclusive="true"
+                app:popUpTo="@+id/login"/>
+
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/registration_finish_error"
+            android:name="com.develop.grizzzly.pediatry.fragments.RegistrationFinishErrorFragment">
+
+        <action android:id="@+id/action_registration_finish_error_to_login"
                 app:enterAnim="@anim/nav_default_pop_enter_anim"
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
                 app:destination="@id/login"
