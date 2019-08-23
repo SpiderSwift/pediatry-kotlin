@@ -26,6 +26,7 @@ class ConferenceStageFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val myActivity = activity as MainActivity?
+        myActivity?.toolbarTitle?.text = "Конференция"
         myActivity?.supportActionBar?.show()
         myActivity?.bottom_nav?.visibility = View.VISIBLE
         myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

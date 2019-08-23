@@ -3,7 +3,9 @@ package com.develop.grizzzly.pediatry.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +20,7 @@ import com.develop.grizzzly.pediatry.navigation.KeepStateNavigator
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
+import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -61,22 +64,49 @@ class MainActivity : AppCompatActivity() {
 
         val model = ViewModelProviders.of(this).get(MenuViewModel::class.java)
 
-
+        val profileModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
         GlobalScope.launch {
+            val mainSpec = WebAccess.pediatryApi.getMainSpecialities()
+            val additionalSpec = WebAccess.pediatryApi.getAdditionalSpecialities()
             val response = WebAccess.pediatryApi.getProfile()
             if (response.isSuccessful) {
-                val name = response.body()?.response?.name
-                val lastname = response.body()?.response?.lastname
-                val avatarUrl = "${response.body()?.response?.avatar}"
+                val profile = response.body()?.response
+
+
+                val name = profile?.name
+                val lastname = profile?.lastname
+                val avatarUrl = "${profile?.avatar}"
                 withContext(Dispatchers.Main) {
                     model.name.postValue(name)
                     model.lastname.postValue(lastname)
                     model.avatarUrl.postValue(avatarUrl)
+                    profileModel.city.value = profile?.city
+                    profileModel.name.value = profile?.name
+                    profileModel.middlename.value = profile?.middlename
+                    profileModel.lastname.value = profile?.lastname
+                    profileModel.avatarUrl.value = "${profile?.avatar}"
+                    profileModel.email.value = profile?.email
+                    profileModel.phoneNumber.value = profile?.phone
+                    profileModel.mainSpeciality.value = profile?.mainSpecialtyId
+                    profileModel.firstAdditionalSpeciality.value = profile?.additionalSpecialty1Id
+                    profileModel.secondAdditionalSpeciality.value = profile?.additionalSpecialty2Id
+                    profileModel.additionalSpecialities = additionalSpec.body()?.response ?: listOf()
+                    profileModel.mainSpecialities = mainSpec.body()?.response ?: listOf()
                 }
             }
         }
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        //supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        //supportActionBar?.setCustomView(R.layout.support_bar)
+        //supportActionBar?.title = "The feeling of"
         //supportActionBar?.hide()
     }
 
@@ -88,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationBar() {
 
-        val navGraphIds = listOf(R.navigation.news_navigation, R.navigation.translations_navigation, R.navigation.messages_navigation, R.navigation.menu_navigation)
+        val navGraphIds = listOf(R.navigation.news_navigation, R.navigation.translations_navigation, R.navigation.menu_navigation)
 
         val controller = bottom_nav.setupWithNavController(
             navGraphIds = navGraphIds,

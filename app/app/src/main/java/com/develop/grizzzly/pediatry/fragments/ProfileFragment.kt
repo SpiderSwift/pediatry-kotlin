@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,31 +10,25 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.menu.MenuAdapter
-import com.develop.grizzzly.pediatry.databinding.FragmentMenuBinding
-import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItem
-import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
+import com.develop.grizzzly.pediatry.databinding.FragmentProfileBinding
+import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_menu.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class MenuFragment: Fragment() {
+class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentMenuBinding>(
+        val binding = DataBindingUtil.inflate<FragmentProfileBinding>(
             inflater,
-            R.layout.fragment_menu,
+            R.layout.fragment_profile,
             container,
             false
         )
         val mainActivity = activity
-        mainActivity?.toolbarTitle?.text = "Меню"
+        mainActivity?.toolbarTitle?.text = "Профиль"
 
         val model = activity?.run {
-            ViewModelProviders.of(this).get(MenuViewModel::class.java)
+            ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         }!!
 
         binding.model = model
@@ -59,13 +52,4 @@ class MenuFragment: Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val llm = LinearLayoutManager(activity)
-        menuList.layoutManager = llm
-        menuList.adapter = MenuAdapter()
-        menuList.itemAnimator = null
-
-        super.onViewCreated(view, savedInstanceState)
-    }
 }

@@ -15,9 +15,11 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
 
     fun onMenuItem(view : View) {
         viewModelScope.launch {
-            delay(100)
-            val navController = Navigation.findNavController(view)
-            navController.navigate(menuItem.direction)
+            if (menuItem.direction != null) {
+                val navController = Navigation.findNavController(view)
+                delay(100)
+                navController.navigate(menuItem.direction)
+            }
         }
 
     }

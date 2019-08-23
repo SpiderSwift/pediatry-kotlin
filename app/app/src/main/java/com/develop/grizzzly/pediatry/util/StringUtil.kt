@@ -15,10 +15,10 @@ fun String.isPhoneNumber(): Boolean {
 
 
 fun String.md5(): String {
-    val MD5 = "MD5"
+    val md5 = "MD5"
     try {
         val digest = java.security.MessageDigest
-            .getInstance(MD5)
+            .getInstance(md5)
         digest.update(this.toByteArray())
         val messageDigest = digest.digest()
 

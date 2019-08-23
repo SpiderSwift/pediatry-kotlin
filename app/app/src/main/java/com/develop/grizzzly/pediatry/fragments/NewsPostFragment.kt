@@ -46,6 +46,7 @@ class NewsPostFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.show()
+        mainActivity?.toolbarTitle?.text = "Новость"
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
         setHasOptionsMenu(true)
 

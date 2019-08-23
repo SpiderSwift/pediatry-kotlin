@@ -5,13 +5,13 @@
             android:icon="@drawable/ic_news"
             android:title="@string/news_title"/>
     <item
-            android:id="@+id/translations_btn"
-            android:icon="@drawable/ic_translations"
-            android:title="@string/translations_title"/>
-    <item
-            android:id="@+id/messages_btn"
-            android:icon="@drawable/ic_messages"
-            android:title="@string/messages_title"/>
+            android:id="@+id/conference_btn"
+            android:icon="@drawable/ic_conferations"
+            android:title="@string/conferentions"/>
+    <!--<item-->
+            <!--android:id="@+id/messages_btn"-->
+            <!--android:icon="@drawable/ic_messages"-->
+            <!--android:title="@string/messages_title"/>-->
     <item
             android:id="@+id/menu_btn"
             android:icon="@drawable/ic_main"

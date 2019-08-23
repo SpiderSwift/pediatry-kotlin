@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.conference.ConferenceAdapter
 import com.develop.grizzzly.pediatry.viewmodel.conference.ConferenceViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_conferentions.*
 
 class ConferentionsFragment : Fragment(){
@@ -18,6 +19,7 @@ class ConferentionsFragment : Fragment(){
     private lateinit var adapter: ConferenceAdapter
     private lateinit var viewModel: ConferenceViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity?.toolbarTitle?.text = "Конференции"
         return inflater.inflate(R.layout.fragment_conferentions, container, false)
     }
 

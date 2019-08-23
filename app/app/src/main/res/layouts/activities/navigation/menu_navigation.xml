@@ -11,7 +11,7 @@
             android:label="@string/menu_title"
             android:name="com.develop.grizzzly.pediatry.fragments.MenuFragment">
         <action android:id="@+id/action_menu_to_webinars" app:destination="@id/webinars"/>
-        <action android:id="@+id/action_menu_to_conferences" app:destination="@id/conferences"/>
+        <action android:id="@+id/action_menu_to_profile" app:destination="@id/profile"/>
     </fragment>
 
     <fragment
@@ -20,30 +20,13 @@
             android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment">
     </fragment>
 
-
     <fragment
-            android:id="@+id/conferences"
-            android:label="@string/conferentions"
-            android:name="com.develop.grizzzly.pediatry.fragments.ConferentionsFragment">
-        <action android:id="@+id/action_conference_to_stage" app:destination="@id/conference_stage">
+        android:id="@+id/profile"
+        android:label="@string/profile_title"
+        android:name="com.develop.grizzzly.pediatry.fragments.ProfileFragment">
 
-            <argument
-                    android:name="id"
-                    app:argType="long"
-                    android:defaultValue="0L" />
-        </action>
     </fragment>
 
-    <fragment
-            android:id="@+id/conference_stage"
-            android:label="Конференция"
-            android:name="com.develop.grizzzly.pediatry.fragments.ConferenceStageFragment">
-        <argument
-                android:name="id"
-                app:argType="long"
-                android:defaultValue="0L" />
-
-    </fragment>
 
 
 </navigation>

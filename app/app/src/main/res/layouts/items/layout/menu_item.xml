@@ -21,6 +21,7 @@
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
+                android:alpha="@{model.menuItem.alpha}"
                 android:padding="10dp"
                 app:resource="@{model.menuItem.icon}"
         />
@@ -32,6 +33,7 @@
                   android:minHeight="?android:attr/listPreferredItemHeightSmall"
                   android:layout_marginLeft="70dp"
                   android:text="@{model.menuItem.name}"
+                  android:alpha="@{model.menuItem.alpha}"
                   android:textAlignment="center"
                   android:layout_centerVertical="true"
         />
@@ -41,6 +43,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
+                android:alpha="@{model.menuItem.alpha}"
                 android:padding="10dp"
                 android:src="@drawable/ic_forward"
         />

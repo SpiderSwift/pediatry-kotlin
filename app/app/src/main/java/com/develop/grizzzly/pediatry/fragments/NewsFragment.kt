@@ -36,6 +36,7 @@ class NewsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val myActivity = activity as MainActivity?
         myActivity?.supportActionBar?.show()
+        myActivity?.toolbarTitle?.text = "Новости"
         myActivity?.bottom_nav?.visibility = View.VISIBLE
         myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -51,7 +52,6 @@ class NewsFragment : Fragment() {
 
         //viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
-        Log.d("TAG", "onViewCreated")
 
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
