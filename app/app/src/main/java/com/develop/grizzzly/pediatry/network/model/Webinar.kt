@@ -17,16 +17,4 @@ data class Webinar constructor(val id : Long,
                                val email : String?)
 
 
-//"id": 33,
-//"title": "Цикл видеодиалогов «Современная педiятрика». ",
-//"subTitle": null,
-//"description": "",
-//"startDate": "2019-10-05",
-//"startTime": "11:00",
-//"endTime": "00:00",
-//"score": 0,
-//"confirmationTime1": null,
-//"confirmationTime2": null,
-//"confirmationTime3": null,
-//"youtubeCode": "",
-//"email": ""
+//{"id":30,"description":null,"announceImage":null,"image":null,"youtubeCode1":null,"videoTitle1":null,"videoDescription1":null,"youtubeCode2":null,"videoTitle2":null,"videoDescription2":null,"youtubeCode3":null,"videoTitle3":null,"videoDescription3":null}

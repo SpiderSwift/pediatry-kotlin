@@ -65,8 +65,6 @@ class RegistrationSpecialityFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         btnMainSpeciality.setOnClickListener {
             pointer = 0
             picker.setSelectedItemPosition(pointer, false)
@@ -101,6 +99,8 @@ class RegistrationSpecialityFragment : Fragment() {
             }
             specialityLayout.visibility = View.GONE
         }
+
+
 
 
         super.onViewCreated(view, savedInstanceState)

@@ -28,6 +28,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.MediaType
 import java.io.File
+import java.lang.Exception
 import java.util.*
 
 
@@ -70,8 +71,26 @@ class RegistrationViewModel : ViewModel()  {
 
             val fullname = fullname.value?.split(" ")
 
-            val file = File(getPath(view.context, imageUrl.value!!))
-            val requestFile = RequestBody.create(MediaType.parse(fragment!!.activity!!.contentResolver.getType(imageUrl.value!!)!!), file)
+
+            var requestFile : RequestBody? = null
+
+            try {
+                val file = File(getPath(view.context, imageUrl.value!!))
+                requestFile = RequestBody.create(MediaType.parse(fragment?.activity?.contentResolver?.getType(imageUrl.value!!) ?: ""), file)
+            } catch (ignored : Exception) {
+
+            }
+
+
+            var stringAdd1 = ""
+            if (firstAdditionalSpeciality.value?.id != null) {
+                stringAdd1 = firstAdditionalSpeciality.value?.id.toString()
+            }
+
+            var stringAdd2 = ""
+            if (secondAdditionalSpeciality.value?.id != null) {
+                stringAdd2 = secondAdditionalSpeciality.value?.id.toString()
+            }
 
             val textType = MediaType.parse("text/plain")
 
@@ -83,8 +102,8 @@ class RegistrationViewModel : ViewModel()  {
                 RequestBody.create(textType, city.value!!),
                 RequestBody.create(textType, phoneNumber.value!!),
                 RequestBody.create(textType, mainSpeciality.value!!.id.toString()),
-                RequestBody.create(textType, firstAdditionalSpeciality.value!!.id.toString()),
-                RequestBody.create(textType, secondAdditionalSpeciality.value!!.id.toString()),
+                RequestBody.create(textType, stringAdd1),
+                RequestBody.create(textType, stringAdd2),
                 RequestBody.create(textType, password.value!!.md5()),
                 requestFile
             )

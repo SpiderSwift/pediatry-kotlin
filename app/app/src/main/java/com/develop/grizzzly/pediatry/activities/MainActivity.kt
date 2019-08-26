@@ -134,6 +134,11 @@ class MainActivity : AppCompatActivity() {
         currentNavController = controller
     }
 
+    override fun onBackPressed() {
+        bottom_nav.visibility = View.VISIBLE
+        super.onBackPressed()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }

@@ -31,22 +31,22 @@ interface PediatryApiClient {
         @Part("additional_specialty_2_id") additionalId2: RequestBody?,
         @Part("password") password : RequestBody,
         //@Part avatar : MultipartBody.Part
-        @Part("avatar\"; filename=\"file.jpg\" ") avatar : RequestBody
+        @Part("avatar\"; filename=\"file.jpg\" ") avatar : RequestBody?
     ) : Response<ResponseBody>
 
     @GET("user/profile") suspend fun getProfile() : Response<BasicResponse<Profile>>
     @FormUrlEncoded
     @POST("user/profile") suspend fun updateProfile(
-        @Field("name") name : String,
-        @Field("lastname") lastname : String,
+        @Field("name") name : String?,
+        @Field("lastname") lastname : String?,
         @Field("middlename") middlename : String?,
-        @Field("email") email : String,
-        @Field("city") city : String,
-        @Field("phone") phone : String,
-        @Field("main_specialty_id") mainId : String,
+        @Field("email") email : String?,
+        @Field("city") city : String?,
+        @Field("phone") phone : String?,
+        @Field("main_specialty_id") mainId : String?,
         @Field("additional_specialty_1_id") additionalId1 : String?,
         @Field("additional_specialty_2_id") additionalId2: String?
-    ) : Response<JsonNode>
+    ) : Response<ResponseBody>
     @POST("user/password") suspend fun changePassword(
         @Field("password") password: String,
         @Field("confirm_password") confirm : String
@@ -110,7 +110,7 @@ interface PediatryApiClient {
     ) : Response<JsonNode>
 
     @GET("webinar") suspend fun getWebinars() : Response<BasicResponse<List<Webinar>>>
-    @GET("webinar/archive") suspend fun getArchiveWebinars() : Response<ResponseBody>
+    @GET("webinar/archive") suspend fun getArchiveWebinars() : Response<BasicResponse<List<Webinar>>>
     @GET("webinar/{id}") suspend fun getWebinar(
         @Path("id") webinarId : Long
     ) : Response<JsonNode>

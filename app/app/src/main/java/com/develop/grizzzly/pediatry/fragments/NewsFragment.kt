@@ -76,7 +76,7 @@ class NewsFragment : Fragment() {
         GlobalScope.launch {
             val response = WebAccess.pediatryApi.getArchiveWebinars()
             if (response.isSuccessful) {
-                Log.d("TAG", response.body()?.string())
+                Log.d("TAG", response.body()?.response.toString())
             } else {
                 Log.d("TAG", response.errorBody()?.string())
             }

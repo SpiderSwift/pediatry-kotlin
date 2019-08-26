@@ -25,6 +25,7 @@ class ProfileFragment: Fragment() {
             false
         )
         val mainActivity = activity
+        mainActivity?.bottom_nav?.visibility = View.VISIBLE
         mainActivity?.toolbarTitle?.text = "Профиль"
 
         val model = activity?.run {

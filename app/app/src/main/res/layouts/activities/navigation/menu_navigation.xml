@@ -24,6 +24,13 @@
         android:id="@+id/profile"
         android:label="@string/profile_title"
         android:name="com.develop.grizzzly.pediatry.fragments.ProfileFragment">
+        <action android:id="@+id/action_profile_to_edit" app:destination="@id/edit"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/edit"
+        android:label="Редактирование"
+        android:name="com.develop.grizzzly.pediatry.fragments.ProfileEditFragment">
 
     </fragment>
 

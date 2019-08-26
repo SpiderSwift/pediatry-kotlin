@@ -1,7 +1,10 @@
 package com.develop.grizzzly.pediatry.viewmodel.profile
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
+import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.network.model.Speciality
 
 class ProfileViewModel : ViewModel() {
@@ -46,6 +49,11 @@ class ProfileViewModel : ViewModel() {
             }
         }
         return ""
+    }
+
+    fun onEdit(view : View) {
+        val navController = Navigation.findNavController(view)
+        navController.navigate(R.id.action_profile_to_edit)
     }
 
 }
