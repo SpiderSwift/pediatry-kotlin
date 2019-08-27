@@ -73,18 +73,18 @@ class RegistrationSpecialityFragment : Fragment() {
             specialityLayout.visibility = View.VISIBLE
         }
 
-        btnFirstAdditionalSpeciality.setOnClickListener {
-            pointer = 0
-            currentSpeciality = 2
-            picker.data = additionalSpecialityList
-            specialityLayout.visibility = View.VISIBLE
-        }
-
-        btnSecondAdditionalSpeciality.setOnClickListener {
-            currentSpeciality = 3
-            picker.data = additionalSpecialityList
-            specialityLayout.visibility = View.VISIBLE
-        }
+//        btnFirstAdditionalSpeciality.setOnClickListener {
+//            pointer = 0
+//            currentSpeciality = 2
+//            picker.data = additionalSpecialityList
+//            specialityLayout.visibility = View.VISIBLE
+//        }
+//
+//        btnSecondAdditionalSpeciality.setOnClickListener {
+//            currentSpeciality = 3
+//            picker.data = additionalSpecialityList
+//            specialityLayout.visibility = View.VISIBLE
+//        }
 
 
         picker.setOnItemSelectedListener { _, _, position ->

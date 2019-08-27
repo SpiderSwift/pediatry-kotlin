@@ -45,15 +45,34 @@ class RegistrationInfoFragment : Fragment() {
 
 
         model.city.observe(this, Observer {
+
+            if (model.isValidCity()) {
+                teCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
+            } else {
+                teCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
+            }
+
             model.infoValid.value = model.isInfoValid()
         })
 
         model.phoneNumber.observe(this, Observer {
             model.infoValid.value = model.isInfoValid()
+
+            if (model.isValidPhone()) {
+                tePhone.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
+            } else {
+                tePhone.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
+            }
+
         })
 
         model.fullname.observe(this, Observer {
             model.infoValid.value = model.isInfoValid()
+            if (model.isValidFullname()) {
+                teFullName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
+            } else {
+                teFullName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
+            }
         })
 
 

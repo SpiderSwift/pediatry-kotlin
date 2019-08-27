@@ -50,6 +50,7 @@
                 android:paddingEnd="10dp"
                 android:textSize="15sp"
                 android:elevation="5dp"
+                android:drawableEnd="@drawable/ic_light_cross"
                 android:hint="@string/enter_email"
                 android:background="@drawable/te_drawable"
                 android:layout_marginStart="48dp"
@@ -70,6 +71,7 @@
                 android:paddingEnd="10dp"
                 android:textSize="15sp"
                 android:elevation="5dp"
+                android:drawableEnd="@drawable/ic_light_eye"
                 android:hint="@string/password"
                 android:background="@drawable/te_drawable"
                 android:layout_marginStart="48dp"
@@ -78,6 +80,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline"/>
+
+
 
 
         <Button
@@ -96,6 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
 
 
         <TextView

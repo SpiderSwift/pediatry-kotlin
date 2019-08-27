@@ -41,12 +41,12 @@
                 android:layout_height="50dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:gravity="center_vertical"
                 android:elevation="5dp"
                 android:textAllCaps="false"
                 android:text="@{model.mainSpeciality.name}"
-                android:hint="@string/main_speciality"
+                android:hint="Выбрать"
                 android:background="@drawable/te_drawable"
                 android:layout_marginStart="48dp"
                 android:layout_marginEnd="48dp"
@@ -56,48 +56,48 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
 
-        <Button
-                android:id="@+id/btnFirstAdditionalSpeciality"
-                android:fontFamily="@font/gothampro"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
-                android:elevation="5dp"
-                android:textAllCaps="false"
-                android:text="@{model.firstAdditionalSpeciality.name}"
-                android:hint="@string/additional_speciality"
-                android:background="@drawable/te_drawable"
-                android:layout_marginStart="48dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainSpeciality"/>
+        <!--<Button-->
+                <!--android:id="@+id/btnFirstAdditionalSpeciality"-->
+                <!--android:fontFamily="@font/gothampro"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:textSize="18sp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:elevation="5dp"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:text="@{model.firstAdditionalSpeciality.name}"-->
+                <!--android:hint="@string/additional_speciality"-->
+                <!--android:background="@drawable/te_drawable"-->
+                <!--android:layout_marginStart="48dp"-->
+                <!--android:layout_marginEnd="48dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/btnMainSpeciality"/>-->
 
 
-        <Button
-                android:id="@+id/btnSecondAdditionalSpeciality"
-                android:fontFamily="@font/gothampro"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
-                android:elevation="5dp"
-                android:textAllCaps="false"
-                android:text="@{model.secondAdditionalSpeciality.name}"
-                android:hint="@string/additional_speciality"
-                android:background="@drawable/te_drawable"
-                android:layout_marginStart="48dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnFirstAdditionalSpeciality"/>
+        <!--<Button-->
+                <!--android:id="@+id/btnSecondAdditionalSpeciality"-->
+                <!--android:fontFamily="@font/gothampro"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:textSize="18sp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:elevation="5dp"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:text="@{model.secondAdditionalSpeciality.name}"-->
+                <!--android:hint="@string/additional_speciality"-->
+                <!--android:background="@drawable/te_drawable"-->
+                <!--android:layout_marginStart="48dp"-->
+                <!--android:layout_marginEnd="48dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/btnFirstAdditionalSpeciality"/>-->
 
 
 

@@ -172,7 +172,20 @@ class RegistrationViewModel : ViewModel()  {
     }
 
     fun isInfoValid() : Boolean {
-        return (fullname.value?.split(" ")?.size == 3) and (phoneNumber.value?.isPhoneNumber() ?: false) and (city.value?.isNotEmpty() ?: false)
+        return (isValidFullname()) and (phoneNumber.value?.isPhoneNumber() ?: false) and (city.value?.isNotEmpty() ?: false)
+    }
+
+    fun isValidCity() : Boolean {
+        return city.value?.isNotEmpty() ?: false
+    }
+
+    fun isValidFullname() : Boolean {
+        val list = fullname.value?.split(" ")
+        return (list?.size == 3) and (list?.getOrNull(2)?.length != 0)
+    }
+
+    fun isValidPhone() : Boolean {
+        return phoneNumber.value?.isPhoneNumber() ?: false
     }
 
     fun isSpecialityValid() : Boolean {
