@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{model.mainSpecialityName + `, ` + model.city}"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/gothampro"
                 android:textColor="@android:color/black"
 
@@ -85,14 +85,11 @@
                 android:layout_marginEnd="24dp">
 
 
-            <TextView
+            <ImageView
                     android:id="@+id/labelPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/phone_number"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/gothampro"
-                    android:textColor="#B7B7B7"
+                    android:src="@drawable/ic_tele"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout3" android:layout_marginStart="16dp"
@@ -109,17 +106,14 @@
                     android:textColor="@android:color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-                    android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintStart_toEndOf="@+id/labelPhone" android:layout_marginStart="16dp"/>
 
 
-            <TextView
+            <ImageView
                     android:id="@+id/labelEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/gothampro"
-                    android:textColor="#B7B7B7"
+                    android:src="@drawable/ic_mail"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
@@ -135,8 +129,8 @@
                     android:fontFamily="@font/gothampro"
                     android:textColor="@android:color/black"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="16dp"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/labelEmail" android:layout_marginStart="16dp"/>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
