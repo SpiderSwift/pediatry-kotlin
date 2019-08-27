@@ -26,6 +26,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
+                android:id="@+id/btnRegister"
                 android:text="@string/enter_conference"
                 android:background="@drawable/accent_btn_drawable"
                 android:layout_width="250dp"

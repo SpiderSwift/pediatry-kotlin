@@ -82,10 +82,10 @@ interface PediatryApiClient {
     ) : Response<BasicResponse<ConferenceItem>>
     @POST("conference/{id}/register/offline") suspend fun registerForConference(
         @Path("id") conferenceId : Long
-    ) : Response<JsonNode>
+    ) : Response<ResponseBody>
     @DELETE("conference/{id}/register/offline") suspend fun unregisterForConference(
         @Path("id") conferenceId : Long
-    ) : Response<JsonNode>
+    ) : Response<ResponseBody>
 
     @GET("broadcast") suspend fun getBroadcasts() : Response<BasicResponse<List<Broadcast>>>
     @GET("broadcast/{id}") suspend fun getBroadcast(

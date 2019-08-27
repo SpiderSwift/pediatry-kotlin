@@ -8,4 +8,5 @@ data class ConferenceItem constructor(val id : Long,
                           val city : String,
                           val offlineScore : Long,
                           val onlineScore : Long,
+                          var isRegistered : Boolean,
                           val programs : List<Program>)
