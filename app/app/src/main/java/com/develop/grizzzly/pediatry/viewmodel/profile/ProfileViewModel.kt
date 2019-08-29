@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.viewmodel.profile
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,6 +41,20 @@ class ProfileViewModel : ViewModel() {
             }
         }
         return ""
+    }
+
+
+    fun getNumber() : String {
+        return try {
+            val value = phoneNumber.value!!
+            val code = value.substring(0, 2)
+            val operator = value.substring(2, 7)
+            val num = value.substring(7)
+            return "$code $operator $num"
+
+        } catch (ignored : Exception) {
+            ""
+        }
     }
 
     fun getSecondAdditionalSpecialityName() : String {

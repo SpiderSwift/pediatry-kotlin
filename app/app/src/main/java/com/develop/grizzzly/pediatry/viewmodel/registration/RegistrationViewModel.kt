@@ -92,6 +92,8 @@ class RegistrationViewModel : ViewModel()  {
                 stringAdd2 = secondAdditionalSpeciality.value?.id.toString()
             }
 
+            val num = phoneNumber.value!!.replace("\\s".toRegex(), "")
+
             val textType = MediaType.parse("text/plain")
 
             val response = WebAccess.pediatryApi.register(
@@ -100,7 +102,7 @@ class RegistrationViewModel : ViewModel()  {
                 RequestBody.create(textType, fullname[2]),
                 RequestBody.create(textType, email.value!!),
                 RequestBody.create(textType, city.value!!),
-                RequestBody.create(textType, phoneNumber.value!!),
+                RequestBody.create(textType, num),
                 RequestBody.create(textType, mainSpeciality.value!!.id.toString()),
                 RequestBody.create(textType, stringAdd1),
                 RequestBody.create(textType, stringAdd2),

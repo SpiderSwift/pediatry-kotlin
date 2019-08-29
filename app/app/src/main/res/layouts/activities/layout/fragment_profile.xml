@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-        xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -100,13 +100,13 @@
                     android:id="@+id/valuePhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{model.phoneNumber}"
+                    android:text="@{model.number}"
                     android:textSize="16sp"
                     android:fontFamily="@font/gothampro"
                     android:textColor="@android:color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toEndOf="@+id/labelPhone" android:layout_marginStart="16dp"/>
+                    app:layout_constraintStart_toEndOf="@+id/labelPhone" android:layout_marginStart="19dp"/>
 
 
             <ImageView
