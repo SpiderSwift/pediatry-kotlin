@@ -15,7 +15,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.plusAssign
 
 import androidx.navigation.ui.NavigationUI
-import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.navigation.KeepStateNavigator
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
@@ -30,6 +29,14 @@ import com.microsoft.appcenter.AppCenter
 import kotlinx.android.synthetic.main.fragment_registration_speciality.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Exception
+import android.content.Context.CONNECTIVITY_SERVICE
+import androidx.core.content.ContextCompat.getSystemService
+import android.net.ConnectivityManager
+import androidx.core.app.ComponentActivity.ExtraData
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.content.Context
+import com.develop.grizzzly.pediatry.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,15 +51,14 @@ class MainActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
 
-
-        GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getBroadcasts()
-            if (response.isSuccessful) {
-                Log.d("TAG", response.body()?.response.toString())
-            } else {
-                Log.d("TAG", response.errorBody()?.string())
+            GlobalScope.launch {
+                val response = WebAccess.pediatryApi.getBroadcasts()
+                if (response.isSuccessful) {
+                    Log.d("TAG", response.body()?.response.toString())
+                } else {
+                    Log.d("TAG", response.errorBody()?.string())
+                }
             }
-        }
 
         setContentView(R.layout.activity_main)
 
@@ -68,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val mainSpec = WebAccess.pediatryApi.getMainSpecialities()
+            Log.d("launch request: ", mainSpec.toString())
             val additionalSpec = WebAccess.pediatryApi.getAdditionalSpecialities()
             val response = WebAccess.pediatryApi.getProfile()
             if (response.isSuccessful) {
