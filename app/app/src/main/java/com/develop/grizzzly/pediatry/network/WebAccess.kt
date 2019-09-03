@@ -11,7 +11,7 @@ import java.util.*
 
 object WebAccess {
 
-    const val url = "https://dev.edu-pediatrics.com/api/v1/"
+    const val url = "https://edu-pediatrics.com/api/v1/"
     var token : String = ""
     var id : Long = 0
 
