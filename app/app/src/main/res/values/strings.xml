@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pediatry</string>
+    <string name="app_name">Ассоциация педиатров</string>
     <string name="start_message">Образовательный портал</string>
     <string name="welcome_message">Добро пожаловать!</string>
     <string name="enter_password">Введите пароль</string>

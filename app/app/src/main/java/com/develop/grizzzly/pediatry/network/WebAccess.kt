@@ -36,6 +36,4 @@ object WebAccess {
 
         return@lazy retrofit.create(PediatryApiClient::class.java)
     }
-
-
 }
