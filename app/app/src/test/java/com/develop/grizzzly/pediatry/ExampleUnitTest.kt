@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry
 
+import com.develop.grizzzly.pediatry.util.formatPhone
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +14,13 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun test_phone_formatting(){
+        val phone1 = "+79991112233"
+        val phone2 = "89991112233"
+        print(phone1.formatPhone() )
+        print(phone2.formatPhone() )
     }
 }

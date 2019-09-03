@@ -32,7 +32,7 @@ import java.lang.Exception
 import java.util.*
 
 
-
+val TAG = "REGISTRATION VIEW MODEL"
 
 class RegistrationViewModel : ViewModel()  {
 
@@ -92,7 +92,10 @@ class RegistrationViewModel : ViewModel()  {
                 stringAdd2 = secondAdditionalSpeciality.value?.id.toString()
             }
 
-            val num = phoneNumber.value!!.replace("\\s".toRegex(), "")
+            val num = phoneNumber.value!!
+                .replace("\\s".toRegex(), "")
+                .formatPhone()
+
 
             val textType = MediaType.parse("text/plain")
 
@@ -111,13 +114,13 @@ class RegistrationViewModel : ViewModel()  {
             )
 
             if (response.isSuccessful) {
-                Log.d("TAG", response.toString())
-                Log.d("TAG", response.body()?.string())
+                Log.d(TAG, response.toString())
+                Log.d(TAG, response.body()?.string())
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
-                Log.d("TAG", response.toString())
-                Log.d("TAG", response.errorBody()?.string())
+                Log.d(TAG, response.toString())
+                Log.d(TAG, response.errorBody()?.string())
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
                 //Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
