@@ -18,9 +18,9 @@ class ExampleUnitTest {
 
     @Test
     fun test_phone_formatting(){
-        val phone1 = "+79991112233"
-        val phone2 = "89991112233"
-        print(phone1.formatPhone() )
-        print(phone2.formatPhone() )
+        val phone1 = "+7 (999)111 -22-33"
+        val phone2 = "8 (999) 111-22-33"
+        println(phone1.formatPhone() == "+7(999)111-22-33")
+        println(phone2.formatPhone() == "8(999)111-22-33" )
     }
 }

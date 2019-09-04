@@ -10,7 +10,10 @@ fun String.isEmail(): Boolean {
 }
 
 fun String.isPhoneNumber(): Boolean {
-    return PhoneNumberUtil.getInstance().isPossibleNumber(this, "US")
+    if (this.isEmpty()) {
+        return false
+    }
+    return this.length === 18
 }
 
 
@@ -39,14 +42,6 @@ fun String.md5(): String {
 }
 
 fun String.formatPhone(): String {
-    var a = this.toCharArray()
-    var result = ""
-    result += if (a[0]== '+') {
-        "${a[0]}${a[1]}(${a[2]}${a[3]}${a[4]})${a[5]}${a[6]}${a[7]}-${a[8]}${a[9]}-${a[10]}${a[11]}"
-    } else {
-        "+7(${a[1]}${a[2]}${a[3]})${a[4]}${a[5]}${a[6]}-${a[7]}${a[8]}-${a[9]}${a[10]}"
-
-    }
-    return result
+    return this.replace("\\s".toRegex(), "")
 }
 
