@@ -252,23 +252,26 @@
                         app:layout_constraintStart_toStartOf="parent" android:id="@+id/textView9"
                         android:layout_marginTop="16dp"/>
 
+
                 <Button
+                        android:id="@+id/btnSecondAdditionalSpeciality"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
-                        android:textSize="14sp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/btn_edit"
                         android:elevation="0dp"
                         android:fontFamily="@font/gothampro"
-                        android:text="@{model.secondAdditionalSpecialityName}"
                         android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@{model.secondAdditionalSpecialityName}"
                         android:textAllCaps="false"
-                        android:background="@drawable/btn_edit"
-                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                        app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/textView9" android:id="@+id/btnSecondAdditionalSpeciality"/>
-
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
                 <View
                         android:id="@+id/view8"
@@ -302,7 +305,7 @@
                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                         app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" android:id="@+id/editText9"/>
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" android:id="@+id/phoneEditText"/>
 
 
                 <View
@@ -310,7 +313,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#E5E5E5"
-                        tools:layout_editor_absoluteX="8dp" app:layout_constraintTop_toBottomOf="@+id/editText9"
+                        tools:layout_editor_absoluteX="8dp" app:layout_constraintTop_toBottomOf="@+id/phoneEditText"
                         android:layout_marginTop="16dp"/>
 
                 <TextView

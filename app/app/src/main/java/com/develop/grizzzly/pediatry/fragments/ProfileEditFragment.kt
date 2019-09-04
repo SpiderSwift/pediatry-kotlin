@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileEditBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile_edit.*
 import kotlinx.coroutines.Dispatchers
@@ -43,8 +45,7 @@ class ProfileEditFragment: Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
 
-
-
+        setupPhoneEditText(binding.phoneEditText)
 
         return binding.root
     }
@@ -134,6 +135,9 @@ class ProfileEditFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-
+    private fun setupPhoneEditText(editText: EditText){
+        val listener = MaskedTextChangedListener("+7 ([000]) [000]-[00]-[00]", editText)
+        editText.addTextChangedListener(listener)
+    }
 
 }
