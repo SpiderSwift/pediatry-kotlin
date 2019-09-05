@@ -38,6 +38,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.content.Context
 import com.develop.grizzzly.pediatry.R
 
+private const val TAG = "MAIN ACTIVITY"
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,15 +55,15 @@ class MainActivity : AppCompatActivity() {
             GlobalScope.launch {
                 val response = WebAccess.pediatryApi.getBroadcasts()
                 if (response.isSuccessful) {
-                    Log.d("TAG", response.body()?.response.toString())
+                    Log.d(TAG, response.body()?.response.toString())
                 } else {
-                    Log.d("TAG", response.errorBody()?.string())
+                    Log.d(TAG, response.errorBody()?.string())
                 }
             }
 
         setContentView(R.layout.activity_main)
 
-        Log.d("TAG", "TOKEN ${WebAccess.token}")
+        Log.d(TAG, "TOKEN ${WebAccess.token}")
 
         if (savedInstanceState == null) {
             setupBottomNavigationBar()

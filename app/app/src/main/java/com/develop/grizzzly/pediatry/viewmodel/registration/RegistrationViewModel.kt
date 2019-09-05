@@ -3,7 +3,9 @@ package com.develop.grizzzly.pediatry.viewmodel.registration
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -32,9 +34,9 @@ import java.lang.Exception
 import java.util.*
 
 
-val TAG = "REGISTRATION VIEW MODEL"
+private const val TAG = "REGISTRATION VIEW MODEL"
 
-class RegistrationViewModel : ViewModel()  {
+class RegistrationViewModel : ViewModel() {
 
     val email = MutableLiveData<String>().apply { value = "" }
     val password = MutableLiveData<String>().apply { value = "" }
@@ -49,35 +51,39 @@ class RegistrationViewModel : ViewModel()  {
     val specialityValid = MutableLiveData<Boolean>().apply { value = false }
     val imageUrl = MutableLiveData<Uri>().apply { value = null }
 
-    var fragment : Fragment? = null
+    var fragment: Fragment? = null
 
 
-    fun onRegistrationStart(view : View) {
+    fun onRegistrationStart(view: View) {
         viewModelScope.launch {
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_registration_start_to_registration_info)
         }
     }
 
-    fun onRegistrationInfo(view : View) {
+    fun onRegistrationInfo(view: View) {
         viewModelScope.launch {
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_registration_info_to_registration_speciality)
         }
     }
 
-    fun onRegistration(view : View) {
+    fun onRegistration(view: View) {
         viewModelScope.launch {
 
             val fullname = fullname.value?.split(" ")
 
 
-            var requestFile : RequestBody? = null
+            var requestFile: RequestBody? = null
 
             try {
                 val file = File(getPath(view.context, imageUrl.value!!))
-                requestFile = RequestBody.create(MediaType.parse(fragment?.activity?.contentResolver?.getType(imageUrl.value!!) ?: ""), file)
-            } catch (ignored : Exception) {
+                requestFile = RequestBody.create(
+                    MediaType.parse(
+                        fragment?.activity?.contentResolver?.getType(imageUrl.value!!) ?: ""
+                    ), file
+                )
+            } catch (ignored: Exception) {
 
             }
 
@@ -130,21 +136,41 @@ class RegistrationViewModel : ViewModel()  {
         }
     }
 
-    fun onChangePhoto(view : View) {
+    fun onChangePhoto(view: View) {
 
-        if (fragment?.activity?.applicationContext?.let { ActivityCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) } == PackageManager.PERMISSION_GRANTED) {
-            Log.d("TAG", "has perm")
-            val i = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            i.addCategory(Intent.CATEGORY_OPENABLE)
-            i.type = "image/*"
-            fragment?.startActivityForResult(i, 200)
+        if (checkReadPermission() && checkWritePermission()) {
+            Log.d(TAG, "has permission to read external storage")
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            fragment?.startActivityForResult(intent, 200)
         } else {
-            Log.d("TAG", "no perm")
-            ActivityCompat.requestPermissions(fragment?.activity!!,
-                Array(1) { Manifest.permission.READ_EXTERNAL_STORAGE},
-                200)
+            Log.d(TAG, "no permission to read external storage")
+            ActivityCompat.requestPermissions(
+                fragment?.activity!!,
+                Array(2) { Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                200
+            )
         }
+    }
 
+    fun checkReadPermission(): Boolean {
+        return fragment?.activity?.applicationContext?.let {
+                ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            } == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun checkWritePermission(): Boolean {
+        return fragment?.activity?.applicationContext?.let {
+            ActivityCompat.checkSelfPermission(
+                it,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        } == PackageManager.PERMISSION_GRANTED
     }
 
 //    fun onMainSpeciality(view : View) {
@@ -172,28 +198,29 @@ class RegistrationViewModel : ViewModel()  {
 //    }
 
 
-    fun isStartValid() : Boolean {
+    fun isStartValid(): Boolean {
         return (email.value?.isEmail() ?: false) and (password.value?.isNotEmpty() ?: false)
     }
 
-    fun isInfoValid() : Boolean {
-        return (isValidFullname()) and (phoneNumber.value?.isPhoneNumber() ?: false) and (city.value?.isNotEmpty() ?: false)
+    fun isInfoValid(): Boolean {
+        return (isValidFullname()) and (phoneNumber.value?.isPhoneNumber()
+            ?: false) and (city.value?.isNotEmpty() ?: false)
     }
 
-    fun isValidCity() : Boolean {
+    fun isValidCity(): Boolean {
         return city.value?.isNotEmpty() ?: false
     }
 
-    fun isValidFullname() : Boolean {
+    fun isValidFullname(): Boolean {
         val list = fullname.value?.split(" ")
         return (list?.size == 3) and (list?.getOrNull(2)?.length != 0)
     }
 
-    fun isValidPhone() : Boolean {
+    fun isValidPhone(): Boolean {
         return phoneNumber.value?.isPhoneNumber() ?: false
     }
 
-    fun isSpecialityValid() : Boolean {
+    fun isSpecialityValid(): Boolean {
         return (mainSpeciality.value != null)
     }
 
@@ -222,8 +249,6 @@ class RegistrationViewModel : ViewModel()  {
             imageUrl?.let { it -> setImageGlide(it.toString(), view, android.R.color.white) }
         }
     }
-
-
 
 
 }

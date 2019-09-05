@@ -21,15 +21,24 @@ import android.text.TextWatcher
 import android.widget.EditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.fragment_registration_info.*
+import java.io.File
+import android.provider.OpenableColumns
+import androidx.room.util.CursorUtil.getColumnIndex
+import com.develop.grizzzly.pediatry.util.minimizeImage
+
 
 const val TAG = "REGISTRATION INFO F"
 
 class RegistrationInfoFragment : Fragment() {
 
 
-    lateinit var model : RegistrationViewModel
+    lateinit var model: RegistrationViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentRegistrationInfoBinding>(
             inflater,
@@ -77,7 +86,12 @@ class RegistrationInfoFragment : Fragment() {
             if (model.isValidFullname()) {
                 teFullName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
             } else {
-                teFullName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
+                teFullName.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_light_cross,
+                    0
+                )
             }
         })
 
@@ -91,9 +105,15 @@ class RegistrationInfoFragment : Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        data?: return
+        data ?: return
         if (resultCode == Activity.RESULT_OK) {
-            model.imageUrl.postValue(data.data)
+
+            val finalImage = minimizeImage(
+                uri = data.data,
+                contentResolver = context!!.contentResolver
+            )
+
+            model.imageUrl.postValue(finalImage)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

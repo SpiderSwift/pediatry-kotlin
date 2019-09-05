@@ -21,7 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-val TAG = "START ACTIVITY"
+private const val TAG = "START ACTIVITY"
 
 class StartActivity : AppCompatActivity() {
 
