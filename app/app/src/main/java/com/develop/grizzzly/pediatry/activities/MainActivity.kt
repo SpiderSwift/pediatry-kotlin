@@ -37,6 +37,12 @@ import androidx.core.app.ComponentActivity.ExtraData
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.content.Context
 import com.develop.grizzzly.pediatry.R
+import androidx.core.content.ContextCompat
+import android.view.WindowManager
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 private const val TAG = "MAIN ACTIVITY"
 
@@ -46,6 +52,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        this.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        this.window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
 
         AppCenter.start(
             application, "924aac8e-1298-49f0-92f9-f6b48b0ad367",
