@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
@@ -19,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 private const val TAG = "START ACTIVITY"
 
@@ -70,7 +68,6 @@ class StartActivity : AppCompatActivity() {
                 navController.navigate(R.id.action_start_to_login)
             }
         }
-
     }
 
     override fun onStart() {
@@ -78,7 +75,7 @@ class StartActivity : AppCompatActivity() {
         super.onStart()
     }
 
-    fun verifyAvailableNetwork(activity: AppCompatActivity): Boolean {
+    private fun verifyAvailableNetwork(activity: AppCompatActivity): Boolean {
         val connectivityManager =
             activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
