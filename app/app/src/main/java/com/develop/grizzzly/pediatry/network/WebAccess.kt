@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.network
 
+import com.develop.grizzzly.pediatry.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
@@ -8,10 +9,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 import java.util.*
 
+    const val DEV_URL = "https://dev.edu-pediatrics.com/api/v1/"
+const val PROD_URL = "https://edu-pediatrics.com/api/v1/"
 
 object WebAccess {
 
-    const val url = "https://edu-pediatrics.com/api/v1/"
     var token : String = ""
     var id : Long = 0
 
@@ -27,10 +29,12 @@ object WebAccess {
         val moshi = Moshi.Builder()
             .add(Date::class.java ,Rfc3339DateJsonAdapter())
             .build()
-
+        /**
+         * @param BuildConfig.BASE_URL прописан в файле build.gradle для каждой переменной
+         */
         val retrofit = Retrofit.Builder()
             .client(client)
-            .baseUrl(url)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
