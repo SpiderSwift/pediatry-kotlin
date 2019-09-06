@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.network
 
+import com.develop.grizzzly.pediatry.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
@@ -10,8 +11,11 @@ import java.util.*
 
 
 object WebAccess {
-
-    const val url = "https://edu-pediatrics.com/api/v1/"
+    val url = if(BuildConfig.DEBUG){
+        "https://dev.edu-pediatrics.com/api/v1/"
+    } else {
+        "https://edu-pediatrics.com/api/v1/"
+    }
     var token : String = ""
     var id : Long = 0
 
