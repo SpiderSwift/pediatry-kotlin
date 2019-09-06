@@ -22,15 +22,8 @@ android {
         enabled = true
     }
     buildTypes {
-        debug {
-            buildConfigField "String", 'BASE_URL', "https://dev.edu-pediatrics.com/api/v1/"
-        }
-        staging {
-            buildConfigField "String", 'BASE_URL', "https://dev.edu-pediatrics.com/api/v1/"
-        }
         release {
             minifyEnabled false
-            buildConfigField "String", 'BASE_URL', "https://edu-pediatrics.com/api/v1/"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
