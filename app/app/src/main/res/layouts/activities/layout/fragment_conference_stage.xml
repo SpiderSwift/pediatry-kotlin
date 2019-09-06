@@ -21,7 +21,8 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                android:textSize="24sp"
+                android:textSize="20sp"
+                android:autoSizeTextType="uniform"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 

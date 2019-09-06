@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             if (response.isSuccessful) {
                 val profile = response.body()?.response
 
-
                 val name = profile?.name
                 val lastname = profile?.lastname
                 val avatarUrl = "${profile?.avatar}"

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
                 name="model"
                 type="com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel" />
     </data>
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,128 +18,139 @@
                 android:id="@+id/ivPhoto"
                 android:layout_width="184dp"
                 android:layout_height="184dp"
-                android:src="@android:color/white"
                 android:layout_marginTop="24dp"
+                android:src="@android:color/white"
                 app:avatarUrl="@{model.avatarUrl}"
-                app:civ_border_width="3dp"
                 app:civ_border_color="@color/colorWeakAccent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:civ_border_width="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{model.name + ` ` + model.lastname + ` ` + model.middlename}"
-                android:textSize="20sp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/gothampro"
-                android:textColor="@android:color/black"
+                android:text="@{model.name + ` ` + model.middlename + ` ` + model.lastname}"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
 
-                app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
+                android:textSize="20sp"
 
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="8dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />
+
         <TextView
                 android:id="@+id/city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{model.mainSpecialityName + `, ` + model.city}"
-                android:textSize="13sp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/gothampro"
+                android:text="@{model.mainSpecialityName + `, ` + model.city}"
                 android:textColor="@android:color/black"
 
-                app:layout_constraintTop_toBottomOf="@+id/name"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="8dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <Button
                 android:id="@+id/btnEdit"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="24dp"
-                android:textSize="18sp"
-                android:textAllCaps="false"
-                android:text="@string/edit"
-                android:onClick="@{model::onEdit}"
-                android:textColor="@android:color/white"
-                android:fontFamily="@font/gothampro"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/accent_btn_drawable"
-                app:layout_constraintTop_toBottomOf="@+id/city"
+                android:fontFamily="@font/gothampro"
+                android:onClick="@{model::onEdit}"
+                android:text="@string/edit"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/conf_item_bg"
                 android:elevation="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/btnEdit"
-                android:background="@drawable/conf_item_bg" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="24dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="24dp">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnEdit">
 
 
             <ImageView
                     android:id="@+id/labelPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:src="@drawable/ic_tele"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout3" android:layout_marginStart="16dp"
-            />
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                     android:id="@+id/valuePhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{model.number}"
-                    android:textSize="16sp"
+                    android:layout_marginStart="19dp"
                     android:fontFamily="@font/gothampro"
+                    android:text="@{model.number}"
                     android:textColor="@android:color/black"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toEndOf="@+id/labelPhone" android:layout_marginStart="19dp"/>
+                    app:layout_constraintStart_toEndOf="@+id/labelPhone"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
                     android:id="@+id/labelEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mail"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:src="@drawable/ic_mail"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
 
             <TextView
                     android:id="@+id/valueEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{model.email}"
-                    android:textSize="16sp"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/gothampro"
+                    android:text="@{model.email}"
                     android:textColor="@android:color/black"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/labelEmail" android:layout_marginStart="16dp"/>
+                    app:layout_constraintStart_toEndOf="@+id/labelEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#F2F2F2" app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp" android:id="@+id/constraintLayout3"/>
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F2F2F2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
