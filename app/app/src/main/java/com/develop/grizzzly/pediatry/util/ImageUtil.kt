@@ -41,10 +41,10 @@ fun minimizeImage(uri: Uri, contentResolver: ContentResolver): Uri? {
     val maxBytes = 1024L * 1024
 
     val scaledBitmap = scaleBitmap(bitmap, maxBytes)
-    val rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0,0, scaledBitmap.width, scaledBitmap.height, matrix, true)
+//    val rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0,0, scaledBitmap.width, scaledBitmap.height, matrix, true)
 
     val path =
-        MediaStore.Images.Media.insertImage(contentResolver, rotatedBitmap, "Profile image", null)
+        MediaStore.Images.Media.insertImage(contentResolver, scaledBitmap, "Profile image", null)
     return Uri.parse(path)
 }
 

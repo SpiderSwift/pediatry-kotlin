@@ -110,7 +110,6 @@ class MainActivity : AppCompatActivity() {
         //supportActionBar?.hide()
     }
 
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         setupBottomNavigationBar()
