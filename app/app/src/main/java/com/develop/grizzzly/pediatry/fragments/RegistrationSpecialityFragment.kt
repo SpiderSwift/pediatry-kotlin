@@ -25,12 +25,16 @@ import kotlinx.coroutines.withContext
 class RegistrationSpecialityFragment : Fragment() {
 
     lateinit var model: RegistrationViewModel
-    lateinit var mainSpecialityList : List<Speciality>
-    lateinit var additionalSpecialityList : List<Speciality>
+    lateinit var mainSpecialityList: List<Speciality>
+    lateinit var additionalSpecialityList: List<Speciality>
     var currentSpeciality = 0
     var pointer = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentRegistrationSpecialityBinding>(
             inflater,
@@ -44,14 +48,33 @@ class RegistrationSpecialityFragment : Fragment() {
             val respMain = WebAccess.pediatryApi.getMainSpecialities()
             mainSpecialityList = respMain.body()!!.response!!
             additionalSpecialityList = respAdditional.body()!!.response!!
+
+            btnMainSpeciality.setOnClickListener {
+                pointer = 0
+                picker.setSelectedItemPosition(pointer, false)
+                currentSpeciality = 1
+                picker.data = mainSpecialityList
+                specialityLayout.visibility = View.VISIBLE
+            }
+
+            picker.setOnItemSelectedListener { _, _, position ->
+                pointer = position
+            }
+            tvChoose.setOnClickListener {
+                Log.d("TAG", picker.selectedItemPosition.toString())
+                when (currentSpeciality) {
+                    1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
+                    2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                    3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                }
+                specialityLayout.visibility = View.GONE
+            }
         }
 
 
         model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
         }!!
-
-
 
         binding.model = model
         binding.lifecycleOwner = this
@@ -61,49 +84,6 @@ class RegistrationSpecialityFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btnMainSpeciality.setOnClickListener {
-            pointer = 0
-            picker.setSelectedItemPosition(pointer, false)
-            currentSpeciality = 1
-            picker.data = mainSpecialityList
-            specialityLayout.visibility = View.VISIBLE
-        }
-
-//        btnFirstAdditionalSpeciality.setOnClickListener {
-//            pointer = 0
-//            currentSpeciality = 2
-//            picker.data = additionalSpecialityList
-//            specialityLayout.visibility = View.VISIBLE
-//        }
-//
-//        btnSecondAdditionalSpeciality.setOnClickListener {
-//            currentSpeciality = 3
-//            picker.data = additionalSpecialityList
-//            specialityLayout.visibility = View.VISIBLE
-//        }
-
-
-        picker.setOnItemSelectedListener { _, _, position ->
-            pointer = position
-        }
-        tvChoose.setOnClickListener {
-            Log.d("TAG", picker.selectedItemPosition.toString())
-            when (currentSpeciality) {
-                1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
-                2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[pointer]
-                3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[pointer]
-            }
-            specialityLayout.visibility = View.GONE
-        }
-
-
-
-
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDetach() {
