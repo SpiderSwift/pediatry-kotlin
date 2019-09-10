@@ -29,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.MediaType
+import org.json.JSONObject
 import java.io.File
 import java.lang.Exception
 import java.util.*
@@ -50,6 +51,8 @@ class RegistrationViewModel : ViewModel() {
     val infoValid = MutableLiveData<Boolean>().apply { value = false }
     val specialityValid = MutableLiveData<Boolean>().apply { value = false }
     val imageUrl = MutableLiveData<Uri>().apply { value = null }
+
+    val errorMessage: MutableLiveData<String> = MutableLiveData<String>().apply { value = null }
 
     var fragment: Fragment? = null
 
@@ -126,7 +129,24 @@ class RegistrationViewModel : ViewModel() {
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
                 Log.d(TAG, response.toString())
-                Log.d(TAG, response.errorBody()?.string())
+
+                val result = response.errorBody()?.string().toString()
+
+                try {
+                    val jsonObject = JSONObject(result)
+                    val errorCode = jsonObject.getInt("code")
+                    errorMessage.value = when(errorCode){
+                        410 -> "Неправильные данные о пользователе. Необходимые поля отсутствуют и/или имеют неправильный формат."
+                        411 -> "Пользователь с таким email уже зарегистрирован. Попробуйте войти."
+                        4121 -> "Файл пользовательского аватара имеет слишком большой размер."
+                        4122 -> "Файл пользовательского аватара имеет неверный формат."
+                        510 -> "Ошибка регистрации пользователя."
+                        else -> "Что-то пошло не так"
+                    }
+                } catch (e: Exception){
+                    Log.e(TAG, e.toString())
+                    errorMessage.value = "Что-то пошло не так."
+                }
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
                 //Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
