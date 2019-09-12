@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "DADATA_API_KEY", "29086ffc0958dbfb75263abb44f2bcc2ce755f66"
     }
     dataBinding {
         enabled = true
