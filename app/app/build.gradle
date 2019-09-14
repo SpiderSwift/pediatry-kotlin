@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: "androidx.navigation.safeargs"
 
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -17,7 +18,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "DADATA_API_KEY", "29086ffc0958dbfb75263abb44f2bcc2ce755f66"
     }
     dataBinding {
         enabled = true
@@ -94,5 +94,11 @@ dependencies {
     implementation 'com.redmadrobot:input-mask-android:4.3.1'
 
     implementation 'com.android.support:exifinterface:28.0.0'
+
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+
+
 
 }

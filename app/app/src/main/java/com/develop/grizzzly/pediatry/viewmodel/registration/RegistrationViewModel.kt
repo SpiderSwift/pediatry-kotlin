@@ -41,6 +41,7 @@ class RegistrationViewModel : ViewModel() {
 
     val email = MutableLiveData<String>().apply { value = "" }
     val password = MutableLiveData<String>().apply { value = "" }
+    val country = MutableLiveData<String>().apply { value="Россия" }
     val city = MutableLiveData<String>().apply { value = "" }
     val fullname = MutableLiveData<String>().apply { value = "" }
     val mainSpeciality = MutableLiveData<Speciality>().apply { value = null }
@@ -113,6 +114,7 @@ class RegistrationViewModel : ViewModel() {
                 RequestBody.create(textType, fullname[0]),
                 RequestBody.create(textType, fullname[2]),
                 RequestBody.create(textType, email.value!!),
+                RequestBody.create(textType, country.value!!),
                 RequestBody.create(textType, city.value!!),
                 RequestBody.create(textType, num),
                 RequestBody.create(textType, mainSpeciality.value!!.id.toString()),
@@ -128,9 +130,9 @@ class RegistrationViewModel : ViewModel() {
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
-                Log.d(TAG, response.toString())
-
                 val result = response.errorBody()?.string().toString()
+                Log.d(TAG, response.toString())
+                Log.d(TAG, result)
 
                 try {
                     val jsonObject = JSONObject(result)

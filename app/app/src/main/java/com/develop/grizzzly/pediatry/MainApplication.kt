@@ -1,8 +1,6 @@
 package com.develop.grizzzly.pediatry
 
 import android.app.Application
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import okhttp3.Credentials

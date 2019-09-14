@@ -24,6 +24,7 @@ interface PediatryApiClient {
         @Part("lastname") lastname : RequestBody,
         @Part("middlename") middlename : RequestBody?,
         @Part("email") email : RequestBody,
+        @Part("country") country: RequestBody,
         @Part("city") city : RequestBody,
         @Part("phone") phone : RequestBody,
         @Part("main_specialty_id") mainId : RequestBody,
