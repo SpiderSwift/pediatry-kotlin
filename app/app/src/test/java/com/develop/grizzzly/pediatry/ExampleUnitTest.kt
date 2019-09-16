@@ -1,6 +1,6 @@
 package com.develop.grizzzly.pediatry
 
-import com.develop.grizzzly.pediatry.util.formatPhone
+import com.develop.grizzzly.pediatry.extensions.formatPhone
 import org.junit.Test
 
 import org.junit.Assert.*

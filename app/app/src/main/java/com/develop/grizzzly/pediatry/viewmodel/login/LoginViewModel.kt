@@ -3,25 +3,18 @@ package com.develop.grizzzly.pediatry.viewmodel.login
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import com.develop.grizzzly.pediatry.MainApplication
 import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.R.id.custom_toast_container
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.db.model.User
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.util.md5
+import com.develop.grizzzly.pediatry.extensions.md5
 import kotlinx.coroutines.launch
-import android.view.Gravity
-import android.view.LayoutInflater
 import com.develop.grizzzly.pediatry.util.showToast
-import kotlinx.android.synthetic.main.custom_toast.view.*
 
 
 private const val TAG = "LOGIN VIEW MODEL"

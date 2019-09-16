@@ -1,8 +1,5 @@
-package com.develop.grizzzly.pediatry.util
+package com.develop.grizzzly.pediatry.extensions
 
-import android.widget.EditText
-import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.google.i18n.phonenumbers.Phonenumber
 import java.security.NoSuchAlgorithmException
 
 

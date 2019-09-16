@@ -6,16 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
-import android.telephony.PhoneNumberFormattingTextWatcher
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationStartBinding
-import com.develop.grizzzly.pediatry.util.isEmail
-import com.develop.grizzzly.pediatry.util.isPhoneNumber
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
-import kotlinx.android.synthetic.main.fragment_registration_start.*
 
 class RegistrationStartFragment : Fragment() {
 

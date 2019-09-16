@@ -1,4 +1,4 @@
-package com.develop.grizzzly.pediatry.util
+package com.develop.grizzzly.pediatry.extensions
 
 import android.widget.EditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener

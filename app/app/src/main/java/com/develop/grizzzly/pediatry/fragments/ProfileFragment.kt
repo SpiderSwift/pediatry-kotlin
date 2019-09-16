@@ -43,6 +43,12 @@ class ProfileFragment: Fragment() {
             ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         }!!
 
+        model.newAvatar.observe(this, Observer {
+            if(it != null){
+                profile_photo.setImageURI(it)
+            }
+        })
+
         binding.model = model
         binding.lifecycleOwner = this
 

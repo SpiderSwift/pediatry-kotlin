@@ -3,13 +3,9 @@ package com.develop.grizzzly.pediatry.viewmodel.registration
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.provider.OpenableColumns
-import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,21 +14,22 @@ import androidx.navigation.Navigation
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.extensions.formatPhone
+import com.develop.grizzzly.pediatry.extensions.isEmail
+import com.develop.grizzzly.pediatry.extensions.isPhoneNumber
+import com.develop.grizzzly.pediatry.extensions.md5
 import kotlinx.coroutines.launch
 
-import com.develop.grizzzly.pediatry.fragments.RegistrationSpecialityFragmentDirections
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.util.*
 
 import de.hdodenhof.circleimageview.CircleImageView
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.MediaType
 import org.json.JSONObject
 import java.io.File
 import java.lang.Exception
-import java.util.*
 
 
 private const val TAG = "REGISTRATION VIEW MODEL"

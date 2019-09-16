@@ -20,8 +20,22 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layoutAnimation="@anim/recyclerview_animation">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_edit_photo"
+                        android:layout_width="184dp"
+                        android:layout_height="184dp"
+                        android:layout_marginTop="24dp"
+                        android:src="@android:color/white"
+                        app:avatarUrl="@{model.avatarUrl}"
+                        app:civ_border_color="@color/colorWeakAccent"
+                        app:civ_border_width="3dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:onClick="@{model::onChangePhoto}"/>
 
                 <TextView
                         android:id="@+id/textView3"
@@ -33,7 +47,7 @@
                         android:text="Имя"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/profile_edit_photo" />
 
                 <EditText
                         android:id="@+id/editText2"
