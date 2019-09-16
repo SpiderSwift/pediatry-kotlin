@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileEditBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.util.addMask
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,6 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+private const val TAG = "PROFILE EDIT FRAGMENT"
 
 class ProfileEditFragment: Fragment() {
 
@@ -45,7 +48,7 @@ class ProfileEditFragment: Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
 
-        setupPhoneEditText(binding.phoneEditText)
+        binding.phoneEditText.addMask("+7 ([000]) [000]-[00]-[00]")
 
         return binding.root
     }
@@ -116,13 +119,13 @@ class ProfileEditFragment: Fragment() {
                     model.firstAdditionalSpeciality.value.toString(),
                     model.secondAdditionalSpeciality.value.toString()
                 )
-//                if (response.isSuccessful) {
-//                    Log.d("TAG", response.toString())
-//                    Log.d("TAG", response.body()?.string())
-//                } else {
-//                    Log.d("TAG", response.toString())
-//                    Log.d("TAG", response.errorBody()?.string())
-//                }
+                if (response.isSuccessful) {
+                    Log.d(TAG, response.toString())
+                    Log.d(TAG, response.body()?.string())
+                } else {
+                    Log.d(TAG, response.toString())
+                    Log.d(TAG, response.errorBody()?.string())
+                }
 
                 withContext(Dispatchers.Main) {
                     activity?.onBackPressed()
@@ -135,9 +138,6 @@ class ProfileEditFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setupPhoneEditText(editText: EditText){
-        val listener = MaskedTextChangedListener("+7 ([000]) [000]-[00]-[00]", editText)
-        editText.addTextChangedListener(listener)
-    }
+
 
 }

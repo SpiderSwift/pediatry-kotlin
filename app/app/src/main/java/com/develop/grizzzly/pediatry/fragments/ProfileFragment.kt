@@ -13,11 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.menu.MenuAdapter
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileBinding
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProfileFragment: Fragment() {
 
@@ -41,19 +46,19 @@ class ProfileFragment: Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
 
-//        GlobalScope.launch {
-//            val response = WebAccess.pediatryApi.getProfile()
-//            if (response.isSuccessful) {
-//                val name = response.body()?.response?.name
-//                val lastname = response.body()?.response?.lastname
-//                val avatarUrl = "${response.body()?.response?.avatar}"
-//                withContext(Dispatchers.Main) {
-//                    model.name.postValue(name)
-//                    model.lastname.postValue(lastname)
-//                    model.avatarUrl.postValue(avatarUrl)
-//                }
-//            }
-//        }
+        GlobalScope.launch {
+            val response = WebAccess.pediatryApi.getProfile()
+            if (response.isSuccessful) {
+                val name = response.body()?.response?.name
+                val lastname = response.body()?.response?.lastname
+                val avatarUrl = "${response.body()?.response?.avatar}"
+                withContext(Dispatchers.Main) {
+                    model.name.postValue(name)
+                    model.lastname.postValue(lastname)
+                    model.avatarUrl.postValue(avatarUrl)
+                }
+            }
+        }
 
         return binding.root
     }

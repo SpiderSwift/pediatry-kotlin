@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.viewmodel.profile
 
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -20,12 +21,13 @@ class ProfileViewModel : ViewModel() {
     val firstAdditionalSpeciality = MutableLiveData<Long>().apply { value = null }
     val secondAdditionalSpeciality = MutableLiveData<Long>().apply { value = null }
     val avatarUrl = MutableLiveData<String>().apply { value = "error" }
+    val newAvatar = MutableLiveData<Uri>().apply { value = null }
     val phoneNumber = MutableLiveData<String>().apply { value = "" }
 
-    var  mainSpecialities : List<Speciality> = listOf()
-    var  additionalSpecialities : List<Speciality> = listOf()
+    var mainSpecialities: List<Speciality> = listOf()
+    var additionalSpecialities: List<Speciality> = listOf()
 
-    fun getMainSpecialityName() : String {
+    fun getMainSpecialityName(): String {
         for (spec in mainSpecialities) {
             if (spec.id == mainSpeciality.value) {
                 return spec.name
@@ -34,7 +36,7 @@ class ProfileViewModel : ViewModel() {
         return ""
     }
 
-    fun getFirstAdditionalSpecialityName() : String {
+    fun getFirstAdditionalSpecialityName(): String {
         for (spec in additionalSpecialities) {
             if (spec.id == firstAdditionalSpeciality.value) {
                 return spec.name
@@ -44,10 +46,10 @@ class ProfileViewModel : ViewModel() {
     }
 
 
-    fun getNumber() : String {
+    fun getNumber(): String {
         return try {
             val value = phoneNumber.value!!
-            if(value.substring(2,3) == " "){
+            if (value.substring(2, 3) == " ") {
                 return value
             }
             val code = value.substring(0, 2)
@@ -55,12 +57,12 @@ class ProfileViewModel : ViewModel() {
             val num = value.substring(7)
             return "$code $operator $num"
 
-        } catch (ignored : Exception) {
+        } catch (ignored: Exception) {
             ""
         }
     }
 
-    fun getSecondAdditionalSpecialityName() : String {
+    fun getSecondAdditionalSpecialityName(): String {
         for (spec in additionalSpecialities) {
             if (spec.id == secondAdditionalSpeciality.value) {
                 return spec.name
@@ -69,7 +71,8 @@ class ProfileViewModel : ViewModel() {
         return ""
     }
 
-    fun onEdit(view : View) {
+
+    fun onEdit(view: View) {
         val navController = Navigation.findNavController(view)
         navController.navigate(R.id.action_profile_to_edit)
     }

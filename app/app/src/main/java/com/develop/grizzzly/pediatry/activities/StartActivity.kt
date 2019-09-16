@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.util.showToast
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -34,11 +35,11 @@ class StartActivity : AppCompatActivity() {
 
         //TODO: надо предусмотреть отсутсвие подключения к сети в каждом запросе
         if (!verifyAvailableNetwork(this)) {
-            Toast.makeText(
+            showToast(
                 this,
-                "Нет подключения к интернету. Возобновите подключение и перезапустите приложение.",
-                Toast.LENGTH_LONG
-            ).show()
+                R.layout.custom_toast,
+                "Нет подключения к интернету. Возобновите подключение и перезапустите приложение."
+            )
             return
         }
 

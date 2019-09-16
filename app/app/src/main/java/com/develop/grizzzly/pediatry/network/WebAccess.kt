@@ -12,7 +12,7 @@ import java.util.*
 
 
 object WebAccess {
-    val url = if (BuildConfig.DEBUG) {
+    private val url = if (BuildConfig.DEBUG) {
         "https://edu-pediatrics.com/api/v1/"
     } else {
         "https://edu-pediatrics.com/api/v1/"

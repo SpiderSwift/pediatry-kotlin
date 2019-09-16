@@ -24,10 +24,11 @@ import kotlinx.android.synthetic.main.fragment_registration_info.*
 import java.io.File
 import android.provider.OpenableColumns
 import androidx.room.util.CursorUtil.getColumnIndex
+import com.develop.grizzzly.pediatry.util.addMask
 import com.develop.grizzzly.pediatry.util.minimizeImage
 
 
-const val TAG = "REGISTRATION INFO F"
+private const val TAG = "REGISTRATION INFO F"
 
 class RegistrationInfoFragment : Fragment() {
 
@@ -47,8 +48,7 @@ class RegistrationInfoFragment : Fragment() {
             false
         )
 
-        val listener = MaskedTextChangedListener("+7 ([000]) [000]-[00]-[00]", binding.tePhone)
-        binding.tePhone.addTextChangedListener(listener)
+        binding.tePhone.addMask("+7 ([000]) [000]-[00]-[00]")
 
         model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
