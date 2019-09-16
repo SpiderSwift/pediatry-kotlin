@@ -35,7 +35,7 @@
                 android:fontFamily="@font/gothampromedium"
                 android:text="@{model.startTime}"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorConfSep"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -68,8 +68,8 @@
             <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:background="@color/colorConfSep"
-                    app:cardBackgroundColor="@color/colorConfSep"
+                    android:background="@color/colorPrimaryDark"
+                    app:cardBackgroundColor="@color/colorPrimaryDark"
                     app:cardCornerRadius="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -110,7 +110,7 @@
                 android:fontFamily="@font/gothampromedium"
                 android:text="@{model.data.subject}"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorConfSep"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 android:lineHeight="22sp"
                 app:layout_constraintEnd_toEndOf="parent"

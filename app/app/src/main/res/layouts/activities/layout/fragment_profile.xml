@@ -35,7 +35,7 @@
                 android:fontFamily="@font/gothampro"
                 android:text="@{model.name + ` ` + model.middlename + ` ` + model.lastname}"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/gothampro"
                 android:text="@{model.mainSpecialityName + `, ` + model.city}"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorPrimaryDark"
 
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +115,7 @@
                         android:maxLines="1"
                         android:paddingRight="60dp"
                         android:text="@{model.phoneNumber}"
-                        android:textColor="@color/colorConfSep"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,7 +162,7 @@
                         android:maxLines="1"
                         android:paddingRight="60dp"
                         android:text="@{model.email}"
-                        android:textColor="@color/colorConfSep"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp"
                         app:layout_constraintTop_toTopOf="parent" />
 

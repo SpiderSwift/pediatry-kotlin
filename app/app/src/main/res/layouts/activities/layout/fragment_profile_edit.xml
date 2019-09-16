@@ -20,414 +20,420 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layoutAnimation="@anim/recyclerview_animation">
+                    android:layout_height="match_parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_edit_photo"
                         android:layout_width="184dp"
                         android:layout_height="184dp"
                         android:layout_marginTop="24dp"
+                        android:onClick="@{model::onChangePhoto}"
                         android:src="@android:color/white"
                         app:avatarUrl="@{model.avatarUrl}"
                         app:civ_border_color="@color/colorWeakAccent"
                         app:civ_border_width="3dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:onClick="@{model::onChangePhoto}"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Имя"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profile_edit_photo" />
-
-                <EditText
-                        android:id="@+id/editText2"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/gothampro"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@={model.name}"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-
-                <View
-                        android:id="@+id/view2"
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText2"
-                        tools:layout_editor_absoluteX="8dp" />
-
-
-                <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Фамилия"
-                        android:textSize="16sp"
+                        android:layout_height="match_parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view2" />
+                        android:layoutAnimation="@anim/recyclerview_animation"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_edit_photo">
 
-                <EditText
-                        android:id="@+id/editText3"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/gothampro"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@={model.lastname}"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Имя"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-
-                <View
-                        android:id="@+id/view3"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText3"
-                        tools:layout_editor_absoluteX="8dp" />
-
-
-                <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Отчество"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-                <EditText
-                        android:id="@+id/editText4"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/gothampro"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@={model.middlename}"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    <EditText
+                            android:id="@+id/editText2"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/gothampro"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@={model.name}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
-                <View
-                        android:id="@+id/view5"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText4"
-                        tools:layout_editor_absoluteX="8dp" />
+                    <View
+                            android:id="@+id/view2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/editText2"
+                            tools:layout_editor_absoluteX="8dp" />
 
 
-                <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Город"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view5" />
+                    <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Фамилия"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-                <EditText
-                        android:id="@+id/editText5"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/gothampro"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@={model.city}"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-
-                <View
-                        android:id="@+id/view4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText5"
-                        tools:layout_editor_absoluteX="8dp" />
-
-                <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Основная специальность"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-                <Button
-                        android:id="@+id/btnMainSpeciality"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="0dp"
-                        android:fontFamily="@font/gothampro"
-                        android:gravity="center_vertical"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@{model.mainSpecialityName}"
-                        android:textAllCaps="false"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                    <EditText
+                            android:id="@+id/editText3"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/gothampro"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@={model.lastname}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
-                <View
-                        android:id="@+id/view6"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/btnMainSpeciality"
-                        tools:layout_editor_absoluteX="8dp" />
+                    <View
+                            android:id="@+id/view3"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/editText3"
+                            tools:layout_editor_absoluteX="8dp" />
 
 
-                <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Вторая специальность"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view6" />
+                    <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Отчество"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-                <Button
-                        android:id="@+id/btnFirstAdditionalSpeciality"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="0dp"
-                        android:fontFamily="@font/gothampro"
-                        android:gravity="center_vertical"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@{model.firstAdditionalSpecialityName}"
-                        android:textAllCaps="false"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                    <EditText
+                            android:id="@+id/editText4"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/gothampro"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@={model.middlename}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
-                <View
-                        android:id="@+id/view7"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/btnFirstAdditionalSpeciality"
-                        tools:layout_editor_absoluteX="8dp" />
+                    <View
+                            android:id="@+id/view5"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/editText4"
+                            tools:layout_editor_absoluteX="8dp" />
 
 
-                <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Третья специальность"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view7" />
+                    <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Город"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                    <EditText
+                            android:id="@+id/editText5"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/gothampro"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@={model.city}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
-                <Button
-                        android:id="@+id/btnSecondAdditionalSpeciality"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="0dp"
-                        android:fontFamily="@font/gothampro"
-                        android:gravity="center_vertical"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@{model.secondAdditionalSpecialityName}"
-                        android:textAllCaps="false"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                    <View
+                            android:id="@+id/view4"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/editText5"
+                            tools:layout_editor_absoluteX="8dp" />
 
-                <View
-                        android:id="@+id/view8"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/btnSecondAdditionalSpeciality"
-                        tools:layout_editor_absoluteX="8dp" />
+                    <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Основная специальность"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-                <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Мобильный телефон"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view8" />
-
-                <EditText
-                        android:id="@+id/phoneEditText"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/gothampro"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@={model.phoneNumber}"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    <Button
+                            android:id="@+id/btnMainSpeciality"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="0dp"
+                            android:fontFamily="@font/gothampro"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@{model.mainSpecialityName}"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 
-                <View
-                        android:id="@+id/view9"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/phoneEditText"
-                        tools:layout_editor_absoluteX="8dp" />
-
-                <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Email"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view9" />
-
-                <EditText
-                        android:id="@+id/editText10"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/gothampro"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@={model.email}"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                    <View
+                            android:id="@+id/view6"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/btnMainSpeciality"
+                            tools:layout_editor_absoluteX="8dp" />
 
 
-                <Button
-                        android:id="@+id/btnEdit"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/accent_btn_drawable"
-                        android:fontFamily="@font/gothampro"
-                        android:text="@string/edit"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText10" />
+                    <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Вторая специальность"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+                    <Button
+                            android:id="@+id/btnFirstAdditionalSpeciality"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="0dp"
+                            android:fontFamily="@font/gothampro"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@{model.firstAdditionalSpecialityName}"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 
+                    <View
+                            android:id="@+id/view7"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/btnFirstAdditionalSpeciality"
+                            tools:layout_editor_absoluteX="8dp" />
+
+
+                    <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Третья специальность"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+
+                    <Button
+                            android:id="@+id/btnSecondAdditionalSpeciality"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="0dp"
+                            android:fontFamily="@font/gothampro"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@{model.secondAdditionalSpecialityName}"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+                    <View
+                            android:id="@+id/view8"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/btnSecondAdditionalSpeciality"
+                            tools:layout_editor_absoluteX="8dp" />
+
+                    <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Мобильный телефон"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view8" />
+
+                    <EditText
+                            android:id="@+id/phoneEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/gothampro"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@={model.phoneNumber}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+
+                    <View
+                            android:id="@+id/view9"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#E5E5E5"
+                            app:layout_constraintTop_toBottomOf="@+id/phoneEditText"
+                            tools:layout_editor_absoluteX="8dp" />
+
+                    <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/gothampro"
+                            android:text="Email"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+                    <EditText
+                            android:id="@+id/editText10"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_edit"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/gothampro"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@={model.email}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+
+                    <Button
+                            android:id="@+id/btnEdit"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/accent_btn_drawable"
+                            android:fontFamily="@font/gothampro"
+                            android:text="@string/edit"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/editText10" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

@@ -48,7 +48,7 @@
                     android:maxEms="12"
                     android:text="@{model.name + ` ` + model.lastname}"
                     android:textAlignment="textStart"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="@+id/ivPhoto"
                     app:layout_constraintStart_toEndOf="@+id/ivPhoto"
