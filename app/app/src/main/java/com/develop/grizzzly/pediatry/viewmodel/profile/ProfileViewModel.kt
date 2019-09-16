@@ -47,6 +47,9 @@ class ProfileViewModel : ViewModel() {
     fun getNumber() : String {
         return try {
             val value = phoneNumber.value!!
+            if(value.substring(2,3) == " "){
+                return value
+            }
             val code = value.substring(0, 2)
             val operator = value.substring(2, 7)
             val num = value.substring(7)

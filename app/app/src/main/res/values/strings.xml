@@ -26,7 +26,7 @@
     <string name="error_message">Что-то пошло не так, попробуйте еще раз…</string>
     <string name="ok">OK</string>
     <string name="enter_email">Электронная почта</string>
-    <string name="enter_full_name">ФИО</string>
+    <string name="enter_full_name">ФИО(Иванов Иван Иванович)</string>
     <string name="enter_speciality">Выберите вашу специальность</string>
     <string name="speciality">Специальность</string>
     <string name="main_speciality">Основная специальность</string>

@@ -6,16 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.menu.MenuAdapter
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileBinding
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_menu.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment: Fragment() {
+
+    private lateinit var model: ProfileViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentProfileBinding>(
@@ -28,7 +34,7 @@ class ProfileFragment: Fragment() {
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
         mainActivity?.toolbarTitle?.text = "Профиль"
 
-        val model = activity?.run {
+        model = activity?.run {
             ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         }!!
 
@@ -50,6 +56,14 @@ class ProfileFragment: Fragment() {
 //        }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        model.phoneNumber.observe(this, Observer {
+            valuePhone.text = model.getNumber()
+        })
+        super.onViewCreated(view, savedInstanceState)
     }
 
 
