@@ -1,12 +1,16 @@
 package com.develop.grizzzly.pediatry.network.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.develop.grizzzly.pediatry.db.DateConverter
 import java.util.*
 
-
-data class Conference constructor(val id : Long?,
+@Entity
+data class Conference constructor(@PrimaryKey val id : Long?,
                                   val title : String?,
                                   val description : String?,
-                                  val startDate : Date?,
+                                  @TypeConverters(DateConverter::class) val startDate : Date?,
                                   val startTime : String?,
                                   val city : String?,
                                   val address : String?,

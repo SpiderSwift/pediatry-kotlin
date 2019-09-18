@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.menu.MenuAdapter
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileBinding
+import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -53,17 +54,31 @@ class ProfileFragment: Fragment() {
         binding.lifecycleOwner = this
 
         GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getProfile()
-            if (response.isSuccessful) {
-                val name = response.body()?.response?.name
-                val lastname = response.body()?.response?.lastname
-                val avatarUrl = "${response.body()?.response?.avatar}"
+            try {
+                val response = WebAccess.pediatryApi.getProfile()
+                if (response.isSuccessful) {
+                    DatabaseAccess.database.profileDao().saveProfile(response.body()?.response!!)
+                    val name = response.body()?.response?.name
+                    val lastname = response.body()?.response?.lastname
+                    val avatarUrl = "${response.body()?.response?.avatar}"
+                    withContext(Dispatchers.Main) {
+                        model.name.postValue(name)
+                        model.lastname.postValue(lastname)
+                        model.avatarUrl.postValue(avatarUrl)
+                    }
+                }
+            } catch (e : Exception) {
+                val profile = DatabaseAccess.database.profileDao().loadProfile(0)
+                val name = profile?.name
+                val lastname = profile?.lastname
+                val avatarUrl = "${profile?.avatar}"
                 withContext(Dispatchers.Main) {
                     model.name.postValue(name)
                     model.lastname.postValue(lastname)
                     model.avatarUrl.postValue(avatarUrl)
                 }
             }
+
         }
 
         return binding.root

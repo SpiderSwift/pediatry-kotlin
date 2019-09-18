@@ -10,7 +10,7 @@ object DatabaseAccess {
         return@lazy Room.databaseBuilder(
             MainApplication.get()!!.applicationContext,
             AppDatabase::class.java, "pediatry"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
 }

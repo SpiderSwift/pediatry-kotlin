@@ -1,7 +1,9 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
@@ -27,13 +29,15 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.develop.grizzzly.pediatry.network.WebAccess
 
 
-class NewsFragment : Fragment() {
 
+
+class NewsFragment : Fragment() {
 
     private lateinit var adapter: NewsAdapter
     private lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val myActivity = activity as MainActivity?
         myActivity?.supportActionBar?.show()
         myActivity?.toolbarTitle?.text = "Новости"
@@ -73,14 +77,6 @@ class NewsFragment : Fragment() {
         //listNews.layoutManager = manager
 
 
-        GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getArchiveWebinars()
-            if (response.isSuccessful) {
-                Log.d("TAG", response.body()?.response.toString())
-            } else {
-                Log.d("TAG", response.errorBody()?.string())
-            }
-        }
 
         viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)
