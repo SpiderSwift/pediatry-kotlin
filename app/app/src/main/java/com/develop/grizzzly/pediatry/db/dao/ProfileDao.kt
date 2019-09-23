@@ -11,6 +11,6 @@ interface ProfileDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveProfile(u : Profile) : Long
 
-    @Query(value = "SELECT * FROM profile WHERE id = :id LIMIT 1")
+    @Query(value = "SELECT * FROM profile WHERE saveId = :id LIMIT 1")
     suspend fun loadProfile(id : Int) : Profile?
 }

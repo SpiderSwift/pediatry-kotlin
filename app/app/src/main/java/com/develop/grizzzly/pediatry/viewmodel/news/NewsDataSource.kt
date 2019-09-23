@@ -15,14 +15,37 @@ class NewsDataSource : PositionalDataSource<News>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<News>) {
         GlobalScope.launch {
             try {
-                val response = apiService.getNews(0, params.requestedLoadSize.toLong())
-                when {
-                    response.isSuccessful -> {
-                        val listing = response.body()
-                        database.newsDao().saveNews(listing?.response ?: listOf())
-                        callback.onResult(listing?.response ?: listOf(),0)
+                if (!WebAccess.offlineLog) {
+                    val response = apiService.getNews(0, params.requestedLoadSize.toLong())
+                    when {
+                        response.isSuccessful -> {
+                            val listing = response.body()
+                            database.newsDao().saveNews(listing?.response ?: listOf())
+                            callback.onResult(listing?.response ?: listOf(),0)
+                        }
+                    }
+                } else {
+                    val user = DatabaseAccess.database.userDao().findUser(0)
+                    val response = WebAccess.pediatryApi.login(user?.email, user?.password)
+                    if (response.isSuccessful) {
+                        WebAccess.id = response.body()?.response?.id ?: 0
+                        WebAccess.token = response.body()?.response?.token ?: ""
+                        val responseNews = apiService.getNews(0, params.requestedLoadSize.toLong())
+                        when {
+                            responseNews.isSuccessful -> {
+                                val listing = responseNews.body()
+                                database.newsDao().saveNews(listing?.response ?: listOf())
+                                callback.onResult(listing?.response ?: listOf(),0)
+                            }
+                        }
+
+
+                    } else {
+                        val news = database.newsDao().getNews(0, params.requestedLoadSize.toLong())
+                        callback.onResult(news,0)
                     }
                 }
+
             } catch (e : Exception) {
                 val news = database.newsDao().getNews(0, params.requestedLoadSize.toLong())
                 callback.onResult(news,0)

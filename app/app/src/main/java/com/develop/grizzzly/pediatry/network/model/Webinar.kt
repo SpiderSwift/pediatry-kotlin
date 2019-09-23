@@ -5,6 +5,7 @@ import java.util.*
 data class Webinar constructor(val id : Long,
                                val title : String,
                                val subTitle : String?,
+                               val directionId : Long?,
                                val description : String?,
                                val startDate : Date?,
                                val startTime : String,

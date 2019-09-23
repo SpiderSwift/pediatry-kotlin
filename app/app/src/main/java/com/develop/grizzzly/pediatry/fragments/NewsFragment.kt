@@ -44,7 +44,6 @@ class NewsFragment : Fragment() {
         myActivity?.bottom_nav?.visibility = View.VISIBLE
         myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        Log.d("TAG", "onCreateView")
 
         retainInstance = true
         return inflater.inflate(R.layout.fragment_news, container, false)
@@ -62,6 +61,9 @@ class NewsFragment : Fragment() {
         }!!
         listNews.setHasFixedSize(true)
 
+
+
+
         if (viewModel.adapter == null) {
             viewModel.adapter = NewsAdapter()
         }
@@ -75,8 +77,6 @@ class NewsFragment : Fragment() {
         (listNews.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         //val manager = GridLayoutManager(activity ,2)
         //listNews.layoutManager = manager
-
-
 
         viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)

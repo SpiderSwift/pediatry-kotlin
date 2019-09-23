@@ -1,58 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            <TextView
+                    android:id="@+id/tvProgram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gothampromedium"
+                    android:text="@string/conference_program"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/accent_btn_drawable"
+                    android:fontFamily="@font/gothampro"
+                    android:text="@string/enter_conference"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listStages"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listStages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProgram">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
+            android:id="@+id/errorMsg"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
         <TextView
-                android:id="@+id/tvProgram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/conference_program"
-                android:fontFamily="@font/gothampromedium"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:textSize="20sp"
-                android:autoSizeTextType="uniform"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-        <Button
-                android:id="@+id/btnRegister"
-                android:text="@string/enter_conference"
-                android:background="@drawable/accent_btn_drawable"
-                android:layout_width="250dp"
-                android:textColor="@android:color/white"
-                android:fontFamily="@font/gothampro"
-                android:textSize="18sp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/listStages"
+                android:text="ОШИБОЧКА ВЫШЛА"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listStages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvProgram">
-        </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+            android:id="@+id/load"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 

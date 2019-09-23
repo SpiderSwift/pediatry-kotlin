@@ -34,40 +34,68 @@ class StartActivity : AppCompatActivity() {
         )
 
         //TODO: надо предусмотреть отсутсвие подключения к сети в каждом запросе
-        if (!verifyAvailableNetwork(this)) {
-            showToast(
-                this,
-                R.layout.custom_toast,
-                "Нет подключения к интернету. Возобновите подключение и перезапустите приложение."
-            )
-            return
-        }
+//        if (!verifyAvailableNetwork(this)) {
+//            showToast(
+//                this,
+//                R.layout.custom_toast,
+//                "Нет подключения к интернету. Возобновите подключение и перезапустите приложение."
+//            )
+//            return
+//        }
 
         GlobalScope.launch {
 
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d(TAG, user.toString())
-            val response = WebAccess.pediatryApi.login(user?.email, user?.password)
-            delay(1500)
-            if (response.isSuccessful) {
-                if (response.body()?.status != 200L) {
-                    val navController = nav_host_fragment.findNavController()
-                    navController.navigate(R.id.action_start_to_login)
-                } else {
-                    Log.d(TAG, response.toString())
-                    Log.d(TAG, response.body().toString())
-                    WebAccess.id = response.body()?.response?.id ?: 0
-                    WebAccess.token = response.body()?.response?.token ?: ""
+            try {
+                val response = WebAccess.pediatryApi.login(user?.email, user?.password)
+                delay(1500)
+                try {
+                    if (response.isSuccessful) {
+                        if (response.body()?.status != 200L) {
+                            val navController = nav_host_fragment.findNavController()
+                            navController.navigate(R.id.action_start_to_login)
+                        } else {
+                            Log.d(TAG, response.toString())
+                            Log.d(TAG, response.body().toString())
+                            WebAccess.id = response.body()?.response?.id ?: 0
+                            WebAccess.token = response.body()?.response?.token ?: ""
+                            val intent = Intent(baseContext, MainActivity::class.java)
+                            WebAccess.offlineLog = false
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        }
+
+                    } else {
+                        val navController = nav_host_fragment.findNavController()
+                        navController.navigate(R.id.action_start_to_login)
+                    }
+                } catch (e : Exception) {
+                    if (user != null) {
+                        val intent = Intent(baseContext, MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    } else {
+                        val navController = nav_host_fragment.findNavController()
+                        navController.navigate(R.id.action_start_to_login)
+                    }
+
+                }
+            } catch (e : Exception) {
+                if (user != null) {
                     val intent = Intent(baseContext, MainActivity::class.java)
                     intent.flags =
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
+                } else {
+                    val navController = nav_host_fragment.findNavController()
+                    navController.navigate(R.id.action_start_to_login)
                 }
-
-            } else {
-                val navController = nav_host_fragment.findNavController()
-                navController.navigate(R.id.action_start_to_login)
             }
+
+
         }
     }
 

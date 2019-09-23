@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
@@ -45,14 +46,7 @@ class MainActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
 
-            GlobalScope.launch {
-                val response = WebAccess.pediatryApi.getBroadcasts()
-                if (response.isSuccessful) {
-                    Log.d(TAG, response.body()?.response.toString())
-                } else {
-                    Log.d(TAG, response.errorBody()?.string())
-                }
-            }
+
 
         setContentView(R.layout.activity_main)
 
@@ -67,34 +61,75 @@ class MainActivity : AppCompatActivity() {
         val profileModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
         GlobalScope.launch {
-            val mainSpec = WebAccess.pediatryApi.getMainSpecialities()
-            Log.d("launch request: ", mainSpec.toString())
-            val additionalSpec = WebAccess.pediatryApi.getAdditionalSpecialities()
-            val response = WebAccess.pediatryApi.getProfile()
-            if (response.isSuccessful) {
-                val profile = response.body()?.response
+            try {
+                if (!WebAccess.offlineLog) {
+                    val mainSpec = WebAccess.pediatryApi.getMainSpecialities()
+                    val list = mainSpec.body()?.response ?: listOf()
+                    list.forEach {
+                        it.main = true
+                    }
+                    DatabaseAccess.database.specialityDao().saveSpeciality(list)
 
-                val name = profile?.name
-                val lastname = profile?.lastname
-                val avatarUrl = "${profile?.avatar}"
-                withContext(Dispatchers.Main) {
-                    model.name.postValue(name)
-                    model.lastname.postValue(lastname)
-                    model.avatarUrl.postValue(avatarUrl)
-                    profileModel.city.value = profile?.city
-                    profileModel.name.value = profile?.name
-                    profileModel.middlename.value = profile?.middlename
-                    profileModel.lastname.value = profile?.lastname
-                    profileModel.avatarUrl.value = "${profile?.avatar}"
-                    profileModel.email.value = profile?.email
-                    profileModel.phoneNumber.value = profile?.phone
-                    profileModel.mainSpeciality.value = profile?.mainSpecialtyId
-                    profileModel.firstAdditionalSpeciality.value = profile?.additionalSpecialty1Id
-                    profileModel.secondAdditionalSpeciality.value = profile?.additionalSpecialty2Id
-                    profileModel.additionalSpecialities = additionalSpec.body()?.response ?: listOf()
-                    profileModel.mainSpecialities = mainSpec.body()?.response ?: listOf()
+                    val additionalSpec = WebAccess.pediatryApi.getAdditionalSpecialities()
+
+                    DatabaseAccess.database.specialityDao().saveSpeciality(additionalSpec.body()?.response ?: listOf())
+
+                    val response = WebAccess.pediatryApi.getProfile()
+                    DatabaseAccess.database.profileDao().saveProfile(response.body()!!.response!!)
+                    if (response.isSuccessful) {
+                        val profile = response.body()?.response
+
+                        val name = profile?.name
+                        val lastname = profile?.lastname
+                        val avatarUrl = "${profile?.avatar}"
+                        withContext(Dispatchers.Main) {
+                            model.name.postValue(name)
+                            model.lastname.postValue(lastname)
+                            model.avatarUrl.postValue(avatarUrl)
+                            profileModel.city.value = profile?.city
+                            profileModel.name.value = profile?.name
+                            profileModel.middlename.value = profile?.middlename
+                            profileModel.lastname.value = profile?.lastname
+                            profileModel.avatarUrl.value = "${profile?.avatar}"
+                            profileModel.email.value = profile?.email
+                            profileModel.phoneNumber.value = profile?.phone
+                            profileModel.mainSpeciality.value = profile?.mainSpecialtyId
+                            profileModel.firstAdditionalSpeciality.value = profile?.additionalSpecialty1Id
+                            profileModel.secondAdditionalSpeciality.value = profile?.additionalSpecialty2Id
+                            profileModel.additionalSpecialities = additionalSpec.body()?.response ?: listOf()
+                            profileModel.mainSpecialities = mainSpec.body()?.response ?: listOf()
+                        }
+                    }
+                } else {
+                    val profile = DatabaseAccess.database.profileDao().loadProfile(0)
+
+                    val name = profile?.name
+                    val lastname = profile?.lastname
+                    val avatarUrl = "${profile?.avatar}"
+                    withContext(Dispatchers.Main) {
+                        model.name.postValue(name)
+                        model.lastname.postValue(lastname)
+                        model.avatarUrl.postValue(avatarUrl)
+                        profileModel.city.value = profile?.city
+                        profileModel.name.value = profile?.name
+                        profileModel.middlename.value = profile?.middlename
+                        profileModel.lastname.value = profile?.lastname
+                        profileModel.avatarUrl.value = "${profile?.avatar}"
+                        profileModel.email.value = profile?.email
+                        profileModel.phoneNumber.value = profile?.phone
+                        profileModel.mainSpeciality.value = profile?.mainSpecialtyId
+                        profileModel.firstAdditionalSpeciality.value = profile?.additionalSpecialty1Id
+                        profileModel.secondAdditionalSpeciality.value = profile?.additionalSpecialty2Id
+                        profileModel.additionalSpecialities = DatabaseAccess.database.specialityDao().getAdditionalSpecialities()
+                        profileModel.mainSpecialities = DatabaseAccess.database.specialityDao().getMainSpecialities()
+                    }
                 }
+
+            } catch (e : Exception) {
+
             }
+
+
         }
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.network
 
-import android.util.Log
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
@@ -17,8 +16,10 @@ object WebAccess {
     } else {
         "https://edu-pediatrics.com/api/v1/"
     }
+
     var token: String = ""
     var id: Long = 0
+    var offlineLog: Boolean = true
 
     val pediatryApi: PediatryApiClient by lazy {
 

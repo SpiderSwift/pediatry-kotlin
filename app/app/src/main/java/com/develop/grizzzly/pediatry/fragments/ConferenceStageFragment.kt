@@ -19,10 +19,7 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_conference_stage.*
 import kotlinx.android.synthetic.main.fragment_recovery_start.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class ConferenceStageFragment : Fragment() {
 
@@ -55,21 +52,37 @@ class ConferenceStageFragment : Fragment() {
 
 
         GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getConference(args.id)
-            if (response.isSuccessful) {
-                val registered = response.body()?.response?.isRegistered ?: false
-                val list = response.body()!!.response!!.programs
 
-                Log.d("TAG", list.toString())
-                Log.d("TAG", registered.toString())
-                withContext(Dispatchers.Main) {
-                    data.value = registered
-                    listStages.adapter = ConferenceStageAdapter(list)
+            try {
+                val response = WebAccess.pediatryApi.getConference(args.id)
+                if (response.isSuccessful) {
+                    val registered = response.body()?.response?.isRegistered ?: false
+                    val list = response.body()!!.response!!.programs
+                    delay(150)
+                    Log.d("TAG", list.toString())
+                    Log.d("TAG", registered.toString())
+                    withContext(Dispatchers.Main) {
+                        data.value = registered
+                        listStages.adapter = ConferenceStageAdapter(list)
+                        load.visibility = View.GONE
+                        mainContent.visibility = View.VISIBLE
+                    }
+                } else {
+                    delay(150)
+                    withContext(Dispatchers.Main) {
+                        errorMsg.visibility = View.VISIBLE
+                        load.visibility = View.GONE
+                    }
+                    Log.d("TAG", response.errorBody()?.string())
                 }
-
-            } else {
-                Log.d("TAG", response.errorBody()?.string())
+            } catch (e : Exception) {
+                delay(150)
+                withContext(Dispatchers.Main) {
+                    errorMsg.visibility = View.VISIBLE
+                    load.visibility = View.GONE
+                }
             }
+
 
         }
 

@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,8 +56,10 @@ class ProfileFragment: Fragment() {
 
         GlobalScope.launch {
             try {
+                Log.d("TAG", "TRY")
                 val response = WebAccess.pediatryApi.getProfile()
                 if (response.isSuccessful) {
+                    Log.d("TAG", response.body()?.response.toString())
                     DatabaseAccess.database.profileDao().saveProfile(response.body()?.response!!)
                     val name = response.body()?.response?.name
                     val lastname = response.body()?.response?.lastname
@@ -69,6 +72,7 @@ class ProfileFragment: Fragment() {
                 }
             } catch (e : Exception) {
                 val profile = DatabaseAccess.database.profileDao().loadProfile(0)
+                Log.d("TAG", profile.toString())
                 val name = profile?.name
                 val lastname = profile?.lastname
                 val avatarUrl = "${profile?.avatar}"

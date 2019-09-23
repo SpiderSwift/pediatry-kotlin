@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Profile constructor(@PrimaryKey val id : Long = 0,
+data class Profile constructor(@PrimaryKey val saveId : Long = 0,
                                val name : String,
                                val lastname : String,
                                val middlename : String,
