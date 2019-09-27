@@ -27,7 +27,6 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
-        Log.e("Crated", "asdsd")
         AppCenter.start(
             application, "924aac8e-1298-49f0-92f9-f6b48b0ad367",
             Analytics::class.java, Crashes::class.java

@@ -53,16 +53,10 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        //viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-
-
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
         }!!
         listNews.setHasFixedSize(true)
-
-
-
 
         if (viewModel.adapter == null) {
             viewModel.adapter = NewsAdapter()
@@ -75,8 +69,6 @@ class NewsFragment : Fragment() {
         llm.isAutoMeasureEnabled = false
         listNews.layoutManager = llm
         (listNews.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        //val manager = GridLayoutManager(activity ,2)
-        //listNews.layoutManager = manager
 
         viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)

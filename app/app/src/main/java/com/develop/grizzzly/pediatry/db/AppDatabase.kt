@@ -5,12 +5,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.develop.grizzzly.pediatry.db.dao.*
 import com.develop.grizzzly.pediatry.db.model.User
-import com.develop.grizzzly.pediatry.network.model.Conference
-import com.develop.grizzzly.pediatry.network.model.News
-import com.develop.grizzzly.pediatry.network.model.Profile
-import com.develop.grizzzly.pediatry.network.model.Speciality
+import com.develop.grizzzly.pediatry.network.model.*
 
-@Database(entities = [User::class, News::class, Conference::class, Profile::class, Speciality::class], version = 7)
+@Database(entities = [User::class, News::class, Conference::class, Profile::class, Speciality::class, Webinar::class], version = 11)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -18,4 +15,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun conferenceDao() : ConferenceDao
     abstract fun profileDao() : ProfileDao
     abstract fun specialityDao() : SpecialityDao
+    abstract fun webinarDao() : WebinarDao
 }

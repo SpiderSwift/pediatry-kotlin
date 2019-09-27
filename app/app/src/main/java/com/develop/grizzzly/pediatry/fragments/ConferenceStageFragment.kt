@@ -68,7 +68,7 @@ class ConferenceStageFragment : Fragment() {
                         mainContent.visibility = View.VISIBLE
                     }
                 } else {
-                    delay(150)
+                    delay(200)
                     withContext(Dispatchers.Main) {
                         errorMsg.visibility = View.VISIBLE
                         load.visibility = View.GONE
@@ -76,7 +76,7 @@ class ConferenceStageFragment : Fragment() {
                     Log.d("TAG", response.errorBody()?.string())
                 }
             } catch (e : Exception) {
-                delay(150)
+                delay(200)
                 withContext(Dispatchers.Main) {
                     errorMsg.visibility = View.VISIBLE
                     load.visibility = View.GONE
@@ -89,29 +89,38 @@ class ConferenceStageFragment : Fragment() {
         btnRegister.setOnClickListener {
             if (data.value == false) {
                 GlobalScope.launch {
-                    Log.d("TAG","REG")
-                    val response = WebAccess.pediatryApi.registerForConference(args.id)
-                    if (response.isSuccessful) {
-                        Log.d("TAG", response.body()?.string())
-                        withContext(Dispatchers.Main) {
-                            data.value = true
+                    try {
+                        Log.d("TAG","REG")
+                        val response = WebAccess.pediatryApi.registerForConference(args.id)
+                        if (response.isSuccessful) {
+                            Log.d("TAG", response.body()?.string())
+                            withContext(Dispatchers.Main) {
+                                data.value = true
+                            }
+                        } else {
+                            Log.d("TAG", response.errorBody()?.string())
                         }
-                    } else {
-                        Log.d("TAG", response.errorBody()?.string())
+                    } catch (e : Exception) {
+
                     }
                 }
             } else {
                 GlobalScope.launch {
                     Log.d("TAG","UNNREG")
-                    val response = WebAccess.pediatryApi.unregisterForConference(args.id)
-                    if (response.isSuccessful) {
-                        Log.d("TAG", response.body()?.string())
-                        withContext(Dispatchers.Main) {
-                            data.value = false
+                    try {
+                        val response = WebAccess.pediatryApi.unregisterForConference(args.id)
+                        if (response.isSuccessful) {
+                            Log.d("TAG", response.body()?.string())
+                            withContext(Dispatchers.Main) {
+                                data.value = false
+                            }
+                        } else {
+                            Log.d("TAG", response.errorBody()?.string())
                         }
-                    } else {
-                        Log.d("TAG", response.errorBody()?.string())
+                    } catch (e : Exception) {
+
                     }
+
                 }
             }
         }

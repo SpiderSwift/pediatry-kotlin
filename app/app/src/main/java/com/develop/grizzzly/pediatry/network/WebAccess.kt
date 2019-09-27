@@ -17,6 +17,9 @@ object WebAccess {
         "https://edu-pediatrics.com/api/v1/"
     }
 
+
+
+
     var token: String = ""
     var id: Long = 0
     var offlineLog: Boolean = true

@@ -152,7 +152,8 @@ interface PediatryApiClient {
     ): Response<JsonNode>
 
     @GET("webinar")
-    suspend fun getWebinars(): Response<BasicResponse<List<Webinar>>>
+    suspend fun getWebinars(@Query("offset") offset: Long,
+                            @Query("limit") limit: Long): Response<BasicResponse<List<Webinar>>>
 
     @GET("webinar/archive")
     suspend fun getArchiveWebinars(): Response<BasicResponse<List<Webinar>>>

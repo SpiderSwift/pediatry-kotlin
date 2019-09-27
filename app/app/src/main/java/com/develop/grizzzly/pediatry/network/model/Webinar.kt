@@ -1,8 +1,11 @@
 package com.develop.grizzzly.pediatry.network.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
-data class Webinar constructor(val id : Long,
+@Entity
+data class Webinar constructor(@PrimaryKey val id : Long,
                                val title : String,
                                val subTitle : String?,
                                val directionId : Long?,

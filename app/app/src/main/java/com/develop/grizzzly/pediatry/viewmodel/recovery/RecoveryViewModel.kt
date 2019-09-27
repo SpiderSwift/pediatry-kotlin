@@ -15,12 +15,17 @@ class RecoveryViewModel : ViewModel() {
 
     fun onRecover(view : View) {
         viewModelScope.launch {
-            val response = WebAccess.pediatryApi.restorePassword(email.value.toString())
-            if (response.isSuccessful) {
-                Log.d("TAG", response.body()?.string())
-                val navController = Navigation.findNavController(view)
-                navController.navigate(R.id.action_recovery_start_to_recovery_finish)
+            try {
+                val response = WebAccess.pediatryApi.restorePassword(email.value.toString())
+                if (response.isSuccessful) {
+                    Log.d("TAG", response.body()?.string())
+                    val navController = Navigation.findNavController(view)
+                    navController.navigate(R.id.action_recovery_start_to_recovery_finish)
+                }
+            } catch (e : Exception) {
+
             }
+
         }
     }
 

@@ -1,26 +1,26 @@
-package com.develop.grizzzly.pediatry.viewmodel.news
+package com.develop.grizzzly.pediatry.viewmodel.webinar
 
 import androidx.paging.PositionalDataSource
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.News
+import com.develop.grizzzly.pediatry.network.model.Webinar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class NewsDataSource : PositionalDataSource<News>() {
+class WebinarDataSource : PositionalDataSource<Webinar>() {
 
     private val apiService = WebAccess.pediatryApi
     private val database = DatabaseAccess.database
 
-    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<News>) {
+    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Webinar>) {
         GlobalScope.launch {
             try {
                 if (!WebAccess.offlineLog) {
-                    val response = apiService.getNews(0, params.requestedLoadSize.toLong())
+                    val response = apiService.getWebinars(0, params.requestedLoadSize.toLong())
                     when {
                         response.isSuccessful -> {
                             val listing = response.body()
-                            database.newsDao().saveNews(listing?.response ?: listOf())
+                            database.webinarDao().saveWebinar(listing?.response ?: listOf())
                             callback.onResult(listing?.response ?: listOf(),0)
                         }
                     }
@@ -30,55 +30,45 @@ class NewsDataSource : PositionalDataSource<News>() {
                     if (response.isSuccessful) {
                         WebAccess.id = response.body()?.response?.id ?: 0
                         WebAccess.token = response.body()?.response?.token ?: ""
-                        val responseNews = apiService.getNews(0, params.requestedLoadSize.toLong())
+                        val responseNews = apiService.getWebinars(0, params.requestedLoadSize.toLong())
                         when {
                             responseNews.isSuccessful -> {
                                 val listing = responseNews.body()
-                                database.newsDao().saveNews(listing?.response ?: listOf())
+                                database.webinarDao().saveWebinar(listing?.response ?: listOf())
                                 callback.onResult(listing?.response ?: listOf(),0)
                             }
                         }
 
 
                     } else {
-                        val news = database.newsDao().getNews(0, params.requestedLoadSize.toLong())
+                        val news = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
                         callback.onResult(news,0)
                     }
                 }
 
             } catch (e : Exception) {
-                val news = database.newsDao().getNews(0, params.requestedLoadSize.toLong())
+                val news = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
                 callback.onResult(news,0)
             }
-
         }
-
     }
 
-    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
+    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Webinar>) {
         GlobalScope.launch {
             try {
-                val response = apiService.getNews(params.startPosition.toLong(), params.loadSize.toLong())
+                val response = apiService.getWebinars(params.startPosition.toLong(), params.loadSize.toLong())
                 when {
                     response.isSuccessful -> {
                         val listing = response.body()
-                        database.newsDao().saveNews(listing?.response ?: listOf())
+                        database.webinarDao().saveWebinar(listing?.response ?: listOf())
                         callback.onResult(listing?.response ?: listOf())
-                    }
-                    else -> {
-                        val news = database.newsDao().getNews(params.startPosition.toLong(), params.loadSize.toLong())
-                        callback.onResult(news)
                     }
                 }
             } catch (e : Exception) {
-                val news = database.newsDao().getNews(params.startPosition.toLong(), params.loadSize.toLong())
-                callback.onResult(news)
+                val list = database.webinarDao().getWebinar(params.startPosition.toLong(), params.loadSize.toLong())
+                callback.onResult(list)
             }
-
         }
     }
-
-
-
 
 }

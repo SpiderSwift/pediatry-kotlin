@@ -21,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class RegistrationSpecialityFragment : Fragment() {
 
@@ -44,10 +45,16 @@ class RegistrationSpecialityFragment : Fragment() {
         )
 
         GlobalScope.launch {
-            val respAdditional = WebAccess.pediatryApi.getAdditionalSpecialities()
-            val respMain = WebAccess.pediatryApi.getMainSpecialities()
-            mainSpecialityList = respMain.body()!!.response!!
-            additionalSpecialityList = respAdditional.body()!!.response!!
+            try {
+                val respAdditional = WebAccess.pediatryApi.getAdditionalSpecialities()
+                val respMain = WebAccess.pediatryApi.getMainSpecialities()
+                mainSpecialityList = respMain.body()!!.response!!
+                additionalSpecialityList = respAdditional.body()!!.response!!
+            } catch (e : Exception) {
+                mainSpecialityList = listOf()
+                additionalSpecialityList = listOf()
+            }
+
 
             btnMainSpeciality.setOnClickListener {
                 pointer = 0
@@ -61,13 +68,18 @@ class RegistrationSpecialityFragment : Fragment() {
                 pointer = position
             }
             tvChoose.setOnClickListener {
-                Log.d("TAG", picker.selectedItemPosition.toString())
-                when (currentSpeciality) {
-                    1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
-                    2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[pointer]
-                    3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                try {
+                    Log.d("TAG", picker.selectedItemPosition.toString())
+                    when (currentSpeciality) {
+                        1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
+                        2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                        3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                    }
+                    specialityLayout.visibility = View.GONE
+                } catch (e : Exception) {
+
                 }
-                specialityLayout.visibility = View.GONE
+
             }
         }
 

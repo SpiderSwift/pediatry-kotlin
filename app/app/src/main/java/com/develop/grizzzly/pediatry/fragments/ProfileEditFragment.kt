@@ -1,12 +1,15 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,10 +24,7 @@ import com.develop.grizzzly.pediatry.util.minimizeImage
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile_edit.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
@@ -69,6 +69,20 @@ class ProfileEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.bottom_nav?.visibility = View.GONE
+
+        if (verifyAvailableNetwork()) {
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(200)
+                mainContent.visibility = View.VISIBLE
+                load.visibility = View.GONE
+            }
+        } else {
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(200)
+                errorMsg.visibility = View.VISIBLE
+                load.visibility = View.GONE
+            }
+        }
 
         model.mainSpeciality.observe(this, Observer {
             btnMainSpeciality.text = model.getMainSpecialityName()
@@ -129,52 +143,58 @@ class ProfileEditFragment : Fragment() {
 
         btnEdit.setOnClickListener {
             GlobalScope.launch {
-                var firstAddSpec = ""
-                var secondAddSpec = ""
-                var requestFile: RequestBody? = null
-
-                if (model.firstAdditionalSpeciality?.value != null) {
-                    firstAddSpec = model.firstAdditionalSpeciality.value.toString()
-                }
-                if (model.secondAdditionalSpeciality?.value != null) {
-                    secondAddSpec = model.secondAdditionalSpeciality.value.toString()
-                }
-                val num = model.phoneNumber.value!!
-                    .formatPhone()
                 try {
-                    val file = File(getPath(view.context, model.newAvatar.value!!))
-                    requestFile = RequestBody.create(
-                        MediaType.parse(
-                            activity?.contentResolver?.getType(model.newAvatar.value!!) ?: ""
-                        ), file
+                    var firstAddSpec = ""
+                    var secondAddSpec = ""
+                    var requestFile: RequestBody? = null
+
+                    if (model.firstAdditionalSpeciality?.value != null) {
+                        firstAddSpec = model.firstAdditionalSpeciality.value.toString()
+                    }
+                    if (model.secondAdditionalSpeciality?.value != null) {
+                        secondAddSpec = model.secondAdditionalSpeciality.value.toString()
+                    }
+                    val num = model.phoneNumber.value!!
+                        .formatPhone()
+                    try {
+                        val file = File(getPath(view.context, model.newAvatar.value!!))
+                        requestFile = RequestBody.create(
+                            MediaType.parse(
+                                activity?.contentResolver?.getType(model.newAvatar.value!!) ?: ""
+                            ), file
+                        )
+                    } catch (ignored: Exception) {
+
+                    }
+                    val textType = MediaType.parse("text/plain")
+
+                    val response = WebAccess.pediatryApi.updateProfile(
+                        RequestBody.create(textType, model.name.value),
+                        RequestBody.create(textType, model.lastname.value),
+                        RequestBody.create(textType, model.middlename.value),
+                        RequestBody.create(textType, model.email.value),
+                        RequestBody.create(textType, model.city.value),
+                        RequestBody.create(textType, num),
+                        RequestBody.create(textType, model.mainSpeciality.value.toString()),
+                        RequestBody.create(textType, firstAddSpec),
+                        RequestBody.create(textType, secondAddSpec),
+                        requestFile
                     )
-                } catch (ignored: Exception) {
+                    if (response.isSuccessful) {
+                        Log.d(TAG, response.toString())
+                        Log.d(TAG, response.body()?.string())
+                    } else {
+                        Log.d(TAG, response.toString())
+                        Log.d(TAG, response.errorBody()?.string())
+                    }
 
-                }
-                val textType = MediaType.parse("text/plain")
-
-                val response = WebAccess.pediatryApi.updateProfile(
-                    RequestBody.create(textType, model.name.value),
-                    RequestBody.create(textType, model.lastname.value),
-                    RequestBody.create(textType, model.middlename.value),
-                    RequestBody.create(textType, model.email.value),
-                    RequestBody.create(textType, model.city.value),
-                    RequestBody.create(textType, num),
-                    RequestBody.create(textType, model.mainSpeciality.value.toString()),
-                    RequestBody.create(textType, firstAddSpec),
-                    RequestBody.create(textType, secondAddSpec),
-                    requestFile
-                )
-                if (response.isSuccessful) {
-                    Log.d(TAG, response.toString())
-                    Log.d(TAG, response.body()?.string())
-                } else {
-                    Log.d(TAG, response.toString())
-                    Log.d(TAG, response.errorBody()?.string())
-                }
-
-                withContext(Dispatchers.Main) {
-                    activity?.onBackPressed()
+                    withContext(Dispatchers.Main) {
+                        activity?.onBackPressed()
+                    }
+                } catch (e : Exception) {
+                    withContext(Dispatchers.Main) {
+                        activity?.onBackPressed()
+                    }
                 }
 
 
@@ -182,6 +202,14 @@ class ProfileEditFragment : Fragment() {
 
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+
+    private fun verifyAvailableNetwork(): Boolean {
+        val connectivityManager =
+            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

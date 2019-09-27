@@ -32,33 +32,43 @@ class NewsPostViewModel : ViewModel() {
 
         if (news.likedByUsers.contains(WebAccess.id)) {
             viewModelScope.launch {
-                val response = WebAccess.pediatryApi.unlikeNews(news.id)
-                if (response.isSuccessful) {
-                    liked.value = liked.value?.minus(1)
-                    news.liked = news.liked?.minus(1)
-                    news.likedByUsers.remove(WebAccess.id)
-                    newsViewModel.adapter?.notifyItemChanged(index)
-                    if (news.likedByUsers.contains(WebAccess.id)) {
-                        setImageGlide("error",imageView, R.drawable.ic_heart)
-                    } else {
-                        setImageGlide("error", imageView, R.drawable.ic_unlike)
+                try {
+                    val response = WebAccess.pediatryApi.unlikeNews(news.id)
+                    if (response.isSuccessful) {
+                        liked.value = liked.value?.minus(1)
+                        news.liked = news.liked?.minus(1)
+                        news.likedByUsers.remove(WebAccess.id)
+                        newsViewModel.adapter?.notifyItemChanged(index)
+                        if (news.likedByUsers.contains(WebAccess.id)) {
+                            setImageGlide("error",imageView, R.drawable.ic_heart)
+                        } else {
+                            setImageGlide("error", imageView, R.drawable.ic_unlike)
+                        }
                     }
+                } catch (e : Exception) {
+
                 }
+
             }
         } else {
             viewModelScope.launch {
-                val response = WebAccess.pediatryApi.likeNews(news.id)
-                if (response.isSuccessful) {
-                    liked.value = liked.value?.plus(1)
-                    news.liked = news.liked?.plus(1)
-                    news.likedByUsers.add(WebAccess.id)
-                    newsViewModel.adapter?.notifyItemChanged(index)
-                    if (news.likedByUsers.contains(WebAccess.id)) {
-                        setImageGlide("error",imageView, R.drawable.ic_heart)
-                    } else {
-                        setImageGlide("error", imageView, R.drawable.ic_unlike)
+                try {
+                    val response = WebAccess.pediatryApi.likeNews(news.id)
+                    if (response.isSuccessful) {
+                        liked.value = liked.value?.plus(1)
+                        news.liked = news.liked?.plus(1)
+                        news.likedByUsers.add(WebAccess.id)
+                        newsViewModel.adapter?.notifyItemChanged(index)
+                        if (news.likedByUsers.contains(WebAccess.id)) {
+                            setImageGlide("error",imageView, R.drawable.ic_heart)
+                        } else {
+                            setImageGlide("error", imageView, R.drawable.ic_unlike)
+                        }
                     }
+                } catch (e : Exception) {
+
                 }
+
             }
         }
     }

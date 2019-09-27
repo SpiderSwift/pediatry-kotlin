@@ -33,21 +33,31 @@ class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, 
     fun onLike(view : View) {
         if (news.likedByUsers.contains(WebAccess.id)) {
             viewModelScope.launch {
-                val response = WebAccess.pediatryApi.unlikeNews(news.id)
-                if (response.isSuccessful) {
-                    news.liked = news.liked?.minus(1)
-                    news.likedByUsers.remove(WebAccess.id)
-                    adapter.notifyItemChanged(item)
+                try {
+                    val response = WebAccess.pediatryApi.unlikeNews(news.id)
+                    if (response.isSuccessful) {
+                        news.liked = news.liked?.minus(1)
+                        news.likedByUsers.remove(WebAccess.id)
+                        adapter.notifyItemChanged(item)
+                    }
+                } catch (e : Exception) {
+
                 }
+
             }
         } else {
             viewModelScope.launch {
-                val response = WebAccess.pediatryApi.likeNews(news.id)
-                if (response.isSuccessful) {
-                    news.liked = news.liked?.plus(1)
-                    news.likedByUsers.add(WebAccess.id)
-                    adapter.notifyItemChanged(item)
+                try {
+                    val response = WebAccess.pediatryApi.likeNews(news.id)
+                    if (response.isSuccessful) {
+                        news.liked = news.liked?.plus(1)
+                        news.likedByUsers.add(WebAccess.id)
+                        adapter.notifyItemChanged(item)
+                    }
+                } catch (e : Exception) {
+
                 }
+
             }
         }
 

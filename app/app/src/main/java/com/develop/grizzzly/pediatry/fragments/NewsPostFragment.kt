@@ -27,13 +27,7 @@ import com.develop.grizzzly.pediatry.util.setImageGlide
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_news_post.*
 import kotlinx.android.synthetic.main.fragment_news_post.tvLike
-
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
-
+import kotlinx.coroutines.*
 
 
 class NewsPostFragment : Fragment() {
@@ -68,58 +62,72 @@ class NewsPostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         GlobalScope.launch {
-            val response = WebAccess.pediatryApi.getNewsById(args.newsId.toLong())
-            if (response.isSuccessful) {
-                val newsPost = response.body()?.response
-                withContext(Dispatchers.Main) {
-                    //viewModel.text.value = newsPost?.text
+            try {
+                val response = WebAccess.pediatryApi.getNewsById(args.newsId.toLong())
+                if (response.isSuccessful) {
+                    val newsPost = response.body()?.response
+                    withContext(Dispatchers.Main) {
+                        //viewModel.text.value = newsPost?.text
 
 
-                    //tvText.setText(newsPost?.text!!)
+                        //tvText.setText(newsPost?.text!!)
 
-                    tvText.settings.javaScriptEnabled = true
-
-
-                    val model = activity?.run {
-                        ViewModelProviders.of(this).get(NewsViewModel::class.java)
-                    }!!
+                        tvText.settings.javaScriptEnabled = true
 
 
-
-                    viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
-                    viewModel.liked.observe(this@NewsPostFragment, Observer {
-                        tvLike.text = it.toString()
-                    })
-
-                    viewModel.imageView = ivLike
-                    viewModel.newsViewModel = model
-                    viewModel.index = args.index
+                        val model = activity?.run {
+                            ViewModelProviders.of(this).get(NewsViewModel::class.java)
+                        }!!
 
 
 
-                    if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.id)) {
-                        setImageGlide("error", ivLike, R.drawable.ic_heart)
-                    } else {
-                        setImageGlide("error", ivLike , R.drawable.ic_unlike)
-                    }
+                        viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
+                        viewModel.liked.observe(this@NewsPostFragment, Observer {
+                            tvLike.text = it.toString()
+                        })
 
-                    tvText.webViewClient = object : WebViewClient() {
-                        override fun onReceivedHttpAuthRequest(
-                            view: WebView?,
-                            handler: HttpAuthHandler?,
-                            host: String?,
-                            realm: String?
-                        ) {
-                            handler!!.proceed("m5edu_dev", "_p3Y3QPGuG")
+                        viewModel.imageView = ivLike
+                        viewModel.newsViewModel = model
+                        viewModel.index = args.index
+
+
+
+                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.id)) {
+                            setImageGlide("error", ivLike, R.drawable.ic_heart)
+                        } else {
+                            setImageGlide("error", ivLike , R.drawable.ic_unlike)
                         }
+
+                        tvText.webViewClient = object : WebViewClient() {
+                            override fun onReceivedHttpAuthRequest(
+                                view: WebView?,
+                                handler: HttpAuthHandler?,
+                                host: String?,
+                                realm: String?
+                            ) {
+                                handler!!.proceed("m5edu_dev", "_p3Y3QPGuG")
+                            }
+                        }
+                        tvText.loadDataWithBaseURL("https://dev.edu-pediatrics.com/", newsPost?.text, "text/html", "UTF-8", "about:blank")
+
+                        viewModel.title.value = newsPost?.title
+                        viewModel.announcePicture.value = newsPost?.picture
+                        delay(200)
+                        mainContent.visibility = View.VISIBLE
+                        load.visibility = View.GONE
+
+
                     }
-                    tvText.loadDataWithBaseURL("https://dev.edu-pediatrics.com/", newsPost?.text, "text/html", "UTF-8", "about:blank")
 
-                    viewModel.title.value = newsPost?.title
-                    viewModel.announcePicture.value = newsPost?.picture
                 }
-
+            } catch (e : Exception) {
+                delay(200)
+                withContext(Dispatchers.Main) {
+                    load.visibility = View.GONE
+                    errorMsg.visibility = View.VISIBLE
+                }
             }
+
         }
 
         super.onViewCreated(view, savedInstanceState)

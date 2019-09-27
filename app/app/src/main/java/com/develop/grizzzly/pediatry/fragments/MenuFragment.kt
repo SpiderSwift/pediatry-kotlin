@@ -41,20 +41,6 @@ class MenuFragment: Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
 
-//        GlobalScope.launch {
-//            val response = WebAccess.pediatryApi.getProfile()
-//            if (response.isSuccessful) {
-//                val name = response.body()?.response?.name
-//                val lastname = response.body()?.response?.lastname
-//                val avatarUrl = "${response.body()?.response?.avatar}"
-//                withContext(Dispatchers.Main) {
-//                    model.name.postValue(name)
-//                    model.lastname.postValue(lastname)
-//                    model.avatarUrl.postValue(avatarUrl)
-//                }
-//            }
-//        }
-
         return binding.root
     }
 

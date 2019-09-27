@@ -56,10 +56,8 @@ class ProfileFragment: Fragment() {
 
         GlobalScope.launch {
             try {
-                Log.d("TAG", "TRY")
                 val response = WebAccess.pediatryApi.getProfile()
                 if (response.isSuccessful) {
-                    Log.d("TAG", response.body()?.response.toString())
                     DatabaseAccess.database.profileDao().saveProfile(response.body()?.response!!)
                     val name = response.body()?.response?.name
                     val lastname = response.body()?.response?.lastname
