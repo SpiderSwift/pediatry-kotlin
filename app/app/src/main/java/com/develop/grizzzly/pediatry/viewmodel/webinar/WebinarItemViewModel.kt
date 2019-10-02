@@ -4,6 +4,9 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
+import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.fragments.WebinarsFragmentDirections
 import com.develop.grizzzly.pediatry.network.model.Webinar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,6 +54,12 @@ class WebinarItemViewModel (val data : MutableLiveData<Webinar>) : ViewModel() {
 
 
     fun onWebinar(view : View) {
+        val navController = Navigation.findNavController(view)
+
+        val toWebinar = WebinarsFragmentDirections.actionWebinarToInfo()
+        toWebinar.id = data.value?.id ?: 0L
+
+        navController.navigate(toWebinar)
 
     }
 

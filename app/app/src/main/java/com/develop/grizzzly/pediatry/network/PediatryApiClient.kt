@@ -161,17 +161,17 @@ interface PediatryApiClient {
     @GET("webinar/{id}")
     suspend fun getWebinar(
         @Path("id") webinarId: Long
-    ): Response<JsonNode>
+    ): Response<BasicResponse<Webinar>>
 
     @POST("webinar/{id}/register")
     suspend fun registerForWebinar(
         @Path("id") webinarId: Long
-    ): Response<JsonNode>
+    ): Response<ResponseBody>
 
     @DELETE("webinar/{id}/register")
     suspend fun unregisterForWebinar(
         @Path("id") webinarId: Long
-    ): Response<JsonNode>
+    ): Response<ResponseBody>
 
     @GET("webinar/{id}/times")
     suspend fun getWebinarTime(
@@ -183,6 +183,6 @@ interface PediatryApiClient {
     suspend fun sendMessageForWebinar(
         @Path("id") webinarId: Long,
         @Field("message") message: String
-    ): Response<JsonNode>
+    ): Response<ResponseBody>
 
 }

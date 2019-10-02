@@ -123,8 +123,13 @@ class NewsPostFragment : Fragment() {
             } catch (e : Exception) {
                 delay(200)
                 withContext(Dispatchers.Main) {
-                    load.visibility = View.GONE
-                    errorMsg.visibility = View.VISIBLE
+                    try {
+                        load.visibility = View.GONE
+                        errorMsg.visibility = View.VISIBLE
+                    } catch (e : Exception) {
+
+                    }
+
                 }
             }
 

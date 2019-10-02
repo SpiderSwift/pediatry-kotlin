@@ -18,6 +18,23 @@
             android:id="@+id/webinars"
             android:label="@string/webinars"
             android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment">
+        <action android:id="@+id/action_webinar_to_info" app:destination="@id/webinar_info">
+            <argument
+                    android:name="id"
+                    app:argType="long"
+                    android:defaultValue="0L" />
+        </action>
+    </fragment>
+
+    <fragment
+            android:id="@+id/webinar_info"
+            android:label="@string/webinars"
+            android:name="com.develop.grizzzly.pediatry.fragments.WebinarInfoFragment">
+        <argument
+                android:name="id"
+                app:argType="long"
+                android:defaultValue="0L" />
+
     </fragment>
 
     <fragment
