@@ -47,6 +47,16 @@ class StartActivity : AppCompatActivity() {
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d(TAG, user.toString())
             try {
+
+                val ads = WebAccess.adApi.getAds()
+                if (ads.isSuccessful) {
+                    val list = ads.body()?.ads ?: listOf()
+                    Log.d("TAG","AND THE LIST IS $list")
+                    DatabaseAccess.database.adDao().saveAds(list)
+                } else {
+                    Log.d("TAG", "LOST LULW")
+                }
+
                 val response = WebAccess.pediatryApi.login(user?.email, user?.password)
                 delay(1500)
                 try {

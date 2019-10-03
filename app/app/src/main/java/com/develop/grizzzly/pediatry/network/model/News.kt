@@ -14,5 +14,6 @@ data class News constructor(@PrimaryKey val id : Long,
                             @TypeConverters(DateConverter::class) val date : Date?,
                             val announcePicture : String?,
                             var liked : Long?,
-                            @TypeConverters(ListConverter::class) var likedByUsers : MutableList<Long>)
+                            @TypeConverters(ListConverter::class) var likedByUsers : MutableList<Long>,
+                            var isAd : Boolean = false)
 

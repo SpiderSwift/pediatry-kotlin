@@ -17,7 +17,7 @@ object WebAccess {
         "https://edu-pediatrics.com/api/v1/"
     }
 
-
+    private val adUrl = "http://194.67.87.233/api/"
 
 
     var token: String = ""
@@ -45,5 +45,22 @@ object WebAccess {
             .build()
 
         return@lazy retrofit.create(PediatryApiClient::class.java)
+    }
+
+    val adApi: AdApiClient by lazy {
+        val client = OkHttpClient.Builder()
+            .build()
+
+        val moshi = Moshi.Builder()
+            .add(Date::class.java, Rfc3339DateJsonAdapter())
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .client(client)
+            .baseUrl(adUrl)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+
+        return@lazy retrofit.create(AdApiClient::class.java)
     }
 }

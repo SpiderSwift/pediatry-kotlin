@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.adapters.news
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,10 +31,19 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
     }
 
 
+
     class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
             //val data = MutableLiveData<News>(news)
+
+            if (news.isAd) {
+                binding.root.adCard.visibility = View.VISIBLE
+                binding.root.newsCard.visibility = View.GONE
+            } else {
+                binding.root.newsCard.visibility = View.VISIBLE
+                binding.root.adCard.visibility = View.GONE
+            }
 
             if (news.likedByUsers.contains(WebAccess.id)) {
                 setImageGlide("error", binding.root.ivLike, R.drawable.ic_heart)

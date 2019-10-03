@@ -7,7 +7,7 @@ import com.develop.grizzzly.pediatry.db.dao.*
 import com.develop.grizzzly.pediatry.db.model.User
 import com.develop.grizzzly.pediatry.network.model.*
 
-@Database(entities = [User::class, News::class, Conference::class, Profile::class, Speciality::class, Webinar::class], version = 12)
+@Database(entities = [User::class, News::class, Conference::class, Profile::class, Speciality::class, Webinar::class, Ad::class], version = 14)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -16,4 +16,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun profileDao() : ProfileDao
     abstract fun specialityDao() : SpecialityDao
     abstract fun webinarDao() : WebinarDao
+    abstract fun adDao() : AdDao
 }

@@ -17,6 +17,10 @@ import com.develop.grizzzly.pediatry.network.model.News
 import com.develop.grizzzly.pediatry.util.setAuthorizeMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import androidx.core.content.ContextCompat.startActivity
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 
 
 class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, val item : Int) : ViewModel() {
@@ -28,6 +32,12 @@ class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, 
         toNewsPost.date = news.date!!.time
         toNewsPost.index = item
         navController.navigate(toNewsPost)
+    }
+
+
+    fun onAd(view : View) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+        startActivity(view.context,browserIntent, Bundle())
     }
 
     fun onLike(view : View) {
