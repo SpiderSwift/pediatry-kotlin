@@ -28,7 +28,7 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
         AppCenter.start(
-            application, "924aac8e-1298-49f0-92f9-f6b48b0ad367",
+            application, "b9feccee-76bf-402e-a033-d1c45613c559",
             Analytics::class.java, Crashes::class.java
         )
 

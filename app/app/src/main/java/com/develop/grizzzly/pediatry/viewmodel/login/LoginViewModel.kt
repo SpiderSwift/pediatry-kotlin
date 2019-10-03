@@ -29,9 +29,10 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = WebAccess.pediatryApi.login(email.value.toString(), password.value.toString().md5())
+                Log.d(TAG, response.toString())
                 if (response.isSuccessful) {
-                    Log.d(TAG, response.toString())
                     Log.d(TAG, response.body()?.status.toString())
+                    Log.d(TAG, response.body()?.toString())
                     if (response.body()!!.status == 200L) {
                         WebAccess.token = response.body()?.response?.token ?: ""
                         WebAccess.id = response.body()?.response?.id ?: 0
@@ -50,12 +51,13 @@ class LoginViewModel : ViewModel() {
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         context.startActivity(intent)
                     } else {
-                        showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
+                        showToast(view.context, R.layout.custom_toast, "Неверный email или пароль2")
                     }
                 } else {
                     showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                 }
             } catch (e : Exception) {
+                Log.d(TAG, e.toString())
                 showToast(view.context, R.layout.custom_toast, "Не удается подключиться к серверу")
             }
 

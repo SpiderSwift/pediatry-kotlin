@@ -24,35 +24,33 @@ class TranslationsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-//        val myActivity = activity as MainActivity?
-//        myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-//        myActivity?.supportActionBar?.hide()
-//        myActivity?.bottom_nav?.visibility = View.GONE
-//        myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        // Inflate the layout for this fragment
+        val myActivity = activity as MainActivity?
+        myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        myActivity?.supportActionBar?.hide()
+        myActivity?.bottom_nav?.visibility = View.GONE
+        myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return inflater.inflate(R.layout.fragment_translations, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        lifecycle.addObserver(youtube_player_view)
-//
-//        val customPlayerUi = youtube_player_view.inflateCustomPlayerUi(R.layout.player_ui)
-//        youtube_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-//            override fun onReady(youTubePlayer: YouTubePlayer) {
-//                val customPlayerUiController =
-//                    CustomPlayerUiController(this@TranslationsFragment.activity!!, customPlayerUi, youTubePlayer, youtube_player_view)
-//                youTubePlayer.addListener(customPlayerUiController)
-//                youtube_player_view.addFullScreenListener(customPlayerUiController)
-//            }
-//        })
-//        youtube_player_view.enterFullScreen()
-//        youtube_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-//            override fun onReady(youTubePlayer: YouTubePlayer) {
-//                val videoId = "S0Q4gqBUs7c"
-//                youTubePlayer.loadVideo(videoId, 0f)
-//            }
-//        })
+        lifecycle.addObserver(youtube_player_view)
+
+        val customPlayerUi = youtube_player_view.inflateCustomPlayerUi(R.layout.player_ui)
+        youtube_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                val customPlayerUiController =
+                    CustomPlayerUiController(this@TranslationsFragment.activity!!, customPlayerUi, youTubePlayer, youtube_player_view)
+                youTubePlayer.addListener(customPlayerUiController)
+                youtube_player_view.addFullScreenListener(customPlayerUiController)
+            }
+        })
+        youtube_player_view.enterFullScreen()
+        youtube_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                val videoId = "S0Q4gqBUs7c"
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+        })
 
         super.onViewCreated(view, savedInstanceState)
     }

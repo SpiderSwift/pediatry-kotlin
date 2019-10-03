@@ -35,6 +35,14 @@
                 app:argType="long"
                 android:defaultValue="0L" />
 
+        <action android:id="@+id/action_webinar_to_translation" app:destination="@id/translation">
+            <argument
+                    android:name="code"
+                    app:argType="string"
+                    android:defaultValue="2" />
+
+        </action>
+
     </fragment>
 
     <fragment
@@ -49,6 +57,16 @@
         android:label="Редактирование"
         android:name="com.develop.grizzzly.pediatry.fragments.ProfileEditFragment">
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/translation"
+        android:label="Трансляция"
+        android:name="com.develop.grizzzly.pediatry.fragments.TranslationsFragment">
+        <argument
+                android:name="code"
+                app:argType="string"
+                android:defaultValue="2" />
     </fragment>
 
 

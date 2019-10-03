@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         this.window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
 
         AppCenter.start(
-            application, "924aac8e-1298-49f0-92f9-f6b48b0ad367",
+            application, "b9feccee-76bf-402e-a033-d1c45613c559",
             Analytics::class.java, Crashes::class.java
         )
 
@@ -162,7 +162,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         controller.observe(this, Observer { navController ->
-
             NavigationUI.setupActionBarWithNavController(this, navController)
         })
         currentNavController = controller
