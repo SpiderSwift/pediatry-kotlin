@@ -30,6 +30,9 @@ class ProfileViewModel : ViewModel() {
     val avatarUrl = MutableLiveData<String>().apply { value = "error" }
     val newAvatar = MutableLiveData<Uri>().apply { value = null }
     val phoneNumber = MutableLiveData<String>().apply { value = "" }
+    val country = MutableLiveData<String>().apply { value = "" }
+    val fullCity = MutableLiveData<String>().apply { value = "" }
+    val kladrId = MutableLiveData<String>().apply { value = "" }
 
     var mainSpecialities: List<Speciality> = listOf()
     var additionalSpecialities: List<Speciality> = listOf()

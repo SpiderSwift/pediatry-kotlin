@@ -34,15 +34,43 @@ class LoginViewModel : ViewModel() {
                     Log.d(TAG, response.body()?.status.toString())
                     Log.d(TAG, response.body()?.toString())
                     if (response.body()!!.status == 200L) {
-                        WebAccess.token = response.body()?.response?.token ?: ""
-                        WebAccess.id = response.body()?.response?.id ?: 0
-                        val user = User(0, email.value, password.value.toString().md5())
-                        DatabaseAccess.database.userDao().saveUser(user)
+                        try {
+                            WebAccess.token = response.body()?.response?.token ?: ""
+                        } catch (e: Exception) {
+                            Log.d(TAG, "1"); throw e
+                        }
+                        try {
+                            WebAccess.id = response.body()?.response?.id ?: 0
+                        } catch (e: Exception) {
+                            Log.d(TAG, "2"); throw e
+                        }
+                        val user = try {
+                            User(0, email.value, password.value.toString().md5())
+                        } catch (e: Exception) {
+                            Log.d(TAG, "3"); throw e
+                        }
+                        try {
+                            DatabaseAccess.database.userDao().saveUser(user)
+                        } catch (e: Exception) {
+                            Log.d(TAG, "4"); throw e
+                        }
 
-                        val profile = WebAccess.pediatryApi.getProfile()
+                        val profile = try {
+                            WebAccess.pediatryApi.getProfile()
+                        } catch (e: Exception) {
+                            Log.d(TAG, "5"); throw e
+                        }
                         if (profile.isSuccessful) {
-                            val profileBody = profile.body()?.response
-                            DatabaseAccess.database.profileDao().saveProfile(profileBody!!)
+                            val profileBody = try {
+                                profile.body()?.response
+                            } catch (e: Exception) {
+                                Log.d(TAG, "6"); throw e
+                            }
+                            try {
+                                DatabaseAccess.database.profileDao().saveProfile(profileBody!!)
+                            } catch (e: Exception) {
+                                Log.d(TAG, "7"); throw e
+                            }
                         }
 
 
@@ -57,6 +85,7 @@ class LoginViewModel : ViewModel() {
                     showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                 }
             } catch (e : Exception) {
+                e.printStackTrace()
                 Log.d(TAG, e.toString())
                 showToast(view.context, R.layout.custom_toast, "Не удается подключиться к серверу")
             }

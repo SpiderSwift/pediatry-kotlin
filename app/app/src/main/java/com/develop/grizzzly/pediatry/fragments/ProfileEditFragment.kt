@@ -173,12 +173,15 @@ class ProfileEditFragment : Fragment() {
                         RequestBody.create(textType, model.lastname.value),
                         RequestBody.create(textType, model.middlename.value),
                         RequestBody.create(textType, model.email.value),
+                        RequestBody.create(textType, model.country.value),
                         RequestBody.create(textType, model.city.value),
                         RequestBody.create(textType, num),
                         RequestBody.create(textType, model.mainSpeciality.value.toString()),
                         RequestBody.create(textType, firstAddSpec),
                         RequestBody.create(textType, secondAddSpec),
-                        requestFile
+                        requestFile,
+                        RequestBody.create(textType, model.fullCity.value),
+                        RequestBody.create(textType, model.kladrId.value)
                     )
                     if (response.isSuccessful) {
                         Log.d(TAG, response.toString())

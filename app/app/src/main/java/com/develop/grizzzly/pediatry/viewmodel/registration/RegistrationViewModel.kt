@@ -118,7 +118,9 @@ class RegistrationViewModel : ViewModel() {
                 RequestBody.create(textType, stringAdd1),
                 RequestBody.create(textType, stringAdd2),
                 RequestBody.create(textType, password.value!!.md5()),
-                requestFile
+                requestFile,
+                RequestBody.create(textType, "Московская обл, ${country.value!!}"),
+                RequestBody.create(textType, "5000000123900")
             )
 
             if (response.isSuccessful) {
