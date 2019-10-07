@@ -95,7 +95,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:fontFamily="@font/gothampromedium"
-                    android:text="@{model.data.startTime}"
+                    android:text="@{model.startTimeHour}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.76"
                     app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginStart="4dp"/>

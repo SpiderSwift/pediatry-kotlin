@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                             model.name.postValue(name)
                             model.lastname.postValue(lastname)
                             model.avatarUrl.postValue(avatarUrl)
-                            profileModel.city.value = profile?.city
+                                //profileModel.city.value = profile?.city
                             profileModel.name.value = profile?.name
                             profileModel.middlename.value = profile?.middlename
                             profileModel.lastname.value = profile?.lastname
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                         model.name.postValue(name)
                         model.lastname.postValue(lastname)
                         model.avatarUrl.postValue(avatarUrl)
-                        profileModel.city.value = profile?.city
+                        //profileModel.city.value = profile?.city
                         profileModel.name.value = profile?.name
                         profileModel.middlename.value = profile?.middlename
                         profileModel.lastname.value = profile?.lastname

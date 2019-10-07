@@ -21,7 +21,8 @@ class WebinarItemViewModel (val data : MutableLiveData<Webinar>) : ViewModel() {
 
 
     fun getMonth() : String {
-        return when (data.value?.startDate?.month) {
+        val date = Date(data.value?.startTime?.toLong() ?: 0L)
+        return when (date.month) {
             0 -> "ЯНВАРЯ"
             1 -> "ФЕВРАЛЯ"
             2 -> "МАРТА"
@@ -38,18 +39,23 @@ class WebinarItemViewModel (val data : MutableLiveData<Webinar>) : ViewModel() {
         }
     }
 
+
+    fun getStartTimeHour() : String {
+        val date = Date(data.value?.startTime?.toLong() ?: 0L)
+        val formatter = SimpleDateFormat("hh:mm", Locale.US)
+        return formatter.format(date)
+    }
+
     fun getTwoTimeDate() : String {
-        val day = data.value?.startDate?.date
-        if (day != null) {
-            return if (day > 9) {
-                Log.d("TAG", "$day")
-                day.toString()
-            } else {
-                Log.d("TAG", "$day")
-                "0$day"
-            }
+        val date = Date(data.value?.startTime?.toLong() ?: 0L)
+        val day = date.date
+        return if (day > 9) {
+            Log.d("TAG", "$day")
+            day.toString()
+        } else {
+            Log.d("TAG", "$day")
+            "0$day"
         }
-        return ""
     }
 
 
