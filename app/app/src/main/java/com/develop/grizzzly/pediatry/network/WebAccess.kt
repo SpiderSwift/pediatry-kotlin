@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.network
 
+import android.util.Log
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
@@ -28,8 +29,15 @@ object WebAccess {
 
         val client = OkHttpClient.Builder()
             .addInterceptor {
+//                Log.d("WebAccess", "request  origin      ${it.request()}");
                 val request =
-                    it.request().newBuilder().addHeader("Authorization", "Bearer $token").build()
+                    it.request()
+                        .newBuilder()
+                        .addHeader("Authorization", "Bearer $token")
+                        .build()
+//                Log.d("WebAccess", "request  intercepted $request");
+//                val response = it.proceed(request)
+//                Log.d("WebAccess", "response             ${response.body()?.string()}");
                 return@addInterceptor it.proceed(request)
             }
             .build()
