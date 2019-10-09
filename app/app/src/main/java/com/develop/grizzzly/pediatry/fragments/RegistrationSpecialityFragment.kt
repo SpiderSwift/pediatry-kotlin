@@ -55,7 +55,6 @@ class RegistrationSpecialityFragment : Fragment() {
                 additionalSpecialityList = listOf()
             }
 
-
             btnMainSpeciality.setOnClickListener {
                 pointer = 0
                 picker.setSelectedItemPosition(pointer, false)
@@ -67,6 +66,7 @@ class RegistrationSpecialityFragment : Fragment() {
             picker.setOnItemSelectedListener { _, _, position ->
                 pointer = position
             }
+
             tvChoose.setOnClickListener {
                 try {
                     Log.d("TAG", picker.selectedItemPosition.toString())
@@ -82,7 +82,6 @@ class RegistrationSpecialityFragment : Fragment() {
 
             }
         }
-
 
         model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
