@@ -46,8 +46,8 @@ fun minimizeImage(uri: Uri, contentResolver: ContentResolver): Uri? {
 
     val inputStream = contentResolver.openInputStream(uri)
 
-    val rotatedBitmap = rotateImageIfRequired(inputStream, bitmap)
-    val scaledBitmap = scaleBitmap(rotatedBitmap, maxBytes)
+    val rotatedBitmap = inputStream?.let { rotateImageIfRequired(it, bitmap) }
+    val scaledBitmap = rotatedBitmap?.let { scaleBitmap(it, maxBytes) }
 
     val path =
         MediaStore.Images.Media.insertImage(contentResolver, scaledBitmap, "Profile image", null)

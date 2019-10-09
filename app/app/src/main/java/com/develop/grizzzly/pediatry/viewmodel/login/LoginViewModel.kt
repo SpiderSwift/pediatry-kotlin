@@ -16,64 +16,68 @@ import com.develop.grizzzly.pediatry.extensions.md5
 import kotlinx.coroutines.launch
 import com.develop.grizzzly.pediatry.util.showToast
 
-
-private const val TAG = "LOGIN VIEW MODEL"
-
 class LoginViewModel : ViewModel() {
+
+    private val TAG = LoginViewModel::class.simpleName
 
     val email = MutableLiveData<String>().apply { value = "" }
     val password = MutableLiveData<String>().apply { value = "" }
 
-
     fun onLogin(view : View) {
         viewModelScope.launch {
             try {
-                val response = WebAccess.pediatryApi.login(email.value.toString(), password.value.toString().md5())
-                Log.d(TAG, response.toString())
+                val response = try {
+                    Log.d(TAG, "TRY 0")
+                    WebAccess.pediatryApi.login(email.value.toString(), password.value.toString().md5())
+                } catch (e: Exception) {
+                    Log.d(TAG, "ERR 0"); throw e
+                }
                 if (response.isSuccessful) {
-                    Log.d(TAG, response.body()?.status.toString())
-                    Log.d(TAG, response.body()?.toString())
                     if (response.body()!!.status == 200L) {
                         try {
+                            Log.d(TAG, "TRY 1")
                             WebAccess.token = response.body()?.response?.token ?: ""
                         } catch (e: Exception) {
-                            Log.d(TAG, "1"); throw e
+                            Log.d(TAG, "ERR 1"); throw e
                         }
                         try {
+                            Log.d(TAG, "TRY 2")
                             WebAccess.id = response.body()?.response?.id ?: 0
                         } catch (e: Exception) {
-                            Log.d(TAG, "2"); throw e
+                            Log.d(TAG, "ERR 2"); throw e
                         }
                         val user = try {
+                            Log.d(TAG, "TRY 3")
                             User(0, email.value, password.value.toString().md5())
                         } catch (e: Exception) {
-                            Log.d(TAG, "3"); throw e
+                            Log.d(TAG, "ERR 3"); throw e
                         }
                         try {
+                            Log.d(TAG, "TRY 4")
                             DatabaseAccess.database.userDao().saveUser(user)
                         } catch (e: Exception) {
-                            Log.d(TAG, "4"); throw e
+                            Log.d(TAG, "ERR 4"); throw e
                         }
-
                         val profile = try {
+                            Log.d(TAG, "TRY 5")
                             WebAccess.pediatryApi.getProfile()
                         } catch (e: Exception) {
-                            Log.d(TAG, "5"); throw e
+                            Log.d(TAG, "ERR 5"); throw e
                         }
                         if (profile.isSuccessful) {
                             val profileBody = try {
+                                Log.d(TAG, "TRY 6")
                                 profile.body()?.response
                             } catch (e: Exception) {
-                                Log.d(TAG, "6"); throw e
+                                Log.d(TAG, "ERR 6"); throw e
                             }
                             try {
+                                Log.d(TAG, "TRY 7")
                                 DatabaseAccess.database.profileDao().saveProfile(profileBody!!)
                             } catch (e: Exception) {
-                                Log.d(TAG, "7"); throw e
+                                Log.d(TAG, "ERR 7"); throw e
                             }
                         }
-
-
                         val context = view.context
                         val intent = Intent(context, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -86,7 +90,6 @@ class LoginViewModel : ViewModel() {
                 }
             } catch (e : Exception) {
                 e.printStackTrace()
-                Log.d(TAG, e.toString())
                 showToast(view.context, R.layout.custom_toast, "Не удается подключиться к серверу")
             }
 

@@ -1,13 +1,12 @@
 package com.develop.grizzzly.pediatry.network
 
-import android.util.Log
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-
 import java.util.*
 
 
@@ -27,19 +26,17 @@ object WebAccess {
 
     val pediatryApi: PediatryApiClient by lazy {
 
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val client = OkHttpClient.Builder()
             .addInterceptor {
-//                Log.d("WebAccess", "request  origin      ${it.request()}");
-                val request =
-                    it.request()
-                        .newBuilder()
+                val request = it.request().newBuilder()
                         .addHeader("Authorization", "Bearer $token")
                         .build()
-//                Log.d("WebAccess", "request  intercepted $request");
-//                val response = it.proceed(request)
-//                Log.d("WebAccess", "response             ${response.body()?.string()}");
                 return@addInterceptor it.proceed(request)
             }
+            .addInterceptor(loggingInterceptor)
             .build()
 
         val moshi = Moshi.Builder()

@@ -218,10 +218,12 @@ class ProfileEditFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         data ?: return
         if (resultCode == Activity.RESULT_OK) {
-            val finalImage = minimizeImage(
-                uri = data.data,
-                contentResolver = context!!.contentResolver
-            )
+            val finalImage = data.data?.let {
+                minimizeImage(
+                    uri = it,
+                    contentResolver = context!!.contentResolver
+                )
+            }
 
             model.newAvatar.postValue(finalImage)
         }

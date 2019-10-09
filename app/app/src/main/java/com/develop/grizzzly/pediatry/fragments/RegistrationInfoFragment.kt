@@ -98,10 +98,12 @@ class RegistrationInfoFragment : Fragment() {
         data ?: return
         if (resultCode == Activity.RESULT_OK) {
 
-            val finalImage = minimizeImage(
-                uri = data.data,
-                contentResolver = context!!.contentResolver
-            )
+            val finalImage = data.data?.let {
+                minimizeImage(
+                    uri = it,
+                    contentResolver = context!!.contentResolver
+                )
+            }
 
             model.imageUrl.postValue(finalImage)
         }
