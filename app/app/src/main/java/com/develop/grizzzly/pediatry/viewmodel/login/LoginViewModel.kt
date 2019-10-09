@@ -73,7 +73,7 @@ class LoginViewModel : ViewModel() {
                             }
                             try {
                                 Log.d(TAG, "TRY 7")
-                                DatabaseAccess.database.profileDao().saveProfile(profileBody!!)
+                                DatabaseAccess.database.profileDao().saveProfile(profileBody!!.convert())
                             } catch (e: Exception) {
                                 Log.d(TAG, "ERR 7"); throw e
                             }

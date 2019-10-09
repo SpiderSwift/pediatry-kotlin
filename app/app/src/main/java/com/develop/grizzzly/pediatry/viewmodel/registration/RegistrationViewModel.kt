@@ -7,40 +7,40 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import androidx.databinding.BindingAdapter
-import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.extensions.formatPhone
 import com.develop.grizzzly.pediatry.extensions.isEmail
 import com.develop.grizzzly.pediatry.extensions.isPhoneNumber
 import com.develop.grizzzly.pediatry.extensions.md5
-import kotlinx.coroutines.launch
-
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Speciality
-import com.develop.grizzzly.pediatry.util.*
-
+import com.develop.grizzzly.pediatry.util.getPath
+import com.develop.grizzzly.pediatry.util.setImageGlide
 import de.hdodenhof.circleimageview.CircleImageView
-import okhttp3.RequestBody
+import kotlinx.coroutines.launch
 import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.json.JSONObject
 import java.io.File
-import java.lang.Exception
 
 
 private const val TAG = "REGISTRATION VIEW MODEL"
 
 class RegistrationViewModel : ViewModel() {
 
+    val fullname = MutableLiveData<String>().apply { value = "" }
     val email = MutableLiveData<String>().apply { value = "" }
     val password = MutableLiveData<String>().apply { value = "" }
-    val country = MutableLiveData<String>().apply { value="Россия" }
     val city = MutableLiveData<String>().apply { value = "" }
-    val fullname = MutableLiveData<String>().apply { value = "" }
+    val fullCity = MutableLiveData<String>().apply { value = "Московская обл, " }
+    val kladrId = MutableLiveData<String>().apply { value = "5000000123900" }
+    val country = MutableLiveData<String>().apply { value = "Россия" }
     val mainSpeciality = MutableLiveData<Speciality>().apply { value = null }
     val firstAdditionalSpeciality = MutableLiveData<Speciality>().apply { value = null }
     val secondAdditionalSpeciality = MutableLiveData<Speciality>().apply { value = null }
@@ -73,8 +73,6 @@ class RegistrationViewModel : ViewModel() {
         viewModelScope.launch {
 
             val fullname = fullname.value?.split(" ")
-
-
             var requestFile: RequestBody? = null
 
             try {
@@ -85,24 +83,19 @@ class RegistrationViewModel : ViewModel() {
                     ), file
                 )
             } catch (ignored: Exception) {
-
             }
 
+            var specialty1 = ""
+            if (firstAdditionalSpeciality.value?.id != null)
+                specialty1 = firstAdditionalSpeciality.value?.id.toString()
 
-            var stringAdd1 = ""
-            if (firstAdditionalSpeciality.value?.id != null) {
-                stringAdd1 = firstAdditionalSpeciality.value?.id.toString()
-            }
+            var specialty2 = ""
+            if (secondAdditionalSpeciality.value?.id != null)
+                specialty2 = secondAdditionalSpeciality.value?.id.toString()
 
-            var stringAdd2 = ""
-            if (secondAdditionalSpeciality.value?.id != null) {
-                stringAdd2 = secondAdditionalSpeciality.value?.id.toString()
-            }
-
-            val num = phoneNumber.value!!
+            val phone = phoneNumber.value!!
                 .replace("\\s".toRegex(), "")
                 .formatPhone()
-
 
             val textType = MediaType.parse("text/plain")
 
@@ -110,28 +103,24 @@ class RegistrationViewModel : ViewModel() {
                 RequestBody.create(textType, fullname!![1]),
                 RequestBody.create(textType, fullname[0]),
                 RequestBody.create(textType, fullname[2]),
-                RequestBody.create(textType, email.value!!),
-                RequestBody.create(textType, country.value!!),
-                RequestBody.create(textType, city.value!!),
-                RequestBody.create(textType, num),
+                RequestBody.create(textType, email.value),
+                RequestBody.create(textType, city.value),
+                RequestBody.create(textType, "${fullCity.value}${country.value}"),
+                RequestBody.create(textType, country.value),
+                RequestBody.create(textType, kladrId.value),
+                RequestBody.create(textType, phone),
                 RequestBody.create(textType, mainSpeciality.value!!.id.toString()),
-                RequestBody.create(textType, stringAdd1),
-                RequestBody.create(textType, stringAdd2),
-                RequestBody.create(textType, password.value!!.md5()),
+                RequestBody.create(textType, specialty1),
+                RequestBody.create(textType, specialty2),
                 requestFile,
-                RequestBody.create(textType, "Московская обл, ${country.value!!}"),
-                RequestBody.create(textType, "5000000123900")
+                RequestBody.create(textType, password.value!!.md5())
             )
 
             if (response.isSuccessful) {
-                Log.d(TAG, response.toString())
-                Log.d(TAG, response.body()?.string())
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
                 val result = response.errorBody()?.string().toString()
-                Log.d(TAG, response.toString())
-                Log.d(TAG, result)
 
                 try {
                     val jsonObject = JSONObject(result)
@@ -152,8 +141,6 @@ class RegistrationViewModel : ViewModel() {
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
                 //Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
             }
-
-
         }
     }
 

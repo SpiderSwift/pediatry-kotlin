@@ -18,21 +18,21 @@ private const val TAG = "PROFILE VIEW MODEL"
 
 class ProfileViewModel : ViewModel() {
 
-    val email = MutableLiveData<String>().apply { value = "" }
-    val password = MutableLiveData<String>().apply { value = "" }
-    val city = MutableLiveData<String>().apply { value = "" }
     val name = MutableLiveData<String>().apply { value = "" }
     val lastname = MutableLiveData<String>().apply { value = "" }
     val middlename = MutableLiveData<String>().apply { value = "" }
+    val email = MutableLiveData<String>().apply { value = "" }
+    val city = MutableLiveData<String>().apply { value = "" }
+    val kladrId = MutableLiveData<String>().apply { value = "" }
+    val country = MutableLiveData<String>().apply { value = "" }
+    val fullCity = MutableLiveData<String>().apply { value = "" }
+    val phoneNumber = MutableLiveData<String>().apply { value = "" }
     val mainSpeciality = MutableLiveData<Long>().apply { value = null }
     val firstAdditionalSpeciality = MutableLiveData<Long>().apply { value = null }
     val secondAdditionalSpeciality = MutableLiveData<Long>().apply { value = null }
     val avatarUrl = MutableLiveData<String>().apply { value = "error" }
     val newAvatar = MutableLiveData<Uri>().apply { value = null }
-    val phoneNumber = MutableLiveData<String>().apply { value = "" }
-    val country = MutableLiveData<String>().apply { value = "" }
-    val fullCity = MutableLiveData<String>().apply { value = "" }
-    val kladrId = MutableLiveData<String>().apply { value = "" }
+    val password = MutableLiveData<String>().apply { value = "" }
 
     var mainSpecialities: List<Speciality> = listOf()
     var additionalSpecialities: List<Speciality> = listOf()

@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -144,18 +143,19 @@ class ProfileEditFragment : Fragment() {
         btnEdit.setOnClickListener {
             GlobalScope.launch {
                 try {
-                    var firstAddSpec = ""
-                    var secondAddSpec = ""
                     var requestFile: RequestBody? = null
 
-                    if (model.firstAdditionalSpeciality?.value != null) {
-                        firstAddSpec = model.firstAdditionalSpeciality.value.toString()
-                    }
-                    if (model.secondAdditionalSpeciality?.value != null) {
-                        secondAddSpec = model.secondAdditionalSpeciality.value.toString()
-                    }
-                    val num = model.phoneNumber.value!!
+                    var specialty1 = ""
+                    if (model.firstAdditionalSpeciality.value != null)
+                        specialty1 = model.firstAdditionalSpeciality.value.toString()
+
+                    var specialty2 = ""
+                    if (model.secondAdditionalSpeciality.value != null)
+                        specialty2 = model.secondAdditionalSpeciality.value.toString()
+
+                    val phone = model.phoneNumber.value!!
                         .formatPhone()
+
                     try {
                         val file = File(getPath(view.context, model.newAvatar.value!!))
                         requestFile = RequestBody.create(
@@ -166,30 +166,24 @@ class ProfileEditFragment : Fragment() {
                     } catch (ignored: Exception) {
 
                     }
+
                     val textType = MediaType.parse("text/plain")
 
-                    val response = WebAccess.pediatryApi.updateProfile(
+                    WebAccess.pediatryApi.updateProfile(
                         RequestBody.create(textType, model.name.value),
                         RequestBody.create(textType, model.lastname.value),
                         RequestBody.create(textType, model.middlename.value),
                         RequestBody.create(textType, model.email.value),
-                        RequestBody.create(textType, model.country.value),
                         RequestBody.create(textType, model.city.value),
-                        RequestBody.create(textType, num),
-                        RequestBody.create(textType, model.mainSpeciality.value.toString()),
-                        RequestBody.create(textType, firstAddSpec),
-                        RequestBody.create(textType, secondAddSpec),
-                        requestFile,
                         RequestBody.create(textType, model.fullCity.value),
-                        RequestBody.create(textType, model.kladrId.value)
+                        RequestBody.create(textType, model.country.value),
+                        RequestBody.create(textType, model.kladrId.value),
+                        RequestBody.create(textType, phone),
+                        RequestBody.create(textType, model.mainSpeciality.value.toString()),
+                        RequestBody.create(textType, specialty1),
+                        RequestBody.create(textType, specialty2),
+                        requestFile
                     )
-                    if (response.isSuccessful) {
-                        Log.d(TAG, response.toString())
-                        Log.d(TAG, response.body()?.string())
-                    } else {
-                        Log.d(TAG, response.toString())
-                        Log.d(TAG, response.errorBody()?.string())
-                    }
 
                     withContext(Dispatchers.Main) {
                         activity?.onBackPressed()

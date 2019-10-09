@@ -46,15 +46,12 @@ class MainActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
 
-
-
         setContentView(R.layout.activity_main)
 
         Log.d(TAG, "TOKEN ${WebAccess.token}")
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
             setupBottomNavigationBar()
-        }
 
         val model = ViewModelProviders.of(this).get(MenuViewModel::class.java)
 
@@ -75,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                     DatabaseAccess.database.specialityDao().saveSpeciality(additionalSpec.body()?.response ?: listOf())
 
                     val response = WebAccess.pediatryApi.getProfile()
-                    DatabaseAccess.database.profileDao().saveProfile(response.body()!!.response!!)
+                    DatabaseAccess.database.profileDao().saveProfile(response.body()!!.response!!.convert())
                     if (response.isSuccessful) {
                         val profile = response.body()?.response
 
@@ -86,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                             model.name.postValue(name)
                             model.lastname.postValue(lastname)
                             model.avatarUrl.postValue(avatarUrl)
-                            profileModel.city.value = profile?.city
+                            profileModel.city.value = profile?.city?.name
                             profileModel.name.value = profile?.name
                             profileModel.middlename.value = profile?.middlename
                             profileModel.lastname.value = profile?.lastname
@@ -128,7 +125,6 @@ class MainActivity : AppCompatActivity() {
             } catch (e : Exception) {
 
             }
-
 
         }
 

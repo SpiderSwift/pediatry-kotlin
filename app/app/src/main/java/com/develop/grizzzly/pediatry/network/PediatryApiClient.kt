@@ -26,21 +26,21 @@ interface PediatryApiClient {
         @Part("lastname") lastname: RequestBody,
         @Part("middlename") middlename: RequestBody?,
         @Part("email") email: RequestBody,
-        @Part("country") country: RequestBody,
         @Part("city") city: RequestBody,
+        @Part("full_city") fullCity: RequestBody,
+        @Part("country") country: RequestBody,
+        @Part("kladr_id") kladrId: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("main_specialty_id") mainId: RequestBody,
         @Part("additional_specialty_1_id") additionalId1: RequestBody?,
         @Part("additional_specialty_2_id") additionalId2: RequestBody?,
-        @Part("password") password: RequestBody,
         //@Part avatar : MultipartBody.Part
         @Part("avatar\"; filename=\"file.jpg\" ") avatar: RequestBody?,
-        @Part("full_city") fullCity: RequestBody,
-        @Part("kladr_id") kladrId: RequestBody
+        @Part("password") password: RequestBody
     ): Response<ResponseBody>
 
     @GET("user/profile")
-    suspend fun getProfile(): Response<BasicResponse<Profile>>
+    suspend fun getProfile(): Response<BasicResponse<ProfileResponse>>
 
     @Multipart
 //    @FormUrlEncoded
@@ -50,15 +50,15 @@ interface PediatryApiClient {
         @Part("lastname") lastname: RequestBody,
         @Part("middlename") middlename: RequestBody,
         @Part("email") email: RequestBody?,
-        @Part("country") country: RequestBody,
         @Part("city") city: RequestBody,
+        @Part("full_city") fullCity: RequestBody,
+        @Part("country") country: RequestBody,
+        @Part("kladr_id") kladrId: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("main_specialty_id") mainId: RequestBody?,
         @Part("additional_specialty_1_id") additionalId1: RequestBody?,
         @Part("additional_specialty_2_id") additionalId2: RequestBody?,
-        @Part("avatar\"; filename=\"file.jpg\" ") avatar: RequestBody?,
-        @Part("full_city") fullCity: RequestBody,
-        @Part("kladr_id") kladrId: RequestBody
+        @Part("avatar\"; filename=\"file.jpg\" ") avatar: RequestBody?
     ): Response<ResponseBody>
 
     @POST("user/password")

@@ -58,7 +58,7 @@ class ProfileFragment: Fragment() {
             try {
                 val response = WebAccess.pediatryApi.getProfile()
                 if (response.isSuccessful) {
-                    DatabaseAccess.database.profileDao().saveProfile(response.body()?.response!!)
+                    DatabaseAccess.database.profileDao().saveProfile(response.body()?.response!!.convert())
                     val name = response.body()?.response?.name
                     val lastname = response.body()?.response?.lastname
                     val avatarUrl = "${response.body()?.response?.avatar}"
