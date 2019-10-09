@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.extensions
 
 import java.security.NoSuchAlgorithmException
 
-
 fun String.isEmail(): Boolean {
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
@@ -13,7 +12,6 @@ fun String.isPhoneNumber(): Boolean {
     }
     return this.length === 18
 }
-
 
 fun String.md5(): String {
     val md5 = "MD5"

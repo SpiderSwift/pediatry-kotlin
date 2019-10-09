@@ -46,7 +46,6 @@ class NewsDataSource : PositionalDataSource<News>() {
 
                                 val ads = database.adDao().loadAds()
 
-
                                 val mutableList = listing?.response?.toMutableList()!!
                                 if (ads.isNotEmpty()) {
                                     val newsFromAd = ads[0].toNews()
@@ -59,7 +58,6 @@ class NewsDataSource : PositionalDataSource<News>() {
                                 callback.onResult(mutableList, 0)
                             }
                         }
-
 
                     } else {
                         val news = database.newsDao().getNews(0, 10)
@@ -134,6 +132,5 @@ class NewsDataSource : PositionalDataSource<News>() {
 
         }
     }
-
 
 }

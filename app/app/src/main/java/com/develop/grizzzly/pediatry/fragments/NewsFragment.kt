@@ -17,7 +17,6 @@ import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news.*
 
-
 class NewsFragment : Fragment() {
 
     private lateinit var adapter: NewsAdapter
@@ -39,7 +38,6 @@ class NewsFragment : Fragment() {
         retainInstance = true
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -72,6 +70,5 @@ class NewsFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
-
 
 }

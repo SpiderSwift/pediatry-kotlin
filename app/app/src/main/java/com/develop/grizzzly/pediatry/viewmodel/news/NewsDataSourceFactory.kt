@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.develop.grizzzly.pediatry.network.model.News
 
-
 class NewsDataSourceFactory : DataSource.Factory<Int, News>() {
 
     var postLiveData: MutableLiveData<NewsDataSource>? = null

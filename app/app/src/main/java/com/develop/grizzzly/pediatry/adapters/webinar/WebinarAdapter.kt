@@ -18,13 +18,11 @@ class WebinarAdapter :
         return WebinarViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: WebinarViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
         }
     }
-
 
     class WebinarViewHolder(val binding: WebinarItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

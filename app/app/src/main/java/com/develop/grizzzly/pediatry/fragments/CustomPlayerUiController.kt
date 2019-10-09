@@ -12,7 +12,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.synthetic.main.player_ui.view.*
 
-
 internal class CustomPlayerUiController(
     private val context: Context,
     private val playerUi: View,
@@ -46,7 +45,6 @@ internal class CustomPlayerUiController(
         else if (state == PlayerConstants.PlayerState.BUFFERING)
             panel!!.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
     }
-
 
     override fun onYouTubePlayerEnterFullScreen() {
         val viewParams = playerUi.layoutParams

@@ -9,7 +9,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
-
 object WebAccess {
     private val url = if (BuildConfig.DEBUG) {
         "https://edu-pediatrics.com/api/v1/"
@@ -18,7 +17,6 @@ object WebAccess {
     }
 
     private val adUrl = "http://194.67.87.233/api/"
-
 
     var token: String = ""
     var id: Long = 0

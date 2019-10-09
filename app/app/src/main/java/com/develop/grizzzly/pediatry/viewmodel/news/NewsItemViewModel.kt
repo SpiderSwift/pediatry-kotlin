@@ -19,7 +19,6 @@ import com.develop.grizzzly.pediatry.util.setAuthorizeMessage
 import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
 
-
 class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, val item: Int) :
     ViewModel() {
 
@@ -31,7 +30,6 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
         toNewsPost.index = item
         navController.navigate(toNewsPost)
     }
-
 
     fun onAd(view: View) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))

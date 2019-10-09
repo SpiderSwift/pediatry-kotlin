@@ -56,7 +56,6 @@ class ProfileViewModel : ViewModel() {
         return ""
     }
 
-
     fun getNumber(): String {
         return try {
             val value = phoneNumber.value!!
@@ -81,7 +80,6 @@ class ProfileViewModel : ViewModel() {
         }
         return ""
     }
-
 
     fun onEdit(view: View) {
         val navController = Navigation.findNavController(view)
@@ -126,6 +124,5 @@ class ProfileViewModel : ViewModel() {
             )
         } == PackageManager.PERMISSION_GRANTED
     }
-
 
 }

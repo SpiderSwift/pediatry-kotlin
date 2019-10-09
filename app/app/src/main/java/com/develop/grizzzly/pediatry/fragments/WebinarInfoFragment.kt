@@ -23,7 +23,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 class WebinarInfoFragment : Fragment() {
 
     private lateinit var viewModel: WebinarPostViewModel
@@ -193,6 +192,5 @@ class WebinarInfoFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
-
 
 }

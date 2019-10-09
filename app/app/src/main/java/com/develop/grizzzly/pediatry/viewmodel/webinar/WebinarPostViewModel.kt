@@ -1,10 +1,8 @@
 package com.develop.grizzzly.pediatry.viewmodel.webinar
 
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.develop.grizzzly.pediatry.network.model.Webinar
-
 
 class WebinarPostViewModel : ViewModel() {
 
@@ -51,6 +49,5 @@ class WebinarPostViewModel : ViewModel() {
         }
         return ""
     }
-
 
 }

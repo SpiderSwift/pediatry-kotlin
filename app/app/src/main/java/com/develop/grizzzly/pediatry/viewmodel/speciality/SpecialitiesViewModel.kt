@@ -8,7 +8,6 @@ import com.develop.grizzzly.pediatry.network.model.Speciality
 
 class SpecialitiesViewModel constructor(type: Int) : ViewModel() {
 
-
     var specialitiesLiveData: LiveData<PagedList<Speciality>>
     var dataSourceFactory: SpecialitiesDataSourceFactory = SpecialitiesDataSourceFactory(type)
 

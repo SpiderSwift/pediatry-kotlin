@@ -10,7 +10,6 @@ import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItemViewModel
 
 class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
-
     private val list: List<MenuItem> = listOf(
         MenuItem(
             "Вебинары",

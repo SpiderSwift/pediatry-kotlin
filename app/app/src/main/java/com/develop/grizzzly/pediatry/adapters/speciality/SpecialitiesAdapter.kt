@@ -28,7 +28,6 @@ class SpecialitiesAdapter constructor(
         getItem(position)?.let { holder.bind(activity, model, it, type) }
     }
 
-
     class SpecialityViewHolder(private val binding: SpecialityItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -41,7 +40,6 @@ class SpecialitiesAdapter constructor(
             val viewModel = SpecialityItemViewModel(model, activity, speciality, type)
             binding.model = viewModel
         }
-
 
     }
 

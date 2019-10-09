@@ -12,12 +12,10 @@ import java.util.*
 
 class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
 
-
     fun getDateFormatted(): String {
         val formatter = SimpleDateFormat("dd.MM", Locale.US)
         return formatter.format(data.value?.startDate)
     }
-
 
     fun getMonth(): String {
         return when (data.value?.startDate?.month) {
@@ -50,7 +48,6 @@ class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
         }
         return ""
     }
-
 
     fun onWebinar(view: View) {
         val navController = Navigation.findNavController(view)

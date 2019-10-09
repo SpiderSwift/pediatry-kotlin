@@ -136,13 +136,11 @@ fun BottomNavigationView.setupWithNavController(
             if (controller.currentDestination == null) {
                 controller.navigate(controller.graph.id)
 
-
             }
         }
     }
     return selectedNavController
 }
-
 
 private fun BottomNavigationView.setupDeepLinks(
     navGraphIds: List<Int>,

@@ -39,7 +39,6 @@ class ConferenceStageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_conference_stage, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val llm = LinearLayoutManager(activity)
         listStages.layoutManager = llm
@@ -84,7 +83,6 @@ class ConferenceStageFragment : Fragment() {
                     load.visibility = View.GONE
                 }
             }
-
 
         }
 

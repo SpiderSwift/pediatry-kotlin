@@ -32,7 +32,6 @@ class SpecialitiesDataSource constructor(private val type: Int) :
                 }
             }
 
-
         }
     }
 

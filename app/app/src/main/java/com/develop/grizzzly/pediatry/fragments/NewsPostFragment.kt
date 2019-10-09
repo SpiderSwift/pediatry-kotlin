@@ -23,9 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news_post.*
 import kotlinx.coroutines.*
 
-
 class NewsPostFragment : Fragment() {
-
 
     private lateinit var viewModel: NewsPostViewModel
 
@@ -67,11 +65,9 @@ class NewsPostFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         //viewModel.text.value = newsPost?.text
 
-
                         //tvText.setText(newsPost?.text!!)
 
                         tvText.settings.javaScriptEnabled = true
-
 
                         val model = activity?.run {
                             ViewModelProviders.of(this).get(NewsViewModel::class.java)
@@ -120,7 +116,6 @@ class NewsPostFragment : Fragment() {
                         mainContent.visibility = View.VISIBLE
                         load.visibility = View.GONE
 
-
                     }
 
                 }
@@ -141,7 +136,6 @@ class NewsPostFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
-
 
     //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        activity?.menuInflater?.inflate(R.menu.action_menu, menu)

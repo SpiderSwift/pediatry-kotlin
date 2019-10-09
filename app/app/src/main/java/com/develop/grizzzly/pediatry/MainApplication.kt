@@ -6,7 +6,6 @@ import com.squareup.picasso.Picasso
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
 
-
 class MainApplication : Application() {
 
     override fun onCreate() {

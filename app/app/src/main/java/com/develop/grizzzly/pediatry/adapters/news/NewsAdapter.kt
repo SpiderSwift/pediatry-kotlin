@@ -14,7 +14,6 @@ import com.develop.grizzzly.pediatry.util.setImageGlide
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel
 import kotlinx.android.synthetic.main.news_item.view.*
 
-
 class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -23,13 +22,11 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         return NewsViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it, this, position)
         }
     }
-
 
     class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

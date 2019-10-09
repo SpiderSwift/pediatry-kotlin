@@ -18,7 +18,6 @@ class MenuViewModel : ViewModel() {
     val lastname = MutableLiveData<String>().apply { value = "" }
     val avatarUrl = MutableLiveData<String>().apply { value = "" }
 
-
     fun onProfile(view: View) {
         viewModelScope.launch {
             delay(100)
@@ -38,6 +37,5 @@ class MenuViewModel : ViewModel() {
 
         }
     }
-
 
 }

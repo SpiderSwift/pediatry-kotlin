@@ -8,7 +8,6 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 
-
 fun getPath(context: Context, uri: Uri): String? {
 
     // DocumentProvider
@@ -108,7 +107,6 @@ private fun getDataColumn(
     }
     return null
 }
-
 
 /**
  * @param uri The Uri to check.

@@ -16,7 +16,6 @@ data class ArcWebinar constructor(
     val videoDescription3: String?
 )
 
-
 //{"id":30,
 // "description":null,
 // "announceImage":null,

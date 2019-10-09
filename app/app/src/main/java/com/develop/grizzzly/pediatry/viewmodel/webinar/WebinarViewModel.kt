@@ -8,7 +8,6 @@ import com.develop.grizzzly.pediatry.network.model.Webinar
 
 class WebinarViewModel : ViewModel() {
 
-
     companion object {
         const val pageSize = 10
     }

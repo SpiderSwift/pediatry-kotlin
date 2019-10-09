@@ -18,13 +18,11 @@ class ConferenceAdapter :
         return ConferenceViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
         }
     }
-
 
     class ConferenceViewHolder(val binding: ConferenceItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

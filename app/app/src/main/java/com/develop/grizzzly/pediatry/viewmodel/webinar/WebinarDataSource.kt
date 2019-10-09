@@ -40,7 +40,6 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
                             }
                         }
 
-
                     } else {
                         val news =
                             database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())

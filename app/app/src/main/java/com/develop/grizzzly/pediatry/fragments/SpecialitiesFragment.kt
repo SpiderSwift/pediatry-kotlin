@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_specialities.*
 
 class SpecialitiesFragment : Fragment() {
 
-
     private lateinit var adapter: SpecialitiesAdapter
     private lateinit var viewModel: SpecialitiesViewModel
 
@@ -28,12 +27,11 @@ class SpecialitiesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_specialities, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         viewModel = SpecialitiesViewModel(args.specialityType)
 

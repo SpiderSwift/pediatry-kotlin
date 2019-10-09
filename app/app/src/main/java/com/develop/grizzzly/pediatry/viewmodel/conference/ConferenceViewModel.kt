@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.viewmodel.conference
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
@@ -8,7 +7,6 @@ import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.network.model.Conference
 
 class ConferenceViewModel : ViewModel() {
-
 
     companion object {
         const val pageSize = 10

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 
 import com.develop.grizzzly.pediatry.R
 
-
 class MessagesFragment : Fragment() {
 
     override fun onCreateView(
@@ -18,6 +17,5 @@ class MessagesFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_messages, container, false)
     }
-
 
 }

@@ -15,7 +15,6 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Conference>) {
         GlobalScope.launch {
 
-
             try {
                 if (!WebAccess.offlineLog) {
                     val response = apiService.getConferences(0, params.requestedLoadSize.toLong())
@@ -43,7 +42,6 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
                             }
                         }
 
-
                     } else {
                         val news = database.conferenceDao()
                             .getConferences(0, params.requestedLoadSize.toLong())
@@ -57,9 +55,7 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
                 callback.onResult(news, 0)
             }
 
-
         }
-
 
     }
 

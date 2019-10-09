@@ -16,7 +16,6 @@ interface PediatryApiClient {
         @Field("password") password: String?
     ): Response<BasicResponse<TokenObject>>
 
-
     @Multipart
     //@FormUrlEncoded
     @POST("register")

@@ -27,7 +27,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 private const val TAG = "MAIN ACTIVITY"
 
 class MainActivity : AppCompatActivity() {

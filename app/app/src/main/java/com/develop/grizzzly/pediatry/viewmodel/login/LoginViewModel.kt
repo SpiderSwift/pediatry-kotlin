@@ -111,5 +111,4 @@ class LoginViewModel : ViewModel() {
         navController.navigate(R.id.action_login_to_recovery)
     }
 
-
 }

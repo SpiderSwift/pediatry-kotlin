@@ -29,7 +29,6 @@ class WebinarsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_webinars, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val mainActivity = activity as? MainActivity

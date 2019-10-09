@@ -27,7 +27,6 @@ class ConferentionsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_conferentions, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel = ViewModelProviders.of(this).get(ConferenceViewModel::class.java)

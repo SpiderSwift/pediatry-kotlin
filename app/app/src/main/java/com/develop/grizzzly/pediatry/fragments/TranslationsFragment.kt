@@ -13,7 +13,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_translations.*
 
-
 class TranslationsFragment : Fragment() {
 
     override fun onCreateView(

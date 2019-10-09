@@ -25,7 +25,6 @@ class NewsPostViewModel : ViewModel() {
     var index: Int = 0
     var liked = MutableLiveData<Long>()
 
-
     fun onLike(v: View) {
         val news = newsViewModel.newsLiveData.value!![index]!!
 
@@ -71,7 +70,6 @@ class NewsPostViewModel : ViewModel() {
             }
         }
     }
-
 
     companion object {
         @BindingAdapter("rttv:reference_time")

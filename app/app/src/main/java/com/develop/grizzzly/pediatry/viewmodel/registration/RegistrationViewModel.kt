@@ -29,7 +29,6 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 import java.io.File
 
-
 private const val TAG = "REGISTRATION VIEW MODEL"
 
 class RegistrationViewModel : ViewModel() {
@@ -53,7 +52,6 @@ class RegistrationViewModel : ViewModel() {
     val errorMessage: MutableLiveData<String> = MutableLiveData<String>().apply { value = null }
 
     var fragment: Fragment? = null
-
 
     fun onRegistrationStart(view: View) {
         viewModelScope.launch {
@@ -207,7 +205,6 @@ class RegistrationViewModel : ViewModel() {
 //        navController.navigate(toSpecialitiesList)
 //    }
 
-
     fun isStartValid(): Boolean {
         return (email.value?.isEmail() ?: false) and (password.value?.isNotEmpty() ?: false)
     }
@@ -259,6 +256,5 @@ class RegistrationViewModel : ViewModel() {
             imageUrl?.let { it -> setImageGlide(it.toString(), view, android.R.color.white) }
         }
     }
-
 
 }

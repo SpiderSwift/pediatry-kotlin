@@ -17,11 +17,9 @@ import com.develop.grizzzly.pediatry.util.minimizeImage
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import kotlinx.android.synthetic.main.fragment_registration_info.*
 
-
 private const val TAG = "REGISTRATION INFO F"
 
 class RegistrationInfoFragment : Fragment() {
-
 
     lateinit var model: RegistrationViewModel
 
@@ -92,7 +90,6 @@ class RegistrationInfoFragment : Fragment() {
         model.clearInfo()
         super.onDetach()
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         data ?: return

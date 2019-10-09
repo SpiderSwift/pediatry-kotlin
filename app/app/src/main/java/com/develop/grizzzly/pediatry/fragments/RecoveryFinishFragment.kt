@@ -11,7 +11,6 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRecoveryFinishBinding
 import com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel
 
-
 class RecoveryFinishFragment : Fragment() {
 
     override fun onCreateView(
@@ -33,6 +32,5 @@ class RecoveryFinishFragment : Fragment() {
 
         return binding.root
     }
-
 
 }

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
 
-
     fun onMenuItem(view: View) {
         viewModelScope.launch {
             if (menuItem.direction != null) {
@@ -23,7 +22,6 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
         }
 
     }
-
 
     companion object {
         @BindingAdapter("bind:resource")

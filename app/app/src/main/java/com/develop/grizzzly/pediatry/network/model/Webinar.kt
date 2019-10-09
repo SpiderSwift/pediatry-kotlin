@@ -24,9 +24,7 @@ data class Webinar constructor(
     var status: Long = 1
 )
 
-
 //{"id":30,"description":null,"announceImage":null,"image":null,"youtubeCode1":null,"videoTitle1":null,"videoDescription1":null,"youtubeCode2":null,"videoTitle2":null,"videoDescription2":null,"youtubeCode3":null,"videoTitle3":null,"videoDescription3":null}
-
 
 //"id": 35, // идентификатор вебинара
 //            "title": "Цикл видеодиалогов «Современная педiятрика»", // название вебинара

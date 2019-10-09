@@ -64,7 +64,6 @@ class ProfileEditFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.bottom_nav?.visibility = View.GONE
 
@@ -193,13 +192,11 @@ class ProfileEditFragment : Fragment() {
                     }
                 }
 
-
             }
 
         }
         super.onViewCreated(view, savedInstanceState)
     }
-
 
     private fun verifyAvailableNetwork(): Boolean {
         val connectivityManager =

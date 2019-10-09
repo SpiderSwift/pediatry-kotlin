@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.fragments
 
-
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
@@ -19,7 +18,6 @@ import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
 import com.develop.grizzzly.pediatry.extensions.isEmail
 import com.develop.grizzzly.pediatry.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
-
 
 class LoginFragment : Fragment() {
 
@@ -52,7 +50,6 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         tePassword.transformationMethod = PasswordTransformationMethod.getInstance()
@@ -65,7 +62,6 @@ class LoginFragment : Fragment() {
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= tePassword.right - tePassword.compoundDrawables[DRAWABLE_RIGHT].bounds.width()) {
                     //tePassword.transformationMethod = PasswordTransformationMethod.getInstance()
-
 
                     if (tePassword.transformationMethod is HideReturnsTransformationMethod) {
                         tePassword.transformationMethod = PasswordTransformationMethod.getInstance()

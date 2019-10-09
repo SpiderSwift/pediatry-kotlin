@@ -13,7 +13,6 @@ import java.io.InputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
 
-
 fun setImageGlide(path: String, imageView: ImageView, placeholderId: Int) {
     Glide.with(MainApplication.get()!!)
         .load(path)
