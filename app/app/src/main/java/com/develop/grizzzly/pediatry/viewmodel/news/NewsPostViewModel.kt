@@ -18,15 +18,15 @@ class NewsPostViewModel : ViewModel() {
 
     val title = MutableLiveData<String>().apply { value = "" }
     val text = MutableLiveData<String>().apply { value = "" }
-    var time : Long = 0
+    var time: Long = 0
     val announcePicture = MutableLiveData<String>().apply { value = "" }
-    lateinit var newsViewModel : NewsViewModel
+    lateinit var newsViewModel: NewsViewModel
     lateinit var imageView: ImageView
-    var index : Int = 0
+    var index: Int = 0
     var liked = MutableLiveData<Long>()
 
 
-    fun onLike(v : View) {
+    fun onLike(v: View) {
         val news = newsViewModel.newsLiveData.value!![index]!!
 
         if (news.likedByUsers.contains(WebAccess.id)) {
@@ -39,12 +39,12 @@ class NewsPostViewModel : ViewModel() {
                         news.likedByUsers.remove(WebAccess.id)
                         newsViewModel.adapter?.notifyItemChanged(index)
                         if (news.likedByUsers.contains(WebAccess.id)) {
-                            setImageGlide("error",imageView, R.drawable.ic_heart)
+                            setImageGlide("error", imageView, R.drawable.ic_heart)
                         } else {
                             setImageGlide("error", imageView, R.drawable.ic_unlike)
                         }
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
 
@@ -59,12 +59,12 @@ class NewsPostViewModel : ViewModel() {
                         news.likedByUsers.add(WebAccess.id)
                         newsViewModel.adapter?.notifyItemChanged(index)
                         if (news.likedByUsers.contains(WebAccess.id)) {
-                            setImageGlide("error",imageView, R.drawable.ic_heart)
+                            setImageGlide("error", imageView, R.drawable.ic_heart)
                         } else {
                             setImageGlide("error", imageView, R.drawable.ic_unlike)
                         }
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
 

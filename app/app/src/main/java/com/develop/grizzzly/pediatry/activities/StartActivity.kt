@@ -49,7 +49,7 @@ class StartActivity : AppCompatActivity() {
                 val ads = WebAccess.adApi.getAds()
                 if (ads.isSuccessful) {
                     val list = ads.body()?.ads ?: listOf()
-                    Log.d("TAG","AND THE LIST IS $list")
+                    Log.d("TAG", "AND THE LIST IS $list")
                     DatabaseAccess.database.adDao().saveAds(list)
                 } else {
                     Log.d("TAG", "LOST LULW")
@@ -78,7 +78,7 @@ class StartActivity : AppCompatActivity() {
                         val navController = nav_host_fragment.findNavController()
                         navController.navigate(R.id.action_start_to_login)
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
                     if (user != null) {
                         val intent = Intent(baseContext, MainActivity::class.java)
                         intent.flags =
@@ -90,7 +90,7 @@ class StartActivity : AppCompatActivity() {
                     }
 
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 if (user != null) {
                     val intent = Intent(baseContext, MainActivity::class.java)
                     intent.flags =

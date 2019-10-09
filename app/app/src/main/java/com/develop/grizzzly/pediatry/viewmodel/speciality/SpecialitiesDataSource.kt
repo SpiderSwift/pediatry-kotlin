@@ -6,11 +6,15 @@ import com.develop.grizzzly.pediatry.network.model.Speciality
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class SpecialitiesDataSource constructor(private val type : Int) : PageKeyedDataSource<Int, Speciality>() {
+class SpecialitiesDataSource constructor(private val type: Int) :
+    PageKeyedDataSource<Int, Speciality>() {
 
     private val apiService = WebAccess.pediatryApi
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Speciality>) {
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, Speciality>
+    ) {
         GlobalScope.launch {
             val response = when {
                 (type == 0) -> {
@@ -21,7 +25,7 @@ class SpecialitiesDataSource constructor(private val type : Int) : PageKeyedData
                 }
             }
 
-            when{
+            when {
                 response.isSuccessful -> {
                     val listing = response.body()?.response
                     listing?.let { callback.onResult(it, null, null) }

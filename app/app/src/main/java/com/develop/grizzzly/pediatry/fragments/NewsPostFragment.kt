@@ -31,7 +31,11 @@ class NewsPostFragment : Fragment() {
 
     private val args: NewsPostFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.show()
         mainActivity?.toolbarTitle?.text = "Новость"
@@ -89,7 +93,7 @@ class NewsPostFragment : Fragment() {
                         if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.id)) {
                             setImageGlide("error", ivLike, R.drawable.ic_heart)
                         } else {
-                            setImageGlide("error", ivLike , R.drawable.ic_unlike)
+                            setImageGlide("error", ivLike, R.drawable.ic_unlike)
                         }
 
                         tvText.webViewClient = object : WebViewClient() {
@@ -102,7 +106,13 @@ class NewsPostFragment : Fragment() {
                                 handler!!.proceed("m5edu_dev", "_p3Y3QPGuG")
                             }
                         }
-                        tvText.loadDataWithBaseURL("https://dev.edu-pediatrics.com/", newsPost?.text, "text/html", "UTF-8", "about:blank")
+                        tvText.loadDataWithBaseURL(
+                            "https://dev.edu-pediatrics.com/",
+                            newsPost?.text,
+                            "text/html",
+                            "UTF-8",
+                            "about:blank"
+                        )
 
                         viewModel.title.value = newsPost?.title
                         viewModel.announcePicture.value = newsPost?.picture
@@ -114,13 +124,13 @@ class NewsPostFragment : Fragment() {
                     }
 
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 delay(200)
                 withContext(Dispatchers.Main) {
                     try {
                         load.visibility = View.GONE
                         errorMsg.visibility = View.VISIBLE
-                    } catch (e : Exception) {
+                    } catch (e: Exception) {
 
                     }
 

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
 
 
-    fun onMenuItem(view : View) {
+    fun onMenuItem(view: View) {
         viewModelScope.launch {
             if (menuItem.direction != null) {
                 val navController = Navigation.findNavController(view)

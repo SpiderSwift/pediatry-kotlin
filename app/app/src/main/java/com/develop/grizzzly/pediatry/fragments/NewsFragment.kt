@@ -23,7 +23,11 @@ class NewsFragment : Fragment() {
     private lateinit var adapter: NewsAdapter
     private lateinit var viewModel: NewsViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val myActivity = activity as MainActivity?
         myActivity?.supportActionBar?.show()
@@ -35,7 +39,6 @@ class NewsFragment : Fragment() {
         retainInstance = true
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -30,7 +30,7 @@ class NewsDataSource : PositionalDataSource<News>() {
                                 val newsFromAd = ads[0].toNews()
                                 mutableList.add(newsFromAd)
                             }
-                            callback.onResult(mutableList,0)
+                            callback.onResult(mutableList, 0)
                         }
                     }
                 } else {
@@ -55,8 +55,8 @@ class NewsDataSource : PositionalDataSource<News>() {
 
 
 
-                                database.newsDao().saveNews(listing?.response ?: listOf())
-                                callback.onResult(mutableList,0)
+                                database.newsDao().saveNews(listing.response)
+                                callback.onResult(mutableList, 0)
                             }
                         }
 
@@ -70,13 +70,13 @@ class NewsDataSource : PositionalDataSource<News>() {
                             val newsFromAd = ads[0].toNews()
                             mutableList.add(newsFromAd)
                         }
-                        callback.onResult(mutableList,0)
+                        callback.onResult(mutableList, 0)
                     }
                 }
 
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 val news = database.newsDao().getNews(0, 10)
-                callback.onResult(news,0)
+                callback.onResult(news, 0)
             }
 
         }
@@ -90,7 +90,8 @@ class NewsDataSource : PositionalDataSource<News>() {
         }
         GlobalScope.launch {
             try {
-                val response = apiService.getNews(params.startPosition.toLong(), params.loadSize.toLong())
+                val response =
+                    apiService.getNews(params.startPosition.toLong(), params.loadSize.toLong())
                 when {
                     response.isSuccessful -> {
 
@@ -107,7 +108,8 @@ class NewsDataSource : PositionalDataSource<News>() {
                         callback.onResult(mutableList ?: listOf())
                     }
                     else -> {
-                        val news = database.newsDao().getNews(params.startPosition.toLong(), params.loadSize.toLong())
+                        val news = database.newsDao()
+                            .getNews(params.startPosition.toLong(), params.loadSize.toLong())
                         val ads = database.adDao().loadAds()
                         val mutableList = news.toMutableList()
                         if (ads.isNotEmpty()) {
@@ -117,8 +119,9 @@ class NewsDataSource : PositionalDataSource<News>() {
                         callback.onResult(mutableList)
                     }
                 }
-            } catch (e : Exception) {
-                val news = database.newsDao().getNews(params.startPosition.toLong(), params.loadSize.toLong())
+            } catch (e: Exception) {
+                val news = database.newsDao()
+                    .getNews(params.startPosition.toLong(), params.loadSize.toLong())
 
                 val ads = database.adDao().loadAds()
                 val mutableList = news.toMutableList()
@@ -131,8 +134,6 @@ class NewsDataSource : PositionalDataSource<News>() {
 
         }
     }
-
-
 
 
 }

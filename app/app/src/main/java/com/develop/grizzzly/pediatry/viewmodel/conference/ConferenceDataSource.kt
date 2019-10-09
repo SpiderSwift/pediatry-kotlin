@@ -23,7 +23,7 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
                         response.isSuccessful -> {
                             val listing = response.body()
                             database.conferenceDao().saveConference(listing?.response ?: listOf())
-                            callback.onResult(listing?.response ?: listOf(),0)
+                            callback.onResult(listing?.response ?: listOf(), 0)
                         }
                     }
                 } else {
@@ -32,33 +32,33 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
                     if (response.isSuccessful) {
                         WebAccess.id = response.body()?.response?.id ?: 0
                         WebAccess.token = response.body()?.response?.token ?: ""
-                        val responseNews = apiService.getConferences(0, params.requestedLoadSize.toLong())
+                        val responseNews =
+                            apiService.getConferences(0, params.requestedLoadSize.toLong())
                         when {
                             responseNews.isSuccessful -> {
                                 val listing = responseNews.body()
-                                database.conferenceDao().saveConference(listing?.response ?: listOf())
-                                callback.onResult(listing?.response ?: listOf(),0)
+                                database.conferenceDao()
+                                    .saveConference(listing?.response ?: listOf())
+                                callback.onResult(listing?.response ?: listOf(), 0)
                             }
                         }
 
 
                     } else {
-                        val news = database.conferenceDao().getConferences(0, params.requestedLoadSize.toLong())
-                        callback.onResult(news,0)
+                        val news = database.conferenceDao()
+                            .getConferences(0, params.requestedLoadSize.toLong())
+                        callback.onResult(news, 0)
                     }
                 }
 
-            } catch (e : Exception) {
-                val news = database.conferenceDao().getConferences(0, params.requestedLoadSize.toLong())
-                callback.onResult(news,0)
+            } catch (e: Exception) {
+                val news =
+                    database.conferenceDao().getConferences(0, params.requestedLoadSize.toLong())
+                callback.onResult(news, 0)
             }
 
 
         }
-
-
-
-
 
 
     }
@@ -66,7 +66,10 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Conference>) {
         GlobalScope.launch {
             try {
-                val response = apiService.getConferences(params.startPosition.toLong(), params.loadSize.toLong())
+                val response = apiService.getConferences(
+                    params.startPosition.toLong(),
+                    params.loadSize.toLong()
+                )
                 when {
                     response.isSuccessful -> {
                         val listing = response.body()
@@ -74,8 +77,9 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
                         callback.onResult(listing?.response ?: listOf())
                     }
                 }
-            } catch (e : Exception) {
-                val list = database.conferenceDao().getConferences(params.startPosition.toLong(), params.loadSize.toLong())
+            } catch (e: Exception) {
+                val list = database.conferenceDao()
+                    .getConferences(params.startPosition.toLong(), params.loadSize.toLong())
                 callback.onResult(list)
             }
         }

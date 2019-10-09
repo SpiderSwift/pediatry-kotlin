@@ -100,8 +100,10 @@ class ProfileViewModel : ViewModel() {
             Log.d(TAG, "no permission to read external storage")
             ActivityCompat.requestPermissions(
                 fragment?.activity!!,
-                Array(2) { Manifest.permission.READ_EXTERNAL_STORAGE
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                Array(2) {
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                },
                 200
             )
         }

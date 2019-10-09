@@ -17,7 +17,11 @@ class RegistrationFinishErrorFragment : Fragment() {
 
     lateinit var model: RegistrationViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = DataBindingUtil.inflate<FragmentRegistrationFinishErrorBinding>(
             inflater,
             R.layout.fragment_registration_finish_error,

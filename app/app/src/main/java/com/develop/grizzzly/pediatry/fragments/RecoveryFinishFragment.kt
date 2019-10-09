@@ -14,7 +14,11 @@ import com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel
 
 class RecoveryFinishFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = DataBindingUtil.inflate<FragmentRecoveryFinishBinding>(
             inflater,
             R.layout.fragment_recovery_finish,
@@ -29,7 +33,6 @@ class RecoveryFinishFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }

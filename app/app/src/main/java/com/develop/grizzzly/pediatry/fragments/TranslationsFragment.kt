@@ -35,7 +35,12 @@ class TranslationsFragment : Fragment() {
         youtube_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 val customPlayerUiController =
-                    CustomPlayerUiController(this@TranslationsFragment.activity!!, customPlayerUi, youTubePlayer, youtube_player_view)
+                    CustomPlayerUiController(
+                        this@TranslationsFragment.activity!!,
+                        customPlayerUi,
+                        youTubePlayer,
+                        youtube_player_view
+                    )
                 youTubePlayer.addListener(customPlayerUiController)
                 youtube_player_view.addFullScreenListener(customPlayerUiController)
             }
@@ -51,12 +56,4 @@ class TranslationsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-    }
-
-    override fun onDetach() {
-
-        super.onDetach()
-    }
 }

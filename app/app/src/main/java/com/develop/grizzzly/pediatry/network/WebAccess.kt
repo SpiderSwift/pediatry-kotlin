@@ -32,8 +32,8 @@ object WebAccess {
         val client = OkHttpClient.Builder()
             .addInterceptor {
                 val request = it.request().newBuilder()
-                        .addHeader("Authorization", "Bearer $token")
-                        .build()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
                 return@addInterceptor it.proceed(request)
             }
             .addInterceptor(loggingInterceptor)

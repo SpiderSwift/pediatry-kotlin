@@ -15,7 +15,7 @@ class MainApplication : Application() {
         instance = this
     }
 
-    val picasso : Picasso by lazy {
+    val picasso: Picasso by lazy {
         val client = OkHttpClient.Builder()
             .authenticator { _, response ->
                 val credential = Credentials.basic("m5edu_dev", "_p3Y3QPGuG")
@@ -24,7 +24,8 @@ class MainApplication : Application() {
                     .build()
             }
             .build()
-        return@lazy Picasso.Builder(get()!!.baseContext).downloader(OkHttp3Downloader(client)).build()
+        return@lazy Picasso.Builder(get()!!.baseContext).downloader(OkHttp3Downloader(client))
+            .build()
     }
 
     companion object {

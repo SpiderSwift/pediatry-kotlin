@@ -24,16 +24,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class WebinarInfoFragment : Fragment(){
+class WebinarInfoFragment : Fragment() {
 
     private lateinit var viewModel: WebinarPostViewModel
 
     private val args: WebinarInfoFragmentArgs by navArgs()
 
-    private var registered : Boolean = false
-    private var canWatch : Boolean = false
+    private var registered: Boolean = false
+    private var canWatch: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.hide()
 
@@ -99,22 +103,37 @@ class WebinarInfoFragment : Fragment(){
             GlobalScope.launch {
                 if (teQuestion.text.toString().isNotEmpty()) {
                     try {
-                        WebAccess.pediatryApi.sendMessageForWebinar(args.id, teQuestion.text.toString())
+                        WebAccess.pediatryApi.sendMessageForWebinar(
+                            args.id,
+                            teQuestion.text.toString()
+                        )
                         withContext(Dispatchers.Main) {
                             sendField.visibility = View.GONE
-                            showToast(activity!!, R.layout.custom_toast, "Сообщение успешно отправлено!")
+                            showToast(
+                                activity!!,
+                                R.layout.custom_toast,
+                                "Сообщение успешно отправлено!"
+                            )
                         }
 
-                    } catch (e : Exception) {
+                    } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
                             sendField.visibility = View.GONE
-                            showToast(activity!!, R.layout.custom_toast, "Произошла ошибка при отправке сообщения!")
+                            showToast(
+                                activity!!,
+                                R.layout.custom_toast,
+                                "Произошла ошибка при отправке сообщения!"
+                            )
                         }
 
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        showToast(activity!!, R.layout.custom_toast, "Введите сообщение для отправки")
+                        showToast(
+                            activity!!,
+                            R.layout.custom_toast,
+                            "Введите сообщение для отправки"
+                        )
                     }
                 }
 
@@ -134,7 +153,8 @@ class WebinarInfoFragment : Fragment(){
                         val window = mainActivity?.window
                         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                        window?.statusBarColor = mainActivity?.resources?.getColor(R.color.colorAccent) ?: 0
+                        window?.statusBarColor =
+                            mainActivity?.resources?.getColor(R.color.colorAccent) ?: 0
                         val web = response.body()!!.response!!
                         viewModel.data.value = web
                         mainContent.visibility = View.VISIBLE
@@ -163,7 +183,7 @@ class WebinarInfoFragment : Fragment(){
                     }
                 }
 
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     load.visibility = View.GONE
                     errorMsg.visibility = View.VISIBLE
@@ -173,7 +193,6 @@ class WebinarInfoFragment : Fragment(){
 
         super.onViewCreated(view, savedInstanceState)
     }
-
 
 
 }

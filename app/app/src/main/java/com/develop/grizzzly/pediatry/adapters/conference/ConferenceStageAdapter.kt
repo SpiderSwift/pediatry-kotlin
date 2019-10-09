@@ -9,7 +9,8 @@ import com.develop.grizzzly.pediatry.network.model.Program
 
 import com.develop.grizzzly.pediatry.viewmodel.conference.ConferenceStageItemViewModel
 
-class ConferenceStageAdapter(private val list : List<Program>) : RecyclerView.Adapter<ConferenceStageAdapter.ConferenceStageViewHolder>() {
+class ConferenceStageAdapter(private val list: List<Program>) :
+    RecyclerView.Adapter<ConferenceStageAdapter.ConferenceStageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceStageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ConferenceStageItemBinding.inflate(inflater, parent, false)
@@ -24,8 +25,9 @@ class ConferenceStageAdapter(private val list : List<Program>) : RecyclerView.Ad
         holder.bind(list[position])
     }
 
-    class ConferenceStageViewHolder (val binding : ConferenceStageItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(program : Program) {
+    class ConferenceStageViewHolder(val binding: ConferenceStageItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(program: Program) {
             val data = MutableLiveData<Program>(program)
             val viewModel = ConferenceStageItemViewModel(data)
             binding.model = viewModel

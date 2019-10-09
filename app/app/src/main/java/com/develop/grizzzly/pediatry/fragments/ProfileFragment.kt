@@ -21,11 +21,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
 
     private lateinit var model: ProfileViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = DataBindingUtil.inflate<FragmentProfileBinding>(
             inflater,
             R.layout.fragment_profile,
@@ -41,7 +45,7 @@ class ProfileFragment: Fragment() {
         }!!
 
         model.newAvatar.observe(this, Observer {
-            if(it != null){
+            if (it != null) {
                 profile_photo.setImageURI(it)
             }
         })
@@ -53,7 +57,8 @@ class ProfileFragment: Fragment() {
             try {
                 val response = WebAccess.pediatryApi.getProfile()
                 if (response.isSuccessful) {
-                    DatabaseAccess.database.profileDao().saveProfile(response.body()?.response!!.convert())
+                    DatabaseAccess.database.profileDao()
+                        .saveProfile(response.body()?.response!!.convert())
                     val name = response.body()?.response?.name
                     val lastname = response.body()?.response?.lastname
                     val avatarUrl = "${response.body()?.response?.avatar}"
@@ -63,7 +68,7 @@ class ProfileFragment: Fragment() {
                         model.avatarUrl.postValue(avatarUrl)
                     }
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 val profile = DatabaseAccess.database.profileDao().loadProfile(0)
                 Log.d("TAG", profile.toString())
                 val name = profile?.name

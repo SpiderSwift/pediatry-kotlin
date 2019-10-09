@@ -187,7 +187,7 @@ class ProfileEditFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         activity?.onBackPressed()
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
                         activity?.onBackPressed()
                     }

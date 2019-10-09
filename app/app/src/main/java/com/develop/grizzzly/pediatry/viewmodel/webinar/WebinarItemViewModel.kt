@@ -10,16 +10,16 @@ import com.develop.grizzzly.pediatry.network.model.Webinar
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WebinarItemViewModel (val data : MutableLiveData<Webinar>) : ViewModel() {
+class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
 
 
-    fun getDateFormatted() : String {
+    fun getDateFormatted(): String {
         val formatter = SimpleDateFormat("dd.MM", Locale.US)
         return formatter.format(data.value?.startDate)
     }
 
 
-    fun getMonth() : String {
+    fun getMonth(): String {
         return when (data.value?.startDate?.month) {
             0 -> "ЯНВАРЯ"
             1 -> "ФЕВРАЛЯ"
@@ -37,7 +37,7 @@ class WebinarItemViewModel (val data : MutableLiveData<Webinar>) : ViewModel() {
         }
     }
 
-    fun getTwoTimeDate() : String {
+    fun getTwoTimeDate(): String {
         val day = data.value?.startDate?.date
         if (day != null) {
             return if (day > 9) {
@@ -52,7 +52,7 @@ class WebinarItemViewModel (val data : MutableLiveData<Webinar>) : ViewModel() {
     }
 
 
-    fun onWebinar(view : View) {
+    fun onWebinar(view: View) {
         val navController = Navigation.findNavController(view)
 
         val toWebinar = WebinarsFragmentDirections.actionWebinarToInfo()

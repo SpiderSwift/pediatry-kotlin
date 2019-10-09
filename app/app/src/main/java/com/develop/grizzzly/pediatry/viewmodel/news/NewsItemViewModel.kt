@@ -20,9 +20,10 @@ import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
 
 
-class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, val item : Int) : ViewModel() {
+class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, val item: Int) :
+    ViewModel() {
 
-    fun onNews(view : View) {
+    fun onNews(view: View) {
         val navController = Navigation.findNavController(view)
         val toNewsPost = NewsFragmentDirections.actionNewsToNewsPost()
         toNewsPost.newsId = news.id.toInt()
@@ -32,12 +33,12 @@ class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, 
     }
 
 
-    fun onAd(view : View) {
+    fun onAd(view: View) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
-        startActivity(view.context,browserIntent, Bundle())
+        startActivity(view.context, browserIntent, Bundle())
     }
 
-    fun onLike(view : View) {
+    fun onLike(view: View) {
         if (news.likedByUsers.contains(WebAccess.id)) {
             viewModelScope.launch {
                 try {
@@ -47,7 +48,7 @@ class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, 
                         news.likedByUsers.remove(WebAccess.id)
                         adapter.notifyItemChanged(item)
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
 
@@ -61,7 +62,7 @@ class NewsItemViewModel constructor(val news : News, val adapter : NewsAdapter, 
                         news.likedByUsers.add(WebAccess.id)
                         adapter.notifyItemChanged(item)
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
 

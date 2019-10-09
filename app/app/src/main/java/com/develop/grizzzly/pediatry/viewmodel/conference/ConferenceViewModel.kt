@@ -14,14 +14,15 @@ class ConferenceViewModel : ViewModel() {
         const val pageSize = 10
     }
 
-    var conferenceLiveData : LiveData<PagedList<Conference>>
-    var dataSourceFactory : ConferenceDataSourceFactory = ConferenceDataSourceFactory()
+    var conferenceLiveData: LiveData<PagedList<Conference>>
+    var dataSourceFactory: ConferenceDataSourceFactory = ConferenceDataSourceFactory()
 
     init {
         val config = PagedList.Config.Builder()
             .setPageSize(pageSize)
             .setEnablePlaceholders(false)
             .build()
-        conferenceLiveData = LivePagedListBuilder<Int, Conference>(dataSourceFactory, config).build()
+        conferenceLiveData =
+            LivePagedListBuilder<Int, Conference>(dataSourceFactory, config).build()
     }
 }

@@ -23,12 +23,15 @@ class LoginViewModel : ViewModel() {
     val email = MutableLiveData<String>().apply { value = "" }
     val password = MutableLiveData<String>().apply { value = "" }
 
-    fun onLogin(view : View) {
+    fun onLogin(view: View) {
         viewModelScope.launch {
             try {
                 val response = try {
                     Log.d(TAG, "TRY 0")
-                    WebAccess.pediatryApi.login(email.value.toString(), password.value.toString().md5())
+                    WebAccess.pediatryApi.login(
+                        email.value.toString(),
+                        password.value.toString().md5()
+                    )
                 } catch (e: Exception) {
                     Log.d(TAG, "ERR 0"); throw e
                 }
@@ -73,14 +76,16 @@ class LoginViewModel : ViewModel() {
                             }
                             try {
                                 Log.d(TAG, "TRY 7")
-                                DatabaseAccess.database.profileDao().saveProfile(profileBody!!.convert())
+                                DatabaseAccess.database.profileDao()
+                                    .saveProfile(profileBody!!.convert())
                             } catch (e: Exception) {
                                 Log.d(TAG, "ERR 7"); throw e
                             }
                         }
                         val context = view.context
                         val intent = Intent(context, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         context.startActivity(intent)
                     } else {
                         showToast(view.context, R.layout.custom_toast, "Неверный email или пароль2")
@@ -88,7 +93,7 @@ class LoginViewModel : ViewModel() {
                 } else {
                     showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 showToast(view.context, R.layout.custom_toast, "Не удается подключиться к серверу")
             }
@@ -96,7 +101,7 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun onRegister(view : View) {
+    fun onRegister(view: View) {
         val navController = Navigation.findNavController(view)
         navController.navigate(R.id.action_login_to_registration)
     }

@@ -22,9 +22,13 @@ import kotlinx.coroutines.*
 class ConferenceStageFragment : Fragment() {
 
     private val args: ConferenceStageFragmentArgs by navArgs()
-    private var data : MutableLiveData<Boolean> = MutableLiveData()
+    private var data: MutableLiveData<Boolean> = MutableLiveData()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val myActivity = activity as MainActivity?
         myActivity?.toolbarTitle?.text = "Конференция"
         myActivity?.supportActionBar?.show()
@@ -73,7 +77,7 @@ class ConferenceStageFragment : Fragment() {
                     }
                     Log.d("TAG", response.errorBody()?.string())
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 delay(200)
                 withContext(Dispatchers.Main) {
                     errorMsg.visibility = View.VISIBLE
@@ -88,7 +92,7 @@ class ConferenceStageFragment : Fragment() {
             if (data.value == false) {
                 GlobalScope.launch {
                     try {
-                        Log.d("TAG","REG")
+                        Log.d("TAG", "REG")
                         val response = WebAccess.pediatryApi.registerForConference(args.id)
                         if (response.isSuccessful) {
                             Log.d("TAG", response.body()?.string())
@@ -98,13 +102,13 @@ class ConferenceStageFragment : Fragment() {
                         } else {
                             Log.d("TAG", response.errorBody()?.string())
                         }
-                    } catch (e : Exception) {
+                    } catch (e: Exception) {
 
                     }
                 }
             } else {
                 GlobalScope.launch {
-                    Log.d("TAG","UNNREG")
+                    Log.d("TAG", "UNNREG")
                     try {
                         val response = WebAccess.pediatryApi.unregisterForConference(args.id)
                         if (response.isSuccessful) {
@@ -115,7 +119,7 @@ class ConferenceStageFragment : Fragment() {
                         } else {
                             Log.d("TAG", response.errorBody()?.string())
                         }
-                    } catch (e : Exception) {
+                    } catch (e: Exception) {
 
                     }
 

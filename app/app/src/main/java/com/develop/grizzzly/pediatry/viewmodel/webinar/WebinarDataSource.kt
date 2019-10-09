@@ -21,7 +21,7 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
                         response.isSuccessful -> {
                             val listing = response.body()
                             database.webinarDao().saveWebinar(listing?.response ?: listOf())
-                            callback.onResult(listing?.response ?: listOf(),0)
+                            callback.onResult(listing?.response ?: listOf(), 0)
                         }
                     }
                 } else {
@@ -30,25 +30,27 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
                     if (response.isSuccessful) {
                         WebAccess.id = response.body()?.response?.id ?: 0
                         WebAccess.token = response.body()?.response?.token ?: ""
-                        val responseNews = apiService.getWebinars(0, params.requestedLoadSize.toLong())
+                        val responseNews =
+                            apiService.getWebinars(0, params.requestedLoadSize.toLong())
                         when {
                             responseNews.isSuccessful -> {
                                 val listing = responseNews.body()
                                 database.webinarDao().saveWebinar(listing?.response ?: listOf())
-                                callback.onResult(listing?.response ?: listOf(),0)
+                                callback.onResult(listing?.response ?: listOf(), 0)
                             }
                         }
 
 
                     } else {
-                        val news = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
-                        callback.onResult(news,0)
+                        val news =
+                            database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
+                        callback.onResult(news, 0)
                     }
                 }
 
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 val news = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
-                callback.onResult(news,0)
+                callback.onResult(news, 0)
             }
         }
     }
@@ -56,7 +58,8 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Webinar>) {
         GlobalScope.launch {
             try {
-                val response = apiService.getWebinars(params.startPosition.toLong(), params.loadSize.toLong())
+                val response =
+                    apiService.getWebinars(params.startPosition.toLong(), params.loadSize.toLong())
                 when {
                     response.isSuccessful -> {
                         val listing = response.body()
@@ -64,8 +67,9 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
                         callback.onResult(listing?.response ?: listOf())
                     }
                 }
-            } catch (e : Exception) {
-                val list = database.webinarDao().getWebinar(params.startPosition.toLong(), params.loadSize.toLong())
+            } catch (e: Exception) {
+                val list = database.webinarDao()
+                    .getWebinar(params.startPosition.toLong(), params.loadSize.toLong())
                 callback.onResult(list)
             }
         }

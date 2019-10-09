@@ -13,9 +13,9 @@ class NewsViewModel : ViewModel() {
         const val pageSize = 10
     }
 
-    var adapter : NewsAdapter? = null
-    var newsLiveData : LiveData<PagedList<News>>
-    var dataSourceFactory : NewsDataSourceFactory = NewsDataSourceFactory()
+    var adapter: NewsAdapter? = null
+    var newsLiveData: LiveData<PagedList<News>>
+    var dataSourceFactory: NewsDataSourceFactory = NewsDataSourceFactory()
 
     init {
         val config = PagedList.Config.Builder()

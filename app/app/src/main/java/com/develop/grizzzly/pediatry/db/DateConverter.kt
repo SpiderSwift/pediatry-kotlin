@@ -11,7 +11,7 @@ class DateConverter {
     }
 
     @TypeConverter
-    fun toDate(stamp : Long) : Date? {
+    fun toDate(stamp: Long): Date? {
         return Date(stamp)
     }
 
@@ -28,7 +28,7 @@ class DateConverter {
             if (it.isNotEmpty()) {
                 try {
                     longList.add(it.toLong())
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
             }
@@ -38,19 +38,19 @@ class DateConverter {
     }
 
     @TypeConverter
-    fun fromImageUrl(image_url : MutableList<String>): String {
+    fun fromImageUrl(image_url: MutableList<String>): String {
         return image_url.joinToString()
     }
 
     @TypeConverter
-    fun toImageUrl(data: String) : MutableList<String> {
+    fun toImageUrl(data: String): MutableList<String> {
         val list = data.split(", ")
         val strList = mutableListOf<String>()
         list.forEach {
             if (it.isNotEmpty()) {
                 try {
                     strList.add(it)
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
             }

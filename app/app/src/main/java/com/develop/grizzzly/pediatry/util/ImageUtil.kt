@@ -66,12 +66,13 @@ fun scaleBitmap(bitmap: Bitmap, maxBytes: Long): Bitmap {
     return Bitmap.createScaledBitmap(bitmap, newWidthPx, newHeightPx, true)
 }
 
-fun rotateImageIfRequired(inputStream: InputStream, bitmap: Bitmap): Bitmap{
+fun rotateImageIfRequired(inputStream: InputStream, bitmap: Bitmap): Bitmap {
     val rotatedBitmap: Bitmap
     val exif = ExifInterface(inputStream)
-    val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+    val orientation =
+        exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
-    rotatedBitmap = when(orientation){
+    rotatedBitmap = when (orientation) {
         ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90)
         ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180)
         ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270)

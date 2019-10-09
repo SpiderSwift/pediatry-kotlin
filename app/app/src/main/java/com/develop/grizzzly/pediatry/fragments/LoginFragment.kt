@@ -23,7 +23,11 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
             inflater,
@@ -65,14 +69,30 @@ class LoginFragment : Fragment() {
 
                     if (tePassword.transformationMethod is HideReturnsTransformationMethod) {
                         tePassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                        tePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_eye, 0)
+                        tePassword.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_light_eye,
+                            0
+                        )
                     } else {
-                        tePassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                        tePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0)
+                        tePassword.transformationMethod =
+                            HideReturnsTransformationMethod.getInstance()
+                        tePassword.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_eye,
+                            0
+                        )
                     }
 
                     if (tePassword.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-                        tePassword.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_eye, 0)
+                        tePassword.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_eye,
+                            0
+                        )
                         tePassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                     }
 

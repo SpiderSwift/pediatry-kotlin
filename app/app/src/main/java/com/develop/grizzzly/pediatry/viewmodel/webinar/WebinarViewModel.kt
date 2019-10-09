@@ -6,15 +6,15 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.network.model.Webinar
 
-class WebinarViewModel: ViewModel() {
+class WebinarViewModel : ViewModel() {
 
 
     companion object {
         const val pageSize = 10
     }
 
-    var conferenceLiveData : LiveData<PagedList<Webinar>>
-    var dataSourceFactory : WebinarDataSourceFactory = WebinarDataSourceFactory()
+    var conferenceLiveData: LiveData<PagedList<Webinar>>
+    var dataSourceFactory: WebinarDataSourceFactory = WebinarDataSourceFactory()
 
     init {
         val config = PagedList.Config.Builder()

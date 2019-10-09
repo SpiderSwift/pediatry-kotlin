@@ -45,7 +45,7 @@ class RegistrationSpecialityFragment : Fragment() {
                 val respMain = WebAccess.pediatryApi.getMainSpecialities()
                 mainSpecialityList = respMain.body()!!.response!!
                 additionalSpecialityList = respAdditional.body()!!.response!!
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 mainSpecialityList = listOf()
                 additionalSpecialityList = listOf()
             }
@@ -67,11 +67,13 @@ class RegistrationSpecialityFragment : Fragment() {
                     Log.d("TAG", picker.selectedItemPosition.toString())
                     when (currentSpeciality) {
                         1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
-                        2 -> model.firstAdditionalSpeciality.value = additionalSpecialityList[pointer]
-                        3 -> model.secondAdditionalSpeciality.value = additionalSpecialityList[pointer]
+                        2 -> model.firstAdditionalSpeciality.value =
+                            additionalSpecialityList[pointer]
+                        3 -> model.secondAdditionalSpeciality.value =
+                            additionalSpecialityList[pointer]
                     }
                     specialityLayout.visibility = View.GONE
-                } catch (e : Exception) {
+                } catch (e: Exception) {
 
                 }
 

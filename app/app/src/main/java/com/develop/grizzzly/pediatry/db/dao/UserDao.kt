@@ -9,8 +9,8 @@ import com.develop.grizzzly.pediatry.db.model.User
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveUser(u : User) : Long
+    suspend fun saveUser(u: User): Long
 
     @Query(value = "SELECT * FROM user WHERE id = :id LIMIT 1")
-    suspend fun findUser(id : Int) : User?
+    suspend fun findUser(id: Int): User?
 }

@@ -9,7 +9,8 @@ import com.develop.grizzzly.pediatry.databinding.WebinarItemBinding
 import com.develop.grizzzly.pediatry.network.model.Webinar
 import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarItemViewModel
 
-class WebinarAdapter : PagedListAdapter<Webinar, WebinarAdapter.WebinarViewHolder>(WebinarDiffUtilCallBack()) {
+class WebinarAdapter :
+    PagedListAdapter<Webinar, WebinarAdapter.WebinarViewHolder>(WebinarDiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WebinarViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,9 +26,10 @@ class WebinarAdapter : PagedListAdapter<Webinar, WebinarAdapter.WebinarViewHolde
     }
 
 
-    class WebinarViewHolder(val binding: WebinarItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class WebinarViewHolder(val binding: WebinarItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(webinar : Webinar) {
+        fun bind(webinar: Webinar) {
             val data = MutableLiveData<Webinar>(webinar)
             val viewModel = WebinarItemViewModel(data)
             binding.model = viewModel

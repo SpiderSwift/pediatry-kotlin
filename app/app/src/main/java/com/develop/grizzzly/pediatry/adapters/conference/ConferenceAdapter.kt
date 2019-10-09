@@ -9,7 +9,8 @@ import com.develop.grizzzly.pediatry.databinding.ConferenceItemBinding
 import com.develop.grizzzly.pediatry.network.model.Conference
 import com.develop.grizzzly.pediatry.viewmodel.conference.ConferenceItemViewModel
 
-class ConferenceAdapter : PagedListAdapter<Conference, ConferenceAdapter.ConferenceViewHolder>(ConferenceDiffUtilCallBack()) {
+class ConferenceAdapter :
+    PagedListAdapter<Conference, ConferenceAdapter.ConferenceViewHolder>(ConferenceDiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,7 +26,8 @@ class ConferenceAdapter : PagedListAdapter<Conference, ConferenceAdapter.Confere
     }
 
 
-    class ConferenceViewHolder(val binding: ConferenceItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ConferenceViewHolder(val binding: ConferenceItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(conference: Conference) {
             val data = MutableLiveData<Conference>(conference)

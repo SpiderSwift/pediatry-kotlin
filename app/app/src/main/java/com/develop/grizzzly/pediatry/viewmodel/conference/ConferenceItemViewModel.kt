@@ -12,16 +12,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ConferenceItemViewModel(val data : MutableLiveData<Conference>) : ViewModel() {
+class ConferenceItemViewModel(val data: MutableLiveData<Conference>) : ViewModel() {
 
 
-    fun getDateFormatted() : String {
+    fun getDateFormatted(): String {
         val formatter = SimpleDateFormat("dd.MM", Locale.US)
         return formatter.format(data.value?.startDate)
     }
 
 
-    fun getMonth() : String {
+    fun getMonth(): String {
         return when (data.value?.startDate?.month) {
             0 -> "ЯНВАРЯ"
             1 -> "ФЕВРАЛЯ"
@@ -39,7 +39,7 @@ class ConferenceItemViewModel(val data : MutableLiveData<Conference>) : ViewMode
         }
     }
 
-    fun getTwoTimeDate() : String {
+    fun getTwoTimeDate(): String {
         val day = data.value?.startDate?.date
         if (day != null) {
             return if (day > 9) {
@@ -54,7 +54,7 @@ class ConferenceItemViewModel(val data : MutableLiveData<Conference>) : ViewMode
     }
 
 
-    fun onConference(view : View) {
+    fun onConference(view: View) {
         val toStage = ConferentionsFragmentDirections.actionConferenceToStage()
         toStage.id = data.value!!.id!!
         val navController = Navigation.findNavController(view)

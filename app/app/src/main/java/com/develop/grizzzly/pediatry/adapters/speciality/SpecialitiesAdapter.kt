@@ -10,7 +10,13 @@ import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import com.develop.grizzzly.pediatry.viewmodel.speciality.SpecialityItemViewModel
 
-class SpecialitiesAdapter constructor(val activity : Activity, val model : RegistrationViewModel, val type : Int) : PagedListAdapter<Speciality, SpecialitiesAdapter.SpecialityViewHolder>(SpecialitiesDiffUtilCallBack()) {
+class SpecialitiesAdapter constructor(
+    val activity: Activity,
+    val model: RegistrationViewModel,
+    val type: Int
+) : PagedListAdapter<Speciality, SpecialitiesAdapter.SpecialityViewHolder>(
+    SpecialitiesDiffUtilCallBack()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecialityViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,9 +29,15 @@ class SpecialitiesAdapter constructor(val activity : Activity, val model : Regis
     }
 
 
-    class SpecialityViewHolder(private val binding: SpecialityItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class SpecialityViewHolder(private val binding: SpecialityItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(activity : Activity, model : RegistrationViewModel, speciality: Speciality, type : Int) {
+        fun bind(
+            activity: Activity,
+            model: RegistrationViewModel,
+            speciality: Speciality,
+            type: Int
+        ) {
             val viewModel = SpecialityItemViewModel(model, activity, speciality, type)
             binding.model = viewModel
         }

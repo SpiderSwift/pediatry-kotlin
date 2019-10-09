@@ -15,9 +15,13 @@ import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_menu.*
 
-class MenuFragment: Fragment() {
+class MenuFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = DataBindingUtil.inflate<FragmentMenuBinding>(
             inflater,
             R.layout.fragment_menu,

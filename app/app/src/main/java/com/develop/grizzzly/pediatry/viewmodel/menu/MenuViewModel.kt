@@ -19,7 +19,7 @@ class MenuViewModel : ViewModel() {
     val avatarUrl = MutableLiveData<String>().apply { value = "" }
 
 
-    fun onProfile(view : View) {
+    fun onProfile(view: View) {
         viewModelScope.launch {
             delay(100)
             val navController = Navigation.findNavController(view)

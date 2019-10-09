@@ -125,7 +125,7 @@ class RegistrationViewModel : ViewModel() {
                 try {
                     val jsonObject = JSONObject(result)
                     val errorCode = jsonObject.getInt("code")
-                    errorMessage.value = when(errorCode){
+                    errorMessage.value = when (errorCode) {
                         410 -> "Неправильные данные о пользователе. Необходимые поля отсутствуют и/или имеют неправильный формат."
                         411 -> "Пользователь с таким email уже зарегистрирован. Попробуйте войти."
                         4121 -> "Файл пользовательского аватара имеет слишком большой размер."
@@ -133,7 +133,7 @@ class RegistrationViewModel : ViewModel() {
                         510 -> "Ошибка регистрации пользователя."
                         else -> "Что-то пошло не так"
                     }
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     Log.e(TAG, e.toString())
                     errorMessage.value = "Что-то пошло не так."
                 }
@@ -156,8 +156,10 @@ class RegistrationViewModel : ViewModel() {
             Log.d(TAG, "no permission to read external storage")
             ActivityCompat.requestPermissions(
                 fragment?.activity!!,
-                Array(2) { Manifest.permission.READ_EXTERNAL_STORAGE
-                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                Array(2) {
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                },
                 200
             )
         }
@@ -165,11 +167,11 @@ class RegistrationViewModel : ViewModel() {
 
     fun checkReadPermission(): Boolean {
         return fragment?.activity?.applicationContext?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            } == PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(
+                it,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        } == PackageManager.PERMISSION_GRANTED
     }
 
     fun checkWritePermission(): Boolean {

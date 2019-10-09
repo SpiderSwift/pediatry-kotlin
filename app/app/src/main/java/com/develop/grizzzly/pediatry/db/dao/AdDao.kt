@@ -10,8 +10,8 @@ import com.develop.grizzzly.pediatry.network.model.Ad
 interface AdDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveAds(u : List<Ad>)
+    suspend fun saveAds(u: List<Ad>)
 
     @Query(value = "SELECT * FROM ad")
-    suspend fun loadAds() : List<Ad>
+    suspend fun loadAds(): List<Ad>
 }

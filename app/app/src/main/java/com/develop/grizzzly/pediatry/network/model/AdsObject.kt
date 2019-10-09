@@ -1,4 +1,3 @@
 package com.develop.grizzzly.pediatry.network.model
 
-data class AdsObject constructor(val ads : List<Ad>) {
-}
+data class AdsObject constructor(val ads: List<Ad>)

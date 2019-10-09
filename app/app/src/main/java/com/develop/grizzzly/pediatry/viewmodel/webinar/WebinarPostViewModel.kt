@@ -8,9 +8,9 @@ import com.develop.grizzzly.pediatry.network.model.Webinar
 
 class WebinarPostViewModel : ViewModel() {
 
-    val data : MutableLiveData<Webinar> = MutableLiveData()
+    val data: MutableLiveData<Webinar> = MutableLiveData()
 
-    fun getDetailDescription() : String {
+    fun getDetailDescription(): String {
         val desc = data.value?.description
         if (desc != null) {
             return if (desc.isNotEmpty()) {
@@ -22,7 +22,7 @@ class WebinarPostViewModel : ViewModel() {
         return "Описание отсутствует"
     }
 
-    fun getMonth() : String {
+    fun getMonth(): String {
         return when (data.value?.startDate?.month) {
             0 -> "января"
             1 -> "февраля"
@@ -40,7 +40,7 @@ class WebinarPostViewModel : ViewModel() {
         }
     }
 
-    fun getTwoTimeDate() : String {
+    fun getTwoTimeDate(): String {
         val day = data.value?.startDate?.date
         if (day != null) {
             return if (day > 9) {
@@ -51,7 +51,6 @@ class WebinarPostViewModel : ViewModel() {
         }
         return ""
     }
-
 
 
 }

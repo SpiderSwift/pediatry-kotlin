@@ -13,7 +13,11 @@ import com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel
 
 class RecoveryStartFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentRecoveryStartBinding>(
             inflater,

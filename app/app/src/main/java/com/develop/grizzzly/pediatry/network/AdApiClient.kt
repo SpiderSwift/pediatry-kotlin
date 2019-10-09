@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface AdApiClient {
 
     @GET("get_ads")
-    suspend fun getAds() : Response<AdsObject>
+    suspend fun getAds(): Response<AdsObject>
 }

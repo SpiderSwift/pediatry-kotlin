@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class RecoveryViewModel : ViewModel() {
     val email = MutableLiveData<String>().apply { value = "" }
 
-    fun onRecover(view : View) {
+    fun onRecover(view: View) {
         viewModelScope.launch {
             try {
                 val response = WebAccess.pediatryApi.restorePassword(email.value.toString())
@@ -22,14 +22,14 @@ class RecoveryViewModel : ViewModel() {
                     val navController = Navigation.findNavController(view)
                     navController.navigate(R.id.action_recovery_start_to_recovery_finish)
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
 
             }
 
         }
     }
 
-    fun onRecoverFinish(view : View) {
+    fun onRecoverFinish(view: View) {
         val navController = Navigation.findNavController(view)
         navController.navigate(R.id.action_recovery_finish_to_login)
     }

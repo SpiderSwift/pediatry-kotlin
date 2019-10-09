@@ -69,10 +69,12 @@ class MainActivity : AppCompatActivity() {
 
                     val additionalSpec = WebAccess.pediatryApi.getAdditionalSpecialities()
 
-                    DatabaseAccess.database.specialityDao().saveSpeciality(additionalSpec.body()?.response ?: listOf())
+                    DatabaseAccess.database.specialityDao()
+                        .saveSpeciality(additionalSpec.body()?.response ?: listOf())
 
                     val response = WebAccess.pediatryApi.getProfile()
-                    DatabaseAccess.database.profileDao().saveProfile(response.body()!!.response!!.convert())
+                    DatabaseAccess.database.profileDao()
+                        .saveProfile(response.body()!!.response!!.convert())
                     if (response.isSuccessful) {
                         val profile = response.body()?.response
 
@@ -91,9 +93,12 @@ class MainActivity : AppCompatActivity() {
                             profileModel.email.value = profile?.email
                             profileModel.phoneNumber.value = profile?.phone
                             profileModel.mainSpeciality.value = profile?.mainSpecialtyId
-                            profileModel.firstAdditionalSpeciality.value = profile?.additionalSpecialty1Id
-                            profileModel.secondAdditionalSpeciality.value = profile?.additionalSpecialty2Id
-                            profileModel.additionalSpecialities = additionalSpec.body()?.response ?: listOf()
+                            profileModel.firstAdditionalSpeciality.value =
+                                profile?.additionalSpecialty1Id
+                            profileModel.secondAdditionalSpeciality.value =
+                                profile?.additionalSpecialty2Id
+                            profileModel.additionalSpecialities =
+                                additionalSpec.body()?.response ?: listOf()
                             profileModel.mainSpecialities = mainSpec.body()?.response ?: listOf()
                         }
                     }
@@ -115,14 +120,18 @@ class MainActivity : AppCompatActivity() {
                         profileModel.email.value = profile?.email
                         profileModel.phoneNumber.value = profile?.phone
                         profileModel.mainSpeciality.value = profile?.mainSpecialtyId
-                        profileModel.firstAdditionalSpeciality.value = profile?.additionalSpecialty1Id
-                        profileModel.secondAdditionalSpeciality.value = profile?.additionalSpecialty2Id
-                        profileModel.additionalSpecialities = DatabaseAccess.database.specialityDao().getAdditionalSpecialities()
-                        profileModel.mainSpecialities = DatabaseAccess.database.specialityDao().getMainSpecialities()
+                        profileModel.firstAdditionalSpeciality.value =
+                            profile?.additionalSpecialty1Id
+                        profileModel.secondAdditionalSpeciality.value =
+                            profile?.additionalSpecialty2Id
+                        profileModel.additionalSpecialities =
+                            DatabaseAccess.database.specialityDao().getAdditionalSpecialities()
+                        profileModel.mainSpecialities =
+                            DatabaseAccess.database.specialityDao().getMainSpecialities()
                     }
                 }
 
-            } catch (e : Exception) {
+            } catch (e: Exception) {
 
             }
 
@@ -148,7 +157,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationBar() {
 
-        val navGraphIds = listOf(R.navigation.news_navigation, R.navigation.translations_navigation, R.navigation.menu_navigation)
+        val navGraphIds = listOf(
+            R.navigation.news_navigation,
+            R.navigation.translations_navigation,
+            R.navigation.menu_navigation
+        )
 
         val controller = bottom_nav.setupWithNavController(
             navGraphIds = navGraphIds,

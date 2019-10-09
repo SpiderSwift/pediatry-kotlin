@@ -54,7 +54,12 @@ fun getPath(context: Context, uri: Uri): String? {
     } else if ("content".equals(uri.scheme, ignoreCase = true)) {
 
         // Return the remote address
-        return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(context, uri, null, null)
+        return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
+            context,
+            uri,
+            null,
+            null
+        )
 
     } else if ("file".equals(uri.scheme, ignoreCase = true)) {
         return uri.path
@@ -85,7 +90,15 @@ private fun getDataColumn(
 
     try {
         cursor =
-            uri?.let { context.contentResolver.query(it, projection, selection, selectionArgs, null) }
+            uri?.let {
+                context.contentResolver.query(
+                    it,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null
+                )
+            }
         if (cursor != null && cursor.moveToFirst()) {
             val index = cursor.getColumnIndexOrThrow(column)
             return cursor.getString(index)

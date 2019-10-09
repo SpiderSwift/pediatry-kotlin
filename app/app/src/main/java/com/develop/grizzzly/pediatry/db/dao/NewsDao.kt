@@ -10,8 +10,8 @@ import com.develop.grizzzly.pediatry.network.model.News
 interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveNews(n : List<News>)
+    suspend fun saveNews(n: List<News>)
 
     @Query("SELECT * FROM news ORDER BY date DESC LIMIT :limit OFFSET :offset")
-    suspend fun getNews(offset : Long,limit : Long) : List<News>
+    suspend fun getNews(offset: Long, limit: Long): List<News>
 }

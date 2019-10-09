@@ -9,11 +9,11 @@ import com.develop.grizzzly.pediatry.network.model.Speciality
 @Dao
 interface SpecialityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveSpeciality(s : List<Speciality>)
+    suspend fun saveSpeciality(s: List<Speciality>)
 
     @Query("SELECT * FROM speciality WHERE main = 1")
-    suspend fun getMainSpecialities() : List<Speciality>
+    suspend fun getMainSpecialities(): List<Speciality>
 
     @Query("SELECT * FROM speciality WHERE main = 0")
-    suspend fun getAdditionalSpecialities() : List<Speciality>
+    suspend fun getAdditionalSpecialities(): List<Speciality>
 }

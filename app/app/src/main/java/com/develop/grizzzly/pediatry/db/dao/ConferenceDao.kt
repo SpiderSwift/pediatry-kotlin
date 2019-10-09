@@ -10,8 +10,8 @@ import com.develop.grizzzly.pediatry.network.model.Conference
 interface ConferenceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveConference(c : List<Conference>)
+    suspend fun saveConference(c: List<Conference>)
 
     @Query("SELECT * FROM conference ORDER BY startDate DESC LIMIT :limit OFFSET :offset")
-    suspend fun getConferences(offset : Long, limit : Long) : List<Conference>
+    suspend fun getConferences(offset: Long, limit: Long): List<Conference>
 }

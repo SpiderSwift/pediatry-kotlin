@@ -17,10 +17,14 @@ import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_webinars.*
 
-class WebinarsFragment : Fragment(){
+class WebinarsFragment : Fragment() {
     private lateinit var adapter: WebinarAdapter
     private lateinit var viewModel: WebinarViewModel
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         activity?.toolbarTitle?.text = "Вебинары"
         return inflater.inflate(R.layout.fragment_webinars, container, false)
     }
@@ -43,7 +47,7 @@ class WebinarsFragment : Fragment(){
         adapter = WebinarAdapter()
         listWebinars.adapter = adapter
 
-        val manager = GridLayoutManager(activity ,2)
+        val manager = GridLayoutManager(activity, 2)
         listWebinars.layoutManager = manager
 
         viewModel.conferenceLiveData.observe(this, Observer {

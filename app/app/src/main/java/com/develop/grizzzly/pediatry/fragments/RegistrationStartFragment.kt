@@ -14,9 +14,13 @@ import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewMode
 
 class RegistrationStartFragment : Fragment() {
 
-    lateinit var model : RegistrationViewModel
+    lateinit var model: RegistrationViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentRegistrationStartBinding>(
             inflater,
