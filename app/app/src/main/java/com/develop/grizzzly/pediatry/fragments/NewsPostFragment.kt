@@ -1,32 +1,26 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
-import android.util.Log
-import android.view.*
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import com.develop.grizzzly.pediatry.databinding.FragmentNewsPostBinding
-import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.activities.MainActivity
-import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import android.view.MenuInflater
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.HttpAuthHandler
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ImageView
-import androidx.annotation.RequiresApi
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.activities.MainActivity
+import com.develop.grizzzly.pediatry.databinding.FragmentNewsPostBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.setImageGlide
+import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news_post.*
-import kotlinx.android.synthetic.main.fragment_news_post.tvLike
 import kotlinx.coroutines.*
 
 

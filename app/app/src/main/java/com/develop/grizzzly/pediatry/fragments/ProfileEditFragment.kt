@@ -15,9 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileEditBinding
-import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.extensions.addMask
 import com.develop.grizzzly.pediatry.extensions.formatPhone
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.getPath
 import com.develop.grizzzly.pediatry.util.minimizeImage
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
@@ -27,7 +27,6 @@ import kotlinx.coroutines.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
-import java.lang.Exception
 
 private const val TAG = "PROFILE EDIT FRAGMENT"
 

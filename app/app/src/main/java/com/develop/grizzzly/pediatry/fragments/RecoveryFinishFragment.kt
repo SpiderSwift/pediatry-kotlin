@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel
 import com.develop.grizzzly.pediatry.databinding.FragmentRecoveryFinishBinding
+import com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel
 
 
 class RecoveryFinishFragment : Fragment() {

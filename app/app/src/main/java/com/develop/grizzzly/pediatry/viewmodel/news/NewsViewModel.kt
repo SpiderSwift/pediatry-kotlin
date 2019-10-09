@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.viewmodel.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.adapters.news.NewsAdapter

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationFinishErrorBinding
-import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationInfoBinding
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import kotlinx.android.synthetic.main.fragment_registration_finish_error.*
 

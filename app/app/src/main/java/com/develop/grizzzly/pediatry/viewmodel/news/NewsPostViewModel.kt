@@ -12,7 +12,6 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.setAuthorizeMessage
 import com.develop.grizzzly.pediatry.util.setImageGlide
 import com.github.curioustechizen.ago.RelativeTimeTextView
-import kotlinx.android.synthetic.main.news_item.view.*
 import kotlinx.coroutines.launch
 
 class NewsPostViewModel : ViewModel() {

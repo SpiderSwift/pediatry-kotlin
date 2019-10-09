@@ -11,10 +11,10 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.db.model.User
-import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.extensions.md5
-import kotlinx.coroutines.launch
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.showToast
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 

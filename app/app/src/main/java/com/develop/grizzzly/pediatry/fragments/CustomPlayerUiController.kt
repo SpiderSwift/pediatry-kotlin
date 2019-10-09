@@ -1,16 +1,15 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.view.ViewGroup
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import androidx.core.content.ContextCompat
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
-
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.android.synthetic.main.player_ui.view.*
 
 

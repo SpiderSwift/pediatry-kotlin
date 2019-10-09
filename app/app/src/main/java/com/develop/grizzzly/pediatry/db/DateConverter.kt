@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.db
 
 import androidx.room.TypeConverter
-import java.lang.Exception
 import java.util.*
 
 

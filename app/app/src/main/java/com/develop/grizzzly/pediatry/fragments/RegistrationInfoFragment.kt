@@ -1,21 +1,21 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.develop.grizzzly.pediatry.R
-import android.content.Intent
-import android.app.Activity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
+import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationInfoBinding
-import kotlinx.android.synthetic.main.fragment_registration_info.*
 import com.develop.grizzzly.pediatry.extensions.addMask
 import com.develop.grizzzly.pediatry.util.minimizeImage
+import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
+import kotlinx.android.synthetic.main.fragment_registration_info.*
 
 
 private const val TAG = "REGISTRATION INFO F"

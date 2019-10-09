@@ -1,13 +1,10 @@
 package com.develop.grizzzly.pediatry.viewmodel.speciality
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.BasicResponse
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class SpecialitiesDataSource constructor(private val type : Int) : PageKeyedDataSource<Int, Speciality>() {
 

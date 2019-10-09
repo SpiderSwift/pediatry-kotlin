@@ -2,25 +2,23 @@ package com.develop.grizzzly.pediatry.fragments
 
 
 import android.os.Bundle
-
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-
-import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
-import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.extensions.isEmail
-import com.develop.grizzzly.pediatry.viewmodel.login.LoginViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
-import android.view.MotionEvent
-import android.view.View.OnTouchListener
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnTouchListener
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
+import com.develop.grizzzly.pediatry.extensions.isEmail
+import com.develop.grizzzly.pediatry.viewmodel.login.LoginViewModel
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {

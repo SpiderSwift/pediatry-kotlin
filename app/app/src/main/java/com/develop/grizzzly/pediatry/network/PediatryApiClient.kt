@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.network.model.*
 import com.fasterxml.jackson.databind.JsonNode
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response

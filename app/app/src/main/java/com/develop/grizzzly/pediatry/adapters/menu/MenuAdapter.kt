@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItem
 import com.develop.grizzzly.pediatry.databinding.MenuItemBinding
+import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItem
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItemViewModel
 
 class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {

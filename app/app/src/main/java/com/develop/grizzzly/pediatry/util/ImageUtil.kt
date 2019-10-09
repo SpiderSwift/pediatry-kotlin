@@ -2,19 +2,13 @@ package com.develop.grizzzly.pediatry.util
 
 import android.content.ContentResolver
 import android.graphics.Bitmap
-import android.graphics.Matrix
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
-import android.provider.OpenableColumns
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import com.develop.grizzzly.pediatry.MainApplication
-import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.InputStream
 import kotlin.math.floor
 import kotlin.math.sqrt

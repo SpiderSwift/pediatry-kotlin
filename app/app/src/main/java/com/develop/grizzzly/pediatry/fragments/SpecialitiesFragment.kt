@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.develop.grizzzly.pediatry.adapters.speciality.SpecialitiesAdapter
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import com.develop.grizzzly.pediatry.viewmodel.speciality.SpecialitiesViewModel
 import kotlinx.android.synthetic.main.fragment_specialities.*
-import kotlinx.coroutines.Dispatchers
 
 class SpecialitiesFragment : Fragment() {
 

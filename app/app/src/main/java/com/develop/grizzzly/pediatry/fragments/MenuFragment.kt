@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.menu.MenuAdapter
 import com.develop.grizzzly.pediatry.databinding.FragmentMenuBinding
-import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.viewmodel.menu.MenuItem
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_menu.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MenuFragment: Fragment() {
 

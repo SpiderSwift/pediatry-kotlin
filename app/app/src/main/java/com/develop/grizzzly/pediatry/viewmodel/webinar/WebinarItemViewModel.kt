@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
-import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.fragments.WebinarsFragmentDirections
 import com.develop.grizzzly.pediatry.network.model.Webinar
 import java.text.SimpleDateFormat

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.databinding.SpecialityItemBinding
+import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import com.develop.grizzzly.pediatry.viewmodel.speciality.SpecialityItemViewModel
 

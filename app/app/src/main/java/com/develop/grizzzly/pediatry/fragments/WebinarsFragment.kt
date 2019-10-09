@@ -1,8 +1,7 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.os.Bundle
-import android.util.Log
 //import android.support.v4.app.Fragment
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.adapters.webinar.WebinarAdapter
-import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_webinars.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class WebinarsFragment : Fragment(){
     private lateinit var adapter: WebinarAdapter
