@@ -41,8 +41,8 @@ class RegistrationSpecialityFragment : Fragment() {
 
         GlobalScope.launch {
             try {
-                val respAdditional = WebAccess.pediatryApi.getAdditionalSpecialities()
-                val respMain = WebAccess.pediatryApi.getMainSpecialities()
+                val respAdditional = WebAccess.pediatryApi.getExtraSpecs()
+                val respMain = WebAccess.pediatryApi.getMainSpecs()
                 mainSpecialityList = respMain.body()!!.response!!
                 additionalSpecialityList = respAdditional.body()!!.response!!
             } catch (e: Exception) {
@@ -67,9 +67,9 @@ class RegistrationSpecialityFragment : Fragment() {
                     Log.d("TAG", picker.selectedItemPosition.toString())
                     when (currentSpeciality) {
                         1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
-                        2 -> model.firstAdditionalSpeciality.value =
+                        2 -> model.extraSpec1.value =
                             additionalSpecialityList[pointer]
-                        3 -> model.secondAdditionalSpeciality.value =
+                        3 -> model.extraSpec2.value =
                             additionalSpecialityList[pointer]
                     }
                     specialityLayout.visibility = View.GONE

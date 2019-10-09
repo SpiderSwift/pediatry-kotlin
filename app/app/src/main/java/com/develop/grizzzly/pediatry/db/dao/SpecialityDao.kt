@@ -12,8 +12,8 @@ interface SpecialityDao {
     suspend fun saveSpeciality(s: List<Speciality>)
 
     @Query("SELECT * FROM speciality WHERE main = 1")
-    suspend fun getMainSpecialities(): List<Speciality>
+    suspend fun getMainSpecs(): List<Speciality>
 
     @Query("SELECT * FROM speciality WHERE main = 0")
-    suspend fun getAdditionalSpecialities(): List<Speciality>
+    suspend fun getExtraSpecs(): List<Speciality>
 }

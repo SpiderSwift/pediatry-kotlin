@@ -10,6 +10,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
 object WebAccess {
+
+    // TODO: use https://dev.edu-pediatrics.com/ for debug?
     private val url = if (BuildConfig.DEBUG) {
         "https://edu-pediatrics.com/api/v1/"
     } else {
@@ -51,7 +53,12 @@ object WebAccess {
     }
 
     val adApi: AdApiClient by lazy {
+
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
             .build()
 
         val moshi = Moshi.Builder()

@@ -41,8 +41,8 @@ class RegistrationViewModel : ViewModel() {
     val kladrId = MutableLiveData<String>().apply { value = "5000000123900" }
     val country = MutableLiveData<String>().apply { value = "Россия" }
     val mainSpeciality = MutableLiveData<Speciality>().apply { value = null }
-    val firstAdditionalSpeciality = MutableLiveData<Speciality>().apply { value = null }
-    val secondAdditionalSpeciality = MutableLiveData<Speciality>().apply { value = null }
+    val extraSpec1 = MutableLiveData<Speciality>().apply { value = null }
+    val extraSpec2 = MutableLiveData<Speciality>().apply { value = null }
     val phoneNumber = MutableLiveData<String>().apply { value = "" }
     val startValid = MutableLiveData<Boolean>().apply { value = false }
     val infoValid = MutableLiveData<Boolean>().apply { value = false }
@@ -71,46 +71,37 @@ class RegistrationViewModel : ViewModel() {
         viewModelScope.launch {
 
             val fullname = fullname.value?.split(" ")
-            var requestFile: RequestBody? = null
+            val name = fullname!![1]
+            val lastname = fullname[0]
+            val middlename = fullname[2]
 
-            try {
-                val file = File(getPath(view.context, imageUrl.value!!))
-                requestFile = RequestBody.create(
-                    MediaType.parse(
-                        fragment?.activity?.contentResolver?.getType(imageUrl.value!!) ?: ""
-                    ), file
+            val avatar: RequestBody? = try {
+                RequestBody.create(
+                    MediaType.parse(fragment?.activity?.contentResolver?.getType(imageUrl.value!!)!!),
+                    File(getPath(view.context, imageUrl.value!!).toString())
                 )
             } catch (ignored: Exception) {
+                null
             }
 
-            var specialty1 = ""
-            if (firstAdditionalSpeciality.value?.id != null)
-                specialty1 = firstAdditionalSpeciality.value?.id.toString()
-
-            var specialty2 = ""
-            if (secondAdditionalSpeciality.value?.id != null)
-                specialty2 = secondAdditionalSpeciality.value?.id.toString()
-
-            val phone = phoneNumber.value!!
-                .replace("\\s".toRegex(), "")
-                .formatPhone()
+            val phone = phoneNumber.value?.replace("\\s".toRegex(), "")?.formatPhone().toString()
 
             val textType = MediaType.parse("text/plain")
 
             val response = WebAccess.pediatryApi.register(
-                RequestBody.create(textType, fullname!![1]),
-                RequestBody.create(textType, fullname[0]),
-                RequestBody.create(textType, fullname[2]),
-                RequestBody.create(textType, email.value),
-                RequestBody.create(textType, city.value),
-                RequestBody.create(textType, "${fullCity.value}${country.value}"),
-                RequestBody.create(textType, country.value),
-                RequestBody.create(textType, kladrId.value),
+                RequestBody.create(textType, name),
+                RequestBody.create(textType, lastname),
+                RequestBody.create(textType, middlename),
+                RequestBody.create(textType, email.value.toString()),
+                RequestBody.create(textType, city.value.toString()),
+                RequestBody.create(textType, "${fullCity.value}${city.value}"),
+                RequestBody.create(textType, country.value.toString()),
+                RequestBody.create(textType, kladrId.value.toString()),
                 RequestBody.create(textType, phone),
-                RequestBody.create(textType, mainSpeciality.value!!.id.toString()),
-                RequestBody.create(textType, specialty1),
-                RequestBody.create(textType, specialty2),
-                requestFile,
+                RequestBody.create(textType, mainSpeciality.value?.id.toString()),
+                RequestBody.create(textType, extraSpec1.value?.id.toString()),
+                RequestBody.create(textType, extraSpec2.value?.id.toString()),
+                avatar,
                 RequestBody.create(textType, password.value!!.md5())
             )
 
@@ -245,8 +236,8 @@ class RegistrationViewModel : ViewModel() {
 
     fun clearSpeciality() {
         mainSpeciality.value = null
-        firstAdditionalSpeciality.value = null
-        secondAdditionalSpeciality.value = null
+        extraSpec1.value = null
+        extraSpec2.value = null
     }
 
     companion object {

@@ -81,15 +81,15 @@ class ProfileEditFragment : Fragment() {
             }
         }
 
-        model.mainSpeciality.observe(this, Observer {
+        model.mainSpec.observe(this, Observer {
             btnMainSpeciality.text = model.getMainSpecialityName()
         })
 
-        model.firstAdditionalSpeciality.observe(this, Observer {
+        model.extraSpec1.observe(this, Observer {
             btnFirstAdditionalSpeciality.text = model.getFirstAdditionalSpecialityName()
         })
 
-        model.secondAdditionalSpeciality.observe(this, Observer {
+        model.extraSpec2.observe(this, Observer {
             btnSecondAdditionalSpeciality.text = model.getSecondAdditionalSpecialityName()
         })
 
@@ -104,20 +104,20 @@ class ProfileEditFragment : Fragment() {
             pointer = 0
             picker.setSelectedItemPosition(pointer, false)
             currentSpeciality = 1
-            picker.data = model.mainSpecialities
+            picker.data = model.mainSpecs
             specialityLayout.visibility = View.VISIBLE
         }
 
         btnFirstAdditionalSpeciality.setOnClickListener {
             pointer = 0
             currentSpeciality = 2
-            picker.data = model.additionalSpecialities
+            picker.data = model.extraSpecs
             specialityLayout.visibility = View.VISIBLE
         }
 
         btnSecondAdditionalSpeciality.setOnClickListener {
             currentSpeciality = 3
-            picker.data = model.additionalSpecialities
+            picker.data = model.extraSpecs
             specialityLayout.visibility = View.VISIBLE
         }
 
@@ -128,11 +128,11 @@ class ProfileEditFragment : Fragment() {
         tvChoose.setOnClickListener {
             Log.d("TAG", picker.selectedItemPosition.toString())
             when (currentSpeciality) {
-                1 -> model.mainSpeciality.value = model.mainSpecialities[pointer].id
-                2 -> model.firstAdditionalSpeciality.value =
-                    model.additionalSpecialities[pointer].id
-                3 -> model.secondAdditionalSpeciality.value =
-                    model.additionalSpecialities[pointer].id
+                1 -> model.mainSpec.value = model.mainSpecs[pointer].id
+                2 -> model.extraSpec1.value =
+                    model.extraSpecs[pointer].id
+                3 -> model.extraSpec2.value =
+                    model.extraSpecs[pointer].id
             }
             specialityLayout.visibility = View.GONE
         }
@@ -144,12 +144,12 @@ class ProfileEditFragment : Fragment() {
                     var requestFile: RequestBody? = null
 
                     var specialty1 = ""
-                    if (model.firstAdditionalSpeciality.value != null)
-                        specialty1 = model.firstAdditionalSpeciality.value.toString()
+                    if (model.extraSpec1.value != null)
+                        specialty1 = model.extraSpec1.value.toString()
 
                     var specialty2 = ""
-                    if (model.secondAdditionalSpeciality.value != null)
-                        specialty2 = model.secondAdditionalSpeciality.value.toString()
+                    if (model.extraSpec2.value != null)
+                        specialty2 = model.extraSpec2.value.toString()
 
                     val phone = model.phoneNumber.value!!
                         .formatPhone()
@@ -177,7 +177,7 @@ class ProfileEditFragment : Fragment() {
                         RequestBody.create(textType, model.country.value),
                         RequestBody.create(textType, model.kladrId.value),
                         RequestBody.create(textType, phone),
-                        RequestBody.create(textType, model.mainSpeciality.value.toString()),
+                        RequestBody.create(textType, model.mainSpec.value.toString()),
                         RequestBody.create(textType, specialty1),
                         RequestBody.create(textType, specialty2),
                         requestFile

@@ -27,20 +27,20 @@ class ProfileViewModel : ViewModel() {
     val country = MutableLiveData<String>().apply { value = "" }
     val fullCity = MutableLiveData<String>().apply { value = "" }
     val phoneNumber = MutableLiveData<String>().apply { value = "" }
-    val mainSpeciality = MutableLiveData<Long>().apply { value = null }
-    val firstAdditionalSpeciality = MutableLiveData<Long>().apply { value = null }
-    val secondAdditionalSpeciality = MutableLiveData<Long>().apply { value = null }
+    val mainSpec = MutableLiveData<Long>().apply { value = null }
+    val extraSpec1 = MutableLiveData<Long>().apply { value = null }
+    val extraSpec2 = MutableLiveData<Long>().apply { value = null }
     val avatarUrl = MutableLiveData<String>().apply { value = "error" }
     val newAvatar = MutableLiveData<Uri>().apply { value = null }
     val password = MutableLiveData<String>().apply { value = "" }
 
-    var mainSpecialities: List<Speciality> = listOf()
-    var additionalSpecialities: List<Speciality> = listOf()
+    var mainSpecs: List<Speciality> = listOf()
+    var extraSpecs: List<Speciality> = listOf()
     var fragment: Fragment? = null
 
     fun getMainSpecialityName(): String {
-        for (spec in mainSpecialities) {
-            if (spec.id == mainSpeciality.value) {
+        for (spec in mainSpecs) {
+            if (spec.id == mainSpec.value) {
                 return spec.name
             }
         }
@@ -48,8 +48,8 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun getFirstAdditionalSpecialityName(): String {
-        for (spec in additionalSpecialities) {
-            if (spec.id == firstAdditionalSpeciality.value) {
+        for (spec in extraSpecs) {
+            if (spec.id == extraSpec1.value) {
                 return spec.name
             }
         }
@@ -73,8 +73,8 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun getSecondAdditionalSpecialityName(): String {
-        for (spec in additionalSpecialities) {
-            if (spec.id == secondAdditionalSpeciality.value) {
+        for (spec in extraSpecs) {
+            if (spec.id == extraSpec2.value) {
                 return spec.name
             }
         }

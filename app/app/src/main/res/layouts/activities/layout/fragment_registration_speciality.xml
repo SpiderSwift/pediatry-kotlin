@@ -67,7 +67,7 @@
                 <!--android:gravity="center_vertical"-->
                 <!--android:elevation="5dp"-->
                 <!--android:textAllCaps="false"-->
-                <!--android:text="@{model.firstAdditionalSpeciality.name}"-->
+                <!--android:text="@{model.extraSpec1.name}"-->
                 <!--android:hint="@string/additional_speciality"-->
                 <!--android:background="@drawable/te_drawable"-->
                 <!--android:layout_marginStart="48dp"-->
@@ -89,7 +89,7 @@
                 <!--android:gravity="center_vertical"-->
                 <!--android:elevation="5dp"-->
                 <!--android:textAllCaps="false"-->
-                <!--android:text="@{model.secondAdditionalSpeciality.name}"-->
+                <!--android:text="@{model.extraSpec2.name}"-->
                 <!--android:hint="@string/additional_speciality"-->
                 <!--android:background="@drawable/te_drawable"-->
                 <!--android:layout_marginStart="48dp"-->

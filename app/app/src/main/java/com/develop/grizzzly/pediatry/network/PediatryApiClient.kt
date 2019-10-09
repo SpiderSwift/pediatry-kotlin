@@ -93,10 +93,10 @@ interface PediatryApiClient {
     ): Response<ResponseBody>
 
     @GET("specialty/main")
-    suspend fun getMainSpecialities(): Response<BasicResponse<List<Speciality>>>
+    suspend fun getMainSpecs(): Response<BasicResponse<List<Speciality>>>
 
     @GET("specialty/additional")
-    suspend fun getAdditionalSpecialities(): Response<BasicResponse<List<Speciality>>>
+    suspend fun getExtraSpecs(): Response<BasicResponse<List<Speciality>>>
 
     @GET("conference")
     suspend fun getConferences(

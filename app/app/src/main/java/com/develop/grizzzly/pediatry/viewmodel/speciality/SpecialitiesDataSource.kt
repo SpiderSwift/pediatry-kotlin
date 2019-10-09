@@ -18,10 +18,10 @@ class SpecialitiesDataSource constructor(private val type: Int) :
         GlobalScope.launch {
             val response = when {
                 (type == 0) -> {
-                    apiService.getMainSpecialities()
+                    apiService.getMainSpecs()
                 }
                 else -> {
-                    apiService.getAdditionalSpecialities()
+                    apiService.getExtraSpecs()
                 }
             }
 

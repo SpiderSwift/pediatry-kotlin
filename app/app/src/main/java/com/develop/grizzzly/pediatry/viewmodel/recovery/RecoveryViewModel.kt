@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.viewmodel.recovery
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +17,6 @@ class RecoveryViewModel : ViewModel() {
             try {
                 val response = WebAccess.pediatryApi.restorePassword(email.value.toString())
                 if (response.isSuccessful) {
-                    Log.d("TAG", response.body()?.string())
                     val navController = Navigation.findNavController(view)
                     navController.navigate(R.id.action_recovery_start_to_recovery_finish)
                 }

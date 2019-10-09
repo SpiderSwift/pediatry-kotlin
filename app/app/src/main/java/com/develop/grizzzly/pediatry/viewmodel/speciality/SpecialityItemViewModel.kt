@@ -19,10 +19,10 @@ class SpecialityItemViewModel constructor(
                 model.mainSpeciality.value = speciality
             }
             (type == 1) -> {
-                model.firstAdditionalSpeciality.value = speciality
+                model.extraSpec1.value = speciality
             }
             (type == 2) -> {
-                model.secondAdditionalSpeciality.value = speciality
+                model.extraSpec2.value = speciality
             }
         }
         activity.onBackPressed()
