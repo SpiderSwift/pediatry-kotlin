@@ -10,51 +10,23 @@
     <string name="forgot_password">Забыли пароль?</string>
     <string name="registration">Регистрация</string>
     <string name="no_account">У вас ещё нет аккаунта?</string>
-    <string name="enter_phone">Введите ваш номер телефона</string>
-    <string name="enter_code">Введите полученный код</string>
-    <string name="recover_password">Восстановление пароля</string>
-    <string name="enter_new_password">Введите новый пароль</string>
-    <string name="repeat_new_password">Повторите новый пароль</string>
     <string name="enter_data">Укажите ваши данные</string>
-    <string name="code">Полученный код</string>
     <string name="news_post">Новость</string>
-    <string name="recover">Восстановить</string>
     <string name="success_recovery">Пароль успешно изменен</string>
     <string name="success_registration">Регистрация успешно пройдена</string>
     <string name="next">Далее</string>
     <string name="finish">Завершить</string>
-    <string name="error_message">Что-то пошло не так, попробуйте еще раз…</string>
     <string name="ok">OK</string>
     <string name="enter_email">Электронная почта</string>
     <string name="enter_full_name">ФИО(Иванов Иван Иванович)</string>
     <string name="enter_speciality">Выберите вашу специальность</string>
-    <string name="speciality">Специальность</string>
-    <string name="main_speciality">Основная специальность</string>
-    <string name="additional_speciality">Дополнительная специальность</string>
-    <string name="title_activity_profile">ProfileActivity</string>
     <string name="menu_title">Меню</string>
     <string name="news_title">Новости</string>
-    <string name="translations_title">Трансляции</string>
-    <string name="messages_title">Сообщения</string>
     <string name="profile_title">Профиль</string>
     <string name="go_to_profile">Перейти в профиль</string>
     <string name="edit">Редактировать</string>
-    <string name="friends">Друзья</string>
-    <string name="support">Поддержка</string>
     <string name="webinars">Вебинары</string>
     <string name="conferentions">Конференции</string>
     <string name="conference_program">Программа конференции</string>
     <string name="enter_conference">Подать заявку</string>
-    <string name="testing">Тестирование</string>
-    <string name="details">Разборы</string>
-    <string name="image_transition">imageTransition</string>
-    <string name="username_transition">userNameTransition</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string-array name="menu_array">
-        <item>Друзья</item>
-        <item>Конференции</item>
-        <item>Вебинары</item>
-        <item>Поддержка</item>
-    </string-array>
 </resources>
