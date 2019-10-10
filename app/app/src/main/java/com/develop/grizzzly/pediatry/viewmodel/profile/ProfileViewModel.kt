@@ -23,9 +23,9 @@ class ProfileViewModel : ViewModel() {
     val middlename = MutableLiveData<String>().apply { value = "" }
     val email = MutableLiveData<String>().apply { value = "" }
     val city = MutableLiveData<String>().apply { value = "" }
-    val kladrId = MutableLiveData<String>().apply { value = "" }
-    val country = MutableLiveData<String>().apply { value = "" }
-    val fullCity = MutableLiveData<String>().apply { value = "" }
+    val kladrId = MutableLiveData<String>().apply { value = "5000000123900" }
+    val country = MutableLiveData<String>().apply { value = "russia" }
+    val fullCity = MutableLiveData<String>().apply { value = "moscow district, " }
     val phoneNumber = MutableLiveData<String>().apply { value = "" }
     val mainSpec = MutableLiveData<Long>().apply { value = null }
     val extraSpec1 = MutableLiveData<Long>().apply { value = null }
@@ -67,7 +67,8 @@ class ProfileViewModel : ViewModel() {
             val num = value.substring(7)
             return "$code $operator $num"
 
-        } catch (ignored: Exception) {
+        } catch (e: Exception) {
+            e.printStackTrace()
             ""
         }
     }

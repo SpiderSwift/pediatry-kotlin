@@ -37,9 +37,9 @@ class RegistrationViewModel : ViewModel() {
     val email = MutableLiveData<String>().apply { value = "" }
     val password = MutableLiveData<String>().apply { value = "" }
     val city = MutableLiveData<String>().apply { value = "" }
-    val fullCity = MutableLiveData<String>().apply { value = "Московская обл, " }
+    val fullCity = MutableLiveData<String>().apply { value = "moscow district, " }
     val kladrId = MutableLiveData<String>().apply { value = "5000000123900" }
-    val country = MutableLiveData<String>().apply { value = "Россия" }
+    val country = MutableLiveData<String>().apply { value = "russia" }
     val mainSpeciality = MutableLiveData<Speciality>().apply { value = null }
     val extraSpec1 = MutableLiveData<Speciality>().apply { value = null }
     val extraSpec2 = MutableLiveData<Speciality>().apply { value = null }
@@ -69,48 +69,39 @@ class RegistrationViewModel : ViewModel() {
 
     fun onRegistration(view: View) {
         viewModelScope.launch {
-
             val fullname = fullname.value?.split(" ")
-            val name = fullname!![1]
-            val lastname = fullname[0]
-            val middlename = fullname[2]
-
             val avatar: RequestBody? = try {
                 RequestBody.create(
                     MediaType.parse(fragment?.activity?.contentResolver?.getType(imageUrl.value!!)!!),
                     File(getPath(view.context, imageUrl.value!!).toString())
                 )
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                e.printStackTrace()
                 null
             }
-
             val phone = phoneNumber.value?.replace("\\s".toRegex(), "")?.formatPhone().toString()
-
             val textType = MediaType.parse("text/plain")
-
             val response = WebAccess.pediatryApi.register(
-                RequestBody.create(textType, name),
-                RequestBody.create(textType, lastname),
-                RequestBody.create(textType, middlename),
-                RequestBody.create(textType, email.value.toString()),
-                RequestBody.create(textType, city.value.toString()),
+                RequestBody.create(textType, fullname?.get(1).orEmpty()),
+                RequestBody.create(textType, fullname?.get(0).orEmpty()),
+                RequestBody.create(textType, fullname?.get(2).orEmpty()),
+                RequestBody.create(textType, email.value.orEmpty()),
+                RequestBody.create(textType, city.value.orEmpty()),
                 RequestBody.create(textType, "${fullCity.value}${city.value}"),
-                RequestBody.create(textType, country.value.toString()),
-                RequestBody.create(textType, kladrId.value.toString()),
+                RequestBody.create(textType, country.value.orEmpty()),
+                RequestBody.create(textType, kladrId.value.orEmpty()),
                 RequestBody.create(textType, phone),
                 RequestBody.create(textType, mainSpeciality.value?.id.toString()),
-                RequestBody.create(textType, extraSpec1.value?.id.toString()),
-                RequestBody.create(textType, extraSpec2.value?.id.toString()),
+                RequestBody.create(textType, extraSpec1.value?.toString().orEmpty()),
+                RequestBody.create(textType, extraSpec2.value?.toString().orEmpty()),
                 avatar,
                 RequestBody.create(textType, password.value!!.md5())
             )
-
             if (response.isSuccessful) {
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_registration_speciality_to_registration_finish)
             } else {
                 val result = response.errorBody()?.string().toString()
-
                 try {
                     val jsonObject = JSONObject(result)
                     val errorCode = jsonObject.getInt("code")

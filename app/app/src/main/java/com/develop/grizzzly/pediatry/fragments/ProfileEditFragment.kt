@@ -49,24 +49,18 @@ class ProfileEditFragment : Fragment() {
         )
         val mainActivity = activity
         mainActivity?.toolbarTitle?.text = "Редактирование"
-
         model = activity?.run {
             ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         }!!
-
         model.fragment = this
-
         binding.model = model
         binding.lifecycleOwner = this
-
         binding.phoneEditText.addMask("+7 ([000]) [000]-[00]-[00]")
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.bottom_nav?.visibility = View.GONE
-
         if (verifyAvailableNetwork()) {
             GlobalScope.launch(Dispatchers.Main) {
                 delay(200)
@@ -80,26 +74,20 @@ class ProfileEditFragment : Fragment() {
                 load.visibility = View.GONE
             }
         }
-
         model.mainSpec.observe(this, Observer {
             btnMainSpeciality.text = model.getMainSpecialityName()
         })
-
         model.extraSpec1.observe(this, Observer {
             btnFirstAdditionalSpeciality.text = model.getFirstAdditionalSpecialityName()
         })
-
         model.extraSpec2.observe(this, Observer {
             btnSecondAdditionalSpeciality.text = model.getSecondAdditionalSpecialityName()
         })
-
         model.newAvatar.observe(this, Observer {
             if (it != null) {
                 profile_edit_photo.setImageURI(it)
             }
         })
-
-
         btnMainSpeciality.setOnClickListener {
             pointer = 0
             picker.setSelectedItemPosition(pointer, false)
@@ -107,21 +95,17 @@ class ProfileEditFragment : Fragment() {
             picker.data = model.mainSpecs
             specialityLayout.visibility = View.VISIBLE
         }
-
         btnFirstAdditionalSpeciality.setOnClickListener {
             pointer = 0
             currentSpeciality = 2
             picker.data = model.extraSpecs
             specialityLayout.visibility = View.VISIBLE
         }
-
         btnSecondAdditionalSpeciality.setOnClickListener {
             currentSpeciality = 3
             picker.data = model.extraSpecs
             specialityLayout.visibility = View.VISIBLE
         }
-
-
         picker.setOnItemSelectedListener { _, _, position ->
             pointer = position
         }
@@ -129,60 +113,40 @@ class ProfileEditFragment : Fragment() {
             Log.d("TAG", picker.selectedItemPosition.toString())
             when (currentSpeciality) {
                 1 -> model.mainSpec.value = model.mainSpecs[pointer].id
-                2 -> model.extraSpec1.value =
-                    model.extraSpecs[pointer].id
-                3 -> model.extraSpec2.value =
-                    model.extraSpecs[pointer].id
+                2 -> model.extraSpec1.value = model.extraSpecs[pointer].id
+                3 -> model.extraSpec2.value = model.extraSpecs[pointer].id
             }
             specialityLayout.visibility = View.GONE
         }
-
-
         btnEdit.setOnClickListener {
             GlobalScope.launch {
                 try {
-                    var requestFile: RequestBody? = null
-
-                    var specialty1 = ""
-                    if (model.extraSpec1.value != null)
-                        specialty1 = model.extraSpec1.value.toString()
-
-                    var specialty2 = ""
-                    if (model.extraSpec2.value != null)
-                        specialty2 = model.extraSpec2.value.toString()
-
-                    val phone = model.phoneNumber.value!!
-                        .formatPhone()
-
-                    try {
-                        val file = File(getPath(view.context, model.newAvatar.value!!))
-                        requestFile = RequestBody.create(
-                            MediaType.parse(
-                                activity?.contentResolver?.getType(model.newAvatar.value!!) ?: ""
-                            ), file
+                    val phone = model.phoneNumber.value!!.formatPhone()
+                    val avatar: RequestBody? = try {
+                        RequestBody.create(
+                            MediaType.parse(activity?.contentResolver?.getType(model.newAvatar.value!!)!!),
+                            File(getPath(view.context, model.newAvatar.value!!).toString())
                         )
-                    } catch (ignored: Exception) {
-
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        null
                     }
-
                     val textType = MediaType.parse("text/plain")
-
                     WebAccess.pediatryApi.updateProfile(
-                        RequestBody.create(textType, model.name.value),
-                        RequestBody.create(textType, model.lastname.value),
-                        RequestBody.create(textType, model.middlename.value),
-                        RequestBody.create(textType, model.email.value),
-                        RequestBody.create(textType, model.city.value),
-                        RequestBody.create(textType, model.fullCity.value),
-                        RequestBody.create(textType, model.country.value),
-                        RequestBody.create(textType, model.kladrId.value),
+                        RequestBody.create(textType, model.name.value.orEmpty()),
+                        RequestBody.create(textType, model.lastname.value.orEmpty()),
+                        RequestBody.create(textType, model.middlename.value.orEmpty()),
+                        RequestBody.create(textType, model.email.value.orEmpty()),
+                        RequestBody.create(textType, model.city.value.orEmpty()),
+                        RequestBody.create(textType, model.fullCity.value.orEmpty()),
+                        RequestBody.create(textType, model.country.value.orEmpty()),
+                        RequestBody.create(textType, model.kladrId.value.orEmpty()),
                         RequestBody.create(textType, phone),
                         RequestBody.create(textType, model.mainSpec.value.toString()),
-                        RequestBody.create(textType, specialty1),
-                        RequestBody.create(textType, specialty2),
-                        requestFile
+                        RequestBody.create(textType, model.extraSpec1.value?.toString().orEmpty()),
+                        RequestBody.create(textType, model.extraSpec2.value?.toString().orEmpty()),
+                        avatar
                     )
-
                     withContext(Dispatchers.Main) {
                         activity?.onBackPressed()
                     }

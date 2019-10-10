@@ -21,8 +21,8 @@ import kotlinx.coroutines.launch
 class RegistrationSpecialityFragment : Fragment() {
 
     lateinit var model: RegistrationViewModel
-    lateinit var mainSpecialityList: List<Speciality>
-    lateinit var additionalSpecialityList: List<Speciality>
+    lateinit var mainSpecs: List<Speciality>
+    lateinit var extraSpecs: List<Speciality>
     var currentSpeciality = 0
     var pointer = 0
 
@@ -41,20 +41,20 @@ class RegistrationSpecialityFragment : Fragment() {
 
         GlobalScope.launch {
             try {
-                val respAdditional = WebAccess.pediatryApi.getExtraSpecs()
-                val respMain = WebAccess.pediatryApi.getMainSpecs()
-                mainSpecialityList = respMain.body()!!.response!!
-                additionalSpecialityList = respAdditional.body()!!.response!!
+                val extraSpecsResult = WebAccess.pediatryApi.getExtraSpecs()
+                val mainSpecsResult = WebAccess.pediatryApi.getMainSpecs()
+                mainSpecs = mainSpecsResult.body()!!.response!!
+                extraSpecs = extraSpecsResult.body()!!.response!!
             } catch (e: Exception) {
-                mainSpecialityList = listOf()
-                additionalSpecialityList = listOf()
+                mainSpecs = listOf()
+                extraSpecs = listOf()
             }
 
             btnMainSpeciality.setOnClickListener {
                 pointer = 0
                 picker.setSelectedItemPosition(pointer, false)
                 currentSpeciality = 1
-                picker.data = mainSpecialityList
+                picker.data = mainSpecs
                 specialityLayout.visibility = View.VISIBLE
             }
 
@@ -66,17 +66,14 @@ class RegistrationSpecialityFragment : Fragment() {
                 try {
                     Log.d("TAG", picker.selectedItemPosition.toString())
                     when (currentSpeciality) {
-                        1 -> model.mainSpeciality.value = mainSpecialityList[pointer]
-                        2 -> model.extraSpec1.value =
-                            additionalSpecialityList[pointer]
-                        3 -> model.extraSpec2.value =
-                            additionalSpecialityList[pointer]
+                        1 -> model.mainSpeciality.value = mainSpecs[pointer]
+                        2 -> model.extraSpec1.value = extraSpecs[pointer]
+                        3 -> model.extraSpec2.value = extraSpecs[pointer]
                     }
                     specialityLayout.visibility = View.GONE
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
-
             }
         }
 
