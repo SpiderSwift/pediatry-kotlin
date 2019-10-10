@@ -1,8 +1,6 @@
 package com.develop.grizzzly.pediatry.activities
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -29,37 +27,24 @@ class StartActivity : AppCompatActivity() {
             application, "b9feccee-76bf-402e-a033-d1c45613c559",
             Analytics::class.java, Crashes::class.java
         )
-
-        //TODO: надо предусмотреть отсутсвие подключения к сети в каждом запросе
-//        if (!verifyAvailableNetwork(this)) {
-//            showToast(
-//                this,
-//                R.layout.custom_toast,
-//                "Нет подключения к интернету. Возобновите подключение и перезапустите приложение."
-//            )
-//            return
-//        }
-
         GlobalScope.launch {
-
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d(TAG, user.toString())
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
-
-                val adHost = "http://194.67.87.233"
                 val adEndpoint = "/api/"
-
                 if(adsUrl.isSuccessful){
-//                    WebAccess.adUrl = adsUrl.body()?.response?.url.toString() + "/api/"
-                    WebAccess.adUrl =  "$adHost$adEndpoint"
-                }
-
-                val adsResult = WebAccess.adApi.getAds()
-                if (adsResult.isSuccessful) {
-                    val ads = adsResult.body()?.ads ?: listOf()
-                    ads.forEach{it.image_url = "$adHost${it.image_url}"}
-                    DatabaseAccess.database.adDao().saveAds(ads)
+                    try {
+                        WebAccess.adUrl = "${adsUrl.body()?.response?.url.toString()}$adEndpoint"
+                        val adsResult = WebAccess.adApi.getAds()
+                        if (adsResult.isSuccessful) {
+                            val ads = adsResult.body()?.ads ?: listOf()
+                            ads.forEach { it.image_url = "${WebAccess.adUrl}${it.image_url}" }
+                            DatabaseAccess.database.adDao().saveAds(ads)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
                 val loginResult = WebAccess.pediatryApi.login(user?.email, user?.password)
                 delay(1500)
@@ -103,12 +88,4 @@ class StartActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onStart()
     }
-
-    private fun verifyAvailableNetwork(activity: AppCompatActivity): Boolean {
-        val connectivityManager =
-            activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
-    }
-
 }
