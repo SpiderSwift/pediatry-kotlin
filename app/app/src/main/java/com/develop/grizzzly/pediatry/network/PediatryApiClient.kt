@@ -190,4 +190,6 @@ interface PediatryApiClient {
         @Field("message") message: String
     ): Response<ResponseBody>
 
+    @GET("ads-url")
+    suspend fun getAdsUrl(): Response<BasicResponse<AdUrl>>
 }
