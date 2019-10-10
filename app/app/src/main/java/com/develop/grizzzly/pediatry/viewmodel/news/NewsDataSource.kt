@@ -22,7 +22,6 @@ class NewsDataSource : PositionalDataSource<News>() {
                         response.isSuccessful -> {
                             val listing = response.body()
                             database.newsDao().saveNews(listing?.response ?: listOf())
-
                             val ads = database.adDao().loadAds()
                             Log.d("TAG", ads.toString())
                             val mutableList = listing?.response?.toMutableList()!!
@@ -34,7 +33,7 @@ class NewsDataSource : PositionalDataSource<News>() {
                         }
                     }
                 } else {
-                    val user = DatabaseAccess.database.userDao().findUser(0)
+                    val user = database.userDao().findUser(0)
                     val response = WebAccess.pediatryApi.login(user?.email, user?.password)
                     if (response.isSuccessful) {
                         WebAccess.id = response.body()?.response?.id ?: 0
@@ -43,25 +42,18 @@ class NewsDataSource : PositionalDataSource<News>() {
                         when {
                             responseNews.isSuccessful -> {
                                 val listing = responseNews.body()
-
                                 val ads = database.adDao().loadAds()
-
                                 val mutableList = listing?.response?.toMutableList()!!
                                 if (ads.isNotEmpty()) {
                                     val newsFromAd = ads[0].toNews()
                                     mutableList.add(newsFromAd)
                                 }
-
-
-
                                 database.newsDao().saveNews(listing.response)
                                 callback.onResult(mutableList, 0)
                             }
                         }
-
                     } else {
                         val news = database.newsDao().getNews(0, 10)
-
                         val ads = database.adDao().loadAds()
                         val mutableList = news.toMutableList()
                         if (ads.isNotEmpty()) {
@@ -71,14 +63,11 @@ class NewsDataSource : PositionalDataSource<News>() {
                         callback.onResult(mutableList, 0)
                     }
                 }
-
             } catch (e: Exception) {
                 val news = database.newsDao().getNews(0, 10)
                 callback.onResult(news, 0)
             }
-
         }
-
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
@@ -92,16 +81,13 @@ class NewsDataSource : PositionalDataSource<News>() {
                     apiService.getNews(params.startPosition.toLong(), params.loadSize.toLong())
                 when {
                     response.isSuccessful -> {
-
                         val listing = response.body()
-
                         val ads = database.adDao().loadAds()
                         val mutableList = listing?.response?.toMutableList()
                         if (ads.isNotEmpty()) {
                             val newsFromAd = ads[0].toNews()
                             mutableList?.add(newsFromAd)
                         }
-
                         database.newsDao().saveNews(listing?.response ?: listOf())
                         callback.onResult(mutableList ?: listOf())
                     }

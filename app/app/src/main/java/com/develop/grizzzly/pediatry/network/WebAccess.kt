@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.BuildConfig
+import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
@@ -23,6 +24,19 @@ object WebAccess {
     var token: String = ""
     var id: Long = 0
     var offlineLog: Boolean = true
+
+    suspend fun tryLogin() {
+        try {
+            val user = DatabaseAccess.database.userDao().findUser(0)
+            val loginResult = pediatryApi.login(user?.email, user?.password)
+            if (loginResult.isSuccessful) {
+                id = loginResult.body()?.response?.id ?: 0
+                token = loginResult.body()?.response?.token ?: ""
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
     val pediatryApi: PediatryApiClient by lazy {
 

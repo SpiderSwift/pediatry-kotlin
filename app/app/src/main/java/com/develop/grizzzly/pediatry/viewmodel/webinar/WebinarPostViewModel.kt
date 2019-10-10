@@ -44,7 +44,7 @@ class WebinarPostViewModel : ViewModel() {
             return if (day > 9) {
                 day.toString()
             } else {
-                "$day"
+                "0$day"
             }
         }
         return ""

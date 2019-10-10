@@ -14,49 +14,22 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Conference>) {
         GlobalScope.launch {
-
+            if (WebAccess.offlineLog)
+                WebAccess.tryLogin()
             try {
-                if (!WebAccess.offlineLog) {
-                    val response = apiService.getConferences(0, params.requestedLoadSize.toLong())
-                    when {
-                        response.isSuccessful -> {
-                            val listing = response.body()
-                            database.conferenceDao().saveConference(listing?.response ?: listOf())
-                            callback.onResult(listing?.response ?: listOf(), 0)
-                        }
-                    }
+                val conferencesResult = apiService.getConferences(0, params.requestedLoadSize.toLong())
+                if (conferencesResult.isSuccessful) {
+                    val conferences = conferencesResult.body()?.response ?: listOf()
+                    database.conferenceDao().saveConference(conferences)
+                    callback.onResult(conferences, 0)
                 } else {
-                    val user = DatabaseAccess.database.userDao().findUser(0)
-                    val response = WebAccess.pediatryApi.login(user?.email, user?.password)
-                    if (response.isSuccessful) {
-                        WebAccess.id = response.body()?.response?.id ?: 0
-                        WebAccess.token = response.body()?.response?.token ?: ""
-                        val responseNews =
-                            apiService.getConferences(0, params.requestedLoadSize.toLong())
-                        when {
-                            responseNews.isSuccessful -> {
-                                val listing = responseNews.body()
-                                database.conferenceDao()
-                                    .saveConference(listing?.response ?: listOf())
-                                callback.onResult(listing?.response ?: listOf(), 0)
-                            }
-                        }
-
-                    } else {
-                        val news = database.conferenceDao()
-                            .getConferences(0, params.requestedLoadSize.toLong())
-                        callback.onResult(news, 0)
-                    }
+                    throw Exception("failed to get conferences list from server, fallback to offline")
                 }
-
             } catch (e: Exception) {
-                val news =
-                    database.conferenceDao().getConferences(0, params.requestedLoadSize.toLong())
-                callback.onResult(news, 0)
+                val conferences = database.conferenceDao().getConferences(0, params.requestedLoadSize.toLong())
+                callback.onResult(conferences, 0)
             }
-
         }
-
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Conference>) {

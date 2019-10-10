@@ -2,6 +2,8 @@ package com.develop.grizzzly.pediatry.network.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.develop.grizzzly.pediatry.db.DateConverter
 import java.util.*
 
 @Entity
@@ -11,7 +13,7 @@ data class Webinar constructor(
     val subTitle: String?,
     val directionId: Long?,
     val description: String?,
-    val startDate: Date?,
+    @TypeConverters(DateConverter::class) val startDate: Date?,
     val startTime: String,
     val endTime: String,
     val score: Long,
@@ -23,6 +25,7 @@ data class Webinar constructor(
     var isRegistered: Boolean = false,
     var status: Long = 1
 )
+
 
 //{"id":30,"description":null,"announceImage":null,"image":null,"youtubeCode1":null,"videoTitle1":null,"videoDescription1":null,"youtubeCode2":null,"videoTitle2":null,"videoDescription2":null,"youtubeCode3":null,"videoTitle3":null,"videoDescription3":null}
 

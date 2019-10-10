@@ -14,42 +14,21 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Webinar>) {
         GlobalScope.launch {
+            if (WebAccess.offlineLog)
+                WebAccess.tryLogin()
             try {
-                if (!WebAccess.offlineLog) {
-                    val response = apiService.getWebinars(0, params.requestedLoadSize.toLong())
-                    when {
-                        response.isSuccessful -> {
-                            val listing = response.body()
-                            database.webinarDao().saveWebinar(listing?.response ?: listOf())
-                            callback.onResult(listing?.response ?: listOf(), 0)
-                        }
-                    }
+                val webinarsResult = apiService.getWebinars(0, params.requestedLoadSize.toLong())
+                if (webinarsResult.isSuccessful) {
+                    val webinars = webinarsResult.body()?.response.orEmpty()
+//                    webinars.forEach({it.startDate = it})
+                    database.webinarDao().saveWebinar(webinars)
+                    callback.onResult(webinars, 0)
                 } else {
-                    val user = DatabaseAccess.database.userDao().findUser(0)
-                    val response = WebAccess.pediatryApi.login(user?.email, user?.password)
-                    if (response.isSuccessful) {
-                        WebAccess.id = response.body()?.response?.id ?: 0
-                        WebAccess.token = response.body()?.response?.token ?: ""
-                        val responseNews =
-                            apiService.getWebinars(0, params.requestedLoadSize.toLong())
-                        when {
-                            responseNews.isSuccessful -> {
-                                val listing = responseNews.body()
-                                database.webinarDao().saveWebinar(listing?.response ?: listOf())
-                                callback.onResult(listing?.response ?: listOf(), 0)
-                            }
-                        }
-
-                    } else {
-                        val news =
-                            database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
-                        callback.onResult(news, 0)
-                    }
+                    throw Exception("failed to get webinars list from server, fallback to offline")
                 }
-
             } catch (e: Exception) {
-                val news = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
-                callback.onResult(news, 0)
+                val webinars = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
+                callback.onResult(webinars, 0)
             }
         }
     }
