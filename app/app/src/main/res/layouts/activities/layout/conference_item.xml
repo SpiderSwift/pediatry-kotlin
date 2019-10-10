@@ -108,6 +108,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="10sp"
+                android:ellipsize="end"
+                android:maxLines="8"
                 android:maxLength="200"
                 android:lineSpacingExtra="1dp"
                 android:fontFamily="@font/gothampromedium"
