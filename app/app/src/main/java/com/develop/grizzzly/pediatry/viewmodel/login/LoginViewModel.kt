@@ -48,7 +48,6 @@ class LoginViewModel : ViewModel() {
                         showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                     }
                 } else {
-                    Log.d(TAG, "BODY ${response.errorBody()?.string()}")
                     showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                 }
             } catch (e: Exception) {
