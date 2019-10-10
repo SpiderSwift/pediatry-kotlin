@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 private const val TAG = "START ACTIVITY"
 
@@ -48,25 +47,29 @@ class StartActivity : AppCompatActivity() {
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
 
+                val adHost = "http://194.67.87.233"
+                val adEndpoint = "/api/"
+
                 if(adsUrl.isSuccessful){
 //                    WebAccess.adUrl = adsUrl.body()?.response?.url.toString() + "/api/"
-                    WebAccess.adUrl =  "http://194.67.87.233/api/"
+                    WebAccess.adUrl =  "$adHost$adEndpoint"
                 }
 
-                val ads = WebAccess.adApi.getAds()
-                if (ads.isSuccessful) {
-                    val toSaveAds = ads.body()?.ads ?: listOf()
-                    DatabaseAccess.database.adDao().saveAds(toSaveAds)
+                val adsResult = WebAccess.adApi.getAds()
+                if (adsResult.isSuccessful) {
+                    val ads = adsResult.body()?.ads ?: listOf()
+                    ads.forEach{it.image_url = "$adHost${it.image_url}"}
+                    DatabaseAccess.database.adDao().saveAds(ads)
                 }
-                val response = WebAccess.pediatryApi.login(user?.email, user?.password)
+                val loginResult = WebAccess.pediatryApi.login(user?.email, user?.password)
                 delay(1500)
-                if (response.isSuccessful) {
-                    if (response.body()?.status != 200L) {
+                if (loginResult.isSuccessful) {
+                    if (loginResult.body()?.status != 200L) {
                         val navController = nav_host_fragment.findNavController()
                         navController.navigate(R.id.action_start_to_login)
                     } else {
-                        WebAccess.id = response.body()?.response?.id ?: 0
-                        WebAccess.token = response.body()?.response?.token ?: ""
+                        WebAccess.id = loginResult.body()?.response?.id ?: 0
+                        WebAccess.token = loginResult.body()?.response?.token ?: ""
                         val intent = Intent(baseContext, MainActivity::class.java)
                         WebAccess.offlineLog = false
                         intent.flags =

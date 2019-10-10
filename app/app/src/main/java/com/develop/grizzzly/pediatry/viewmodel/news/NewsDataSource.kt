@@ -17,7 +17,6 @@ class NewsDataSource : PositionalDataSource<News>() {
         if (WebAccess.offlineLog)
             WebAccess.tryLogin()
         val ads = database.adDao().loadAds().map { it.toNews() }.toMutableList()
-        ads.forEach { Log.w("ADS", it.toString()) }
         var news: MutableList<News>
         try {
             val responseNews = apiService.getNews(offset, limit)
@@ -40,18 +39,17 @@ class NewsDataSource : PositionalDataSource<News>() {
                 e.printStackTrace()
             }
         }
+        news.forEach { Log.w("NEWS", it.toString()) }
         return news
     }
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<News>) {
-        Log.w("ADS", "loadInitial")
         GlobalScope.launch {
             callback.onResult(load(0, 10), 0)
         }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<News>) {
-        Log.w("ADS", "loadRange")
         GlobalScope.launch {
             callback.onResult(load(params.startPosition.toLong(), params.loadSize.toLong()))
         }

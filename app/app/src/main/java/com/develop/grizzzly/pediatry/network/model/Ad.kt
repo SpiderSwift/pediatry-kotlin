@@ -6,10 +6,10 @@ import java.util.*
 
 @Entity
 data class Ad constructor(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long,
+    @PrimaryKey
+    val id: Long,
     val title: String,
-    val image_url: String,
+    var image_url: String,
     val show_image: Boolean,
     val video_url: String?
 ) {
