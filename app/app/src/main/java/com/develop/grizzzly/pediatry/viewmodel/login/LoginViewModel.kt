@@ -45,9 +45,10 @@ class LoginViewModel : ViewModel() {
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         context.startActivity(intent)
                     } else {
-                        showToast(view.context, R.layout.custom_toast, "Неверный email или пароль2")
+                        showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                     }
                 } else {
+                    Log.d(TAG, "BODY ${response.errorBody()?.string()}")
                     showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
                 }
             } catch (e: Exception) {

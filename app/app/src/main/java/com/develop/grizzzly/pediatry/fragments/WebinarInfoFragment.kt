@@ -70,23 +70,33 @@ class WebinarInfoFragment : Fragment() {
             if (!canWatch) {
                 if (!registered) {
                     GlobalScope.launch {
-                        val response = WebAccess.pediatryApi.registerForWebinar(args.id)
-                        if (response.isSuccessful) {
-                            withContext(Dispatchers.Main) {
-                                btnPart.text = "Отменить"
-                                registered = true
+                        try {
+                            val response = WebAccess.pediatryApi.registerForWebinar(args.id)
+                            if (response.isSuccessful) {
+                                withContext(Dispatchers.Main) {
+                                    btnPart.text = "Отменить"
+                                    registered = true
+                                }
                             }
+                        } catch (e : Exception) {
+
                         }
+
                     }
                 } else {
                     GlobalScope.launch {
-                        val response = WebAccess.pediatryApi.unregisterForWebinar(args.id)
-                        if (response.isSuccessful) {
-                            withContext(Dispatchers.Main) {
-                                btnPart.text = "Подать заявку"
-                                registered = false
+                        try {
+                            val response = WebAccess.pediatryApi.unregisterForWebinar(args.id)
+                            if (response.isSuccessful) {
+                                withContext(Dispatchers.Main) {
+                                    btnPart.text = "Участвовать"
+                                    registered = false
+                                }
                             }
+                        } catch (e : Exception) {
+
                         }
+
                     }
                 }
             } else {
