@@ -118,7 +118,11 @@ class RegistrationViewModel : ViewModel() {
                     errorMessage.value = "Что-то пошло не так."
                 }
                 val navController = Navigation.findNavController(view)
-                navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
+                try {
+                    navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 //Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
             }
         }
