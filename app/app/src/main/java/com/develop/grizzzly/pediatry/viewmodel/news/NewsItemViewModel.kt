@@ -66,10 +66,8 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         }
-
     }
 
     companion object {

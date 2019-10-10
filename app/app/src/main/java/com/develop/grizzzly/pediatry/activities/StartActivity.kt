@@ -75,11 +75,14 @@ class StartActivity : AppCompatActivity() {
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 } else {
-                    val navController = nav_host_fragment.findNavController()
-                    navController.navigate(R.id.action_start_to_login)
+                    try {
+                        val navController = nav_host_fragment.findNavController()
+                        navController.navigate(R.id.action_start_to_login)
+                    } catch (e: Exception) {
+                        e.printStackTrace()  // crashed on monkey test
+                    }
                 }
             }
-
         }
     }
 
