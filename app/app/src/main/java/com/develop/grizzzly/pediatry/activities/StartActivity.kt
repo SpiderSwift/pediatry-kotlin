@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 private const val TAG = "START ACTIVITY"
 
@@ -54,8 +55,8 @@ class StartActivity : AppCompatActivity() {
 
                 val ads = WebAccess.adApi.getAds()
                 if (ads.isSuccessful) {
-                    val list = ads.body()?.ads ?: listOf()
-                    DatabaseAccess.database.adDao().saveAds(list)
+                    val toSaveAds = ads.body()?.ads ?: listOf()
+                    DatabaseAccess.database.adDao().saveAds(toSaveAds)
                 }
                 val response = WebAccess.pediatryApi.login(user?.email, user?.password)
                 delay(1500)
@@ -77,6 +78,7 @@ class StartActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_start_to_login)
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 if (user != null) {
                     val intent = Intent(baseContext, MainActivity::class.java)
                     intent.flags =
