@@ -6,6 +6,7 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Webinar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class WebinarDataSource : PositionalDataSource<Webinar>() {
 
@@ -20,11 +21,11 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
                 val webinarsResult = apiService.getWebinars(0, params.requestedLoadSize.toLong())
                 if (webinarsResult.isSuccessful) {
                     val webinars = webinarsResult.body()?.response.orEmpty()
-//                    webinars.forEach({it.startDate = it})
+                    webinars.forEach { it.startDate = Date(it.startTime.toLong()) }
                     database.webinarDao().saveWebinar(webinars)
                     callback.onResult(webinars, 0)
                 } else {
-                    throw Exception("failed to get webinars list from server, fallback to offline")
+                    throw Exception("fail: loadInitial webinars from server, fallback to offline")
                 }
             } catch (e: Exception) {
                 val webinars = database.webinarDao().getWebinar(0, params.requestedLoadSize.toLong())
@@ -36,19 +37,18 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Webinar>) {
         GlobalScope.launch {
             try {
-                val response =
-                    apiService.getWebinars(params.startPosition.toLong(), params.loadSize.toLong())
-                when {
-                    response.isSuccessful -> {
-                        val listing = response.body()
-                        database.webinarDao().saveWebinar(listing?.response ?: listOf())
-                        callback.onResult(listing?.response ?: listOf())
-                    }
+                val webinarsResult = apiService.getWebinars(params.startPosition.toLong(), params.loadSize.toLong())
+                if (webinarsResult.isSuccessful) {
+                    val webinars = webinarsResult.body()?.response.orEmpty()
+                    webinars.forEach { it.startDate = Date(it.startTime.toLong()) }
+                    database.webinarDao().saveWebinar(webinars)
+                    callback.onResult(webinars)
+                } else {
+                    throw Exception("fail: loadRange webinars from server, fallback to offline")
                 }
             } catch (e: Exception) {
-                val list = database.webinarDao()
-                    .getWebinar(params.startPosition.toLong(), params.loadSize.toLong())
-                callback.onResult(list)
+                val webinars = database.webinarDao().getWebinar(params.startPosition.toLong(), params.loadSize.toLong())
+                callback.onResult(webinars)
             }
         }
     }

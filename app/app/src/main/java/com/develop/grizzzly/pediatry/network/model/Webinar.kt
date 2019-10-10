@@ -13,7 +13,7 @@ data class Webinar constructor(
     val subTitle: String?,
     val directionId: Long?,
     val description: String?,
-    @TypeConverters(DateConverter::class) val startDate: Date?,
+    @TypeConverters(DateConverter::class) var startDate: Date?,
     val startTime: String,
     val endTime: String,
     val score: Long,
