@@ -41,9 +41,17 @@ class StartActivity : AppCompatActivity() {
 //        }
 
         GlobalScope.launch {
+
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d(TAG, user.toString())
             try {
+                val adsUrl = WebAccess.pediatryApi.getAdsUrl()
+
+                if(adsUrl.isSuccessful){
+//                    WebAccess.adUrl = adsUrl.body()?.response?.url.toString() + "/api/"
+                    WebAccess.adUrl =  "http://194.67.87.233/api/"
+                }
+
                 val ads = WebAccess.adApi.getAds()
                 if (ads.isSuccessful) {
                     val list = ads.body()?.ads ?: listOf()

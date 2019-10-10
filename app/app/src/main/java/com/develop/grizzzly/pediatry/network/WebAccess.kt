@@ -19,7 +19,7 @@ object WebAccess {
         "https://edu-pediatrics.com/api/v1/"
     }
 
-    private val adUrl = "http://194.67.87.233/api/"
+    var adUrl: String = ""
 
     var token: String = ""
     var id: Long = 0
