@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,14 +34,12 @@ class ConferenceStageFragment : Fragment() {
         myActivity?.bottom_nav?.visibility = View.VISIBLE
         myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         return inflater.inflate(R.layout.fragment_conference_stage, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val llm = LinearLayoutManager(activity)
         listStages.layoutManager = llm
-
         data.observe(this, Observer {
             if (it) {
                 btnRegister.text = "Отменить заявку"
@@ -50,77 +47,61 @@ class ConferenceStageFragment : Fragment() {
                 btnRegister.text = "Подать заявку"
             }
         })
-
-
         GlobalScope.launch {
-
             try {
                 val response = WebAccess.pediatryApi.getConference(args.id)
                 if (response.isSuccessful) {
                     val registered = response.body()?.response?.isRegistered ?: false
                     val list = response.body()!!.response!!.programs
                     delay(150)
-                    Log.d("TAG", list.toString())
-                    Log.d("TAG", registered.toString())
                     withContext(Dispatchers.Main) {
                         data.value = registered
-                        listStages.adapter = ConferenceStageAdapter(list)
-                        load.visibility = View.GONE
-                        mainContent.visibility = View.VISIBLE
+                        listStages?.adapter = ConferenceStageAdapter(list)
+                        load?.visibility = View.GONE
+                        mainContent?.visibility = View.VISIBLE
                     }
                 } else {
                     delay(200)
                     withContext(Dispatchers.Main) {
-                        errorMsg.visibility = View.VISIBLE
-                        load.visibility = View.GONE
+                        errorMsg?.visibility = View.VISIBLE
+                        load?.visibility = View.GONE
                     }
-                    Log.d("TAG", response.errorBody()?.string())
                 }
             } catch (e: Exception) {
                 delay(200)
                 withContext(Dispatchers.Main) {
-                    errorMsg.visibility = View.VISIBLE
-                    load.visibility = View.GONE
+                    errorMsg?.visibility = View.VISIBLE
+                    load?.visibility = View.GONE
                 }
             }
-
         }
 
         btnRegister.setOnClickListener {
             if (data.value == false) {
                 GlobalScope.launch {
                     try {
-                        Log.d("TAG", "REG")
                         val response = WebAccess.pediatryApi.registerForConference(args.id)
                         if (response.isSuccessful) {
-                            Log.d("TAG", response.body()?.string())
                             withContext(Dispatchers.Main) {
                                 data.value = true
                             }
-                        } else {
-                            Log.d("TAG", response.errorBody()?.string())
                         }
                     } catch (e: Exception) {
-
+                        e.printStackTrace()
                     }
                 }
             } else {
                 GlobalScope.launch {
-                    Log.d("TAG", "UNNREG")
                     try {
                         val response = WebAccess.pediatryApi.unregisterForConference(args.id)
                         if (response.isSuccessful) {
-                            Log.d("TAG", response.body()?.string())
                             withContext(Dispatchers.Main) {
                                 data.value = false
                             }
-                        } else {
-                            Log.d("TAG", response.errorBody()?.string())
                         }
                     } catch (e: Exception) {
-
+                        e.printStackTrace()
                     }
-
                 }
             }
         }
