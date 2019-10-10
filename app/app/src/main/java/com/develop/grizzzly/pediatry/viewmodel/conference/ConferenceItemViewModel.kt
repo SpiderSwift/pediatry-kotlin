@@ -53,7 +53,11 @@ class ConferenceItemViewModel(val data: MutableLiveData<Conference>) : ViewModel
         val toStage = ConferentionsFragmentDirections.actionConferenceToStage()
         toStage.id = data.value!!.id!!
         val navController = Navigation.findNavController(view)
-        navController.navigate(toStage)
+        try {
+            navController.navigate(toStage)
+        } catch (e: Exception) {
+            e.printStackTrace()  // crashed on monkey test
+        }
     }
 
 }

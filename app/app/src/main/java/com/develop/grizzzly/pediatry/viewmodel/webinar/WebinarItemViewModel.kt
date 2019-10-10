@@ -17,7 +17,6 @@ class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
         return formatter.format(data.value?.startDate)
     }
 
-
     fun getMonth() : String {
         val date = Date(data.value?.startTime?.toLong() ?: 0L)
         return when (date.month) {
@@ -58,12 +57,13 @@ class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
 
     fun onWebinar(view: View) {
         val navController = Navigation.findNavController(view)
-
         val toWebinar = WebinarsFragmentDirections.actionWebinarToInfo()
         toWebinar.id = data.value?.id ?: 0L
-
-        navController.navigate(toWebinar)
-
+        try {
+            navController.navigate(toWebinar)
+        } catch (e: Exception) {
+            e.printStackTrace()  // crashed on monkey test
+        }
     }
 
 }

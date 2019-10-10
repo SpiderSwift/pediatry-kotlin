@@ -28,7 +28,11 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
         toNewsPost.newsId = news.id.toInt()
         toNewsPost.date = news.date!!.time
         toNewsPost.index = item
-        navController.navigate(toNewsPost)
+        try {
+            navController.navigate(toNewsPost)
+        } catch (e: Exception) {
+            e.printStackTrace() // crashed on monkey test
+        }
     }
 
     fun onAd(view: View) {
@@ -47,9 +51,8 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
                         adapter.notifyItemChanged(item)
                     }
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
-
             }
         } else {
             viewModelScope.launch {
@@ -61,7 +64,7 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
                         adapter.notifyItemChanged(item)
                     }
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
 
             }
