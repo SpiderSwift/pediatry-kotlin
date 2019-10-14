@@ -1,10 +1,13 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -40,7 +43,6 @@ class NewsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
         }!!
@@ -67,8 +69,8 @@ class NewsFragment : Fragment() {
             viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
         }
 
-
         super.onViewCreated(view, savedInstanceState)
+
     }
 
 }

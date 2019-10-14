@@ -1,265 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:rttv="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rttv="http://schemas.android.com/apk/res-auto">
 
 
     <data>
+
         <variable
-                name="model"
-                type="com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel" />
+            name="model"
+            type="com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel" />
     </data>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/newsCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/layout_bg"
-                android:elevation="10dp"
-                android:onClick="@{model::onNews}"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/newsCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/layout_bg"
+            android:elevation="10dp"
+            android:onClick="@{model::onNews}"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                        android:id="@+id/news_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:newsImageUrl="@{model.news.announcePicture}"/>
+                    android:id="@+id/news_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    app:newsImageUrl="@{model.news.announcePicture}" />
 
 
             </androidx.cardview.widget.CardView>
 
 
             <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/gothampromedium"
-                    android:lineSpacingExtra="10dp"
-                    android:text="@{model.news.title}"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView"/>
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/gothampromedium"
+                android:lineSpacingExtra="10dp"
+                android:text="@{model.news.title}"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 
             <com.github.curioustechizen.ago.RelativeTimeTextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/gothampro"
-                    android:lineSpacingExtra="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                    rttv:reference_time="@{model.news.date.time}"/>
+                android:id="@+id/tvTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/gothampro"
+                android:lineSpacingExtra="10dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                rttv:reference_time="@{model.news.date.time}" />
 
 
             <ImageView
-                    android:id="@+id/ivLike"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp" android:src="@drawable/ic_heart"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/tvLike"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" app:layout_constraintVertical_bias="1.0"/>
+                android:id="@+id/ivLike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_heart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvLike"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:layout_constraintVertical_bias="1.0" />
 
 
             <View
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:onClick="@{model::onLike}"
-                    app:layout_constraintBottom_toTopOf="@+id/ivLike"
-                    app:layout_constraintEnd_toStartOf="@+id/ivLike"
-                    app:layout_constraintStart_toEndOf="@+id/ivLike"
-                    app:layout_constraintTop_toBottomOf="@+id/ivLike">
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:onClick="@{model::onLike}"
+                app:layout_constraintBottom_toTopOf="@+id/ivLike"
+                app:layout_constraintEnd_toStartOf="@+id/ivLike"
+                app:layout_constraintStart_toEndOf="@+id/ivLike"
+                app:layout_constraintTop_toBottomOf="@+id/ivLike">
 
             </View>
 
 
             <TextView
-                    android:id="@+id/tvLike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/gothampro"
-                    android:inputType="none"
-                    android:lineSpacingExtra="10dp"
-                    android:text="@{String.valueOf(model.news.liked)}"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" app:layout_constraintVertical_bias="0.0"/>
+                android:id="@+id/tvLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/gothampro"
+                android:inputType="none"
+                android:lineSpacingExtra="10dp"
+                android:text="@{String.valueOf(model.news.liked)}"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/adCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/layout_bg"
-                android:elevation="10dp"
-                android:orientation="vertical"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/adCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/layout_bg"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.cardview.widget.CardView
-                    android:id="@+id/adCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                android:id="@+id/adCardView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                        android:id="@+id/ad_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:newsImageUrl="@{model.news.announcePicture}"/>
+                    android:id="@+id/ad_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    app:newsImageUrl="@{model.news.announcePicture}" />
+
+                <VideoView
+                    android:id="@+id/ad_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
 
 
             </androidx.cardview.widget.CardView>
 
 
             <TextView
-                    android:id="@+id/tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/gothampro"
-                    android:lineSpacingExtra="10dp"
-                    android:text="Реклама"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/adCardView"/>
+                android:id="@+id/tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gothampro"
+                android:lineSpacingExtra="10dp"
+                android:text="Реклама"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/adCardView" />
 
             <TextView
-                    android:id="@+id/tvAdTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/gothampromedium"
-                    android:lineSpacingExtra="10dp"
-                    android:text="@{model.news.title}"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/adCardView"/>
+                android:id="@+id/tvAdTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/gothampromedium"
+                android:lineSpacingExtra="10dp"
+                android:text="@{model.news.title}"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adCardView" />
 
 
             <ImageView
-                    android:id="@+id/ivNext"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/ic_forward" android:tint="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAdTitle" app:layout_constraintVertical_bias="1.0"/>
+                android:id="@+id/ivNext"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_forward"
+                android:tint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAdTitle"
+                app:layout_constraintVertical_bias="1.0" />
 
 
             <View
-                    android:id="@+id/view22"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:onClick="@{model::onAd}"
-                    app:layout_constraintBottom_toTopOf="@+id/ivNext"
-                    app:layout_constraintEnd_toStartOf="@+id/ivNext"
-                    app:layout_constraintStart_toEndOf="@+id/ivNext" app:layout_constraintTop_toBottomOf="@+id/ivNext">
+                android:id="@+id/view22"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:onClick="@{model::onAd}"
+                app:layout_constraintBottom_toTopOf="@+id/ivNext"
+                app:layout_constraintEnd_toStartOf="@+id/ivNext"
+                app:layout_constraintStart_toEndOf="@+id/ivNext"
+                app:layout_constraintTop_toBottomOf="@+id/ivNext">
 
             </View>
 
 
             <TextView
-                    android:id="@+id/tvGo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/gothampro"
-                    android:inputType="none"
-                    android:lineSpacingExtra="10dp"
-                    android:text="Перейти"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="19sp"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/view22"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAdTitle" app:layout_constraintVertical_bias="1.0"/>
+                android:id="@+id/tvGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/gothampro"
+                android:inputType="none"
+                android:lineSpacingExtra="10dp"
+                android:onClick="@{model::onAd}"
+                android:text="Перейти"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorAccent"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/view22"
+                app:layout_constraintTop_toBottomOf="@+id/tvAdTitle"
+                app:layout_constraintVertical_bias="1.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
 
 
 </layout>

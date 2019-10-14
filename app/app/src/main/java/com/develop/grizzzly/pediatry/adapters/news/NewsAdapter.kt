@@ -1,12 +1,13 @@
 package com.develop.grizzzly.pediatry.adapters.news
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
-
 import com.develop.grizzzly.pediatry.databinding.NewsItemBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
@@ -28,12 +29,16 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         }
     }
 
-    class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class NewsViewHolder(val binding: NewsItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
-            //val data = MutableLiveData<News>(news)
-
             if (news.isAd) {
+                if (true) {
+                    val videoView = binding.adVideo
+                    videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
+                    videoView.start()
+                }
                 binding.root.adCard.visibility = View.VISIBLE
                 binding.root.newsCard.visibility = View.GONE
             } else {
