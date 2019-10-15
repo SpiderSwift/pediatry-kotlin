@@ -33,7 +33,7 @@ class StartActivity : AppCompatActivity() {
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
                 val adEndpoint = "/api/"
-                if(adsUrl.isSuccessful){
+                if (adsUrl.isSuccessful) {
                     try {
                         WebAccess.adUrl = "${adsUrl.body()?.response?.url.toString()}$adEndpoint"
                         val adsResult = WebAccess.adApi.getAds()
