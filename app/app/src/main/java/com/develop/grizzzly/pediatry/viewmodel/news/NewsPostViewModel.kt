@@ -28,16 +28,16 @@ class NewsPostViewModel : ViewModel() {
     fun onLike(v: View) {
         val news = newsViewModel.newsLiveData.value!![index]!!
 
-        if (news.likedByUsers.contains(WebAccess.id)) {
+        if (news.likedByUsers.contains(WebAccess.userId)) {
             viewModelScope.launch {
                 try {
                     val response = WebAccess.pediatryApi.unlikeNews(news.id)
                     if (response.isSuccessful) {
                         liked.value = liked.value?.minus(1)
                         news.liked = news.liked?.minus(1)
-                        news.likedByUsers.remove(WebAccess.id)
+                        news.likedByUsers.remove(WebAccess.userId)
                         newsViewModel.adapter?.notifyItemChanged(index)
-                        if (news.likedByUsers.contains(WebAccess.id)) {
+                        if (news.likedByUsers.contains(WebAccess.userId)) {
                             setImageGlide("error", imageView, R.drawable.ic_heart)
                         } else {
                             setImageGlide("error", imageView, R.drawable.ic_unlike)
@@ -55,9 +55,9 @@ class NewsPostViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         liked.value = liked.value?.plus(1)
                         news.liked = news.liked?.plus(1)
-                        news.likedByUsers.add(WebAccess.id)
+                        news.likedByUsers.add(WebAccess.userId)
                         newsViewModel.adapter?.notifyItemChanged(index)
-                        if (news.likedByUsers.contains(WebAccess.id)) {
+                        if (news.likedByUsers.contains(WebAccess.userId)) {
                             setImageGlide("error", imageView, R.drawable.ic_heart)
                         } else {
                             setImageGlide("error", imageView, R.drawable.ic_unlike)

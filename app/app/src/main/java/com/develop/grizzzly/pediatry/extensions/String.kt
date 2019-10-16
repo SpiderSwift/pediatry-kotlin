@@ -10,7 +10,7 @@ fun String.isPhoneNumber(): Boolean {
     if (this.isEmpty()) {
         return false
     }
-    return this.length === 18
+    return this.length == 18
 }
 
 fun String.md5(): String {

@@ -86,7 +86,7 @@ class NewsPostFragment : Fragment() {
 
 
 
-                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.id)) {
+                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.userId)) {
                             setImageGlide("error", ivLike, R.drawable.ic_heart)
                         } else {
                             setImageGlide("error", ivLike, R.drawable.ic_unlike)

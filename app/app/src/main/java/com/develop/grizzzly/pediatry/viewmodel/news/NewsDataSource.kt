@@ -35,8 +35,8 @@ class NewsDataSource : PositionalDataSource<News>() {
 
     suspend fun load(offset: Long, limit: Long) : MutableList<News> {
         if (WebAccess.offlineLog)
-            WebAccess.tryLogin()
-        val ads = database.adDao().loadAds().map { it.toNews() }
+            WebAccess.tryLoginWithDb()
+        val ads = database.adDao().loadAds().map { it.convert() }
         var news: MutableList<News>
         try {
             val responseNews = apiService.getNews(offset, limit)

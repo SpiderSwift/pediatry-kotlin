@@ -25,30 +25,24 @@ class LoginViewModel : ViewModel() {
     fun onLogin(view: View) {
         viewModelScope.launch {
             try {
-                val loginResult = WebAccess.pediatryApi.login(
-                    email.value.toString(),
-                    password.value.toString().md5()
-                )
+                val passwordHash = password.value.toString().md5()
+                val loginResult = WebAccess.pediatryApi.login(email.value.toString(), passwordHash)
                 if (loginResult.isSuccessful) {
-                    if (loginResult.body()!!.status == 200L) {
-                        WebAccess.token = loginResult.body()?.response?.token ?: ""
-                        WebAccess.id = loginResult.body()?.response?.id ?: 0
-                        val user = User(0, email.value, password.value.toString().md5())
-                        DatabaseAccess.database.userDao().saveUser(user)
-                        val profileResult = WebAccess.pediatryApi.getProfile()
-                        if (profileResult.isSuccessful) {
-                            val profile = profileResult.body()?.response!!.convert()
-                            DatabaseAccess.database.profileDao().saveProfile(profile)
-                        }
-                        val context = view.context
-                        val intent = Intent(context, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        context.startActivity(intent)
-                    } else {
-                        showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
+                    WebAccess.userToken = loginResult.body()?.response?.token ?: ""
+                    WebAccess.userId = loginResult.body()?.response?.id ?: 0
+                    val user = User(0, email.value, passwordHash)
+                    DatabaseAccess.database.userDao().saveUser(user)
+                    val profileResult = WebAccess.pediatryApi.getProfile()
+                    if (profileResult.isSuccessful) {
+                        val profile = profileResult.body()?.response!!.convert()
+                        DatabaseAccess.database.profileDao().saveProfile(profile)
                     }
+                    val context = view.context
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    context.startActivity(intent)
                 } else {
-                    showToast(view.context, R.layout.custom_toast, "Неверный email или пароль")
+                    showToast(view.context, R.layout.custom_toast, "Неверный email или пароль ${loginResult.code()}")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

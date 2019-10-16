@@ -16,7 +16,7 @@ class WebinarDataSource : PositionalDataSource<Webinar>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Webinar>) {
         GlobalScope.launch {
             if (WebAccess.offlineLog)
-                WebAccess.tryLogin()
+                WebAccess.tryLoginWithDb()
             try {
                 val webinarsResult = apiService.getWebinars(0, params.requestedLoadSize.toLong())
                 if (webinarsResult.isSuccessful) {

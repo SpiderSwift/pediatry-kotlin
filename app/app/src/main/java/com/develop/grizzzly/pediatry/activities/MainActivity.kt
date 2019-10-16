@@ -15,7 +15,6 @@ import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.setupWithNavController
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, "TOKEN ${WebAccess.token}")
+        Log.d(TAG, "TOKEN ${WebAccess.userToken}")
 
         if (savedInstanceState == null)
             setupBottomNavigationBar()

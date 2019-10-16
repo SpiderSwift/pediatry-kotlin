@@ -32,14 +32,15 @@ class StartActivity : AppCompatActivity() {
             Log.d(TAG, user.toString())
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
-                val adEndpoint = "/api/"
                 if (adsUrl.isSuccessful) {
                     try {
-                        WebAccess.adUrl = "${adsUrl.body()?.response?.url.toString()}$adEndpoint"
-                        val adsResult = WebAccess.adApi.getAds()
+//                        WebAccess.adsUrl = adsUrl.body()?.response?.url.toString()
+                        WebAccess.adsUrl = "http://194.67.87.233"
+                        WebAccess.adsApiUrl = "${WebAccess.adsUrl}${WebAccess.adsApiEndpoint}"
+                        val adsResult = WebAccess.adsApi.getAds()
                         if (adsResult.isSuccessful) {
                             val ads = adsResult.body()?.ads ?: listOf()
-                            ads.forEach { it.image_url = "${WebAccess.adUrl}${it.image_url}" }
+                            ads.forEach { it.image_url = "${WebAccess.adsUrl}${it.image_url}" }
                             DatabaseAccess.database.adDao().saveAds(ads)
                         }
                     } catch (e: Exception) {
@@ -53,8 +54,8 @@ class StartActivity : AppCompatActivity() {
                         val navController = nav_host_fragment.findNavController()
                         navController.navigate(R.id.action_start_to_login)
                     } else {
-                        WebAccess.id = loginResult.body()?.response?.id ?: 0
-                        WebAccess.token = loginResult.body()?.response?.token ?: ""
+                        WebAccess.userId = loginResult.body()?.response?.id ?: 0
+                        WebAccess.userToken = loginResult.body()?.response?.token ?: ""
                         val intent = Intent(baseContext, MainActivity::class.java)
                         WebAccess.offlineLog = false
                         intent.flags =

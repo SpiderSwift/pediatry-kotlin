@@ -3,7 +3,8 @@ package com.develop.grizzzly.pediatry.db
 import androidx.room.TypeConverter
 import java.util.*
 
-class DateConverter {
+class MultiConverter {
+
     @TypeConverter
     fun fromDate(date: Date?): Long? {
         return date?.time
