@@ -1,11 +1,9 @@
 package com.develop.grizzzly.pediatry.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -18,9 +16,6 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.setupWithNavController
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -46,21 +41,17 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             try {
                 val mainSpecsResult = WebAccess.pediatryApi.getMainSpecs()
-                val mainSpecs = if (mainSpecsResult.isSuccessful)
-                    mainSpecsResult.body()?.response.orEmpty()
-                else
-                    DatabaseAccess.database.specialityDao().getMainSpecs()
+                val mainSpecs =
+                    if (mainSpecsResult.isSuccessful) mainSpecsResult.body()?.response.orEmpty()
+                    else DatabaseAccess.database.specialityDao().getMainSpecs()
                 val extraSpecsResult = WebAccess.pediatryApi.getExtraSpecs()
-                val extraSpecs = if (extraSpecsResult.isSuccessful)
-                    extraSpecsResult.body()?.response.orEmpty()
-                else
-                    DatabaseAccess.database.specialityDao().getExtraSpecs()
-                val profResult = WebAccess.pediatryApi.getProfile()
-                val profile = if (profResult.isSuccessful)
-                    profResult.body()?.response?.convert()
-                else
-                    DatabaseAccess.database.profileDao().loadProfile(0)
-
+                val extraSpecs =
+                    if (extraSpecsResult.isSuccessful) extraSpecsResult.body()?.response.orEmpty()
+                    else DatabaseAccess.database.specialityDao().getExtraSpecs()
+                val profileResult = WebAccess.pediatryApi.getProfile()
+                val profile =
+                    if (profileResult.isSuccessful) profileResult.body()?.response?.convert()
+                    else DatabaseAccess.database.profileDao().loadProfile(0)
                 withContext(Dispatchers.Main) {
                     profileModel.mainSpecs = mainSpecs
                     profileModel.extraSpecs = extraSpecs
@@ -78,82 +69,15 @@ class MainActivity : AppCompatActivity() {
                     profileModel.extraSpec1.value = profile?.additionalSpecialty1Id
                     profileModel.extraSpec2.value = profile?.additionalSpecialty2Id
                 }
-//
-//
-//                if (!WebAccess.isLoggedIn) {
-//                    val mainSpecResult = WebAccess.pediatryApi.getMainSpecs()
-//                    val mainSpecs = mainSpecResult.body()?.response ?: listOf()
-//                    mainSpecs.forEach { it.main = true }
-//                    DatabaseAccess.database.specialityDao().saveSpeciality(mainSpecs)
-//
-//                    val extraSpecResult = WebAccess.pediatryApi.getExtraSpecs()
-//                    val extraSpecs = mainSpecResult.body()?.response ?: listOf()
-//                    DatabaseAccess.database.specialityDao().saveSpeciality(extraSpecs)
-//
-//                    val profileResult = WebAccess.pediatryApi.getProfile()
-//                    val profile = profileResult.body()!!.response!!.convert()
-//                    DatabaseAccess.database.profileDao().saveProfile(profile)
-//
-//                    withContext(Dispatchers.Main) {
-//                        if (mainSpecResult.isSuccessful)
-//                            profileModel.mainSpecs = mainSpecs
-//                        if (extraSpecResult.isSuccessful)
-//                            profileModel.extraSpecs = extraSpecs
-//                        if (profileResult.isSuccessful) {
-//                            model.name.postValue(profile.name)
-//                            model.lastname.postValue(profile.lastname)
-//                            model.avatarUrl.postValue(profile.avatar)
-//                            profileModel.city.value = profile.city
-//                            profileModel.name.value = profile.name
-//                            profileModel.middlename.value = profile.middlename
-//                            profileModel.lastname.value = profile.lastname
-//                            profileModel.avatarUrl.value = profile.avatar
-//                            profileModel.email.value = profile.email
-//                            profileModel.phoneNumber.value = profile.phone
-//                            profileModel.mainSpec.value = profile.mainSpecialtyId
-//                            profileModel.extraSpec1.value = profile.additionalSpecialty1Id
-//                            profileModel.extraSpec2.value = profile.additionalSpecialty2Id
-//                        }
-//                    }
-//                } else {
-//                    val mainSpecs = DatabaseAccess.database.specialityDao().getMainSpecs()
-//                    val extraSpecs = DatabaseAccess.database.specialityDao().getExtraSpecs()
-//                    val profile = DatabaseAccess.database.profileDao().loadProfile(0)
-//                    withContext(Dispatchers.Main) {
-//                        model.name.postValue(profile?.name)
-//                        model.lastname.postValue(profile?.lastname)
-//                        model.avatarUrl.postValue("${profile?.avatar}")
-//                        profileModel.city.value = profile?.city
-//                        profileModel.name.value = profile?.name
-//                        profileModel.middlename.value = profile?.middlename
-//                        profileModel.lastname.value = profile?.lastname
-//                        profileModel.avatarUrl.value = profile?.avatar
-//                        profileModel.email.value = profile?.email
-//                        profileModel.phoneNumber.value = profile?.phone
-//                        profileModel.mainSpec.value = profile?.mainSpecialtyId
-//                        profileModel.extraSpec1.value = profile?.additionalSpecialty1Id
-//                        profileModel.extraSpec2.value = profile?.additionalSpecialty2Id
-//                        profileModel.extraSpecs = extraSpecs
-//                        profileModel.mainSpecs = mainSpecs
-//                    }
-//                }
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        //supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        //supportActionBar?.setCustomView(R.layout.support_bar)
-        //supportActionBar?.title = "The feeling of"
-        //supportActionBar?.hide()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -187,4 +111,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
+
 }

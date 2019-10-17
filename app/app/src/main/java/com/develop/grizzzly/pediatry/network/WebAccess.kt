@@ -97,7 +97,7 @@ object WebAccess {
 
         val retrofit = Retrofit.Builder()
             .client(client)
-            .baseUrl(adsApiUrl)
+            .baseUrl(adsApiUrl ?: "127.0.0.1")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
