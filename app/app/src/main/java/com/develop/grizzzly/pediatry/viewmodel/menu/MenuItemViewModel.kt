@@ -20,7 +20,6 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
                 navController.navigate(menuItem.direction)
             }
         }
-
     }
 
     companion object {

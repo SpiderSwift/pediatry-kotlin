@@ -25,9 +25,8 @@ class NewsPostViewModel : ViewModel() {
     var index: Int = 0
     var liked = MutableLiveData<Long>()
 
-    fun onLike(v: View) {
+    fun onLike(@Suppress("UNUSED_PARAMETER") v : View) {
         val news = newsViewModel.newsLiveData.value!![index]!!
-
         if (news.likedByUsers.contains(WebAccess.userId)) {
             viewModelScope.launch {
                 try {
@@ -44,9 +43,8 @@ class NewsPostViewModel : ViewModel() {
                         }
                     }
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
-
             }
         } else {
             viewModelScope.launch {
@@ -64,15 +62,14 @@ class NewsPostViewModel : ViewModel() {
                         }
                     }
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
-
             }
         }
     }
 
     companion object {
-        @BindingAdapter("rttv:reference_time")
+        @BindingAdapter("rttv:news_post_reference_time")
         @JvmStatic
         fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
             view.setReferenceTime(time)

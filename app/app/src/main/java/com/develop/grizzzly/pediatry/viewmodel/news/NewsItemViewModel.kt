@@ -40,7 +40,7 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
         startActivity(view.context, browserIntent, Bundle())
     }
 
-    fun onLike(view: View) {
+    fun onLike(@Suppress("UNUSED_PARAMETER") v: View) {
         if (news.likedByUsers.contains(WebAccess.userId)) {
             viewModelScope.launch {
                 try {
@@ -84,7 +84,6 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
                 Log.d("TAG", imageUrl)
                 setAuthorizeMessage(imageUrl, view, android.R.color.white)
             }
-
         }
     }
 }

@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-                name="model"
-                type="com.develop.grizzzly.pediatry.viewmodel.menu.MenuItemViewModel" />
+            name="model"
+            type="com.develop.grizzzly.pediatry.viewmodel.menu.MenuItemViewModel" />
     </data>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/menu_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?android:selectableItemBackground"
+        android:onClick="@{model::onMenuItem}">
 
-    <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/menu_item_container"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:onClick="@{model::onMenuItem}"
-            android:background="?android:selectableItemBackground">
         <ImageView
-                android:id="@+id/menu_item_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:alpha="@{model.menuItem.alpha}"
-                android:padding="10dp"
-                app:resource="@{model.menuItem.icon}"
-        />
+            android:id="@+id/menu_item_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:alpha="@{model.menuItem.alpha}"
+            android:padding="10dp"
+            app:resource="@{model.menuItem.icon}"
+            tools:ignore="ContentDescription" />
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/menu_item_text"
-                  android:layout_width="wrap_content"
-                  android:layout_height="20dp"
-                  android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                  android:layout_marginLeft="70dp"
-                  android:text="@{model.menuItem.name}"
-                  android:alpha="@{model.menuItem.alpha}"
-                  android:textAlignment="center"
-                  android:layout_centerVertical="true"
-        />
+            android:id="@+id/menu_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="70dp"
+            android:alpha="@{model.menuItem.alpha}"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:text="@{model.menuItem.name}"
+            android:textAlignment="center" />
+
         <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:alpha="@{model.menuItem.alpha}"
-                android:padding="10dp"
-                android:src="@drawable/ic_forward"
-        />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:alpha="@{model.menuItem.alpha}"
+            android:padding="10dp"
+            android:src="@drawable/ic_forward"
+            tools:ignore="ContentDescription" />
+
     </RelativeLayout>
 
 </layout>
