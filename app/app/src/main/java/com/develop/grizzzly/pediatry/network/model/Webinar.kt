@@ -2,9 +2,6 @@ package com.develop.grizzzly.pediatry.network.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.develop.grizzzly.pediatry.db.MultiConverter
-import java.util.*
 
 @Entity
 data class Webinar constructor(

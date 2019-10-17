@@ -39,17 +39,13 @@ class ProfileFragment : Fragment() {
         val mainActivity = activity
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
         mainActivity?.toolbarTitle?.text = "Профиль"
-
         model = activity?.run {
             ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         }!!
-
         model.newAvatar.observe(this, Observer {
-            if (it != null) {
+            if (it != null)
                 profile_photo.setImageURI(it)
-            }
         })
-
         binding.model = model
         binding.lifecycleOwner = this
 
@@ -80,14 +76,11 @@ class ProfileFragment : Fragment() {
                     model.avatarUrl.postValue(avatarUrl)
                 }
             }
-
         }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         model.phoneNumber.observe(this, Observer {
             valuePhone.text = model.getNumber()
         })

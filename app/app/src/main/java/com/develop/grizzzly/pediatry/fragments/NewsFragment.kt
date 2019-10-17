@@ -40,34 +40,25 @@ class NewsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewModel = activity?.run {
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
         }!!
         listNews.setHasFixedSize(true)
-
-        if (viewModel.adapter == null) {
+        if (viewModel.adapter == null)
             viewModel.adapter = NewsAdapter()
-        }
-
         adapter = viewModel.adapter!!
         listNews.adapter = adapter
-
         val llm = LinearLayoutManager(activity)
         llm.isAutoMeasureEnabled = false
         listNews.layoutManager = llm
         (listNews.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-
         viewModel.newsLiveData.observe(this, Observer {
             adapter.submitList(it)
             refreshLayout.isRefreshing = false
         })
-
         refreshLayout.setOnRefreshListener {
             viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
         }
-
-
         super.onViewCreated(view, savedInstanceState)
     }
 

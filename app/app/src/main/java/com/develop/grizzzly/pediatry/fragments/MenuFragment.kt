@@ -30,24 +30,18 @@ class MenuFragment : Fragment() {
         )
         val mainActivity = activity
         mainActivity?.toolbarTitle?.text = "Меню"
-
         val model = activity?.run {
             ViewModelProviders.of(this).get(MenuViewModel::class.java)
         }!!
-
         binding.model = model
         binding.lifecycleOwner = this
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val llm = LinearLayoutManager(activity)
-        menuList.layoutManager = llm
+        menuList.layoutManager = LinearLayoutManager(activity)
         menuList.adapter = MenuAdapter()
         menuList.itemAnimator = null
-
         super.onViewCreated(view, savedInstanceState)
     }
 }

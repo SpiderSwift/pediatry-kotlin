@@ -21,31 +21,23 @@ class RegistrationStartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = DataBindingUtil.inflate<FragmentRegistrationStartBinding>(
             inflater,
             R.layout.fragment_registration_start,
             container,
             false
         )
-
-
-
         model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
         }!!
-
         binding.model = model
         binding.lifecycleOwner = this
-
         model.email.observe(this, Observer {
             model.startValid.value = model.isStartValid()
         })
-
         model.password.observe(this, Observer {
             model.startValid.value = model.isStartValid()
         })
-
         return binding.root
     }
 

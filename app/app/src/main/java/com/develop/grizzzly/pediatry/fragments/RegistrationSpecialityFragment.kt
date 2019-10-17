@@ -31,14 +31,12 @@ class RegistrationSpecialityFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = DataBindingUtil.inflate<FragmentRegistrationSpecialityBinding>(
             inflater,
             R.layout.fragment_registration_speciality,
             container,
             false
         )
-
         GlobalScope.launch {
             try {
                 val extraSpecsResult = WebAccess.pediatryApi.getExtraSpecs()
@@ -49,7 +47,6 @@ class RegistrationSpecialityFragment : Fragment() {
                 mainSpecs = listOf()
                 extraSpecs = listOf()
             }
-
             btnMainSpeciality.setOnClickListener {
                 pointer = 0
                 picker.setSelectedItemPosition(pointer, false)
@@ -57,11 +54,9 @@ class RegistrationSpecialityFragment : Fragment() {
                 picker.data = mainSpecs
                 specialityLayout.visibility = View.VISIBLE
             }
-
             picker.setOnItemSelectedListener { _, _, position ->
                 pointer = position
             }
-
             tvChoose.setOnClickListener {
                 try {
                     Log.d("TAG", picker.selectedItemPosition.toString())
@@ -76,18 +71,14 @@ class RegistrationSpecialityFragment : Fragment() {
                 }
             }
         }
-
         model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
         }!!
-
         binding.model = model
         binding.lifecycleOwner = this
-
         model.mainSpeciality.observe(this, Observer {
             model.specialityValid.value = model.isSpecialityValid()
         })
-
         return binding.root
     }
 

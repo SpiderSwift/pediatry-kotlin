@@ -28,26 +28,19 @@ class ConferentionsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewModel = ViewModelProviders.of(this).get(ConferenceViewModel::class.java)
-
         listConference.setHasFixedSize(true)
-
         adapter = ConferenceAdapter()
         listConference.adapter = adapter
-
         val manager = GridLayoutManager(activity, 2)
         listConference.layoutManager = manager
-
         viewModel.conferenceLiveData.observe(this, Observer {
             adapter.submitList(it)
             refreshLayout.isRefreshing = false
         })
-
         refreshLayout.setOnRefreshListener {
             viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
         }
-
         super.onViewCreated(view, savedInstanceState)
     }
 }

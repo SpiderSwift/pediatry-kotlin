@@ -39,33 +39,25 @@ class WebinarInfoFragment : Fragment() {
     ): View? {
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.hide()
-
         viewModel = ViewModelProviders.of(this).get(WebinarPostViewModel::class.java)
-
         mainActivity?.toolbarTitle?.text = "Вебинар"
         mainActivity?.bottom_nav?.visibility = View.GONE
-
         setHasOptionsMenu(true)
-
         //viewModel = ViewModelProviders.of(this).get(WebinarInfoViewModel::class.java)
-
         val binding = DataBindingUtil.inflate<FragmentWebinarInfoBinding>(
             inflater,
             R.layout.fragment_webinar_info,
             container,
             false
         )
-
         binding.model = viewModel
         binding.lifecycleOwner = this
-
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainActivity = activity as? MainActivity
-
         btnPart.setOnClickListener {
             if (!canWatch) {
                 if (!registered) {
@@ -79,9 +71,8 @@ class WebinarInfoFragment : Fragment() {
                                 }
                             }
                         } catch (e : Exception) {
-
+                            e.printStackTrace()
                         }
-
                     }
                 } else {
                     GlobalScope.launch {
@@ -94,9 +85,8 @@ class WebinarInfoFragment : Fragment() {
                                 }
                             }
                         } catch (e : Exception) {
-
+                            e.printStackTrace()
                         }
-
                     }
                 }
             } else {
@@ -124,7 +114,6 @@ class WebinarInfoFragment : Fragment() {
                                 "Сообщение успешно отправлено!"
                             )
                         }
-
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
                             sendField.visibility = View.GONE
@@ -134,7 +123,6 @@ class WebinarInfoFragment : Fragment() {
                                 "Произошла ошибка при отправке сообщения!"
                             )
                         }
-
                     }
                 } else {
                     withContext(Dispatchers.Main) {
@@ -145,7 +133,6 @@ class WebinarInfoFragment : Fragment() {
                         )
                     }
                 }
-
             }
         }
 
@@ -183,7 +170,6 @@ class WebinarInfoFragment : Fragment() {
                             btnPart.text = "Перейти к просмотру"
                         }
                         tvText.text = viewModel.getDetailDescription()
-
                     }
                 } else {
                     withContext(Dispatchers.Main) {
@@ -191,7 +177,6 @@ class WebinarInfoFragment : Fragment() {
                         errorMsg.visibility = View.VISIBLE
                     }
                 }
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     load.visibility = View.GONE
@@ -199,7 +184,6 @@ class WebinarInfoFragment : Fragment() {
                 }
             }
         }
-
         super.onViewCreated(view, savedInstanceState)
     }
 

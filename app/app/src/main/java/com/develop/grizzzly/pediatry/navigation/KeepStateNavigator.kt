@@ -23,7 +23,6 @@ class KeepStateNavigator(
     ): NavDestination? {
         val tag = destination.id.toString()
         val transaction = manager.beginTransaction()
-
         var initialNavigate = false
         val currentFragment = manager.primaryNavigationFragment
         if (currentFragment != null) {
@@ -31,7 +30,6 @@ class KeepStateNavigator(
         } else {
             initialNavigate = true
         }
-
         var fragment = manager.findFragmentByTag(tag)
         if (fragment == null) {
             val className = destination.className
@@ -40,11 +38,9 @@ class KeepStateNavigator(
         } else {
             transaction.attach(fragment)
         }
-
         transaction.setPrimaryNavigationFragment(fragment)
         transaction.setReorderingAllowed(true)
         transaction.commitNow()
-
         return if (initialNavigate) {
             destination
         } else {
