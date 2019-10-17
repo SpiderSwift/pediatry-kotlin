@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:rttv="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
-            type="com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel"/>
+            type="com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,7 +99,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvLike"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:layout_width="35dp"
@@ -106,8 +109,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/ivLike"
                 app:layout_constraintEnd_toStartOf="@+id/ivLike"
                 app:layout_constraintStart_toEndOf="@+id/ivLike"
-                app:layout_constraintTop_toBottomOf="@+id/ivLike">
-            </View>
+                app:layout_constraintTop_toBottomOf="@+id/ivLike"></View>
 
             <TextView
                 android:id="@+id/tvLike"
@@ -220,8 +222,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/ivNext"
                 app:layout_constraintEnd_toStartOf="@+id/ivNext"
                 app:layout_constraintStart_toEndOf="@+id/ivNext"
-                app:layout_constraintTop_toBottomOf="@+id/ivNext">
-            </View>
+                app:layout_constraintTop_toBottomOf="@+id/ivNext"></View>
 
             <TextView
                 android:id="@+id/tvGo"

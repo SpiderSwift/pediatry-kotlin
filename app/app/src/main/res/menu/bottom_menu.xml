@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/news_btn"
-            android:icon="@drawable/ic_news"
-            android:title="@string/news_title"/>
+        android:id="@+id/news_btn"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news_title" />
     <item
-            android:id="@+id/conference_btn"
-            android:icon="@drawable/ic_conferations"
-            android:title="@string/conferentions"/>
+        android:id="@+id/conference_btn"
+        android:icon="@drawable/ic_conferations"
+        android:title="@string/conferentions" />
     <!--<item-->
-            <!--android:id="@+id/messages_btn"-->
-            <!--android:icon="@drawable/ic_messages"-->
-            <!--android:title="@string/messages_title"/>-->
+    <!--android:id="@+id/messages_btn"-->
+    <!--android:icon="@drawable/ic_messages"-->
+    <!--android:title="@string/messages_title"/>-->
     <item
-            android:id="@+id/menu_btn"
-            android:icon="@drawable/ic_main"
-            android:title="@string/menu_title" />
+        android:id="@+id/menu_btn"
+        android:icon="@drawable/ic_main"
+        android:title="@string/menu_title" />
 </menu>

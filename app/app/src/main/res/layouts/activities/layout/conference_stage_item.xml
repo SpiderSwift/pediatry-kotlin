@@ -1,140 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-                name="model"
-                type="com.develop.grizzzly.pediatry.viewmodel.conference.ConferenceStageItemViewModel" />
+            name="model"
+            type="com.develop.grizzzly.pediatry.viewmodel.conference.ConferenceStageItemViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/conference_layout_bg"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/conference_layout_bg"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/gothampromedium"
-                android:text="@{model.startTime}"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline"
-                app:layout_constraintStart_toStartOf="parent" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/gothampromedium"
+            android:text="@{model.startTime}"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/separatorGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="3dp"
-                android:layout_height="0dp"
-                android:background="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-                app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/separatorGuideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent=".5" />
+                app:layout_constraintGuide_percent=".5" />
 
             <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:background="@color/colorPrimaryDark"
-                    app:cardBackgroundColor="@color/colorPrimaryDark"
-                    app:cardCornerRadius="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/colorPrimaryDark"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".25" />
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".25" />
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/gothampromedium"
-                android:text="@{model.endTime}"
-                android:textAlignment="textStart"
-                android:textColor="#A5A0AB"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-
-        <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/gothampromedium"
-                android:text="@{model.data.subject}"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:lineHeight="22sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gothampromedium"
+            android:text="@{model.endTime}"
+            android:textAlignment="textStart"
+            android:textColor="#A5A0AB"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/gothampro"
-                android:text="@{model.data.lecturers}"
-                android:textAlignment="textStart"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/gothampromedium"
+            android:lineHeight="22sp"
+            android:text="@{model.data.subject}"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/gothampro"
+            android:text="@{model.data.lecturers}"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,66 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-                name="model"
-                type="com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel" />
+            name="model"
+            type="com.develop.grizzzly.pediatry.viewmodel.recovery.RecoveryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-                android:id="@+id/tvEnter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="23sp"
-                android:fontFamily="@font/gothampro"
-                android:text="@string/success_recovery"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginBottom="48dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginEnd="64dp"
-                android:lineSpacingExtra="10dp"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/ivCheck"
-        />
-
+            android:id="@+id/tvEnter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="48dp"
+            android:fontFamily="@font/gothampro"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/success_recovery"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toTopOf="@+id/ivCheck"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-                android:id="@+id/ivCheck"
-                android:inputType="numberDecimal"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:background="@drawable/ic_recovery_check"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            android:id="@+id/ivCheck"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@drawable/ic_recovery_check"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-                android:id="@+id/btnFinish"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="48dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginEnd="48dp"
-                android:textSize="18sp"
-                android:text="@string/finish"
-                android:onClick="@{model::onRecoverFinish}"
-                android:textColor="@android:color/white"
-                android:fontFamily="@font/gothampro"
-                android:background="@drawable/accent_btn_drawable"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
+            android:id="@+id/btnFinish"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/accent_btn_drawable"
+            android:fontFamily="@font/gothampro"
+            android:onClick="@{model::onRecoverFinish}"
+            android:text="@string/finish"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

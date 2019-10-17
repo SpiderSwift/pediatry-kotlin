@@ -1,45 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/menu_btn"
-        app:startDestination="@id/menu">
-
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_btn"
+    app:startDestination="@id/menu">
 
     <fragment
-            android:id="@+id/menu"
-            android:label="@string/menu_title"
-            android:name="com.develop.grizzzly.pediatry.fragments.MenuFragment">
-        <action android:id="@+id/action_menu_to_webinars" app:destination="@id/webinars"/>
-        <action android:id="@+id/action_menu_to_profile" app:destination="@id/profile"/>
+        android:id="@+id/menu"
+        android:name="com.develop.grizzzly.pediatry.fragments.MenuFragment"
+        android:label="@string/menu_title">
+        <action
+            android:id="@+id/action_menu_to_webinars"
+            app:destination="@id/webinars" />
+        <action
+            android:id="@+id/action_menu_to_profile"
+            app:destination="@id/profile" />
     </fragment>
 
     <fragment
-            android:id="@+id/webinars"
-            android:label="@string/webinars"
-            android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment">
-        <action android:id="@+id/action_webinar_to_info" app:destination="@id/webinar_info">
+        android:id="@+id/webinars"
+        android:name="com.develop.grizzzly.pediatry.fragments.WebinarsFragment"
+        android:label="@string/webinars">
+        <action
+            android:id="@+id/action_webinar_to_info"
+            app:destination="@id/webinar_info">
             <argument
-                    android:name="id"
-                    app:argType="long"
-                    android:defaultValue="0L" />
+                android:name="id"
+                android:defaultValue="0L"
+                app:argType="long" />
         </action>
     </fragment>
 
     <fragment
-            android:id="@+id/webinar_info"
-            android:label="@string/webinars"
-            android:name="com.develop.grizzzly.pediatry.fragments.WebinarInfoFragment">
+        android:id="@+id/webinar_info"
+        android:name="com.develop.grizzzly.pediatry.fragments.WebinarInfoFragment"
+        android:label="@string/webinars">
         <argument
-                android:name="id"
-                app:argType="long"
-                android:defaultValue="0L" />
+            android:name="id"
+            android:defaultValue="0L"
+            app:argType="long" />
 
-        <action android:id="@+id/action_webinar_to_translation" app:destination="@id/translation">
+        <action
+            android:id="@+id/action_webinar_to_translation"
+            app:destination="@id/translation">
             <argument
-                    android:name="code"
-                    app:argType="string"
-                    android:defaultValue="2" />
+                android:name="code"
+                android:defaultValue="2"
+                app:argType="string" />
 
         </action>
 
@@ -47,28 +53,28 @@
 
     <fragment
         android:id="@+id/profile"
-        android:label="@string/profile_title"
-        android:name="com.develop.grizzzly.pediatry.fragments.ProfileFragment">
-        <action android:id="@+id/action_profile_to_edit" app:destination="@id/edit"/>
+        android:name="com.develop.grizzzly.pediatry.fragments.ProfileFragment"
+        android:label="@string/profile_title">
+        <action
+            android:id="@+id/action_profile_to_edit"
+            app:destination="@id/edit" />
     </fragment>
 
     <fragment
         android:id="@+id/edit"
-        android:label="Редактирование"
-        android:name="com.develop.grizzzly.pediatry.fragments.ProfileEditFragment">
+        android:name="com.develop.grizzzly.pediatry.fragments.ProfileEditFragment"
+        android:label="Редактирование">
 
     </fragment>
 
     <fragment
         android:id="@+id/translation"
-        android:label="Трансляция"
-        android:name="com.develop.grizzzly.pediatry.fragments.TranslationsFragment">
+        android:name="com.develop.grizzzly.pediatry.fragments.TranslationsFragment"
+        android:label="Трансляция">
         <argument
-                android:name="code"
-                app:argType="string"
-                android:defaultValue="2" />
+            android:name="code"
+            android:defaultValue="2"
+            app:argType="string" />
     </fragment>
-
-
 
 </navigation>

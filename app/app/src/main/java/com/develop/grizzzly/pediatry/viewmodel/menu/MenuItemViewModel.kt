@@ -29,4 +29,5 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
             resource?.let { it -> setImageGlide(it.toString(), view, resource) }
         }
     }
+
 }
