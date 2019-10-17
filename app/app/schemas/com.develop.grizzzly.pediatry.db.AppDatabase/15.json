@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 15,
-    "identityHash": "edca68c497f51c5838210d6df439ed63",
+    "identityHash": "afa31e5398d78bbdf25f8814ea0fe900",
     "entities": [
       {
         "tableName": "User",
@@ -304,7 +304,7 @@
       },
       {
         "tableName": "Webinar",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `subTitle` TEXT, `directionId` INTEGER, `description` TEXT, `startDate` INTEGER, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `score` INTEGER NOT NULL, `confirmationTime1` TEXT, `confirmationTime2` TEXT, `confirmationTime3` TEXT, `youtubeCode` TEXT, `email` TEXT, `isRegistered` INTEGER NOT NULL, `status` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `subTitle` TEXT, `directionId` INTEGER, `description` TEXT, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `score` INTEGER NOT NULL, `confirmationTime1` TEXT, `confirmationTime2` TEXT, `confirmationTime3` TEXT, `youtubeCode` TEXT, `email` TEXT, `isRegistered` INTEGER NOT NULL, `status` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -334,12 +334,6 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "startDate",
-            "columnName": "startDate",
-            "affinity": "INTEGER",
             "notNull": false
           },
           {
@@ -472,7 +466,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'edca68c497f51c5838210d6df439ed63')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'afa31e5398d78bbdf25f8814ea0fe900')"
     ]
   }
 }

@@ -41,13 +41,13 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     fun onLike(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (news.likedByUsers.contains(WebAccess.userId)) {
+        if (news.likedByUsers.contains(WebAccess.token().id)) {
             viewModelScope.launch {
                 try {
                     val response = WebAccess.pediatryApi.unlikeNews(news.id)
                     if (response.isSuccessful) {
                         news.liked = news.liked?.minus(1)
-                        news.likedByUsers.remove(WebAccess.userId)
+                        news.likedByUsers.remove(WebAccess.token().id)
                         adapter.notifyItemChanged(item)
                     }
                 } catch (e: Exception) {
@@ -60,7 +60,7 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
                     val response = WebAccess.pediatryApi.likeNews(news.id)
                     if (response.isSuccessful) {
                         news.liked = news.liked?.plus(1)
-                        news.likedByUsers.add(WebAccess.userId)
+                        news.likedByUsers.add(WebAccess.token().id)
                         adapter.notifyItemChanged(item)
                     }
                 } catch (e: Exception) {

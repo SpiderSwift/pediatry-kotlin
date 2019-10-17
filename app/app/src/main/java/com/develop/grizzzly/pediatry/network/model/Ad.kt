@@ -6,8 +6,7 @@ import java.util.*
 
 @Entity
 data class Ad constructor(
-    @PrimaryKey
-    val id: Long,
+    @PrimaryKey val id: Long,
     val title: String,
     val description: String,
     var image_url: String,

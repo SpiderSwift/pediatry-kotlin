@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.viewmodel.webinar
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,14 +11,12 @@ import java.util.*
 
 class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
 
-    fun getDateFormatted(): String {
-        val formatter = SimpleDateFormat("dd.MM", Locale.US)
-        return formatter.format(data.value?.startDate)
-    }
+    fun startTime() : Long = data.value?.startTime?.toLong() ?: 0L
 
     fun getMonth() : String {
-        val date = Date(data.value?.startTime?.toLong() ?: 0L)
-        return when (date.month) {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = startTime()
+        return when (calendar.get(Calendar.MONTH)) {
             0 -> "ЯНВАРЯ"
             1 -> "ФЕВРАЛЯ"
             2 -> "МАРТА"
@@ -36,23 +33,14 @@ class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
         }
     }
 
-
-    fun getStartTimeHour() : String {
-        val date = Date(data.value?.startTime?.toLong() ?: 0L)
-        val formatter = SimpleDateFormat("hh:mm", Locale.US)
-        return formatter.format(date)
+    fun getStartTimeHour(): String {
+        return SimpleDateFormat("hh:mm", Locale.US).format(Date(startTime()))
     }
 
     fun getTwoTimeDate() : String {
-        val date = Date(data.value?.startTime?.toLong() ?: 0L)
-        val day = date.date
-        return if (day > 9) {
-            Log.d("TAG", "$day")
-            day.toString()
-        } else {
-            Log.d("TAG", "$day")
-            "0$day"
-        }
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = startTime()
+        return "%02d".format(calendar.get(Calendar.DAY_OF_MONTH))
     }
 
     fun onWebinar(view: View) {

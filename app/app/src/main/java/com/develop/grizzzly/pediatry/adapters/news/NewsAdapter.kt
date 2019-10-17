@@ -33,7 +33,7 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
             binding.root.newsCard.visibility = if (news.isAd) View.GONE else View.VISIBLE
             setImageGlide(
                 "error", binding.root.ivLike,
-                if (news.likedByUsers.contains(WebAccess.userId))
+                if (news.likedByUsers.contains(WebAccess.token().id))
                     R.drawable.ic_heart else R.drawable.ic_unlike
             )
             binding.model = NewsItemViewModel(news, adapter, position)

@@ -34,8 +34,7 @@ class StartActivity : AppCompatActivity() {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
                 if (adsUrl.isSuccessful) {
                     try {
-//                        WebAccess.adsUrl = adsUrl.body()?.response?.url.toString()
-                        WebAccess.adsUrl = "http://194.67.87.233"
+                        WebAccess.adsUrl = adsUrl.body()?.response?.url.toString()
                         WebAccess.adsApiUrl = "${WebAccess.adsUrl}${WebAccess.adsApiEndpoint}"
                         val adsResult = WebAccess.adsApi.getAds()
                         if (adsResult.isSuccessful) {
@@ -54,12 +53,9 @@ class StartActivity : AppCompatActivity() {
                         val navController = nav_host_fragment.findNavController()
                         navController.navigate(R.id.action_start_to_login)
                     } else {
-                        WebAccess.userId = loginResult.body()?.response?.id ?: 0
-                        WebAccess.userToken = loginResult.body()?.response?.token ?: ""
+                        WebAccess.token(loginResult.body()?.response)
                         val intent = Intent(baseContext, MainActivity::class.java)
-                        WebAccess.offlineLog = false
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     }
                 } else {
@@ -70,8 +66,7 @@ class StartActivity : AppCompatActivity() {
                 e.printStackTrace()
                 if (user != null) {
                     val intent = Intent(baseContext, MainActivity::class.java)
-                    intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 } else {
                     try {

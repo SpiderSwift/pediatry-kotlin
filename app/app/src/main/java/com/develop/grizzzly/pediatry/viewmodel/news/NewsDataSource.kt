@@ -34,7 +34,7 @@ class NewsDataSource : PositionalDataSource<News>() {
     }
 
     suspend fun load(offset: Long, limit: Long) : MutableList<News> {
-        if (WebAccess.offlineLog)
+        if (!WebAccess.isLoggedIn)
             WebAccess.tryLoginWithDb()
         val ads = database.adDao().loadAds().map { it.convert() }
         var news: MutableList<News>

@@ -35,50 +35,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         this.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         this.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         this.window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
-
-        AppCenter.start(
-            application, "b9feccee-76bf-402e-a033-d1c45613c559",
-            Analytics::class.java, Crashes::class.java
-        )
-
         setContentView(R.layout.activity_main)
-
-        Log.d(TAG, "TOKEN ${WebAccess.userToken}")
-
         if (savedInstanceState == null)
             setupBottomNavigationBar()
-
         val model = ViewModelProviders.of(this).get(MenuViewModel::class.java)
-
         val profileModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-
         GlobalScope.launch {
             try {
-
                 val mainSpecsResult = WebAccess.pediatryApi.getMainSpecs()
-                val mainSpecs = if (mainSpecsResult.isSuccessful) {
+                val mainSpecs = if (mainSpecsResult.isSuccessful)
                     mainSpecsResult.body()?.response.orEmpty()
-                } else {
+                else
                     DatabaseAccess.database.specialityDao().getMainSpecs()
-                }
-
                 val extraSpecsResult = WebAccess.pediatryApi.getExtraSpecs()
-                val extraSpecs = if (extraSpecsResult.isSuccessful) {
+                val extraSpecs = if (extraSpecsResult.isSuccessful)
                     extraSpecsResult.body()?.response.orEmpty()
-                } else {
+                else
                     DatabaseAccess.database.specialityDao().getExtraSpecs()
-                }
-
                 val profResult = WebAccess.pediatryApi.getProfile()
-                val profile = if (profResult.isSuccessful) {
+                val profile = if (profResult.isSuccessful)
                     profResult.body()?.response?.convert()
-                } else {
+                else
                     DatabaseAccess.database.profileDao().loadProfile(0)
-                }
 
                 withContext(Dispatchers.Main) {
                     profileModel.mainSpecs = mainSpecs
@@ -99,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 }
 //
 //
-//                if (!WebAccess.offlineLog) {
+//                if (!WebAccess.isLoggedIn) {
 //                    val mainSpecResult = WebAccess.pediatryApi.getMainSpecs()
 //                    val mainSpecs = mainSpecResult.body()?.response ?: listOf()
 //                    mainSpecs.forEach { it.main = true }
@@ -158,9 +139,8 @@ class MainActivity : AppCompatActivity() {
 //                }
 
             } catch (e: Exception) {
-
+                e.printStackTrace()
             }
-
         }
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -182,20 +162,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationBar() {
-
         val navGraphIds = listOf(
             R.navigation.news_navigation,
             R.navigation.translations_navigation,
             R.navigation.menu_navigation
         )
-
         val controller = bottom_nav.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
             containerId = R.id.bottomNavFragment,
             intent = intent
         )
-
         controller.observe(this, Observer { navController ->
             NavigationUI.setupActionBarWithNavController(this, navController)
         })

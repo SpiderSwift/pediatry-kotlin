@@ -2,7 +2,7 @@ package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
-import com.develop.grizzzly.pediatry.db.model.User
+import com.develop.grizzzly.pediatry.network.model.UserToken
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
@@ -20,13 +20,24 @@ object WebAccess {
         "https://edu-pediatrics.com/api/v1/"
     }
 
-    val adsApiEndpoint = "/api/"
-    var adsUrl: String = ""
-    var adsApiUrl: String = ""
+    const val adsApiEndpoint = "/api/"
 
-    var userToken: String = ""
-    var userId: Long = 0
-    var offlineLog: Boolean = true
+    var adsUrl: String? = null
+    var adsApiUrl: String? = null
+
+    var isLoggedIn: Boolean = false
+        private set
+        get() = token != null
+
+    private val defaultToken: UserToken = UserToken("", 0L)
+    private var token: UserToken? = null
+
+    fun token() : UserToken = token ?: defaultToken
+
+    fun token(token: UserToken?) {
+        if (token != null)
+            this.token = token
+    }
 
     suspend fun tryLoginWithDb() {
         try {
@@ -37,12 +48,10 @@ object WebAccess {
         }
     }
 
-    suspend fun tryLogin(email: String?, password: String?) {
+    private suspend fun tryLogin(email: String?, password: String?) {
         val loginResult = pediatryApi.login(email, password)
-        if (loginResult.isSuccessful) {
-            userId = loginResult.body()?.response?.id ?: 0
-            userToken = loginResult.body()?.response?.token ?: ""
-        }
+        if (loginResult.isSuccessful)
+            token = loginResult.body()?.response
     }
 
     val pediatryApi: PediatryApiClient by lazy {
@@ -53,7 +62,7 @@ object WebAccess {
         val client = OkHttpClient.Builder()
             .addInterceptor {
                 val request = it.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $userToken")
+                    .addHeader("Authorization", "Bearer ${token?.token}")
                     .build()
                 return@addInterceptor it.proceed(request)
             }

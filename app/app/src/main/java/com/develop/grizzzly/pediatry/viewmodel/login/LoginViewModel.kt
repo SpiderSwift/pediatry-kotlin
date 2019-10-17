@@ -28,8 +28,7 @@ class LoginViewModel : ViewModel() {
                 val passwordHash = password.value.toString().md5()
                 val loginResult = WebAccess.pediatryApi.login(email.value.toString(), passwordHash)
                 if (loginResult.isSuccessful) {
-                    WebAccess.userToken = loginResult.body()?.response?.token ?: ""
-                    WebAccess.userId = loginResult.body()?.response?.id ?: 0
+                    WebAccess.token(loginResult.body()?.response)
                     val user = User(0, email.value, passwordHash)
                     DatabaseAccess.database.userDao().saveUser(user)
                     val profileResult = WebAccess.pediatryApi.getProfile()
