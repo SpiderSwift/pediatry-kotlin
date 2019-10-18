@@ -50,19 +50,19 @@ class StartActivity : AppCompatActivity() {
                 try {
                     val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
                     delay(1500)
-                    if (loginResult.isSuccessful) {
+                    if (loginResult.isSuccessful)
                         WebAccess.token(loginResult.body()?.response)
-                        val intent = Intent(baseContext, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        return@launch
-                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
+                } finally {
+                    val intent = Intent(baseContext, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 }
+            } else {
+                nav_host_fragment.findNavController()
+                    .navigateNoExcept(R.id.action_start_to_login)
             }
-            nav_host_fragment.findNavController()
-                .navigateNoExcept(R.id.action_start_to_login)
         }
     }
 

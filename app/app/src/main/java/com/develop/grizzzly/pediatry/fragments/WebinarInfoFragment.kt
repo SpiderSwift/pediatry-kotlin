@@ -150,10 +150,7 @@ class WebinarInfoFragment : Fragment() {
                         tvText.text = viewModel.getDetailDescription()
                     }
                 } else {
-                    withContext(Dispatchers.Main) {
-                        load.visibility = View.GONE
-                        errorMsg.visibility = View.VISIBLE
-                    }
+                    throw Exception("failed to get webinars from server")
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {

@@ -1,9 +1,7 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,9 +15,9 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileEditBinding
 import com.develop.grizzzly.pediatry.extensions.addMask
 import com.develop.grizzzly.pediatry.extensions.formatPhone
+import com.develop.grizzzly.pediatry.images.minimizeImage
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.getPath
-import com.develop.grizzzly.pediatry.images.minimizeImage
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile_edit.*
@@ -61,18 +59,10 @@ class ProfileEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.bottom_nav?.visibility = View.GONE
-        if (verifyAvailableNetwork()) {
-            GlobalScope.launch(Dispatchers.Main) {
-                delay(200)
-                mainContent.visibility = View.VISIBLE
-                load.visibility = View.GONE
-            }
-        } else {
-            GlobalScope.launch(Dispatchers.Main) {
-                delay(200)
-                errorMsg.visibility = View.VISIBLE
-                load.visibility = View.GONE
-            }
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(200)
+            mainContent.visibility = View.VISIBLE
+            load.visibility = View.GONE
         }
         model.mainSpec.observe(this, Observer {
             btnMainSpeciality.text = model.getMainSpecialityName()
@@ -84,9 +74,8 @@ class ProfileEditFragment : Fragment() {
             btnSecondAdditionalSpeciality.text = model.getSecondAdditionalSpecialityName()
         })
         model.newAvatar.observe(this, Observer {
-            if (it != null) {
+            if (it != null)
                 profile_edit_photo.setImageURI(it)
-            }
         })
         btnMainSpeciality.setOnClickListener {
             pointer = 0
@@ -147,38 +136,24 @@ class ProfileEditFragment : Fragment() {
                         RequestBody.create(textType, model.extraSpec2.value?.toString().orEmpty()),
                         avatar
                     )
-                    withContext(Dispatchers.Main) {
-                        activity?.onBackPressed()
-                    }
                 } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
                     withContext(Dispatchers.Main) {
                         activity?.onBackPressed()
                     }
                 }
-
             }
-
         }
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun verifyAvailableNetwork(): Boolean {
-        val connectivityManager =
-            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         data ?: return
         if (resultCode == Activity.RESULT_OK) {
             val finalImage = data.data?.let {
-                minimizeImage(
-                    uri = it,
-                    contentResolver = context!!.contentResolver
-                )
+                minimizeImage(it, context!!.contentResolver)
             }
-
             model.newAvatar.postValue(finalImage)
         }
         super.onActivityResult(requestCode, resultCode, data)

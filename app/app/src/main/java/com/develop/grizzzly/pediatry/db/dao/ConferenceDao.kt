@@ -14,4 +14,5 @@ interface ConferenceDao {
 
     @Query("SELECT * FROM conference ORDER BY startDate DESC LIMIT :limit OFFSET :offset")
     suspend fun getConferences(offset: Long, limit: Long): List<Conference>
+
 }

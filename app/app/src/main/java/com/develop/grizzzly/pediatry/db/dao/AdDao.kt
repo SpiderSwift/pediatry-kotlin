@@ -14,4 +14,5 @@ interface AdDao {
 
     @Query(value = "SELECT * FROM ad")
     suspend fun loadAds(): List<Ad>
+
 }

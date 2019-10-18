@@ -70,17 +70,10 @@ class NewsPostFragment : Fragment() {
                         viewModel.imageView = ivLike
                         viewModel.newsViewModel = model
                         viewModel.index = args.index
-                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.token().id)) {
-                            glideLocal(
-                                ivLike,
-                                R.drawable.ic_heart
-                            )
-                        } else {
-                            glideLocal(
-                                ivLike,
-                                R.drawable.ic_unlike
-                            )
-                        }
+                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.token().id))
+                            glideLocal(ivLike, R.drawable.ic_heart)
+                        else
+                            glideLocal(ivLike, R.drawable.ic_unlike)
                         tvText.webViewClient = object : WebViewClient() {
                             override fun onReceivedHttpAuthRequest(
                                 view: WebView?,

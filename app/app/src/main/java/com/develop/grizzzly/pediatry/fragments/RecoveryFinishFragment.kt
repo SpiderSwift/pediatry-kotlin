@@ -24,12 +24,9 @@ class RecoveryFinishFragment : Fragment() {
             container,
             false
         )
-
         val model = ViewModelProviders.of(this).get(RecoveryViewModel::class.java)
-
         binding.model = model
         binding.lifecycleOwner = this
-
         return binding.root
     }
 

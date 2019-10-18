@@ -43,4 +43,5 @@ class SpecialitiesFragment : Fragment() {
         })
         super.onViewCreated(view, savedInstanceState)
     }
+
 }

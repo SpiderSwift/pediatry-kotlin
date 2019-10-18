@@ -48,7 +48,6 @@ class ProfileFragment : Fragment() {
         })
         binding.model = model
         binding.lifecycleOwner = this
-
         GlobalScope.launch {
             try {
                 val response = WebAccess.pediatryApi.getProfile()
@@ -65,8 +64,8 @@ class ProfileFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 val profile = DatabaseAccess.database.profileDao().loadProfile(0)
-                Log.d("TAG", profile.toString())
                 val name = profile?.name
                 val lastname = profile?.lastname
                 val avatarUrl = "${profile?.avatar}"

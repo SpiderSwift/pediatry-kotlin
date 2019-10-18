@@ -27,14 +27,12 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val myActivity = activity as MainActivity?
         myActivity?.supportActionBar?.show()
         myActivity?.toolbarTitle?.text = "Новости"
         myActivity?.bottom_nav?.visibility = View.VISIBLE
         myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         retainInstance = true
         return inflater.inflate(R.layout.fragment_news, container, false)
     }

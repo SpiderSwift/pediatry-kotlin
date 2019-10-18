@@ -30,7 +30,6 @@ class SpecialitiesAdapter constructor(
 
     class SpecialityViewHolder(private val binding: SpecialityItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(
             activity: Activity,
             model: RegistrationViewModel,
@@ -40,7 +39,6 @@ class SpecialitiesAdapter constructor(
             val viewModel = SpecialityItemViewModel(model, activity, speciality, type)
             binding.model = viewModel
         }
-
     }
 
 }

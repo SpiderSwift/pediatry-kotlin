@@ -36,11 +36,12 @@ class LoginFragment : Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
         model.email.observe(this, Observer {
-            if (model.email.value?.isEmail() == true) {
-                teEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
-            } else {
-                teEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
-            }
+            teEmail.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0,
+                if (model.email.value?.isEmail() == true) R.drawable.ic_cross
+                else R.drawable.ic_light_cross,
+                0
+            )
         })
         return binding.root
     }

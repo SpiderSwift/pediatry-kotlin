@@ -19,20 +19,16 @@ class WebinarAdapter :
     }
 
     override fun onBindViewHolder(holder: WebinarViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class WebinarViewHolder(val binding: WebinarItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(webinar: Webinar) {
             val data = MutableLiveData<Webinar>(webinar)
             val viewModel = WebinarItemViewModel(data)
             binding.model = viewModel
         }
-
     }
 
 }

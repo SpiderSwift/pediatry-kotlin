@@ -86,4 +86,5 @@ class RegistrationSpecialityFragment : Fragment() {
         model.clearSpeciality()
         super.onDetach()
     }
+
 }

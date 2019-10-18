@@ -80,7 +80,7 @@ class ProfileViewModel : ViewModel() {
             .navigateNoExcept(R.id.action_profile_to_edit)
     }
 
-    fun onChangePhoto(view: View) {
+    fun onChangePhoto(@Suppress("UNUSED_PARAMETER") view: View) {
         if (checkReadPermission() && checkWritePermission()) {
             Log.d(TAG, "has permission to read external storage")
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)

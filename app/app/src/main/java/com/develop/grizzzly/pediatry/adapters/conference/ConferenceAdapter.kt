@@ -19,20 +19,16 @@ class ConferenceAdapter :
     }
 
     override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class ConferenceViewHolder(val binding: ConferenceItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(conference: Conference) {
             val data = MutableLiveData<Conference>(conference)
             val viewModel = ConferenceItemViewModel(data)
             binding.model = viewModel
         }
-
     }
 
 }

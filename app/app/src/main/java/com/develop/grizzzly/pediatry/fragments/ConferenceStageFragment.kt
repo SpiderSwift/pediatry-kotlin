@@ -107,4 +107,5 @@ class ConferenceStageFragment : Fragment() {
         }
         super.onViewCreated(view, savedInstanceState)
     }
+    
 }

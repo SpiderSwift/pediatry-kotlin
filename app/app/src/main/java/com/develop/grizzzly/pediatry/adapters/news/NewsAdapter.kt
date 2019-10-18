@@ -26,8 +26,8 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         getItem(position)?.let { holder.bind(it, this, position) }
     }
 
-    class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    class NewsViewHolder(val binding: NewsItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
             binding.root.adCard.visibility = if (news.isAd) View.VISIBLE else View.GONE
             binding.root.newsCard.visibility = if (news.isAd) View.GONE else View.VISIBLE
@@ -38,7 +38,6 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
             )
             binding.model = NewsItemViewModel(news, adapter, position)
         }
-
     }
 
 }

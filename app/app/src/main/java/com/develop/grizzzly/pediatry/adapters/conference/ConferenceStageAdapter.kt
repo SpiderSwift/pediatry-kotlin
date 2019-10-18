@@ -11,6 +11,7 @@ import com.develop.grizzzly.pediatry.viewmodel.conference.ConferenceStageItemVie
 
 class ConferenceStageAdapter(private val list: List<Program>) :
     RecyclerView.Adapter<ConferenceStageAdapter.ConferenceStageViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceStageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ConferenceStageItemBinding.inflate(inflater, parent, false)
@@ -33,4 +34,5 @@ class ConferenceStageAdapter(private val list: List<Program>) :
             binding.model = viewModel
         }
     }
+
 }

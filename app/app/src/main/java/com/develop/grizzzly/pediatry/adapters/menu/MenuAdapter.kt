@@ -39,8 +39,8 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(val binding: MenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(menuItem: MenuItem) {
-            val viewModel = MenuItemViewModel(menuItem)
-            binding.model = viewModel
+            binding.model = MenuItemViewModel(menuItem)
         }
     }
+
 }

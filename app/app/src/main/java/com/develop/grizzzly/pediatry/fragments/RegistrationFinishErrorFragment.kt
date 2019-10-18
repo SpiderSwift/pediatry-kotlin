@@ -42,6 +42,6 @@ class RegistrationFinishErrorFragment : Fragment() {
         btnFinish.setOnClickListener {
             navController.navigateNoExcept(R.id.action_registration_finish_error_to_login)
         }
-
     }
+
 }

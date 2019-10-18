@@ -28,7 +28,6 @@ class RecoveryStartFragment : Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
         return binding.root
-
     }
 
 }

@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.fragments
 
-//import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_webinars.*
 
 class WebinarsFragment : Fragment() {
+
     private lateinit var adapter: WebinarAdapter
     private lateinit var viewModel: WebinarViewModel
     override fun onCreateView(

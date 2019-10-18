@@ -29,7 +29,7 @@ class MultiConverter {
                 try {
                     longList.add(it.toLong())
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
             }
 
@@ -51,7 +51,7 @@ class MultiConverter {
                 try {
                     strList.add(it)
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 }
             }
 
