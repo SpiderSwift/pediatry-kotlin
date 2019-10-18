@@ -16,7 +16,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentNewsPostBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.util.glideLocal
+import com.develop.grizzzly.pediatry.images.glideLocal
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -71,9 +71,15 @@ class NewsPostFragment : Fragment() {
                         viewModel.newsViewModel = model
                         viewModel.index = args.index
                         if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.token().id)) {
-                            glideLocal(ivLike, R.drawable.ic_heart)
+                            glideLocal(
+                                ivLike,
+                                R.drawable.ic_heart
+                            )
                         } else {
-                            glideLocal(ivLike, R.drawable.ic_unlike)
+                            glideLocal(
+                                ivLike,
+                                R.drawable.ic_unlike
+                            )
                         }
                         tvText.webViewClient = object : WebViewClient() {
                             override fun onReceivedHttpAuthRequest(

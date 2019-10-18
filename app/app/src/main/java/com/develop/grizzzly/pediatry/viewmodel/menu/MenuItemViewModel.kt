@@ -6,7 +6,8 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import com.develop.grizzzly.pediatry.util.glideRemote
+import com.develop.grizzzly.pediatry.images.glideLocal
+import com.develop.grizzzly.pediatry.images.glideRemote
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,9 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
         @BindingAdapter("bind:resource")
         @JvmStatic
         fun loadImage(view: ImageView, resource: Int?) {
-            resource?.let { it -> glideRemote(it.toString(), view, resource) }
+            resource?.let { _ ->
+                glideLocal(view, resource)
+            }
         }
     }
 

@@ -10,7 +10,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.NewsItemBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
-import com.develop.grizzzly.pediatry.util.glideRemote
+import com.develop.grizzzly.pediatry.images.glideLocal
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel
 import kotlinx.android.synthetic.main.news_item.view.*
 
@@ -31,8 +31,8 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
             binding.root.adCard.visibility = if (news.isAd) View.VISIBLE else View.GONE
             binding.root.newsCard.visibility = if (news.isAd) View.GONE else View.VISIBLE
-            glideRemote(
-                "error", binding.root.ivLike,
+            glideLocal(
+                binding.root.ivLike,
                 if (news.likedByUsers.contains(WebAccess.token().id))
                     R.drawable.ic_heart else R.drawable.ic_unlike
             )

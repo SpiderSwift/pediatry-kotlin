@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationInfoBinding
 import com.develop.grizzzly.pediatry.extensions.addMask
-import com.develop.grizzzly.pediatry.util.minimizeImage
+import com.develop.grizzzly.pediatry.images.minimizeImage
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import kotlinx.android.synthetic.main.fragment_registration_info.*
 

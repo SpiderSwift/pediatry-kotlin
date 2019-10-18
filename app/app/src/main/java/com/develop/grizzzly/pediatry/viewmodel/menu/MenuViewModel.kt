@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.util.setAuthorizeMessage
+import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -32,7 +32,11 @@ class MenuViewModel : ViewModel() {
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: String?) {
             if (imageUrl?.isNotEmpty() == true) {
-                setAuthorizeMessage(imageUrl, view, android.R.color.white)
+                setAuthorizeMessage(
+                    imageUrl,
+                    view,
+                    android.R.color.white
+                )
             }
 
         }

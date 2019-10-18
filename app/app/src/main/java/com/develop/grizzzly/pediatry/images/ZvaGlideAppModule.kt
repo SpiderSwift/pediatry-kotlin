@@ -1,4 +1,4 @@
-package com.develop.grizzzly.pediatry.ui
+package com.develop.grizzzly.pediatry.images
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

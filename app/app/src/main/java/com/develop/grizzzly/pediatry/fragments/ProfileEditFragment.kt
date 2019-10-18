@@ -19,7 +19,7 @@ import com.develop.grizzzly.pediatry.extensions.addMask
 import com.develop.grizzzly.pediatry.extensions.formatPhone
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.getPath
-import com.develop.grizzzly.pediatry.util.minimizeImage
+import com.develop.grizzzly.pediatry.images.minimizeImage
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile_edit.*

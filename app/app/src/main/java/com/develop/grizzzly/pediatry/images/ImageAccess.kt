@@ -1,4 +1,4 @@
-package com.develop.grizzzly.pediatry.ui
+package com.develop.grizzzly.pediatry.images
 
 import com.develop.grizzzly.pediatry.application.ThisApp
 import com.squareup.picasso.OkHttp3Downloader

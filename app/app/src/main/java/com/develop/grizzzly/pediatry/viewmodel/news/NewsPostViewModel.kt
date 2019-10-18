@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.util.setAuthorizeMessage
-import com.develop.grizzzly.pediatry.util.glideLocal
+import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
+import com.develop.grizzzly.pediatry.images.glideLocal
 import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
 
@@ -37,9 +37,15 @@ class NewsPostViewModel : ViewModel() {
                         news.likedByUsers.remove(WebAccess.token().id)
                         newsViewModel.adapter?.notifyItemChanged(index)
                         if (news.likedByUsers.contains(WebAccess.token().id)) {
-                            glideLocal(imageView, R.drawable.ic_heart)
+                            glideLocal(
+                                imageView,
+                                R.drawable.ic_heart
+                            )
                         } else {
-                            glideLocal(imageView, R.drawable.ic_unlike)
+                            glideLocal(
+                                imageView,
+                                R.drawable.ic_unlike
+                            )
                         }
                     }
                 } catch (e: Exception) {
@@ -56,9 +62,15 @@ class NewsPostViewModel : ViewModel() {
                         news.likedByUsers.add(WebAccess.token().id)
                         newsViewModel.adapter?.notifyItemChanged(index)
                         if (news.likedByUsers.contains(WebAccess.token().id)) {
-                            glideLocal(imageView, R.drawable.ic_heart)
+                            glideLocal(
+                                imageView,
+                                R.drawable.ic_heart
+                            )
                         } else {
-                            glideLocal(imageView, R.drawable.ic_unlike)
+                            glideLocal(
+                                imageView,
+                                R.drawable.ic_unlike
+                            )
                         }
                     }
                 } catch (e: Exception) {
@@ -80,7 +92,11 @@ class NewsPostViewModel : ViewModel() {
         fun loadImage(view: ImageView, imageUrl: String?) {
             if (imageUrl?.isNotEmpty() == true) {
                 Log.d("TAG", imageUrl)
-                setAuthorizeMessage(imageUrl, view, android.R.color.white)
+                setAuthorizeMessage(
+                    imageUrl,
+                    view,
+                    android.R.color.white
+                )
             }
 
         }

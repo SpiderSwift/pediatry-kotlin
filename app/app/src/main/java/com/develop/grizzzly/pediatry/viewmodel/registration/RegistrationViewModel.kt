@@ -21,7 +21,7 @@ import com.develop.grizzzly.pediatry.extensions.md5
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.util.getPath
-import com.develop.grizzzly.pediatry.util.glideRemote
+import com.develop.grizzzly.pediatry.images.glideRemote
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
@@ -128,8 +128,7 @@ class RegistrationViewModel : ViewModel() {
         }
     }
 
-    fun onChangePhoto(view: View) {
-
+    fun onChangePhoto(@Suppress("UNUSED_PARAMETER") view: View) {
         if (checkReadPermission() && checkWritePermission()) {
             Log.d(TAG, "has permission to read external storage")
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -149,7 +148,7 @@ class RegistrationViewModel : ViewModel() {
         }
     }
 
-    fun checkReadPermission(): Boolean {
+    private fun checkReadPermission(): Boolean {
         return fragment?.activity?.applicationContext?.let {
             ActivityCompat.checkSelfPermission(
                 it,
@@ -158,7 +157,7 @@ class RegistrationViewModel : ViewModel() {
         } == PackageManager.PERMISSION_GRANTED
     }
 
-    fun checkWritePermission(): Boolean {
+    private fun checkWritePermission(): Boolean {
         return fragment?.activity?.applicationContext?.let {
             ActivityCompat.checkSelfPermission(
                 it,
@@ -239,7 +238,13 @@ class RegistrationViewModel : ViewModel() {
         @BindingAdapter("bind:imageUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: Uri?) {
-            imageUrl?.let { it -> glideRemote(it.toString(), view, android.R.color.white) }
+            imageUrl?.let { it ->
+                glideRemote(
+                    it.toString(),
+                    view,
+                    android.R.color.white
+                )
+            }
         }
     }
 

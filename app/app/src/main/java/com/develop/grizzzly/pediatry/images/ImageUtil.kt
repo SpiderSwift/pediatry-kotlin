@@ -1,4 +1,4 @@
-package com.develop.grizzzly.pediatry.util
+package com.develop.grizzzly.pediatry.images
 
 import android.content.ContentResolver
 import android.graphics.Bitmap
@@ -10,7 +10,6 @@ import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import com.develop.grizzzly.pediatry.application.ThisApp
-import com.develop.grizzzly.pediatry.ui.ImageAccess
 import java.io.InputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
@@ -45,8 +44,12 @@ fun minimizeImage(uri: Uri, contentResolver: ContentResolver): Uri? {
     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
     val maxBytes = 1024L * 1024
     val inputStream = contentResolver.openInputStream(uri)
-    val rotatedBitmap = inputStream?.let { rotateImageIfRequired(it, bitmap) }
-    val scaledBitmap = rotatedBitmap?.let { scaleBitmap(it, maxBytes) }
+    val rotatedBitmap = inputStream?.let {
+        rotateImageIfRequired(it, bitmap)
+    }
+    val scaledBitmap = rotatedBitmap?.let {
+        scaleBitmap(it, maxBytes)
+    }
     val path = MediaStore.Images.Media.insertImage(
         contentResolver, scaledBitmap, "Profile image", null
     )
