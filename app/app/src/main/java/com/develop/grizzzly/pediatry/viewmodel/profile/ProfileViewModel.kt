@@ -40,34 +40,28 @@ class ProfileViewModel : ViewModel() {
     var fragment: Fragment? = null
 
     fun getMainSpecialityName(): String {
-        for (spec in mainSpecs) {
-            if (spec.id == mainSpec.value) {
+        for (spec in mainSpecs)
+            if (spec.id == mainSpec.value)
                 return spec.name
-            }
-        }
         return ""
     }
 
     fun getFirstAdditionalSpecialityName(): String {
-        for (spec in extraSpecs) {
-            if (spec.id == extraSpec1.value) {
+        for (spec in extraSpecs)
+            if (spec.id == extraSpec1.value)
                 return spec.name
-            }
-        }
         return ""
     }
 
     fun getNumber(): String {
         return try {
             val value = phoneNumber.value!!
-            if (value.substring(2, 3) == " ") {
+            if (value.substring(2, 3) == " ")
                 return value
-            }
             val code = value.substring(0, 2)
             val operator = value.substring(2, 7)
             val num = value.substring(7)
             return "$code $operator $num"
-
         } catch (e: Exception) {
             e.printStackTrace()
             ""
@@ -75,11 +69,9 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun getSecondAdditionalSpecialityName(): String {
-        for (spec in extraSpecs) {
-            if (spec.id == extraSpec2.value) {
+        for (spec in extraSpecs)
+            if (spec.id == extraSpec2.value)
                 return spec.name
-            }
-        }
         return ""
     }
 
@@ -89,7 +81,6 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun onChangePhoto(view: View) {
-
         if (checkReadPermission() && checkWritePermission()) {
             Log.d(TAG, "has permission to read external storage")
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
