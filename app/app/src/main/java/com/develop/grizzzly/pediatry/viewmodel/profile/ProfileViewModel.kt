@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.model.Speciality
 
 private const val TAG = "PROFILE VIEW MODEL"
@@ -83,8 +84,8 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun onEdit(view: View) {
-        val navController = Navigation.findNavController(view)
-        navController.navigate(R.id.action_profile_to_edit)
+        Navigation.findNavController(view)
+            .navigateNoExcept(R.id.action_profile_to_edit)
     }
 
     fun onChangePhoto(view: View) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
 import kotlinx.coroutines.launch
 
@@ -17,18 +18,17 @@ class RecoveryViewModel : ViewModel() {
             try {
                 val response = WebAccess.pediatryApi.restorePassword(email.value.toString())
                 if (response.isSuccessful) {
-                    val navController = Navigation.findNavController(view)
-                    navController.navigate(R.id.action_recovery_start_to_recovery_finish)
+                    Navigation.findNavController(view)
+                        .navigateNoExcept(R.id.action_recovery_start_to_recovery_finish)
                 }
             } catch (e: Exception) {
-
+                e.printStackTrace()
             }
-
         }
     }
 
     fun onRecoverFinish(view: View) {
-        val navController = Navigation.findNavController(view)
-        navController.navigate(R.id.action_recovery_finish_to_login)
+        Navigation.findNavController(view)
+            .navigateNoExcept(R.id.action_recovery_finish_to_login)
     }
 }

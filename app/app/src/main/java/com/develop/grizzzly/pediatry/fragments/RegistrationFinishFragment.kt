@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import kotlinx.android.synthetic.main.fragment_registration_finish.*
 
 class RegistrationFinishFragment : Fragment() {
@@ -22,8 +23,8 @@ class RegistrationFinishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnFinish.setOnClickListener {
-            val navController = Navigation.findNavController(it)
-            navController.navigate(R.id.action_registration_finish_to_login)
+            Navigation.findNavController(it)
+                .navigateNoExcept(R.id.action_registration_finish_to_login)
         }
     }
 

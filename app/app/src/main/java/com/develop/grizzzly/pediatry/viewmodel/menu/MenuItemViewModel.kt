@@ -6,8 +6,8 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.images.glideLocal
-import com.develop.grizzzly.pediatry.images.glideRemote
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,9 +16,9 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
     fun onMenuItem(view: View) {
         viewModelScope.launch {
             if (menuItem.direction != null) {
-                val navController = Navigation.findNavController(view)
                 delay(100)
-                navController.navigate(menuItem.direction)
+                Navigation.findNavController(view)
+                    .navigateNoExcept(menuItem.direction)
             }
         }
     }

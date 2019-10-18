@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
-import android.R
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,10 +12,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.adapters.news.NewsAdapter
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.fragments.NewsFragmentDirections
+import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
-import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
 import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
 
@@ -24,16 +24,12 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     ViewModel() {
 
     fun onNews(view: View) {
-        val navController = Navigation.findNavController(view)
         val toNewsPost = NewsFragmentDirections.actionNewsToNewsPost()
         toNewsPost.newsId = news.id.toInt()
         toNewsPost.date = news.date!!.time
         toNewsPost.index = item
-        try {
-            navController.navigate(toNewsPost)
-        } catch (e: Exception) {
-            e.printStackTrace() // crashed on monkey test
-        }
+        Navigation.findNavController(view)
+            .navigateNoExcept(toNewsPost)
     }
 
     fun onAd(view: View) {
@@ -42,31 +38,24 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     fun onLike(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (news.likedByUsers.contains(WebAccess.token().id)) {
-            viewModelScope.launch {
-                try {
-                    val response = WebAccess.pediatryApi.unlikeNews(news.id)
-                    if (response.isSuccessful) {
+        viewModelScope.launch {
+            val liked = news.likedByUsers.contains(WebAccess.token().id)
+            try {
+                val response =
+                    if (liked) WebAccess.pediatryApi.unlikeNews(news.id)
+                    else WebAccess.pediatryApi.likeNews(news.id)
+                if (response.isSuccessful) {
+                    if (liked) {
                         news.liked = news.liked?.minus(1)
                         news.likedByUsers.remove(WebAccess.token().id)
-                        adapter.notifyItemChanged(item)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        } else {
-            viewModelScope.launch {
-                try {
-                    val response = WebAccess.pediatryApi.likeNews(news.id)
-                    if (response.isSuccessful) {
+                    } else {
                         news.liked = news.liked?.plus(1)
                         news.likedByUsers.add(WebAccess.token().id)
-                        adapter.notifyItemChanged(item)
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                    adapter.notifyItemChanged(item)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
@@ -83,11 +72,7 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
         fun loadImage(view: ImageView, imageUrl: String?) {
             if (imageUrl?.isNotEmpty() == true) {
                 Log.d("TAG", imageUrl)
-                setAuthorizeMessage(
-                    imageUrl,
-                    view,
-                    R.color.white
-                )
+                setAuthorizeMessage(imageUrl, view, android.R.color.white)
             }
         }
     }

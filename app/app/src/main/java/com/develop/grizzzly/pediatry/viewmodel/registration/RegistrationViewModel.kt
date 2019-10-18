@@ -14,10 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.extensions.formatPhone
-import com.develop.grizzzly.pediatry.extensions.isEmail
-import com.develop.grizzzly.pediatry.extensions.isPhoneNumber
-import com.develop.grizzzly.pediatry.extensions.md5
+import com.develop.grizzzly.pediatry.extensions.*
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.util.getPath
@@ -55,15 +52,15 @@ class RegistrationViewModel : ViewModel() {
 
     fun onRegistrationStart(view: View) {
         viewModelScope.launch {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_registration_start_to_registration_info)
+            Navigation.findNavController(view)
+                .navigateNoExcept(R.id.action_registration_start_to_registration_info)
         }
     }
 
     fun onRegistrationInfo(view: View) {
         viewModelScope.launch {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_registration_info_to_registration_speciality)
+            Navigation.findNavController(view)
+                .navigateNoExcept(R.id.action_registration_info_to_registration_speciality)
         }
     }
 
@@ -98,8 +95,8 @@ class RegistrationViewModel : ViewModel() {
                 RequestBody.create(textType, password.value!!.md5())
             )
             if (response.isSuccessful) {
-                val navController = Navigation.findNavController(view)
-                navController.navigate(R.id.action_registration_speciality_to_registration_finish)
+                Navigation.findNavController(view)
+                    .navigateNoExcept(R.id.action_registration_speciality_to_registration_finish)
             } else {
                 val result = response.errorBody()?.string().toString()
                 try {
@@ -117,12 +114,8 @@ class RegistrationViewModel : ViewModel() {
                     Log.e(TAG, e.toString())
                     errorMessage.value = "Что-то пошло не так."
                 }
-                val navController = Navigation.findNavController(view)
-                try {
-                    navController.navigate(R.id.action_registration_speciality_to_registration_finish_error)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                Navigation.findNavController(view)
+                    .navigateNoExcept(R.id.action_registration_speciality_to_registration_finish_error)
                 //Toast.makeText(view.context, response.errorBody()?.string(), Toast.LENGTH_LONG).show()
             }
         }
@@ -151,8 +144,7 @@ class RegistrationViewModel : ViewModel() {
     private fun checkReadPermission(): Boolean {
         return fragment?.activity?.applicationContext?.let {
             ActivityCompat.checkSelfPermission(
-                it,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                it, Manifest.permission.READ_EXTERNAL_STORAGE
             )
         } == PackageManager.PERMISSION_GRANTED
     }
@@ -160,8 +152,7 @@ class RegistrationViewModel : ViewModel() {
     private fun checkWritePermission(): Boolean {
         return fragment?.activity?.applicationContext?.let {
             ActivityCompat.checkSelfPermission(
-                it,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                it, Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
         } == PackageManager.PERMISSION_GRANTED
     }

@@ -11,6 +11,7 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.db.model.User
 import com.develop.grizzzly.pediatry.extensions.md5
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.util.showToast
 import kotlinx.coroutines.launch
@@ -51,13 +52,13 @@ class LoginViewModel : ViewModel() {
     }
 
     fun onRegister(view: View) {
-        val navController = Navigation.findNavController(view)
-        navController.navigate(R.id.action_login_to_registration)
+        Navigation.findNavController(view)
+            .navigateNoExcept(R.id.action_login_to_registration)
     }
 
     fun onRecover(view: View) {
-        val navController = Navigation.findNavController(view)
-        navController.navigate(R.id.action_login_to_recovery)
+        Navigation.findNavController(view)
+            .navigateNoExcept(R.id.action_login_to_recovery)
     }
 
 }

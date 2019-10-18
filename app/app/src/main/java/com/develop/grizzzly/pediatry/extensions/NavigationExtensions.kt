@@ -8,9 +8,26 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.develop.grizzzly.pediatry.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+fun NavController.navigateNoExcept(resId : Int) {
+    try {
+        navigate(resId)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+fun NavController.navigateNoExcept(directions : NavDirections) {
+    try {
+        navigate(directions)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -132,7 +149,7 @@ fun BottomNavigationView.setupWithNavController(
         // stack is popped after using the back button).
         selectedNavController.value?.let { controller ->
             if (controller.currentDestination == null)
-                controller.navigate(controller.graph.id)
+                controller.navigateNoExcept(controller.graph.id)
         }
     }
     return selectedNavController
