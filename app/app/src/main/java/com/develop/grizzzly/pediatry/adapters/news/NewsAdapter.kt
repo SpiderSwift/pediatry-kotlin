@@ -31,7 +31,6 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
 
     class NewsViewHolder(val binding: NewsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
             if (news.isAd) {
                 if (true) {
