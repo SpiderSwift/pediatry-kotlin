@@ -1,57 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-                name="model"
-                type="com.develop.grizzzly.pediatry.viewmodel.speciality.SpecialityItemViewModel" />
+            name="model"
+            type="com.develop.grizzzly.pediatry.viewmodel.speciality.SpecialityItemViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{model::onSpeciality}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{model::onSpeciality}"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:minHeight="45dp"
-                android:fontFamily="@font/gothampro"
-                android:text="@{model.speciality.name}"
-                android:textColor="@color/colorPrimaryDark"
-                android:lineSpacingExtra="8dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/gothampro"
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:minHeight="45dp"
+            android:text="@{model.speciality.name}"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

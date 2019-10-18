@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.develop.grizzzly.pediatry">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.develop.grizzzly.pediatry">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-            android:name=".MainApplication"
-            android:usesCleartextTraffic="true"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
+        android:name=".application.ThisApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustResize"
+        tools:ignore="GoogleAppIndexingWarning">
 
-
-        <activity android:name="com.develop.grizzzly.pediatry.activities.MainActivity"
-                  android:configChanges="orientation|screenSize">
-            <nav-graph android:value="@navigation/news_navigation"/>
+        <activity
+            android:name="com.develop.grizzzly.pediatry.activities.MainActivity"
+            android:configChanges="orientation|screenSize">
+            <nav-graph android:value="@navigation/news_navigation" />
 
         </activity>
 
-        <activity android:name="com.develop.grizzzly.pediatry.activities.StartActivity"
-                  android:configChanges="orientation|screenSize">
+        <activity
+            android:name="com.develop.grizzzly.pediatry.activities.StartActivity"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
     </application>
-
 
 </manifest>
 

@@ -6,7 +6,8 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import com.develop.grizzzly.pediatry.util.setImageGlide
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
+import com.develop.grizzzly.pediatry.images.glideLocal
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -15,19 +16,21 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
     fun onMenuItem(view: View) {
         viewModelScope.launch {
             if (menuItem.direction != null) {
-                val navController = Navigation.findNavController(view)
                 delay(100)
-                navController.navigate(menuItem.direction)
+                Navigation.findNavController(view)
+                    .navigateNoExcept(menuItem.direction)
             }
         }
-
     }
 
     companion object {
         @BindingAdapter("bind:resource")
         @JvmStatic
         fun loadImage(view: ImageView, resource: Int?) {
-            resource?.let { it -> setImageGlide(it.toString(), view, resource) }
+            resource?.let { _ ->
+                glideLocal(view, resource)
+            }
         }
     }
+
 }

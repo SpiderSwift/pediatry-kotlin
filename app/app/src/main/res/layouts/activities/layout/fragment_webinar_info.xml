@@ -1,248 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-                name="model"
-                type="com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarPostViewModel" />
+            name="model"
+            type="com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarPostViewModel" />
     </data>
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/mainContent"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:background="@drawable/layout_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:background="#B3A0CC"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                            android:id="@+id/close"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:src="@drawable/ic_exit"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="@font/gothampro"
-                            android:lineSpacingExtra="10dp"
-                            android:text="@{model.data.title}"
-                            android:textAlignment="textStart"
-                            android:textColor="@android:color/white"
-                            android:textSize="28sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/close"/>
-
-
-
-
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <TextView
-                        android:id="@+id/tvDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:lineSpacingExtra="10dp"
-                        android:text="@{model.twoTimeDate + ` ` + model.month}"
-                        android:textAlignment="textStart"
-                        android:textColor="#B3A0CC"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView"/>
-
-
-                <ImageView
-                        android:id="@+id/ivTime"
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:src="@drawable/ic_clock" android:tint="#B3A0CC"
-                        app:layout_constraintStart_toEndOf="@+id/tvDate"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView"/>
-
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/gothampro"
-                        android:lineSpacingExtra="10dp"
-                        android:text="@{model.startTimeHour}"
-                        android:textAlignment="textStart"
-                        android:textColor="#B3A0CC"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toEndOf="@+id/ivTime"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView"/>
-
-
-                <!--android:text="@={model.text}"-->
-                <TextView
-                        android:id="@+id/tvText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="@{model.detailDescription}"
-                        android:fontFamily="@font/gothampro"
-                        android:lineSpacingExtra="10dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvDate"/>
-
-                <Button
-                        android:id="@+id/btnPart"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="48dp"
-                        android:layout_marginTop="36dp"
-                        android:layout_marginEnd="48dp"
-                        android:background="@drawable/accent_btn_drawable"
-                        android:fontFamily="@font/gothampro"
-                        android:elevation="10dp"
-                        android:text="Участвовать"
-                        android:textColor="@android:color/white" android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvText"/>
-
-
-                <Button
-                        android:id="@+id/btnAsk"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="48dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="48dp"
-                        android:background="@drawable/white_btn_drawable"
-                        android:elevation="10dp"
-                        android:fontFamily="@font/gothampro"
-                        android:text="Задать вопрос"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btnPart"/>
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/errorMsg"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:id="@+id/mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/layout_bg"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                    android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="#B3A0CC"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_exit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="ОШИБОЧКА ВЫШЛА"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/gothampro"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@{model.data.title}"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="28sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/close" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gothampro"
+                android:lineSpacingExtra="10dp"
+                android:text="@{model.twoTimeDate + ` ` + model.month}"
+                android:textAlignment="textStart"
+                android:textColor="#B3A0CC"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <ImageView
+                android:id="@+id/ivTime"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_clock"
+                android:tint="#B3A0CC"
+                app:layout_constraintStart_toEndOf="@+id/tvDate"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gothampro"
+                android:lineSpacingExtra="10dp"
+                android:text="@{model.startTimeHour}"
+                android:textAlignment="textStart"
+                android:textColor="#B3A0CC"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/ivTime"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <!--android:text="@={model.text}"-->
+            <TextView
+                android:id="@+id/tvText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/gothampro"
+                android:lineSpacingExtra="10dp"
+                android:text="@{model.detailDescription}"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorSecondary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+            <Button
+                android:id="@+id/btnPart"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="48dp"
+                android:background="@drawable/accent_btn_drawable"
+                android:elevation="10dp"
+                android:fontFamily="@font/gothampro"
+                android:text="Участвовать"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvText" />
+
+            <Button
+                android:id="@+id/btnAsk"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="48dp"
+                android:background="@drawable/white_btn_drawable"
+                android:elevation="10dp"
+                android:fontFamily="@font/gothampro"
+                android:text="Задать вопрос"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnPart" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/errorMsg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ОШИБОЧКА ВЫШЛА"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
-                android:id="@+id/load"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
+            android:id="@+id/load"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sendField"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@android:color/white"
-                android:elevation="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent">
-
+            android:id="@+id/sendField"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@android:color/white"
+            android:elevation="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
-                    android:id="@+id/teQuestion"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/te_drawable"
-                    android:elevation="15dp"
-                    android:fontFamily="@font/gothampro"
-                    android:hint="Ваш вопрос"
-                    android:inputType="text" android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColor="@color/colorPrimaryDark" android:textSize="15sp"
-                    app:layout_constraintEnd_toStartOf="@+id/ask"
-                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                android:id="@+id/teQuestion"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/te_drawable"
+                android:elevation="15dp"
+                android:fontFamily="@font/gothampro"
+                android:hint="Ваш вопрос"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/ask"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                    android:id="@+id/ask"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_send"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                android:id="@+id/ask"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_send"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

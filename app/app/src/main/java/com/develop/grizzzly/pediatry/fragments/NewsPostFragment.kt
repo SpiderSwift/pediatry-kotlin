@@ -19,7 +19,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentNewsPostBinding
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.util.setImageGlide
+import com.develop.grizzzly.pediatry.images.glideLocal
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,20 +42,16 @@ class NewsPostFragment : Fragment() {
         mainActivity?.toolbarTitle?.text = "Новость"
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
         setHasOptionsMenu(true)
-
         viewModel = ViewModelProviders.of(this).get(NewsPostViewModel::class.java)
         viewModel.time = args.date
-
         val binding = DataBindingUtil.inflate<FragmentNewsPostBinding>(
             inflater,
             R.layout.fragment_news_post,
             container,
             false
         )
-
         binding.model = viewModel
         binding.lifecycleOwner = this
-
         return binding.root
     }
 
@@ -66,35 +62,28 @@ class NewsPostFragment : Fragment() {
                 if (response.isSuccessful) {
                     val newsPost = response.body()?.response
                     withContext(Dispatchers.Main) {
-                        //viewModel.text.value = newsPost?.text
-
-                        //tvText.setText(newsPost?.text!!)
-
                         tvText.settings.javaScriptEnabled = true
-
                         val model = activity?.run {
                             ViewModelProviders.of(this).get(NewsViewModel::class.java)
                         }!!
-
-
-
                         viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
                         viewModel.liked.observe(this@NewsPostFragment, Observer {
                             tvLike.text = it.toString()
                         })
-
                         viewModel.imageView = ivLike
                         viewModel.newsViewModel = model
                         viewModel.index = args.index
-
-
-
-                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.id)) {
-                            setImageGlide("error", ivLike, R.drawable.ic_heart)
+                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.token().id)) {
+                            glideLocal(
+                                ivLike,
+                                R.drawable.ic_heart
+                            )
                         } else {
-                            setImageGlide("error", ivLike, R.drawable.ic_unlike)
+                            glideLocal(
+                                ivLike,
+                                R.drawable.ic_unlike
+                            )
                         }
-
                         tvText.webViewClient = object : WebViewClient() {
                             override fun onReceivedHttpAuthRequest(
                                 view: WebView?,
@@ -112,15 +101,12 @@ class NewsPostFragment : Fragment() {
                             "UTF-8",
                             "about:blank"
                         )
-
                         viewModel.title.value = newsPost?.title
                         viewModel.announcePicture.value = newsPost?.picture
                         delay(200)
                         mainContent.visibility = View.VISIBLE
                         load.visibility = View.GONE
-
                     }
-
                 }
             } catch (e: Exception) {
                 delay(200)
@@ -129,18 +115,12 @@ class NewsPostFragment : Fragment() {
                         load.visibility = View.GONE
                         errorMsg.visibility = View.VISIBLE
                     } catch (e: Exception) {
-
+                        e.printStackTrace()
                     }
-
                 }
             }
-
         }
         super.onViewCreated(view, savedInstanceState)
     }
 
-    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        activity?.menuInflater?.inflate(R.menu.action_menu, menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
 }

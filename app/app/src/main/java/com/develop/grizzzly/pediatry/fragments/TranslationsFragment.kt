@@ -29,7 +29,6 @@ class TranslationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifecycle.addObserver(youtube_player_view)
-
         val customPlayerUi = youtube_player_view.inflateCustomPlayerUi(R.layout.player_ui)
         youtube_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -51,7 +50,6 @@ class TranslationsFragment : Fragment() {
                 youTubePlayer.loadVideo(videoId, 0f)
             }
         })
-
         super.onViewCreated(view, savedInstanceState)
     }
 

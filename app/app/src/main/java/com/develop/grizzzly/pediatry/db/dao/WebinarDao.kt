@@ -11,6 +11,6 @@ interface WebinarDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveWebinar(c: List<Webinar>)
 
-    @Query("SELECT * FROM webinar ORDER BY startDate DESC LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM webinar ORDER BY startTime DESC LIMIT :limit OFFSET :offset")
     suspend fun getWebinar(offset: Long, limit: Long): List<Webinar>
 }

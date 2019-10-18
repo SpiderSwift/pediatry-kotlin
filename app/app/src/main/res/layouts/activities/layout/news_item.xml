@@ -2,8 +2,8 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:rttv="http://schemas.android.com/apk/res-auto">
-
+    xmlns:rttv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,7 +11,6 @@
             name="model"
             type="com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,7 +35,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
@@ -54,9 +52,7 @@
                     android:scaleType="fitXY"
                     app:newsImageUrl="@{model.news.announcePicture}" />
 
-
             </androidx.cardview.widget.CardView>
-
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -75,7 +71,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-
             <com.github.curioustechizen.ago.RelativeTimeTextView
                 android:id="@+id/tvTime"
                 android:layout_width="0dp"
@@ -93,7 +88,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                 rttv:reference_time="@{model.news.date.time}" />
 
-
             <ImageView
                 android:id="@+id/ivLike"
                 android:layout_width="20dp"
@@ -105,8 +99,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvLike"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                app:layout_constraintVertical_bias="1.0" />
-
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:layout_width="35dp"
@@ -115,10 +109,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/ivLike"
                 app:layout_constraintEnd_toStartOf="@+id/ivLike"
                 app:layout_constraintStart_toEndOf="@+id/ivLike"
-                app:layout_constraintTop_toBottomOf="@+id/ivLike">
-
-            </View>
-
+                app:layout_constraintTop_toBottomOf="@+id/ivLike" />
 
             <TextView
                 android:id="@+id/tvLike"
@@ -139,9 +130,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                 app:layout_constraintVertical_bias="0.0" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/adCard"
@@ -159,7 +148,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/adCardView"
@@ -187,7 +175,6 @@
 
             </androidx.cardview.widget.CardView>
 
-
             <TextView
                 android:id="@+id/tv"
                 android:layout_width="0dp"
@@ -212,14 +199,13 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/gothampromedium"
                 android:lineSpacingExtra="10dp"
-                android:text="@{model.news.title}"
+                android:text="@{model.news.announce}"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/adCardView" />
-
 
             <ImageView
                 android:id="@+id/ivNext"
@@ -235,7 +221,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvAdTitle"
                 app:layout_constraintVertical_bias="1.0" />
 
-
             <View
                 android:id="@+id/view22"
                 android:layout_width="35dp"
@@ -244,10 +229,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/ivNext"
                 app:layout_constraintEnd_toStartOf="@+id/ivNext"
                 app:layout_constraintStart_toEndOf="@+id/ivNext"
-                app:layout_constraintTop_toBottomOf="@+id/ivNext">
-
-            </View>
-
+                app:layout_constraintTop_toBottomOf="@+id/ivNext" />
 
             <TextView
                 android:id="@+id/tvGo"
@@ -259,7 +241,6 @@
                 android:fontFamily="@font/gothampro"
                 android:inputType="none"
                 android:lineSpacingExtra="10dp"
-                android:onClick="@{model::onAd}"
                 android:text="Перейти"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
@@ -269,12 +250,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvAdTitle"
                 app:layout_constraintVertical_bias="1.0" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
 

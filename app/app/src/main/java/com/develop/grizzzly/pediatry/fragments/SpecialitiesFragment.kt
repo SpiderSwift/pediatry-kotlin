@@ -27,26 +27,20 @@ class SpecialitiesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_specialities, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewModel = SpecialitiesViewModel(args.specialityType)
-
         val model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
         }!!
-
         adapter = SpecialitiesAdapter(activity!!, model, args.specialityType)
         listSpecialities.adapter = adapter
         listSpecialities.layoutManager = LinearLayoutManager(activity)
-
         viewModel.specialitiesLiveData.observe(this, Observer {
             adapter.submitList(it)
         })
-
         super.onViewCreated(view, savedInstanceState)
     }
 }

@@ -2,6 +2,7 @@ package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
+import com.develop.grizzzly.pediatry.network.model.UserToken
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
@@ -13,29 +14,44 @@ import java.util.*
 object WebAccess {
 
     // TODO: use https://dev.edu-pediatrics.com/ for debug?
-    private val url = if (BuildConfig.DEBUG) {
+    private val pediatryApiUrl = if (BuildConfig.DEBUG) {
         "https://edu-pediatrics.com/api/v1/"
     } else {
         "https://edu-pediatrics.com/api/v1/"
     }
 
-    var adUrl: String = ""
+    const val adsApiEndpoint = "/api/"
 
-    var token: String = ""
-    var id: Long = 0
-    var offlineLog: Boolean = true
+    var adsUrl: String? = null
+    var adsApiUrl: String? = null
 
-    suspend fun tryLogin() {
+    var isLoggedIn: Boolean = false
+        private set
+        get() = token != null
+
+    private val defaultToken: UserToken = UserToken("", 0L)
+    private var token: UserToken? = null
+
+    fun token() : UserToken = token ?: defaultToken
+
+    fun token(token: UserToken?) {
+        if (token != null)
+            this.token = token
+    }
+
+    suspend fun tryLoginWithDb() {
         try {
             val user = DatabaseAccess.database.userDao().findUser(0)
-            val loginResult = pediatryApi.login(user?.email, user?.password)
-            if (loginResult.isSuccessful) {
-                id = loginResult.body()?.response?.id ?: 0
-                token = loginResult.body()?.response?.token ?: ""
-            }
+            tryLogin(user?.email, user?.password)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private suspend fun tryLogin(email: String?, password: String?) {
+        val loginResult = pediatryApi.login(email, password)
+        if (loginResult.isSuccessful)
+            token = loginResult.body()?.response
     }
 
     val pediatryApi: PediatryApiClient by lazy {
@@ -46,7 +62,7 @@ object WebAccess {
         val client = OkHttpClient.Builder()
             .addInterceptor {
                 val request = it.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $token")
+                    .addHeader("Authorization", "Bearer ${token?.token}")
                     .build()
                 return@addInterceptor it.proceed(request)
             }
@@ -59,14 +75,14 @@ object WebAccess {
 
         val retrofit = Retrofit.Builder()
             .client(client)
-            .baseUrl(url)
+            .baseUrl(pediatryApiUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
         return@lazy retrofit.create(PediatryApiClient::class.java)
     }
 
-    val adApi: AdApiClient by lazy {
+    val adsApi: AdApiClient by lazy {
 
         val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -81,7 +97,7 @@ object WebAccess {
 
         val retrofit = Retrofit.Builder()
             .client(client)
-            .baseUrl(adUrl)
+            .baseUrl(adsApiUrl ?: "127.0.0.1")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 

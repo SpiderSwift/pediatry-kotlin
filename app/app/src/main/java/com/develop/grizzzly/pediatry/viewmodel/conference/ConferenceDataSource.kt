@@ -14,8 +14,8 @@ class ConferenceDataSource : PositionalDataSource<Conference>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Conference>) {
         GlobalScope.launch {
-            if (WebAccess.offlineLog)
-                WebAccess.tryLogin()
+            if (!WebAccess.isLoggedIn)
+                WebAccess.tryLoginWithDb()
             try {
                 val conferencesResult = apiService.getConferences(0, params.requestedLoadSize.toLong())
                 if (conferencesResult.isSuccessful) {

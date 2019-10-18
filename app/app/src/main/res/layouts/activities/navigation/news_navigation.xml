@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/news_btn"
-            app:startDestination="@+id/news">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/news_btn"
+    app:startDestination="@+id/news">
 
     <fragment
-            android:id="@+id/news"
-            android:label="@string/news_title"
-            android:name="com.develop.grizzzly.pediatry.fragments.NewsFragment">
-        <action android:id="@+id/action_news_to_news_post" app:destination="@id/news_post">
+        android:id="@+id/news"
+        android:name="com.develop.grizzzly.pediatry.fragments.NewsFragment"
+        android:label="@string/news_title">
+        <action
+            android:id="@+id/action_news_to_news_post"
+            app:destination="@id/news_post">
             <argument
-                    android:name="newsId"
-                    app:argType="integer"
-                    android:defaultValue="0" />
+                android:name="newsId"
+                android:defaultValue="0"
+                app:argType="integer" />
             <argument
                 android:name="date"
-                app:argType="long"
-                android:defaultValue="0L" />
+                android:defaultValue="0L"
+                app:argType="long" />
             <argument
                 android:name="index"
-                app:argType="integer"
-                android:defaultValue="0" />
+                android:defaultValue="0"
+                app:argType="integer" />
         </action>
     </fragment>
 
-
     <fragment
-            android:id="@+id/news_post"
-            android:label="@string/news_post"
-            android:name="com.develop.grizzzly.pediatry.fragments.NewsPostFragment">
+        android:id="@+id/news_post"
+        android:name="com.develop.grizzzly.pediatry.fragments.NewsPostFragment"
+        android:label="@string/news_post">
         <argument
-                android:name="newsId"
-                app:argType="integer"
-                android:defaultValue="0" />
+            android:name="newsId"
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
-                android:name="date"
-                app:argType="long"
-                android:defaultValue="0L" />
+            android:name="date"
+            android:defaultValue="0L"
+            app:argType="long" />
 
         <argument
-                android:name="index"
-                app:argType="integer"
-                android:defaultValue="0" />
+            android:name="index"
+            android:defaultValue="0"
+            app:argType="integer" />
 
     </fragment>
 

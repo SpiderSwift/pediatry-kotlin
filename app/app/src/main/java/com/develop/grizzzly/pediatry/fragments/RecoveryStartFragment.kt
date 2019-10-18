@@ -18,19 +18,15 @@ class RecoveryStartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = DataBindingUtil.inflate<FragmentRecoveryStartBinding>(
             inflater,
             R.layout.fragment_recovery_start,
             container,
             false
         )
-
         val model = ViewModelProviders.of(this).get(RecoveryViewModel::class.java)
-
         binding.model = model
         binding.lifecycleOwner = this
-
         return binding.root
 
     }

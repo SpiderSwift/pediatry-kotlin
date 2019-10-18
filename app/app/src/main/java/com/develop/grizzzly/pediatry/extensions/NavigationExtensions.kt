@@ -1,4 +1,4 @@
-package com.develop.grizzzly.pediatry
+package com.develop.grizzzly.pediatry.extensions
 
 import android.content.Intent
 import android.util.SparseArray
@@ -8,8 +8,26 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import com.develop.grizzzly.pediatry.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+fun NavController.navigateNoExcept(resId : Int) {
+    try {
+        navigate(resId)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+fun NavController.navigateNoExcept(directions : NavDirections) {
+    try {
+        navigate(directions)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -33,7 +51,6 @@ fun BottomNavigationView.setupWithNavController(
     // First create a NavHostFragment for each NavGraph ID
     navGraphIds.forEachIndexed { index, navGraphId ->
         val fragmentTag = getFragmentTag(index)
-
         // Find or create the Navigation host fragment
         val navHostFragment = obtainNavHostFragment(
             fragmentManager,
@@ -41,24 +58,26 @@ fun BottomNavigationView.setupWithNavController(
             navGraphId,
             containerId
         )
-
         // Obtain its id
         val graphId = navHostFragment.navController.graph.id
-
-        if (index == 0) {
+        if (index == 0)
             firstFragmentGraphId = graphId
-        }
-
         // Save to the map
         graphIdToTagMap[graphId] = fragmentTag
-
         // Attach or detach nav host fragment depending on whether it's the selected item.
         if (this.selectedItemId == graphId) {
             // Update livedata with the selected graph
             selectedNavController.value = navHostFragment.navController
-            attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
+            attachNavHostFragment(
+                fragmentManager,
+                navHostFragment,
+                index == 0
+            )
         } else {
-            detachNavHostFragment(fragmentManager, navHostFragment)
+            detachNavHostFragment(
+                fragmentManager,
+                navHostFragment
+            )
         }
     }
 
@@ -82,7 +101,6 @@ fun BottomNavigationView.setupWithNavController(
                 )
                 val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                         as NavHostFragment
-
                 // Exclude the first fragment tag because it's always in the back stack.
                 if (firstFragmentTag != newlySelectedItemTag) {
                     // Commit a transaction that cleans the back stack and adds the first fragment
@@ -93,9 +111,8 @@ fun BottomNavigationView.setupWithNavController(
                         .apply {
                             // Detach all other Fragments
                             graphIdToTagMap.forEach { _, fragmentTagIter ->
-                                if (fragmentTagIter != newlySelectedItemTag) {
+                                if (fragmentTagIter != newlySelectedItemTag)
                                     detach(fragmentManager.findFragmentByTag(firstFragmentTag)!!)
-                                }
                             }
                         }
                         .addToBackStack(firstFragmentTag)
@@ -126,17 +143,13 @@ fun BottomNavigationView.setupWithNavController(
 
     // Finally, ensure that we update our BottomNavigationView when the back stack changes
     fragmentManager.addOnBackStackChangedListener {
-        if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag)) {
+        if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag))
             this.selectedItemId = firstFragmentGraphId
-        }
-
         // Reset the graph if the currentDestination is not valid (happens when the back
         // stack is popped after using the back button).
         selectedNavController.value?.let { controller ->
-            if (controller.currentDestination == null) {
-                controller.navigate(controller.graph.id)
-
-            }
+            if (controller.currentDestination == null)
+                controller.navigateNoExcept(controller.graph.id)
         }
     }
     return selectedNavController
@@ -150,7 +163,6 @@ private fun BottomNavigationView.setupDeepLinks(
 ) {
     navGraphIds.forEachIndexed { index, navGraphId ->
         val fragmentTag = getFragmentTag(index)
-
         // Find or create the Navigation host fragment
         val navHostFragment = obtainNavHostFragment(
             fragmentManager,
@@ -159,9 +171,8 @@ private fun BottomNavigationView.setupDeepLinks(
             containerId
         )
         // Handle Intent
-        if (navHostFragment.navController.handleDeepLink(intent)) {
+        if (navHostFragment.navController.handleDeepLink(intent))
             this.selectedItemId = navHostFragment.navController.graph.id
-        }
     }
 }
 
@@ -198,9 +209,8 @@ private fun attachNavHostFragment(
     fragmentManager.beginTransaction()
         .attach(navHostFragment)
         .apply {
-            if (isPrimaryNavFragment) {
+            if (isPrimaryNavFragment)
                 setPrimaryNavigationFragment(navHostFragment)
-            }
         }
         .commitNow()
 
@@ -215,7 +225,6 @@ private fun obtainNavHostFragment(
     // If the Nav Host fragment exists, return it
     val existingFragment = fragmentManager.findFragmentByTag(fragmentTag) as NavHostFragment?
     existingFragment?.let { return it }
-
     // Otherwise, create it and return it.
     val navHostFragment = NavHostFragment.create(navGraphId)
     fragmentManager.beginTransaction()
@@ -226,11 +235,9 @@ private fun obtainNavHostFragment(
 
 private fun FragmentManager.isOnBackStack(backStackName: String): Boolean {
     val backStackCount = backStackEntryCount
-    for (index in 0 until backStackCount) {
-        if (getBackStackEntryAt(index).name == backStackName) {
+    for (index in 0 until backStackCount)
+        if (getBackStackEntryAt(index).name == backStackName)
             return true
-        }
-    }
     return false
 }
 

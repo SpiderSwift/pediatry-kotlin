@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationFinishErrorBinding
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.viewmodel.registration.RegistrationViewModel
 import kotlinx.android.synthetic.main.fragment_registration_finish_error.*
 
@@ -28,22 +29,18 @@ class RegistrationFinishErrorFragment : Fragment() {
             container,
             false
         )
-
         model = activity?.run {
             ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
         }!!
         binding.model = model
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navController = findNavController()
-
         btnFinish.setOnClickListener {
-            navController.navigate(R.id.action_registration_finish_error_to_login)
+            navController.navigateNoExcept(R.id.action_registration_finish_error_to_login)
         }
 
     }

@@ -1,9 +1,8 @@
 package com.develop.grizzzly.pediatry
 
 import com.develop.grizzzly.pediatry.extensions.formatPhone
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).

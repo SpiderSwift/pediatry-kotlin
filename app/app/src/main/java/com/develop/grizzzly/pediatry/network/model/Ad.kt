@@ -6,14 +6,15 @@ import java.util.*
 
 @Entity
 data class Ad constructor(
-    @PrimaryKey
-    val id: Long,
+    @PrimaryKey val id: Long,
     val title: String,
+    val description: String,
     var image_url: String,
     val show_image: Boolean,
-    val video_url: String?
+    val video_url: String?,
+    val product_url: String
 ) {
-    fun toNews(): News {
-        return News(id, title, "", Date(), image_url, 0, mutableListOf(), true)
+    fun convert(): News {
+        return News(id, title, description, Date(), image_url, 0, mutableListOf(), true, product_url)
     }
 }

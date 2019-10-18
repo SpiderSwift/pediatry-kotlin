@@ -24,19 +24,15 @@ internal class CustomPlayerUiController(
     private val playerTracker: YouTubePlayerTracker = YouTubePlayerTracker()
 
     init {
-
         youTubePlayer.addListener(playerTracker)
-
         initViews(playerUi)
     }
 
     private fun initViews(playerUi: View) {
         panel = playerUi.panel
-
     }
 
     override fun onReady(youTubePlayer: YouTubePlayer) {
-
     }
 
     override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {

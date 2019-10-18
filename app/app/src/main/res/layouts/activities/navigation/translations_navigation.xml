@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/conference_btn"
-            app:startDestination="@+id/conferences">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/conference_btn"
+    app:startDestination="@+id/conferences">
 
     <fragment
-            android:id="@+id/conferences"
-            android:label="@string/conferentions"
-            android:name="com.develop.grizzzly.pediatry.fragments.ConferentionsFragment">
-        <action android:id="@+id/action_conference_to_stage" app:destination="@id/conference_stage">
+        android:id="@+id/conferences"
+        android:name="com.develop.grizzzly.pediatry.fragments.ConferentionsFragment"
+        android:label="@string/conferentions">
+        <action
+            android:id="@+id/action_conference_to_stage"
+            app:destination="@id/conference_stage">
 
             <argument
-                    android:name="id"
-                    app:argType="long"
-                    android:defaultValue="0L" />
+                android:name="id"
+                android:defaultValue="0L"
+                app:argType="long" />
         </action>
     </fragment>
 
     <fragment
-            android:id="@+id/conference_stage"
-            android:label="Конференция"
-            android:name="com.develop.grizzzly.pediatry.fragments.ConferenceStageFragment">
+        android:id="@+id/conference_stage"
+        android:name="com.develop.grizzzly.pediatry.fragments.ConferenceStageFragment"
+        android:label="Конференция">
         <argument
-                android:name="id"
-                app:argType="long"
-                android:defaultValue="0L" />
+            android:name="id"
+            android:defaultValue="0L"
+            app:argType="long" />
 
     </fragment>
 

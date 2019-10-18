@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.fragments.ConferentionsFragmentDirections
 import com.develop.grizzzly.pediatry.network.model.Conference
 import java.text.SimpleDateFormat
@@ -52,12 +53,8 @@ class ConferenceItemViewModel(val data: MutableLiveData<Conference>) : ViewModel
     fun onConference(view: View) {
         val toStage = ConferentionsFragmentDirections.actionConferenceToStage()
         toStage.id = data.value!!.id!!
-        val navController = Navigation.findNavController(view)
-        try {
-            navController.navigate(toStage)
-        } catch (e: Exception) {
-            e.printStackTrace()  // crashed on monkey test
-        }
+        Navigation.findNavController(view)
+            .navigateNoExcept(toStage)
     }
 
 }

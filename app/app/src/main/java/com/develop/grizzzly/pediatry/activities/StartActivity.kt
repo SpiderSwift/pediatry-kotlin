@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
+import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
@@ -28,59 +29,40 @@ class StartActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
         GlobalScope.launch {
-            val user = DatabaseAccess.database.userDao().findUser(0)
-            Log.d(TAG, user.toString())
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
-                val adEndpoint = "/api/"
                 if (adsUrl.isSuccessful) {
-                    try {
-                        WebAccess.adUrl = "${adsUrl.body()?.response?.url.toString()}$adEndpoint"
-                        val adsResult = WebAccess.adApi.getAds()
-                        if (adsResult.isSuccessful) {
-                            val ads = adsResult.body()?.ads ?: listOf()
-                            ads.forEach { it.image_url = "${WebAccess.adUrl}${it.image_url}" }
-                            DatabaseAccess.database.adDao().saveAds(ads)
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                    WebAccess.adsUrl = adsUrl.body()?.response?.url.toString()
+                    WebAccess.adsApiUrl = "${WebAccess.adsUrl}${WebAccess.adsApiEndpoint}"
+                    val adsResult = WebAccess.adsApi.getAds()
+                    if (adsResult.isSuccessful) {
+                        val ads = adsResult.body()?.ads ?: listOf()
+                        ads.forEach { it.image_url = "${WebAccess.adsUrl}${it.image_url}" }
+                        DatabaseAccess.database.adDao().saveAds(ads)
                     }
-                }
-                val loginResult = WebAccess.pediatryApi.login(user?.email, user?.password)
-                delay(1500)
-                if (loginResult.isSuccessful) {
-                    if (loginResult.body()?.status != 200L) {
-                        val navController = nav_host_fragment.findNavController()
-                        navController.navigate(R.id.action_start_to_login)
-                    } else {
-                        WebAccess.id = loginResult.body()?.response?.id ?: 0
-                        WebAccess.token = loginResult.body()?.response?.token ?: ""
-                        val intent = Intent(baseContext, MainActivity::class.java)
-                        WebAccess.offlineLog = false
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                    }
-                } else {
-                    val navController = nav_host_fragment.findNavController()
-                    navController.navigate(R.id.action_start_to_login)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                if (user != null) {
-                    val intent = Intent(baseContext, MainActivity::class.java)
-                    intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                } else {
-                    try {
-                        val navController = nav_host_fragment.findNavController()
-                        navController.navigate(R.id.action_start_to_login)
-                    } catch (e: Exception) {
-                        e.printStackTrace()  // crashed on monkey test
+            }
+            val user = DatabaseAccess.database.userDao().findUser(0)
+            Log.d(TAG, "user: ${user.toString()}")
+            if (user != null) {
+                try {
+                    val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
+                    delay(1500)
+                    if (loginResult.isSuccessful) {
+                        WebAccess.token(loginResult.body()?.response)
+                        val intent = Intent(baseContext, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        return@launch
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
+            nav_host_fragment.findNavController()
+                .navigateNoExcept(R.id.action_start_to_login)
         }
     }
 
@@ -88,4 +70,5 @@ class StartActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onStart()
     }
+
 }
