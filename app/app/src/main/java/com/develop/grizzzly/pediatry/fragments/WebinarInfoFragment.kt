@@ -53,44 +53,34 @@ class WebinarInfoFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainActivity = activity as? MainActivity
         btnPart.setOnClickListener {
-            if (!canWatch) {
-                if (!registered) {
-                    GlobalScope.launch {
-                        try {
-                            val response = WebAccess.pediatryApi.registerForWebinar(args.id)
-                            if (response.isSuccessful) {
-                                withContext(Dispatchers.Main) {
-                                    btnPart.text = "Отменить"
-                                    registered = true
-                                }
+            if (canWatch) {
+                // TODO: добавить переход к просмотру видео
+                return@setOnClickListener
+            }
+            GlobalScope.launch {
+                try {
+                    val response =
+                        if (!registered) WebAccess.pediatryApi.registerForWebinar(args.id)
+                        else WebAccess.pediatryApi.unregisterForWebinar(args.id)
+                    if (response.isSuccessful) {
+                        withContext(Dispatchers.Main) {
+                            if (!registered) {
+                                btnPart.text = "Отменить"
+                                registered = true
+                            } else {
+                                btnPart.text = "Участвовать"
+                                registered = false
                             }
-                        } catch (e : Exception) {
-                            e.printStackTrace()
                         }
                     }
-                } else {
-                    GlobalScope.launch {
-                        try {
-                            val response = WebAccess.pediatryApi.unregisterForWebinar(args.id)
-                            if (response.isSuccessful) {
-                                withContext(Dispatchers.Main) {
-                                    btnPart.text = "Участвовать"
-                                    registered = false
-                                }
-                            }
-                        } catch (e : Exception) {
-                            e.printStackTrace()
-                        }
-                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } else {
-                //todo добавить переход к просмотру видео
             }
         }
 
@@ -108,29 +98,17 @@ class WebinarInfoFragment : Fragment() {
                         )
                         withContext(Dispatchers.Main) {
                             sendField.visibility = View.GONE
-                            showToast(
-                                activity!!,
-                                R.layout.custom_toast,
-                                "Сообщение успешно отправлено!"
-                            )
+                            toast("Сообщение отправлено")
                         }
                     } catch (e: Exception) {
+                        e.printStackTrace()
                         withContext(Dispatchers.Main) {
-                            sendField.visibility = View.GONE
-                            showToast(
-                                activity!!,
-                                R.layout.custom_toast,
-                                "Произошла ошибка при отправке сообщения!"
-                            )
+                            toast("Ошибка при отправке")
                         }
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        showToast(
-                            activity!!,
-                            R.layout.custom_toast,
-                            "Введите сообщение для отправки"
-                        )
+                        toast("Введите сообщение")
                     }
                 }
             }
@@ -185,6 +163,10 @@ class WebinarInfoFragment : Fragment() {
             }
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun toast(msg: String) {
+        showToast(activity!!, R.layout.custom_toast, msg)
     }
 
 }
