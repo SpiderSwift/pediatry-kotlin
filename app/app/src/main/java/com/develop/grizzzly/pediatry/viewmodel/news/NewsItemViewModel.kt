@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,8 @@ import kotlinx.coroutines.launch
 
 class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, val item: Int) :
     ViewModel() {
+
+
 
     fun onNews(view: View) {
         val toNewsPost = NewsFragmentDirections.actionNewsToNewsPost()

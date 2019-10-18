@@ -8,6 +8,8 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NewsDataSource : PositionalDataSource<News>() {
 
@@ -33,7 +35,7 @@ class NewsDataSource : PositionalDataSource<News>() {
         return dst
     }
 
-    suspend fun load(offset: Long, limit: Long) : MutableList<News> {
+    suspend fun load(offset: Long, limit: Long): MutableList<News> {
         if (!WebAccess.isLoggedIn)
             WebAccess.tryLoginWithDb()
         val ads = database.adDao().loadAds().map { it.convert() }
@@ -42,6 +44,21 @@ class NewsDataSource : PositionalDataSource<News>() {
             val responseNews = apiService.getNews(offset, limit)
             if (responseNews.isSuccessful) {
                 news = responseNews.body()?.response?.toMutableList()!!
+                val list = ArrayList<Long>()
+                news.add(
+                    News(
+                        666,
+                        "test ad",
+                        "Какое-то описание видоса",
+                        Date(),
+                        "",
+                        3,
+                        list,
+                        true,
+                        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                    )
+                )
+                news.reverse()
                 database.newsDao().saveNews(news)
             } else {
                 news = mutableListOf()

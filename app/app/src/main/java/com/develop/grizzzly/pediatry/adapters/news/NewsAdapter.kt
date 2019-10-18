@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.VideoView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
@@ -30,9 +31,10 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
             if (true) {
-                val videoView = binding.adVideo
+                val videoView: VideoView = binding.adVideo
                 videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
                 videoView.start()
+                binding.adImage.visibility = View.GONE
             }
             binding.root.adCard.visibility = if (news.isAd) View.VISIBLE else View.GONE
             binding.root.newsCard.visibility = if (news.isAd) View.GONE else View.VISIBLE
@@ -45,5 +47,4 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
         }
 
     }
-
 }
