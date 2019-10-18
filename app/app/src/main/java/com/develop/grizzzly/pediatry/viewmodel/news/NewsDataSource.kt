@@ -51,7 +51,6 @@ class NewsDataSource : PositionalDataSource<News>() {
             news = database.newsDao().getNews(offset, limit).toMutableList()
         }
         mixin(ads, news, 4)
-        news.forEach { Log.w("NEWS", it.toString()) }
         return news
     }
 

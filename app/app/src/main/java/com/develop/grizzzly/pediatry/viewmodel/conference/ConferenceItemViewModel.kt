@@ -11,11 +11,10 @@ import com.develop.grizzzly.pediatry.util.TimeUtil
 
 class ConferenceItemViewModel(val data: MutableLiveData<Conference>) : ViewModel() {
 
-    fun startTime() : Long = data.value?.startTime?.toLong() ?: 0L
+    private fun startTimeMs() : Long = data.value?.startDate?.time ?: 0L
 
-    fun getMonth() : String = TimeUtil.printableMonth(startTime())
-
-    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTime())
+    fun getMonth() : String = TimeUtil.printableMonth(startTimeMs(), false)
+    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTimeMs())
 
     fun onConference(view: View) {
         val toStage = ConferentionsFragmentDirections.actionConferenceToStage()

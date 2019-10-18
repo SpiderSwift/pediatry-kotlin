@@ -4,25 +4,27 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object TimeUtil {
-    
-    fun printableMonth(timeInMillis: Long): String {
+
+    fun printableMonth(timeInMillis: Long, isLowerCase: Boolean = true): String {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timeInMillis
-        return when (calendar.get(Calendar.MONTH)) {
-            0 -> "ЯНВАРЯ"
-            1 -> "ФЕВРАЛЯ"
-            2 -> "МАРТА"
-            3 -> "АПРЕЛЯ"
-            4 -> "МАЯ"
-            5 -> "ИЮНЯ"
-            6 -> "ИЮЛЯ"
-            7 -> "АВГУСТА"
-            8 -> "СЕНТЯБРЯ"
-            9 -> "ОКТЯБРЯ"
-            10 -> "НОЯБРЯ"
-            11 -> "ДЕКАБРЯ"
+        val month = when (calendar.get(Calendar.MONTH)) {
+            0 -> "января"
+            1 -> "февраля"
+            2 -> "марта"
+            3 -> "апреля"
+            4 -> "мая"
+            5 -> "июня"
+            6 -> "июля"
+            7 -> "августа"
+            8 -> "сентября"
+            9 -> "октября"
+            10 -> "ноября"
+            11 -> "декабря"
             else -> ""
         }
+        return if (isLowerCase) month
+        else month.toLowerCase(Locale.getDefault())
     }
 
     fun printableDayTime(timeInMillis: Long): String {

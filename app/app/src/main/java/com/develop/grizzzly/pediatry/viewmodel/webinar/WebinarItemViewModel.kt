@@ -11,13 +11,11 @@ import com.develop.grizzzly.pediatry.util.TimeUtil
 
 class WebinarItemViewModel(val data: MutableLiveData<Webinar>) : ViewModel() {
 
-    fun startTime() : Long = data.value?.startTime?.toLong() ?: 0L
+    private fun startTimeMs() : Long = data.value?.startTime?.toLong() ?: 0L
 
-    fun getMonth() : String = TimeUtil.printableMonth(startTime())
-
-    fun getStartTimeHour(): String = TimeUtil.printableDayTime(startTime())
-
-    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTime())
+    fun getMonth() : String = TimeUtil.printableMonth(startTimeMs(), false)
+    fun getStartTimeHour(): String = TimeUtil.printableDayTime(startTimeMs())
+    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTimeMs())
 
     fun onWebinar(view: View) {
         val toWebinar = WebinarsFragmentDirections.actionWebinarToInfo()

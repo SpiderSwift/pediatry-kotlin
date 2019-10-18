@@ -4,13 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.develop.grizzzly.pediatry.network.model.Webinar
 import com.develop.grizzzly.pediatry.util.TimeUtil
-import java.util.*
 
 class WebinarPostViewModel : ViewModel() {
 
     val data: MutableLiveData<Webinar> = MutableLiveData()
 
-    fun startTime() : Long = data.value?.startTime?.toLong() ?: 0L
+    private fun startTimeMs() : Long = data.value?.startTime?.toLong() ?: 0L
+
+    fun getMonth() : String = TimeUtil.printableMonth(startTimeMs())
+    fun getStartTimeHour(): String = TimeUtil.printableDayTime(startTimeMs())
+    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTimeMs())
 
     fun getDetailDescription(): String {
         val desc = data.value?.description
@@ -19,11 +22,5 @@ class WebinarPostViewModel : ViewModel() {
         else
             "Описание отсутствует"
     }
-
-    fun getMonth() : String = TimeUtil.printableMonth(startTime()).toLowerCase(Locale.getDefault())
-
-    fun getStartTimeHour(): String = TimeUtil.printableDayTime(startTime())
-
-    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTime())
 
 }
