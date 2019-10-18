@@ -29,10 +29,7 @@ class RegistrationInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentRegistrationInfoBinding>(
-            inflater,
-            R.layout.fragment_registration_info,
-            container,
-            false
+            inflater, R.layout.fragment_registration_info, container, false
         )
         binding.tePhone.addMask("+7 ([000]) [000]-[00]-[00]")
         model = activity?.run {
@@ -42,33 +39,31 @@ class RegistrationInfoFragment : Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
         model.city.observe(this, Observer {
-            if (model.isValidCity()) {
-                teCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
-            } else {
-                teCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
-            }
+            teCity.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0,
+                if (model.isValidCity()) R.drawable.ic_cross
+                else R.drawable.ic_light_cross,
+                0
+            )
             model.infoValid.value = model.isInfoValid()
         })
         model.phoneNumber.observe(this, Observer {
             model.infoValid.value = model.isInfoValid()
-            if (model.isValidPhone()) {
-                tePhone.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
-            } else {
-                tePhone.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_light_cross, 0)
-            }
+            tePhone.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0,
+                if (model.isValidPhone()) R.drawable.ic_cross
+                else R.drawable.ic_light_cross,
+                0
+            )
         })
         model.fullname.observe(this, Observer {
             model.infoValid.value = model.isInfoValid()
-            if (model.isValidFullname()) {
-                teFullName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross, 0)
-            } else {
-                teFullName.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_light_cross,
-                    0
-                )
-            }
+            teFullName.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0,
+                if (model.isValidFullname()) R.drawable.ic_cross
+                else R.drawable.ic_light_cross,
+                0
+            )
         })
         return binding.root
     }
@@ -82,10 +77,7 @@ class RegistrationInfoFragment : Fragment() {
         data ?: return
         if (resultCode == Activity.RESULT_OK) {
             val finalImage = data.data?.let {
-                minimizeImage(
-                    uri = it,
-                    contentResolver = context!!.contentResolver
-                )
+                minimizeImage(it, context!!.contentResolver)
             }
             model.imageUrl.postValue(finalImage)
         }
