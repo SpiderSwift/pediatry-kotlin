@@ -9,39 +9,31 @@ import android.widget.ImageView
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
-import com.develop.grizzzly.pediatry.MainApplication
+import com.develop.grizzzly.pediatry.application.ThisApp
+import com.develop.grizzzly.pediatry.ui.ImageAccess
 import java.io.InputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
 
-fun setImageGlide(path: String, imageView: ImageView, placeholderId: Int) {
-    if (path != "error") {
-        Log.w("GLIDE", "path: $path")
-        Glide.with(MainApplication.get()!!)
-            .load(path)
-            .centerCrop()
-            .placeholder(placeholderId)
-            .error(placeholderId)
-            .into(imageView)
-    } else {
-        Glide.with(MainApplication.get()!!)
-            .load(placeholderId)
-            .centerCrop()
-            .into(imageView)
-    }
-}
-
-fun setImageGlide(imageView: ImageView, placeholderId: Int) {
-    Glide.with(MainApplication.get()!!)
-        .asDrawable()
+fun glideRemote(path: String, imageView: ImageView, placeholderId: Int) {
+    Log.w("GLIDE", "path: $path")
+    Glide.with(ThisApp.app)
+        .load(path)
         .centerCrop()
         .placeholder(placeholderId)
         .error(placeholderId)
         .into(imageView)
 }
 
+fun glideLocal(imageView: ImageView, placeholderId: Int) {
+    Glide.with(ThisApp.app)
+        .load(placeholderId)
+        .centerCrop()
+        .into(imageView)
+}
+
 fun setAuthorizeMessage(path: String, imageView: ImageView, placeholderId: Int) {
-    MainApplication.get()!!.picasso.load(path)
+    ImageAccess.picasso.load(path)
         .fit()
         .centerCrop()
         .placeholder(placeholderId)

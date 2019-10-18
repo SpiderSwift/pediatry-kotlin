@@ -1,18 +1,12 @@
-package com.develop.grizzzly.pediatry
+package com.develop.grizzzly.pediatry.ui
 
-import android.app.Application
+import com.develop.grizzzly.pediatry.application.ThisApp
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
 
-class MainApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        instance = this
-    }
+object ImageAccess {
 
     val picasso: Picasso by lazy {
         val client = OkHttpClient.Builder()
@@ -23,14 +17,9 @@ class MainApplication : Application() {
                     .build()
             }
             .build()
-        return@lazy Picasso.Builder(get()!!.baseContext).downloader(OkHttp3Downloader(client))
+        return@lazy Picasso.Builder(ThisApp.app)
+            .downloader(OkHttp3Downloader(client))
             .build()
     }
 
-    companion object {
-        private var instance: MainApplication? = null
-        fun get(): MainApplication? {
-            return instance
-        }
-    }
 }

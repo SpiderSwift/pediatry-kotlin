@@ -21,7 +21,7 @@ import com.develop.grizzzly.pediatry.extensions.md5
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.util.getPath
-import com.develop.grizzzly.pediatry.util.setImageGlide
+import com.develop.grizzzly.pediatry.util.glideRemote
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
@@ -239,7 +239,7 @@ class RegistrationViewModel : ViewModel() {
         @BindingAdapter("bind:imageUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: Uri?) {
-            imageUrl?.let { it -> setImageGlide(it.toString(), view, android.R.color.white) }
+            imageUrl?.let { it -> glideRemote(it.toString(), view, android.R.color.white) }
         }
     }
 
