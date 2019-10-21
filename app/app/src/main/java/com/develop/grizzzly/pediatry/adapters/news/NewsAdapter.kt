@@ -1,10 +1,10 @@
 package com.develop.grizzzly.pediatry.adapters.news
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.VideoView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
@@ -30,14 +30,31 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
     class NewsViewHolder(val binding: NewsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
-            if (true) {
-                val videoView: VideoView = binding.adVideo
-                videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
-                videoView.start()
-                binding.adImage.visibility = View.GONE
+            Log.println(Log.ASSERT, "msg", news.announce.toString())
+            Log.println(Log.ASSERT, "msg", news.id.toString())
+            if (news.isAd) {
+                binding.root.newsCard.visibility = View.GONE
+                binding.root.adCard.visibility = View.VISIBLE
+                if (news.id == (666).toLong()) { //Todo if url video != null
+                    binding.root.adCardView.visibility = View.INVISIBLE
+                    binding.adVideo.visibility = View.VISIBLE
+                    binding.adVideo.setVideoURI(Uri.parse(news.attachedUrl))
+                    //videoView.seekTo(10000) //стар с какой-то секунды
+                    binding.adVideo.start()
+                    binding.adCard.setOnClickListener {
+                        Log.println(Log.ASSERT, "msg", "!")
+                        if (binding.adVideo.isPlaying)
+                            binding.adVideo.pause()
+                        else binding.adVideo.start()
+                    }
+                } else {
+                    binding.root.adCardView.visibility = View.VISIBLE
+                    binding.adVideo.visibility = View.GONE
+                }
+            } else {
+                binding.root.adCard.visibility = View.GONE
+                binding.root.newsCard.visibility = View.VISIBLE
             }
-            binding.root.adCard.visibility = if (news.isAd) View.VISIBLE else View.GONE
-            binding.root.newsCard.visibility = if (news.isAd) View.GONE else View.VISIBLE
             glideLocal(
                 binding.root.ivLike,
                 if (news.likedByUsers.contains(WebAccess.token().id))
@@ -45,6 +62,5 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
             )
             binding.model = NewsItemViewModel(news, adapter, position)
         }
-
     }
 }

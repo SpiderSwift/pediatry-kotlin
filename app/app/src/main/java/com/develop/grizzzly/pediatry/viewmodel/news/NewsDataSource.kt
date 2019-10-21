@@ -43,11 +43,27 @@ class NewsDataSource : PositionalDataSource<News>() {
             val responseNews = apiService.getNews(offset, limit)
             if (responseNews.isSuccessful) {
                 news = responseNews.body()?.response?.toMutableList()!!
+
+                //Todo delete
                 val list = ArrayList<Long>()
                 news.add(
                     News(
                         666,
-                        "test ad",
+                        "test video",
+                        "Какое-то описание видоса2",
+                        Date(),
+                        "",
+                        3,
+                        list,
+                        true,
+                        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                    )
+                )
+
+                news.add(
+                    News(
+                        666,
+                        "test video",
                         "Какое-то описание видоса",
                         Date(),
                         "",
@@ -57,7 +73,23 @@ class NewsDataSource : PositionalDataSource<News>() {
                         "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
                     )
                 )
+
+                news.add(
+                    News(
+                        667,
+                        "test image",
+                        "Какое-то описание картинки",
+                        Date(),
+                        "https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg",
+                        3,
+                        list,
+                        true,
+                        "https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg"
+                    )
+                )
                 news.reverse()
+                //Todo delete
+
                 database.newsDao().saveNews(news)
             } else {
                 news = mutableListOf()
