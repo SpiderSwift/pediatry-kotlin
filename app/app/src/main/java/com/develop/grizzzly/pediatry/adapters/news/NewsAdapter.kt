@@ -15,6 +15,7 @@ import com.develop.grizzzly.pediatry.network.model.News
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel
 import kotlinx.android.synthetic.main.news_item.view.*
 
+
 class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -30,26 +31,29 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
     class NewsViewHolder(val binding: NewsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
-            Log.println(Log.ASSERT, "msg", news.announce.toString())
-            Log.println(Log.ASSERT, "msg", news.id.toString())
             if (news.isAd) {
+                binding.adImage.visibility = View.VISIBLE
                 binding.root.newsCard.visibility = View.GONE
                 binding.root.adCard.visibility = View.VISIBLE
-                if (news.id == (666).toLong()) { //Todo if url video != null
-                    binding.root.adCardView.visibility = View.INVISIBLE
-                    binding.adVideo.visibility = View.VISIBLE
+                if (news.id == (666).toLong()) { //Todo if !videoUrl.isEmpty(), тут будет проверка есть ли ссылка на видео
                     binding.adVideo.setVideoURI(Uri.parse(news.attachedUrl))
-                    //videoView.seekTo(10000) //стар с какой-то секунды
                     binding.adVideo.start()
                     binding.adCard.setOnClickListener {
-                        Log.println(Log.ASSERT, "msg", "!")
                         if (binding.adVideo.isPlaying)
                             binding.adVideo.pause()
                         else binding.adVideo.start()
                     }
+                    binding.adVideo.setOnPreparedListener {
+                        binding.adImage.visibility = View.GONE
+                    }
+                    binding.adVideo.setOnCompletionListener {
+                        Log.println(Log.ASSERT,"msg","Completion")
+                        //Todo начинаем крутить видео снова?
+                        // Показываем превью?
+                        // Или просто чёрный экран?
+                    }
                 } else {
-                    binding.root.adCardView.visibility = View.VISIBLE
-                    binding.adVideo.visibility = View.GONE
+                    binding.adVideo.visibility = View.INVISIBLE
                 }
             } else {
                 binding.root.adCard.visibility = View.GONE

@@ -45,6 +45,7 @@ class NewsDataSource : PositionalDataSource<News>() {
                 news = responseNews.body()?.response?.toMutableList()!!
 
                 //Todo delete
+                // Создаём рекламу :)
                 val list = ArrayList<Long>()
                 news.add(
                     News(
@@ -52,7 +53,7 @@ class NewsDataSource : PositionalDataSource<News>() {
                         "test video",
                         "Какое-то описание видоса2",
                         Date(),
-                        "",
+                        "https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg",
                         3,
                         list,
                         true,
@@ -66,7 +67,7 @@ class NewsDataSource : PositionalDataSource<News>() {
                         "test video",
                         "Какое-то описание видоса",
                         Date(),
-                        "",
+                        "https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg",
                         3,
                         list,
                         true,
@@ -81,10 +82,10 @@ class NewsDataSource : PositionalDataSource<News>() {
                         "Какое-то описание картинки",
                         Date(),
                         "https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg",
-                        3,
+                        999,
                         list,
                         true,
-                        "https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg"
+                        ""
                     )
                 )
                 news.reverse()
@@ -114,5 +115,4 @@ class NewsDataSource : PositionalDataSource<News>() {
             callback.onResult(load(params.startPosition.toLong(), params.loadSize.toLong()))
         }
     }
-
 }
