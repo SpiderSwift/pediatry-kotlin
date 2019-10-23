@@ -64,13 +64,13 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     companion object {
-        @BindingAdapter("rttv:reference_time")
+        @BindingAdapter("reference_time")
         @JvmStatic
         fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
             view.setReferenceTime(time)
         }
 
-        @BindingAdapter("bind:newsImageUrl")
+        @BindingAdapter("newsImageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
             if (imageUrl?.isNotEmpty() == true) {

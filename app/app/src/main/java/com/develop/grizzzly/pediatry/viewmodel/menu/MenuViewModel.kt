@@ -29,7 +29,7 @@ class MenuViewModel : ViewModel() {
     }
 
     companion object {
-        @BindingAdapter("bind:avatarUrl")
+        @BindingAdapter("avatarUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: String?) {
             if (imageUrl?.isNotEmpty() == true) {

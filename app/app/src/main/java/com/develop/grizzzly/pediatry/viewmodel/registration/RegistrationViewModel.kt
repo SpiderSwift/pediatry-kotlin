@@ -227,7 +227,7 @@ class RegistrationViewModel : ViewModel() {
     }
 
     companion object {
-        @BindingAdapter("bind:imageUrl")
+        @BindingAdapter("imageUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: Uri?) {
             imageUrl?.let { it ->

@@ -24,7 +24,7 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
     }
 
     companion object {
-        @BindingAdapter("bind:resource")
+        @BindingAdapter("resource")
         @JvmStatic
         fun loadImage(view: ImageView, resource: Int?) {
             resource?.let { _ ->

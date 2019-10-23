@@ -81,13 +81,13 @@ class NewsPostViewModel : ViewModel() {
     }
 
     companion object {
-        @BindingAdapter("rttv:news_post_reference_time")
+        @BindingAdapter("news_post_reference_time")
         @JvmStatic
         fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
             view.setReferenceTime(time)
         }
 
-        @BindingAdapter("bind:newsImageUrl")
+        @BindingAdapter("newsImageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
             if (imageUrl?.isNotEmpty() == true) {
