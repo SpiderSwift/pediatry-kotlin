@@ -94,8 +94,8 @@ class NewsPostFragment : Fragment() {
                         viewModel.title.value = newsPost?.title
                         viewModel.announcePicture.value = newsPost?.picture
                         delay(200)
-                        mainContent.visibility = View.VISIBLE
-                        load.visibility = View.GONE
+                        mainContent?.visibility = View.VISIBLE
+                        load?.visibility = View.GONE
                     }
                 }
             } catch (e: Exception) {

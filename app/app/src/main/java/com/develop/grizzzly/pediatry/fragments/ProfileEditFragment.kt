@@ -61,8 +61,8 @@ class ProfileEditFragment : Fragment() {
         activity?.bottom_nav?.visibility = View.GONE
         GlobalScope.launch(Dispatchers.Main) {
             delay(200)
-            mainContent.visibility = View.VISIBLE
-            load.visibility = View.GONE
+            mainContent?.visibility = View.VISIBLE
+            load?.visibility = View.GONE
         }
         model.mainSpec.observe(this, Observer {
             btnMainSpeciality.text = model.getMainSpecialityName()
