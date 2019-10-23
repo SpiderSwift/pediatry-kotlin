@@ -1,18 +1,20 @@
 package com.develop.grizzzly.pediatry.adapters.news
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
-
 import com.develop.grizzzly.pediatry.databinding.NewsItemBinding
+import com.develop.grizzzly.pediatry.images.glideLocal
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
-import com.develop.grizzzly.pediatry.images.glideLocal
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsItemViewModel
 import kotlinx.android.synthetic.main.news_item.view.*
+
 
 class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffUtilCallBack()) {
 
@@ -29,8 +31,34 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
     class NewsViewHolder(val binding: NewsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News, adapter: NewsAdapter, position: Int) {
-            binding.root.adCard.visibility = if (news.isAd) View.VISIBLE else View.GONE
-            binding.root.newsCard.visibility = if (news.isAd) View.GONE else View.VISIBLE
+            if (news.isAd) {
+                binding.adImage.visibility = View.VISIBLE
+                binding.root.newsCard.visibility = View.GONE
+                binding.root.adCard.visibility = View.VISIBLE
+                if (news.id == (666).toLong()) { //Todo if !videoUrl.isEmpty(), тут будет проверка есть ли ссылка на видео
+                    binding.adVideo.setVideoURI(Uri.parse(news.attachedUrl))
+                    binding.adVideo.start()
+                    binding.adCard.setOnClickListener {
+                        if (binding.adVideo.isPlaying)
+                            binding.adVideo.pause()
+                        else binding.adVideo.start()
+                    }
+                    binding.adVideo.setOnPreparedListener {
+                        binding.adImage.visibility = View.GONE
+                    }
+                    binding.adVideo.setOnCompletionListener {
+                        Log.println(Log.ASSERT,"msg","Completion")
+                        //Todo начинаем крутить видео снова?
+                        // Показываем превью?
+                        // Или просто чёрный экран?
+                    }
+                } else {
+                    binding.adVideo.visibility = View.INVISIBLE
+                }
+            } else {
+                binding.root.adCard.visibility = View.GONE
+                binding.root.newsCard.visibility = View.VISIBLE
+            }
             glideLocal(
                 binding.root.ivLike,
                 if (news.likedByUsers.contains(WebAccess.token().id))
@@ -39,5 +67,4 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
             binding.model = NewsItemViewModel(news, adapter, position)
         }
     }
-
 }

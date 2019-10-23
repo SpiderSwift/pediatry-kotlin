@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import android.widget.VideoView
 import androidx.core.app.ActivityCompat
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
