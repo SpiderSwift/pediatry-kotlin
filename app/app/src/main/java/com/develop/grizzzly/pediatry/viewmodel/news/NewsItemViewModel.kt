@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.VideoView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
@@ -24,8 +23,6 @@ import kotlinx.coroutines.launch
 class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, val item: Int) :
     ViewModel() {
 
-
-
     fun onNews(view: View) {
         val toNewsPost = NewsFragmentDirections.actionNewsToNewsPost()
         toNewsPost.newsId = news.id.toInt()
@@ -36,8 +33,17 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     fun onAd(view: View) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
-        startActivity(view.context, browserIntent, Bundle())
+        var adsUriStr = news.attachedUrl ?: return
+        if (!adsUriStr.startsWith("http://") &&
+                !adsUriStr.startsWith("https://")) {
+            adsUriStr = "http://${adsUriStr}"
+        }
+        try {
+            val adsUri = Uri.parse(adsUriStr)
+            startActivity(view.context, Intent(Intent.ACTION_VIEW, adsUri), Bundle())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun onLike(@Suppress("UNUSED_PARAMETER") v: View) {
@@ -64,6 +70,7 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     companion object {
+
         @BindingAdapter("reference_time")
         @JvmStatic
         fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
@@ -78,5 +85,7 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
                 setAuthorizeMessage(imageUrl, view, android.R.color.white)
             }
         }
+
     }
+
 }
