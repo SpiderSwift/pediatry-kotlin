@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 16,
-    "identityHash": "afa31e5398d78bbdf25f8814ea0fe900",
+    "identityHash": "3179aa578dae48aa21eb4196c7af6299",
     "entities": [
       {
         "tableName": "User",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "News",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT, `announce` TEXT, `date` INTEGER, `announcePicture` TEXT, `liked` INTEGER, `likedByUsers` TEXT NOT NULL, `isAd` INTEGER NOT NULL, `attachedUrl` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT, `announce` TEXT, `date` INTEGER, `announcePicture` TEXT, `liked` INTEGER, `likedByUsers` TEXT NOT NULL, `isAd` INTEGER NOT NULL, `videoUrl` TEXT, `attachedUrl` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -87,6 +87,12 @@
             "columnName": "isAd",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "videoUrl",
+            "columnName": "videoUrl",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "attachedUrl",
@@ -466,7 +472,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'afa31e5398d78bbdf25f8814ea0fe900')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3179aa578dae48aa21eb4196c7af6299')"
     ]
   }
 }
