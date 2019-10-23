@@ -15,6 +15,6 @@ data class Ad constructor(
     val product_url: String
 ) {
     fun convert(): News {
-        return News(id, title, description, Date(), image_url, 0, mutableListOf(), true, product_url)
+        return News(id, title, description, Date(), image_url, 0, mutableListOf(), true, video_url, product_url)
     }
 }
