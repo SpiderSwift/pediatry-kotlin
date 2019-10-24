@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileEditBinding
 import com.develop.grizzzly.pediatry.extensions.addMask
@@ -48,7 +48,7 @@ class ProfileEditFragment : Fragment() {
         val mainActivity = activity
         mainActivity?.toolbarTitle?.text = "Редактирование"
         model = activity?.run {
-            ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+            ViewModelProvider(this).get(ProfileViewModel::class.java)
         }!!
         model.fragment = this
         binding.model = model

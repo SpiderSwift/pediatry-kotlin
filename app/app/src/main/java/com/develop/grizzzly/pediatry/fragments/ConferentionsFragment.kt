@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.conference.ConferenceAdapter
@@ -28,7 +28,7 @@ class ConferentionsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(ConferenceViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ConferenceViewModel::class.java)
         listConference.setHasFixedSize(true)
         adapter = ConferenceAdapter()
         listConference.adapter = adapter

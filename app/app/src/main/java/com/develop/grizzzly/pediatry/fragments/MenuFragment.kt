@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.adapters.menu.MenuAdapter
@@ -28,11 +28,10 @@ class MenuFragment : Fragment() {
             container,
             false
         )
-        val mainActivity = activity
-        mainActivity?.toolbarTitle?.text = "Меню"
+        activity?.toolbarTitle?.text = "Меню"
         val model = activity?.run {
-            ViewModelProviders.of(this).get(MenuViewModel::class.java)
-        }!!
+            ViewModelProvider(this).get(MenuViewModel::class.java)
+        }
         binding.model = model
         binding.lifecycleOwner = this
         return binding.root

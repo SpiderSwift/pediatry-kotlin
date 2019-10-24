@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.develop.grizzzly.pediatry.R
@@ -33,7 +33,7 @@ class SpecialitiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = SpecialitiesViewModel(args.specialityType)
         val model = activity?.run {
-            ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
+            ViewModelProvider(this).get(RegistrationViewModel::class.java)
         }!!
         adapter = SpecialitiesAdapter(activity!!, model, args.specialityType)
         listSpecialities.adapter = adapter

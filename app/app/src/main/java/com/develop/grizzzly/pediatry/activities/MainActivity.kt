@@ -1,20 +1,19 @@
 package com.develop.grizzzly.pediatry.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
-import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.extensions.setupWithNavController
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.viewmodel.menu.MenuViewModel
 import com.develop.grizzzly.pediatry.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null)
             setupBottomNavigationBar()
-        val model = ViewModelProviders.of(this).get(MenuViewModel::class.java)
-        val profileModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        val model = ViewModelProvider(this).get(MenuViewModel::class.java)
+        val profileModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         GlobalScope.launch {
             try {
                 val mainSpecsResult = WebAccess.pediatryApi.getMainSpecs()

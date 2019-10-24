@@ -1,16 +1,13 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.develop.grizzzly.pediatry.R
@@ -42,15 +39,16 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = activity?.run {
-            ViewModelProviders.of(this).get(NewsViewModel::class.java)
+            ViewModelProvider(this).get(NewsViewModel::class.java)
         }!!
         listNews.setHasFixedSize(true)
         if (viewModel.adapter == null)
             viewModel.adapter = NewsAdapter()
         adapter = viewModel.adapter!!
         listNews.adapter = adapter
-        val llm = LinearLayoutManager(activity)
-        llm.isAutoMeasureEnabled = false
+        val llm = object : LinearLayoutManager(activity) {
+            override fun isAutoMeasureEnabled(): Boolean = false
+        }
         listNews.layoutManager = llm
         (listNews.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         viewModel.newsLiveData.observe(this, Observer {

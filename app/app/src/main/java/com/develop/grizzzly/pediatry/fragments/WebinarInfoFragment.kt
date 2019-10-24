@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
@@ -39,11 +39,11 @@ class WebinarInfoFragment : Fragment() {
     ): View? {
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.hide()
-        viewModel = ViewModelProviders.of(this).get(WebinarPostViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(WebinarPostViewModel::class.java)
         mainActivity?.toolbarTitle?.text = "Вебинар"
         mainActivity?.bottom_nav?.visibility = View.GONE
         setHasOptionsMenu(true)
-        //viewModel = ViewModelProviders.of(this).get(WebinarInfoViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(WebinarInfoViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentWebinarInfoBinding>(
             inflater,
             R.layout.fragment_webinar_info,
@@ -128,7 +128,7 @@ class WebinarInfoFragment : Fragment() {
                         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                         window?.statusBarColor =
-                            mainActivity?.resources?.getColor(R.color.colorAccent) ?: 0
+                            mainActivity?.resources?.getColor(R.color.colorAccent, null) ?: 0
                         val web = response.body()!!.response!!
                         viewModel.data.value = web
                         mainContent.visibility = View.VISIBLE

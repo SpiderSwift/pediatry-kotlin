@@ -13,7 +13,7 @@ class SpecialityItemViewModel constructor(
     val type: Int
 ) : ViewModel() {
 
-    fun onSpeciality(view: View) {
+    fun onSpeciality(@Suppress("UNUSED_PARAMETER") view: View) {
         when {
             (type == 0) -> {
                 model.mainSpeciality.value = speciality

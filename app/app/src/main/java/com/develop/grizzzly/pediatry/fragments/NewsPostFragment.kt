@@ -1,7 +1,5 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +7,16 @@ import android.view.ViewGroup
 import android.webkit.HttpAuthHandler
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentNewsPostBinding
-import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.images.glideLocal
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsPostViewModel
 import com.develop.grizzzly.pediatry.viewmodel.news.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,7 +39,7 @@ class NewsPostFragment : Fragment() {
         mainActivity?.toolbarTitle?.text = "Новость"
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
         setHasOptionsMenu(true)
-        viewModel = ViewModelProviders.of(this).get(NewsPostViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(NewsPostViewModel::class.java)
         viewModel.time = args.date
         val binding = DataBindingUtil.inflate<FragmentNewsPostBinding>(
             inflater,
@@ -64,7 +61,7 @@ class NewsPostFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         tvText.settings.javaScriptEnabled = true
                         val model = activity?.run {
-                            ViewModelProviders.of(this).get(NewsViewModel::class.java)
+                            ViewModelProvider(this).get(NewsViewModel::class.java)
                         }!!
                         viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
                         viewModel.liked.observe(this@NewsPostFragment, Observer {

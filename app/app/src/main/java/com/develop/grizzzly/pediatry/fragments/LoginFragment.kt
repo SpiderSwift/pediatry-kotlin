@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
 import com.develop.grizzzly.pediatry.extensions.isEmail
@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
             container,
             false
         )
-        val model = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        val model = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.model = model
         binding.lifecycleOwner = this
         model.email.observe(this, Observer {

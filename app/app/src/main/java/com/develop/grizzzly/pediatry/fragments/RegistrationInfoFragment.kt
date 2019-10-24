@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentRegistrationInfoBinding
 import com.develop.grizzzly.pediatry.extensions.addMask
@@ -33,7 +33,7 @@ class RegistrationInfoFragment : Fragment() {
         )
         binding.tePhone.addMask("+7 ([000]) [000]-[00]-[00]")
         model = activity?.run {
-            ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
+            ViewModelProvider(this).get(RegistrationViewModel::class.java)
         }!!
         model.fragment = this
         binding.model = model

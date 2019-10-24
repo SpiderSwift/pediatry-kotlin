@@ -1,14 +1,13 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.FragmentProfileBinding
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
@@ -40,7 +39,7 @@ class ProfileFragment : Fragment() {
         mainActivity?.bottom_nav?.visibility = View.VISIBLE
         mainActivity?.toolbarTitle?.text = "Профиль"
         model = activity?.run {
-            ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+            ViewModelProvider(this).get(ProfileViewModel::class.java)
         }!!
         model.newAvatar.observe(this, Observer {
             if (it != null)

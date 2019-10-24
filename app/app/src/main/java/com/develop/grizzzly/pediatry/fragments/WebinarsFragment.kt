@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
@@ -35,8 +35,8 @@ class WebinarsFragment : Fragment() {
         val window = activity?.window
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window?.statusBarColor = activity?.resources?.getColor(android.R.color.white) ?: 0
-        viewModel = ViewModelProviders.of(this).get(WebinarViewModel::class.java)
+        window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
+        viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
         listWebinars.setHasFixedSize(true)
         adapter = WebinarAdapter()
         listWebinars.adapter = adapter
