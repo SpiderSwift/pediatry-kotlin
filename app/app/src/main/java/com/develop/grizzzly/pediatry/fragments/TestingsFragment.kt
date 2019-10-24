@@ -16,17 +16,17 @@ import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_webinars.*
 
-class WebinarsFragment : Fragment() {
+class TestingsFragment : Fragment() {
 
-    private lateinit var adapter: WebinarAdapter
-    private lateinit var viewModel: WebinarViewModel
+    //private lateinit var adapter: WebinarAdapter
+    //private lateinit var viewModel: WebinarViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbarTitle?.text = getString(R.string.webinars)
-        return inflater.inflate(R.layout.fragment_webinars, container, false)
+        activity?.toolbarTitle?.text = getString(R.string.testings)
+        return inflater.inflate(R.layout.fragment_doctors_testing, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,18 +36,18 @@ class WebinarsFragment : Fragment() {
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
-        viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
-        listWebinars.setHasFixedSize(true)
-        adapter = WebinarAdapter()
-        listWebinars.adapter = adapter
-        listWebinars.layoutManager = GridLayoutManager(activity, 2)
-        viewModel.conferenceLiveData.observe(this, Observer {
-            adapter.submitList(it)
-            refreshLayout.isRefreshing = false
-        })
-        refreshLayout.setOnRefreshListener {
-            viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
-        }
+        //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
+        //listWebinars.setHasFixedSize(true)
+       // adapter = WebinarAdapter()
+      //  listWebinars.adapter = adapter
+       // listWebinars.layoutManager = GridLayoutManager(activity, 2)
+        //viewModel.conferenceLiveData.observe(this, Observer {
+        //    adapter.submitList(it)
+        //    refreshLayout.isRefreshing = false
+        //})
+       // refreshLayout.setOnRefreshListener {
+        //    viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
+       // }
         super.onViewCreated(view, savedInstanceState)
     }
 
