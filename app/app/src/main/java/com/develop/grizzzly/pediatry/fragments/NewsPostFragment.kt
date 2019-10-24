@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,15 +63,16 @@ class NewsPostFragment : Fragment() {
                         tvText.settings.javaScriptEnabled = true
                         val model = activity?.run {
                             ViewModelProvider(this).get(NewsViewModel::class.java)
-                        }!!
-                        viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
+                        } ?: throw Exception("activity is null")
+                        val news = model.newsLiveData.value!![args.index]!!
+                        viewModel.liked.value = news.liked
                         viewModel.liked.observe(this@NewsPostFragment, Observer {
                             tvLike.text = it.toString()
                         })
                         viewModel.imageView = ivLike
                         viewModel.newsViewModel = model
                         viewModel.index = args.index
-                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.token().id))
+                        if (news.likedByUsers.contains(WebAccess.token().id))
                             glideLocal(ivLike, R.drawable.ic_heart)
                         else
                             glideLocal(ivLike, R.drawable.ic_unlike)
@@ -99,14 +101,11 @@ class NewsPostFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                delay(200)
+                e.printStackTrace()
                 withContext(Dispatchers.Main) {
-                    try {
-                        load.visibility = View.GONE
-                        errorMsg.visibility = View.VISIBLE
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                    delay(200)
+                    load?.visibility = View.GONE
+                    errorMsg?.visibility = View.VISIBLE
                 }
             }
         }

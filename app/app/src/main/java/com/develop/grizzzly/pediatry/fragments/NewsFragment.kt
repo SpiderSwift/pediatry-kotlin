@@ -39,12 +39,10 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = activity?.let {
-            ViewModelProvider(this).get(NewsViewModel::class.java)
+            ViewModelProvider(it).get(NewsViewModel::class.java)
         } ?: return
         listNews.setHasFixedSize(true)
-        if (viewModel.adapter == null)
-            viewModel.adapter = NewsAdapter()
-        adapter = viewModel.adapter!!
+        adapter = viewModel.adapter ?: NewsAdapter().also { viewModel.adapter = it }
         listNews.adapter = adapter
         val llm = object : LinearLayoutManager(activity) {
             override fun isAutoMeasureEnabled(): Boolean = false
