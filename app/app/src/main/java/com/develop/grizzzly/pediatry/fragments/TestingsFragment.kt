@@ -25,29 +25,30 @@ class TestingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbarTitle?.text = getString(R.string.testings)
+        activity?.toolbarTitle?.visibility = View.GONE
         return inflater.inflate(R.layout.fragment_doctors_testing, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainActivity = activity as? MainActivity
-        mainActivity?.supportActionBar?.show()
+        mainActivity?.supportActionBar?.hide()
         val window = activity?.window
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
-        //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
-        //listWebinars.setHasFixedSize(true)
+        activity?.bottom_nav?.visibility = View.GONE
+       //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
+       // listWebinars.setHasFixedSize(true)
        // adapter = WebinarAdapter()
-      //  listWebinars.adapter = adapter
-       // listWebinars.layoutManager = GridLayoutManager(activity, 2)
+       // listWebinars.adapter = adapter
+      //  listWebinars.layoutManager = GridLayoutManager(activity, 2)
         //viewModel.conferenceLiveData.observe(this, Observer {
         //    adapter.submitList(it)
         //    refreshLayout.isRefreshing = false
-        //})
-       // refreshLayout.setOnRefreshListener {
-        //    viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
-       // }
+      //  })
+      //  refreshLayout.setOnRefreshListener {
+       //     viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
+      //  }
         super.onViewCreated(view, savedInstanceState)
     }
 
