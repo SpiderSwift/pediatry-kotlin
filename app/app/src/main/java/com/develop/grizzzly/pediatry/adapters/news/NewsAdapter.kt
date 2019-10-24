@@ -35,8 +35,8 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
                 binding.adImage.visibility = View.VISIBLE
                 binding.root.newsCard.visibility = View.GONE
                 binding.root.adCard.visibility = View.VISIBLE
-                if (news.videoUrl != null && news.videoUrl.isNotEmpty()) {
-                    binding.adVideo.setVideoURI(Uri.parse(news.videoUrl))
+                if (news.adVideoUrl != null && news.adVideoUrl.isNotEmpty()) {
+                    binding.adVideo.setVideoURI(Uri.parse(news.adVideoUrl))
                     binding.adVideo.start()
                     binding.adCard.setOnClickListener {
                         if (binding.adVideo.isPlaying)
