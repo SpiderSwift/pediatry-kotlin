@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,25 +13,41 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.adapters.webinar.WebinarAdapter
+import com.develop.grizzzly.pediatry.databinding.FragmentDoctorsTestingBinding
+import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
+import com.develop.grizzzly.pediatry.extensions.isEmail
+import com.develop.grizzzly.pediatry.viewmodel.login.LoginViewModel
+import com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingsViewModel
 import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_webinars.*
 
 class TestingsFragment : Fragment() {
 
     //private lateinit var adapter: WebinarAdapter
     //private lateinit var viewModel: WebinarViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbarTitle?.visibility = View.GONE
-        return inflater.inflate(R.layout.fragment_doctors_testing, container, false)
+        val binding = DataBindingUtil.inflate<FragmentDoctorsTestingBinding>(
+            inflater,
+            R.layout.fragment_doctors_testing,
+            container,
+            false
+        )
+        val model = ViewModelProvider(this).get(TestingsViewModel::class.java)
+        binding.model = model
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainActivity = activity as? MainActivity
+        activity?.toolbarTitle?.visibility = View.GONE
         mainActivity?.supportActionBar?.hide()
         val window = activity?.window
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)

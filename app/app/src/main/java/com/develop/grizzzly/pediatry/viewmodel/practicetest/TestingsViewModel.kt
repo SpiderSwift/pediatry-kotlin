@@ -4,12 +4,8 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 
-class TestingsViewMode : ViewModel() {
-
-    fun test(viev: View) {
-
-
-        Log.println(Log.ASSERT,"msg: ","start!")
+class TestingsViewModel : ViewModel(){
+    fun start(view: View) {
+        Log.println(Log.ASSERT, "msg", "Start!")
     }
-
 }
