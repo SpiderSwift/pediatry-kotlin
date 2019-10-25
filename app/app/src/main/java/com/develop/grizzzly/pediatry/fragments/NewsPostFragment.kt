@@ -104,8 +104,8 @@ class NewsPostFragment : Fragment() {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
                     delay(200)
-                    load?.visibility = View.GONE
                     errorMsg?.visibility = View.VISIBLE
+                    load?.visibility = View.GONE
                 }
             }
         }
