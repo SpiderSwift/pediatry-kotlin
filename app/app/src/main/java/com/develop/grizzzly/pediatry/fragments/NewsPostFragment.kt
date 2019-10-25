@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,10 +34,10 @@ class NewsPostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val mainActivity = activity as? MainActivity
-        mainActivity?.supportActionBar?.show()
-        mainActivity?.toolbarTitle?.text = "Новость"
-        mainActivity?.bottom_nav?.visibility = View.VISIBLE
+        val activity = activity as? MainActivity
+        activity?.supportActionBar?.show()
+        activity?.toolbarTitle?.text = "Новость"
+        activity?.bottom_nav?.visibility = View.VISIBLE
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(NewsPostViewModel::class.java)
         viewModel.time = args.date
@@ -72,10 +71,11 @@ class NewsPostFragment : Fragment() {
                         viewModel.imageView = ivLike
                         viewModel.newsViewModel = model
                         viewModel.index = args.index
-                        if (news.likedByUsers.contains(WebAccess.token().id))
-                            glideLocal(ivLike, R.drawable.ic_heart)
-                        else
-                            glideLocal(ivLike, R.drawable.ic_unlike)
+                        glideLocal(
+                            ivLike,
+                            if (news.likedByUsers.contains(WebAccess.token().id)) R.drawable.ic_heart
+                            else R.drawable.ic_unlike
+                        )
                         tvText.webViewClient = object : WebViewClient() {
                             override fun onReceivedHttpAuthRequest(
                                 view: WebView?,
