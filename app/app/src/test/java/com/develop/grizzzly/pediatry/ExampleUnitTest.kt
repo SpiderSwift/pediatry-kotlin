@@ -22,4 +22,13 @@ class ExampleUnitTest {
         println(phone1.formatPhone() == "+7(999)111-22-33")
         println(phone2.formatPhone() == "8(999)111-22-33" )
     }
+
+    @Test
+    fun test_kotlin() {
+        val num: Long = 1
+        print(num)
+        num.dec()
+        print(num)
+    }
+
 }
