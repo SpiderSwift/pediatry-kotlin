@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -55,8 +56,25 @@ class TestingsQuestionsFragment : Fragment() {
         window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
         val radioGroup = view.findViewById(R.id.radioGroup) as RadioGroup
-        radioGroup.setOnCheckedChangeListener { _: RadioGroup, id: Int ->
-            Log.println(Log.ASSERT,"msg", "$id")
+        val radioButton1 = RadioButton(context)
+        radioButton1.setText("Ответ 1")
+
+        val radioButton2 = RadioButton(context)
+        radioButton2.setText("Ответ 2")
+
+        val radioButton3 = RadioButton(context)
+        radioButton3.setText("Ответ 3")
+
+        val radioButton4 = RadioButton(context)
+        radioButton4.setText("Ответ 4")
+
+        radioGroup.addView(radioButton1)
+        radioGroup.addView(radioButton2)
+        radioGroup.addView(radioButton3)
+        radioGroup.addView(radioButton4)
+
+        radioGroup.setOnCheckedChangeListener { _: RadioGroup, number: Int ->
+            Log.println(Log.ASSERT, "msg", "$number")
         }
 
         //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
