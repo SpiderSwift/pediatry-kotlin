@@ -25,7 +25,7 @@
                 android:layout_height="match_parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_edit_photo"
+                    android:id="@+id/viewPhotoEdit"
                     android:layout_width="184dp"
                     android:layout_height="184dp"
                     android:layout_marginTop="24dp"
@@ -43,10 +43,10 @@
                     android:layout_height="match_parent"
                     android:layoutAnimation="@anim/recyclerview_animation"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_edit_photo">
+                    app:layout_constraintTop_toBottomOf="@+id/viewPhotoEdit">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/headerNameEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -59,14 +59,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/textNameEdit"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -76,7 +76,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerNameEdit" />
 
                     <View
                         android:id="@+id/view2"
@@ -84,11 +84,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText2"
+                        app:layout_constraintTop_toBottomOf="@+id/textNameEdit"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/headerLastnameEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -101,14 +101,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
                     <EditText
-                        android:id="@+id/editText3"
+                        android:id="@+id/textLastnameEdit"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -118,7 +118,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerLastnameEdit" />
 
                     <View
                         android:id="@+id/view3"
@@ -126,11 +126,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText3"
+                        app:layout_constraintTop_toBottomOf="@+id/textLastnameEdit"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/headerMiddlenameEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -143,14 +143,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/textMiddlenameEdit"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -160,7 +160,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerMiddlenameEdit" />
 
                     <View
                         android:id="@+id/view5"
@@ -168,11 +168,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText4"
+                        app:layout_constraintTop_toBottomOf="@+id/textMiddlenameEdit"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/headerCityEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -185,14 +185,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/view5" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/textCityEdit"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -202,7 +202,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerCityEdit" />
 
                     <View
                         android:id="@+id/view4"
@@ -210,7 +210,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/editText5"
+                        app:layout_constraintTop_toBottomOf="@+id/textCityEdit"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
@@ -227,22 +227,23 @@
                         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
                     <Button
-                        android:id="@+id/btnMainSpeciality"
+                        android:id="@+id/btnMainSpec"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="0dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="@{model.mainSpecialityName}"
+                        android:text="@{model.mainSpecName}"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
+                        style="?android:attr/borderlessButtonStyle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -254,11 +255,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/btnMainSpeciality"
+                        app:layout_constraintTop_toBottomOf="@+id/btnMainSpec"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/headerExtra1Spec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -271,25 +272,26 @@
                         app:layout_constraintTop_toBottomOf="@+id/view6" />
 
                     <Button
-                        android:id="@+id/btnFirstAdditionalSpeciality"
+                        android:id="@+id/btnExtra1Spec"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="0dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="@{model.firstAdditionalSpecialityName}"
+                        android:text="@{model.extra1SpecName}"
                         android:textAllCaps="false"
                         android:textSize="14sp"
+                        style="?android:attr/borderlessButtonStyle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerExtra1Spec" />
 
                     <View
                         android:id="@+id/view7"
@@ -297,11 +299,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/btnFirstAdditionalSpeciality"
+                        app:layout_constraintTop_toBottomOf="@+id/btnExtra1Spec"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/headerExtra2Spec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -314,26 +316,27 @@
                         app:layout_constraintTop_toBottomOf="@+id/view7" />
 
                     <Button
-                        android:id="@+id/btnSecondAdditionalSpeciality"
+                        android:id="@+id/btnExtra2Spec"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="0dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="@{model.secondAdditionalSpecialityName}"
+                        android:text="@{model.extra2SpecName}"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
+                        style="?android:attr/borderlessButtonStyle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerExtra2Spec" />
 
                     <View
                         android:id="@+id/view8"
@@ -341,11 +344,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/btnSecondAdditionalSpeciality"
+                        app:layout_constraintTop_toBottomOf="@+id/btnExtra2Spec"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/headerPhoneEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -358,24 +361,24 @@
                         app:layout_constraintTop_toBottomOf="@+id/view8" />
 
                     <EditText
-                        android:id="@+id/phoneEditText"
+                        android:id="@+id/textPhoneEdit"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="@={model.phoneNumber}"
+                        android:text="@={model.phone}"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerPhoneEdit" />
 
                     <View
                         android:id="@+id/view9"
@@ -383,11 +386,11 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:background="#E5E5E5"
-                        app:layout_constraintTop_toBottomOf="@+id/phoneEditText"
+                        app:layout_constraintTop_toBottomOf="@+id/textPhoneEdit"
                         tools:layout_editor_absoluteX="8dp" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/headerEmailEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -400,14 +403,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/view9" />
 
                     <EditText
-                        android:id="@+id/editText10"
+                        android:id="@+id/textEmailEdit"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/btn_edit"
-                        android:elevation="5dp"
+                        android:elevation="1dp"
                         android:fontFamily="@font/gothampro"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -417,10 +420,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                        app:layout_constraintTop_toBottomOf="@+id/headerEmailEdit" />
 
                     <Button
-                        android:id="@+id/btnEdit"
+                        android:id="@+id/btnProfileApplyChanges"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="24dp"
@@ -430,14 +433,16 @@
                         android:background="@drawable/accent_btn_drawable"
                         android:fontFamily="@font/gothampro"
                         android:text="@string/edit"
+                        android:elevation="1dp"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
+                        style="?android:attr/borderlessButtonStyle"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText10" />
+                        app:layout_constraintTop_toBottomOf="@+id/textEmailEdit" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

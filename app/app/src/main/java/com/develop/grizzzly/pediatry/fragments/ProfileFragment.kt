@@ -79,7 +79,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        model.phoneNumber.observe(this, Observer {
+        model.phone.observe(this, Observer {
             valuePhone.text = model.getNumber()
         })
         super.onViewCreated(view, savedInstanceState)

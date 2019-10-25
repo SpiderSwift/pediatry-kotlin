@@ -27,7 +27,7 @@ class ProfileViewModel : ViewModel() {
     val kladrId = MutableLiveData<String>().apply { value = "5000000123900" }
     val country = MutableLiveData<String>().apply { value = "russia" }
     val fullCity = MutableLiveData<String>().apply { value = "moscow district, " }
-    val phoneNumber = MutableLiveData<String>().apply { value = "" }
+    val phone = MutableLiveData<String>().apply { value = "" }
     val mainSpec = MutableLiveData<Long>().apply { value = null }
     val extraSpec1 = MutableLiveData<Long>().apply { value = null }
     val extraSpec2 = MutableLiveData<Long>().apply { value = null }
@@ -39,14 +39,14 @@ class ProfileViewModel : ViewModel() {
     var extraSpecs: List<Speciality> = listOf()
     var fragment: Fragment? = null
 
-    fun getMainSpecialityName(): String {
+    fun getMainSpecName(): String {
         for (spec in mainSpecs)
             if (spec.id == mainSpec.value)
                 return spec.name
         return ""
     }
 
-    fun getFirstAdditionalSpecialityName(): String {
+    fun getExtra1SpecName(): String {
         for (spec in extraSpecs)
             if (spec.id == extraSpec1.value)
                 return spec.name
@@ -55,7 +55,7 @@ class ProfileViewModel : ViewModel() {
 
     fun getNumber(): String {
         return try {
-            val value = phoneNumber.value!!
+            val value = phone.value!!
             if (value.substring(2, 3) == " ")
                 return value
             val code = value.substring(0, 2)
@@ -68,7 +68,7 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun getSecondAdditionalSpecialityName(): String {
+    fun getExtra2SpecName(): String {
         for (spec in extraSpecs)
             if (spec.id == extraSpec2.value)
                 return spec.name

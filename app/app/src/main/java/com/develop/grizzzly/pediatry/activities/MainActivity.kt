@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     profileModel.lastname.value = profile?.lastname
                     profileModel.avatarUrl.value = profile?.avatar
                     profileModel.email.value = profile?.email
-                    profileModel.phoneNumber.value = profile?.phone
+                    profileModel.phone.value = profile?.phone
                     profileModel.mainSpec.value = profile?.mainSpecialtyId
                     profileModel.extraSpec1.value = profile?.additionalSpecialty1Id
                     profileModel.extraSpec2.value = profile?.additionalSpecialty2Id

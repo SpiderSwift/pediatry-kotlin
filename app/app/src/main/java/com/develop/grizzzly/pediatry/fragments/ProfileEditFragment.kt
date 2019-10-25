@@ -53,7 +53,7 @@ class ProfileEditFragment : Fragment() {
         model.fragment = this
         binding.model = model
         binding.lifecycleOwner = this
-        binding.phoneEditText.addMask("+7 ([000]) [000]-[00]-[00]")
+        binding.textPhoneEdit.addMask("+7 ([000]) [000]-[00]-[00]")
         return binding.root
     }
 
@@ -65,32 +65,32 @@ class ProfileEditFragment : Fragment() {
             load?.visibility = View.GONE
         }
         model.mainSpec.observe(this, Observer {
-            btnMainSpeciality.text = model.getMainSpecialityName()
+            btnMainSpec.text = model.getMainSpecName()
         })
         model.extraSpec1.observe(this, Observer {
-            btnFirstAdditionalSpeciality.text = model.getFirstAdditionalSpecialityName()
+            btnExtra1Spec.text = model.getExtra1SpecName()
         })
         model.extraSpec2.observe(this, Observer {
-            btnSecondAdditionalSpeciality.text = model.getSecondAdditionalSpecialityName()
+            btnExtra2Spec.text = model.getExtra2SpecName()
         })
         model.newAvatar.observe(this, Observer {
             if (it != null)
-                profile_edit_photo.setImageURI(it)
+                viewPhotoEdit.setImageURI(it)
         })
-        btnMainSpeciality.setOnClickListener {
+        btnMainSpec.setOnClickListener {
             pointer = 0
             picker.setSelectedItemPosition(pointer, false)
             currentSpeciality = 1
             picker.data = model.mainSpecs
             specialityLayout.visibility = View.VISIBLE
         }
-        btnFirstAdditionalSpeciality.setOnClickListener {
+        btnExtra1Spec.setOnClickListener {
             pointer = 0
             currentSpeciality = 2
             picker.data = model.extraSpecs
             specialityLayout.visibility = View.VISIBLE
         }
-        btnSecondAdditionalSpeciality.setOnClickListener {
+        btnExtra2Spec.setOnClickListener {
             currentSpeciality = 3
             picker.data = model.extraSpecs
             specialityLayout.visibility = View.VISIBLE
@@ -107,10 +107,10 @@ class ProfileEditFragment : Fragment() {
             }
             specialityLayout.visibility = View.GONE
         }
-        btnEdit.setOnClickListener {
+        btnProfileApplyChanges.setOnClickListener {
             GlobalScope.launch {
                 try {
-                    val phone = model.phoneNumber.value!!.formatPhone()
+                    val phone = model.phone.value!!.formatPhone()
                     val avatar: RequestBody? = try {
                         RequestBody.create(
                             MediaType.parse(activity?.contentResolver?.getType(model.newAvatar.value!!)!!),
