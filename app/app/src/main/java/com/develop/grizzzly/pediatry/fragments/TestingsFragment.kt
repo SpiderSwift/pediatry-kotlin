@@ -7,21 +7,12 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
-import com.develop.grizzzly.pediatry.adapters.webinar.WebinarAdapter
 import com.develop.grizzzly.pediatry.databinding.FragmentDoctorsTestingBinding
-import com.develop.grizzzly.pediatry.databinding.FragmentLoginBinding
-import com.develop.grizzzly.pediatry.extensions.isEmail
-import com.develop.grizzzly.pediatry.viewmodel.login.LoginViewModel
-import com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingsViewModel
-import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarViewModel
+import com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_webinars.*
 
 class TestingsFragment : Fragment() {
 
@@ -39,7 +30,7 @@ class TestingsFragment : Fragment() {
             container,
             false
         )
-        val model = ViewModelProvider(this).get(TestingsViewModel::class.java)
+        val model = ViewModelProvider(this).get(TestingViewModel::class.java)
         binding.model = model
         binding.lifecycleOwner = this
         return binding.root
@@ -54,18 +45,18 @@ class TestingsFragment : Fragment() {
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
-       //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
-       // listWebinars.setHasFixedSize(true)
-       // adapter = WebinarAdapter()
-       // listWebinars.adapter = adapter
-      //  listWebinars.layoutManager = GridLayoutManager(activity, 2)
+        //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
+        // listWebinars.setHasFixedSize(true)
+        // adapter = WebinarAdapter()
+        // listWebinars.adapter = adapter
+        //  listWebinars.layoutManager = GridLayoutManager(activity, 2)
         //viewModel.conferenceLiveData.observe(this, Observer {
         //    adapter.submitList(it)
         //    refreshLayout.isRefreshing = false
-      //  })
-      //  refreshLayout.setOnRefreshListener {
-       //     viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
-      //  }
+        //  })
+        //  refreshLayout.setOnRefreshListener {
+        //     viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
+        //  }
         super.onViewCreated(view, savedInstanceState)
     }
 

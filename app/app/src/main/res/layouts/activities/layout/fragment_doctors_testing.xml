@@ -2,9 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
-            type="com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingsViewModel" />
+            type="com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,15 +19,13 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.60" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="@drawable/maloy"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="128dp"
