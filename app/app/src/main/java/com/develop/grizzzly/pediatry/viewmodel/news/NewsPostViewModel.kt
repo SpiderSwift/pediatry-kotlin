@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -66,15 +65,8 @@ class NewsPostViewModel : ViewModel() {
         @BindingAdapter("newsImageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
-            if (imageUrl?.isNotEmpty() == true) {
-                Log.d("TAG", imageUrl)
-                setAuthorizeMessage(
-                    imageUrl,
-                    view,
-                    android.R.color.white
-                )
-            }
-
+            setAuthorizeMessage(imageUrl, view, android.R.color.white)
         }
     }
+
 }

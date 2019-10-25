@@ -14,8 +14,10 @@ import java.io.InputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
 
+private const val TAG = "ImageUtil"
+
 fun glideRemote(path: String, imageView: ImageView, placeholderId: Int) {
-    Log.w("GLIDE", "path: $path")
+    Log.w(TAG, "glideRemote path: $path")
     Glide.with(ThisApp.app)
         .load(path)
         .centerCrop()
@@ -24,20 +26,25 @@ fun glideRemote(path: String, imageView: ImageView, placeholderId: Int) {
         .into(imageView)
 }
 
-fun glideLocal(imageView: ImageView, placeholderId: Int) {
-    Glide.with(ThisApp.app)
-        .load(placeholderId)
-        .centerCrop()
-        .into(imageView)
+fun glideLocal(imageView: ImageView, placeholderId: Int?) {
+    placeholderId?.let {
+        Glide.with(ThisApp.app)
+            .load(it)
+            .centerCrop()
+            .into(imageView)
+    }
 }
 
-fun setAuthorizeMessage(path: String, imageView: ImageView, placeholderId: Int) {
-    ImageAccess.picasso.load(path)
-        .fit()
-        .centerCrop()
-        .placeholder(placeholderId)
-        .error(placeholderId)
-        .into(imageView)
+fun setAuthorizeMessage(path: String?, imageView: ImageView, placeholderId: Int) {
+    if (!path.isNullOrBlank()) {
+        Log.d(TAG, "setAuthorizeMessage path: $path")
+        ImageAccess.picasso.load(path)
+            .fit()
+            .centerCrop()
+            .placeholder(placeholderId)
+            .error(placeholderId)
+            .into(imageView)
+    }
 }
 
 fun minimizeImage(uri: Uri, contentResolver: ContentResolver): Uri? {

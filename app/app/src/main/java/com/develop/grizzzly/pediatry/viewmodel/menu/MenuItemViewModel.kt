@@ -15,10 +15,10 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
 
     fun onMenuItem(view: View) {
         viewModelScope.launch {
-            if (menuItem.direction != null) {
+            menuItem.direction?.let {
                 delay(100)
                 Navigation.findNavController(view)
-                    .navigateNoExcept(menuItem.direction)
+                    .navigateNoExcept(it)
             }
         }
     }
@@ -27,9 +27,7 @@ class MenuItemViewModel(val menuItem: MenuItem) : ViewModel() {
         @BindingAdapter("resource")
         @JvmStatic
         fun loadImage(view: ImageView, resource: Int?) {
-            resource?.let { _ ->
-                glideLocal(view, resource)
-            }
+            glideLocal(view, resource)
         }
     }
 

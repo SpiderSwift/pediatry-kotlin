@@ -70,7 +70,6 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     companion object {
-
         @BindingAdapter("reference_time")
         @JvmStatic
         fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
@@ -80,12 +79,8 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
         @BindingAdapter("newsImageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
-            if (imageUrl?.isNotEmpty() == true) {
-                Log.d("TAG", imageUrl)
-                setAuthorizeMessage(imageUrl, view, android.R.color.white)
-            }
+            setAuthorizeMessage(imageUrl, view, android.R.color.white)
         }
-
     }
 
 }

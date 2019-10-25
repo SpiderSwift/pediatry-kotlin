@@ -32,14 +32,7 @@ class MenuViewModel : ViewModel() {
         @BindingAdapter("avatarUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: String?) {
-            if (imageUrl?.isNotEmpty() == true) {
-                setAuthorizeMessage(
-                    imageUrl,
-                    view,
-                    android.R.color.white
-                )
-            }
-
+            setAuthorizeMessage(imageUrl, view, android.R.color.white)
         }
     }
 
