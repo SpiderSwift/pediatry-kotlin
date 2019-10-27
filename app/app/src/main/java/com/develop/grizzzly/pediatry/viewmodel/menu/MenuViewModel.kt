@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
-import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
+import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,14 +25,13 @@ class MenuViewModel : ViewModel() {
             Navigation.findNavController(view)
                 .navigateNoExcept(R.id.action_menu_to_profile)
         }
-
     }
 
     companion object {
         @BindingAdapter("avatarUrl")
         @JvmStatic
         fun loadImage(view: CircleImageView, imageUrl: String?) {
-            setAuthorizeMessage(imageUrl, view, android.R.color.white)
+            picassoRemoteWithAuth(imageUrl, view, android.R.color.white)
         }
     }
 

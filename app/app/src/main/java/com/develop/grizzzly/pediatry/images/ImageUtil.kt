@@ -16,16 +16,6 @@ import kotlin.math.sqrt
 
 private const val TAG = "ImageUtil"
 
-fun glideRemote(path: String, imageView: ImageView, placeholderId: Int) {
-    Log.w(TAG, "glideRemote path: $path")
-    Glide.with(ThisApp.app)
-        .load(path)
-        .centerCrop()
-        .placeholder(placeholderId)
-        .error(placeholderId)
-        .into(imageView)
-}
-
 fun glideLocal(imageView: ImageView, placeholderId: Int?) {
     placeholderId?.let {
         Glide.with(ThisApp.app)
@@ -35,9 +25,21 @@ fun glideLocal(imageView: ImageView, placeholderId: Int?) {
     }
 }
 
-fun setAuthorizeMessage(path: String?, imageView: ImageView, placeholderId: Int) {
+fun glideRemote(path: String?, imageView: ImageView, placeholderId: Int) {
     if (!path.isNullOrBlank()) {
-        Log.d(TAG, "setAuthorizeMessage path: $path")
+        Log.d(TAG, "glideRemoteFit path: $path")
+        ImageAccess.picasso
+            .load(path)
+            .centerCrop()
+            .placeholder(placeholderId)
+            .error(placeholderId)
+            .into(imageView)
+    }
+}
+
+fun picassoRemoteWithAuth(path: String?, imageView: ImageView, placeholderId: Int) {
+    if (!path.isNullOrBlank()) {
+        Log.d(TAG, "picassoRemoteWithAuth path: $path")
         ImageAccess.picasso.load(path)
             .fit()
             .centerCrop()

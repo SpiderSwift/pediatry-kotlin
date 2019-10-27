@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.images.glideLocal
-import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
+import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
@@ -56,16 +56,10 @@ class NewsPostViewModel : ViewModel() {
     }
 
     companion object {
-        @BindingAdapter("news_post_reference_time")
-        @JvmStatic
-        fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
-            view.setReferenceTime(time)
-        }
-
         @BindingAdapter("newsImageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
-            setAuthorizeMessage(imageUrl, view, android.R.color.white)
+            picassoRemoteWithAuth(imageUrl, view, android.R.color.white)
         }
     }
 

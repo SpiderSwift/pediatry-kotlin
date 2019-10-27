@@ -3,7 +3,6 @@ package com.develop.grizzzly.pediatry.viewmodel.news
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
@@ -14,7 +13,7 @@ import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.adapters.news.NewsAdapter
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.fragments.NewsFragmentDirections
-import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
+import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
 import com.github.curioustechizen.ago.RelativeTimeTextView
@@ -70,16 +69,10 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
     }
 
     companion object {
-        @BindingAdapter("reference_time")
-        @JvmStatic
-        fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
-            view.setReferenceTime(time)
-        }
-
         @BindingAdapter("newsImageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
-            setAuthorizeMessage(imageUrl, view, android.R.color.white)
+            picassoRemoteWithAuth(imageUrl, view, android.R.color.white)
         }
     }
 
