@@ -1,8 +1,11 @@
 package com.develop.grizzzly.pediatry.databinding
 
 import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import com.develop.grizzzly.pediatry.images.glideLocal
 import com.develop.grizzzly.pediatry.images.glideRemote
 import com.github.curioustechizen.ago.RelativeTimeTextView
@@ -19,10 +22,29 @@ import com.github.curioustechizen.ago.RelativeTimeTextView
 //    glideLocal(view, resource)
 //}
 //
+
+//@BindingMethods(
+//    BindingMethod(
+//        type = RelativeTimeTextView::class,
+//        attribute = "reference_time",
+//        method = "setReferenceTime"
+//    )
+//)
+//object Binders {
+//    @JvmStatic
+//    fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
+//        Log.w("Binders", "setReferenceTime")
+//        view.setReferenceTime(time)
+//    }
+//}
+
 @BindingAdapter("reference_time")
 fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
+    Log.w("Binders", "setReferenceTime")
     view.setReferenceTime(time)
 }
+
+
 //
 //@BindingAdapter("imageUrlStr")
 //fun loadImage(view: ImageView, imageUrlStr: String?, isFit: Boolean = false) {
