@@ -16,7 +16,7 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
-class TestingsQuestionsFragment : Fragment() {
+class TestingQuestionsFragment : Fragment() {
 
     //private lateinit var adapter: WebinarAdapter
     //private lateinit var viewModel: WebinarViewModel

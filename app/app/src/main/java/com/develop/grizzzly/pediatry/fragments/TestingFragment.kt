@@ -14,7 +14,7 @@ import com.develop.grizzzly.pediatry.databinding.FragmentDoctorsTestingBinding
 import com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class TestingsFragment : Fragment() {
+class TestingFragment : Fragment() {
 
     //private lateinit var adapter: WebinarAdapter
     //private lateinit var viewModel: WebinarViewModel
