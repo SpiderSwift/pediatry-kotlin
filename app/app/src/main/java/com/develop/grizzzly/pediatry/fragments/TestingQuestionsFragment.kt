@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -64,23 +65,25 @@ class TestingQuestionsFragment : Fragment() {
 //        radioGroup.addView(radioButton4)
 
         radioGroup.setOnCheckedChangeListener { _: RadioGroup, number: Int ->
-            Log.println(Log.ASSERT, "msg", "$number")
+            Log.println(Log.ASSERT, "msg: ", "$number")
         }
 
         val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
-
+        val btnNext = view.findViewById<Button>(R.id.btnAnswer)
+        btnNext.isEnabled = false
         (view.findViewById<View>(R.id.nextView)).setOnClickListener {
-            if(questionNumber<10)
-            ++questionNumber
-            questionNumberTextView.setText("$questionNumber " + getString(R.string.one_to_ten))
+            if (questionNumber < 10) {
+                ++questionNumber
+                if (questionNumber == 10) btnNext.isEnabled = true
+                questionNumberTextView.setText("$questionNumber " + getString(R.string.one_to_ten))
+            }
         }
         (view.findViewById<View>(R.id.backView)).setOnClickListener {
-            if(questionNumber>1)
-            --questionNumber
-            questionNumberTextView.setText("$questionNumber " + getString(R.string.one_to_ten))
+            if (questionNumber > 1) {
+                --questionNumber
+                questionNumberTextView.setText("$questionNumber " + getString(R.string.one_to_ten))
+            }
         }
-
-        val textBack = view.findViewById<TextView>(R.id.one_to_ten)
         //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
         // listWebinars.setHasFixedSize(true)
         // adapter = WebinarAdapter()
