@@ -47,7 +47,7 @@ class RegistrationSpecialityFragment : Fragment() {
                 mainSpecs = listOf()
                 extraSpecs = listOf()
             }
-            btnMainSpeciality.setOnClickListener {
+            btnMainSpec.setOnClickListener {
                 pointer = 0
                 picker.setSelectedItemPosition(pointer, false)
                 currentSpeciality = 1

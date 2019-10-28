@@ -19,12 +19,12 @@
             android:layout_height="184dp"
             android:layout_marginTop="24dp"
             android:src="@android:color/white"
-            app:avatarUrl="@{model.avatarUrl}"
             app:civ_border_color="@color/colorWeakAccent"
             app:civ_border_width="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            zvaLoadImageWithAuth="@{model.avatarUrl}" />
 
         <TextView
             android:id="@+id/name"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/gothampro"
-            android:text="@{model.mainSpecialityName + `, ` + model.city}"
+            android:text="@{model.mainSpecName + `, ` + model.city}"
             android:textColor="@color/colorPrimaryDark"
 
             android:textSize="13sp"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <Button
-            android:id="@+id/btnEdit"
+            android:id="@+id/btnProfileApplyChanges"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
@@ -83,7 +83,7 @@
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnEdit">
+            app:layout_constraintTop_toBottomOf="@+id/btnProfileApplyChanges">
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                     android:gravity="start"
                     android:maxLines="1"
                     android:paddingRight="60dp"
-                    android:text="@{model.phoneNumber}"
+                    android:text="@{model.phone}"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"
                     app:layout_constraintTop_toTopOf="parent" />

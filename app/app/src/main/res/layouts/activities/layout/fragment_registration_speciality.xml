@@ -26,12 +26,12 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="23sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnMainSpeciality"
+            app:layout_constraintBottom_toTopOf="@+id/btnMainSpec"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btnMainSpeciality"
+            android:id="@+id/btnMainSpec"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="48dp"

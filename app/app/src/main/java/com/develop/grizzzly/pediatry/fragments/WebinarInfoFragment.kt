@@ -43,7 +43,6 @@ class WebinarInfoFragment : Fragment() {
         mainActivity?.toolbarTitle?.text = "Вебинар"
         mainActivity?.bottom_nav?.visibility = View.GONE
         setHasOptionsMenu(true)
-        //viewModel = ViewModelProvider(this).get(WebinarInfoViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentWebinarInfoBinding>(
             inflater,
             R.layout.fragment_webinar_info,
@@ -69,13 +68,10 @@ class WebinarInfoFragment : Fragment() {
                         else WebAccess.pediatryApi.unregisterForWebinar(args.id)
                     if (response.isSuccessful) {
                         withContext(Dispatchers.Main) {
-                            if (!registered) {
-                                btnPart.text = "Отменить"
-                                registered = true
-                            } else {
-                                btnPart.text = "Участвовать"
-                                registered = false
-                            }
+                            btnPart.text =
+                                if (!registered) "Отменить"
+                                else "Участвовать"
+                            registered = !registered
                         }
                     }
                 } catch (e: Exception) {
@@ -127,22 +123,21 @@ class WebinarInfoFragment : Fragment() {
                         val window = mainActivity?.window
                         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                        window?.statusBarColor =
-                            mainActivity?.resources?.getColor(R.color.colorAccent, null) ?: 0
+                        mainActivity?.resources?.getColor(R.color.colorAccent, null)?.let {
+                            window?.statusBarColor = it
+                        }
                         val web = response.body()!!.response!!
                         viewModel.data.value = web
                         mainContent.visibility = View.VISIBLE
                         load.visibility = View.GONE
-                        tvDate.text = "${viewModel.getTwoTimeDate()} ${viewModel.getMonth()}"
+                        tvDate.text = "%s %s".format(viewModel.getTwoTimeDate(), viewModel.getMonth())
                         registered = web.isRegistered
                         Log.d("TAG", "code ${web.youtubeCode}")
                         if ((web.status != 2L) or (web.status != 3L)) {
                             canWatch = false
-                            if (web.isRegistered) {
-                                btnPart.text = "Отменить"
-                            } else {
-                                btnPart.text = "Участвовать"
-                            }
+                            btnPart.text =
+                                if (web.isRegistered) "Отменить"
+                                else "Участвовать"
                         } else {
                             canWatch = true
                             btnPart.text = "Перейти к просмотру"

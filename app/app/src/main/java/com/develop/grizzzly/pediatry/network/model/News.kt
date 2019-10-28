@@ -16,7 +16,7 @@ data class News constructor(
     var liked: Long?,
     @TypeConverters(MultiConverter::class) var likedByUsers: MutableList<Long>,
     val isAd: Boolean = false,
-    val videoUrl: String?,
-    val attachedUrl: String? = null
+    val adVideoUrl: String?,
+    val attachedUrl: String?
 )
 

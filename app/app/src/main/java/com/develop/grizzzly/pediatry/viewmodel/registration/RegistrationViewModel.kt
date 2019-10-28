@@ -6,9 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import android.view.View
-import android.widget.VideoView
 import androidx.core.app.ActivityCompat
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,8 +17,6 @@ import com.develop.grizzzly.pediatry.extensions.*
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Speciality
 import com.develop.grizzzly.pediatry.util.getPath
-import com.develop.grizzzly.pediatry.images.glideRemote
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -224,20 +220,6 @@ class RegistrationViewModel : ViewModel() {
         mainSpeciality.value = null
         extraSpec1.value = null
         extraSpec2.value = null
-    }
-
-    companion object {
-        @BindingAdapter("imageUrl")
-        @JvmStatic
-        fun loadImage(view: CircleImageView, imageUrl: Uri?) {
-            imageUrl?.let { it ->
-                glideRemote(
-                    it.toString(),
-                    view,
-                    android.R.color.white
-                )
-            }
-        }
     }
 
 }

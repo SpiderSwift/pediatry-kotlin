@@ -1,17 +1,13 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.develop.grizzzly.pediatry.R
-import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.images.setAuthorizeMessage
 import com.develop.grizzzly.pediatry.images.glideLocal
-import com.github.curioustechizen.ago.RelativeTimeTextView
+import com.develop.grizzzly.pediatry.network.WebAccess
 import kotlinx.coroutines.launch
 
 class NewsPostViewModel : ViewModel() {
@@ -26,79 +22,34 @@ class NewsPostViewModel : ViewModel() {
     var liked = MutableLiveData<Long>()
 
     fun onLike(@Suppress("UNUSED_PARAMETER") v : View) {
-        val news = newsViewModel.newsLiveData.value!![index]!!
-        if (news.likedByUsers.contains(WebAccess.token().id)) {
-            viewModelScope.launch {
-                try {
-                    val response = WebAccess.pediatryApi.unlikeNews(news.id)
-                    if (response.isSuccessful) {
-                        liked.value = liked.value?.minus(1)
-                        news.liked = news.liked?.minus(1)
+        viewModelScope.launch {
+            try {
+                val news = newsViewModel.newsLiveData.value!![index]!!
+                val isLiked = news.likedByUsers.contains(WebAccess.token().id)
+                val response =
+                    if (isLiked) WebAccess.pediatryApi.unlikeNews(news.id)
+                    else WebAccess.pediatryApi.likeNews(news.id)
+                if (response.isSuccessful) {
+                    if (isLiked) {
+                        liked.value = liked.value?.dec()
+                        news.liked = news.liked?.dec()
                         news.likedByUsers.remove(WebAccess.token().id)
-                        newsViewModel.adapter?.notifyItemChanged(index)
-                        if (news.likedByUsers.contains(WebAccess.token().id)) {
-                            glideLocal(
-                                imageView,
-                                R.drawable.ic_heart
-                            )
-                        } else {
-                            glideLocal(
-                                imageView,
-                                R.drawable.ic_unlike
-                            )
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        } else {
-            viewModelScope.launch {
-                try {
-                    val response = WebAccess.pediatryApi.likeNews(news.id)
-                    if (response.isSuccessful) {
-                        liked.value = liked.value?.plus(1)
-                        news.liked = news.liked?.plus(1)
+                    } else {
+                        liked.value = liked.value?.inc()
+                        news.liked = news.liked?.inc()
                         news.likedByUsers.add(WebAccess.token().id)
-                        newsViewModel.adapter?.notifyItemChanged(index)
-                        if (news.likedByUsers.contains(WebAccess.token().id)) {
-                            glideLocal(
-                                imageView,
-                                R.drawable.ic_heart
-                            )
-                        } else {
-                            glideLocal(
-                                imageView,
-                                R.drawable.ic_unlike
-                            )
-                        }
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                    newsViewModel.adapter?.notifyItemChanged(index)
+                    glideLocal(
+                        imageView,
+                        if (isLiked) R.drawable.ic_unlike
+                        else R.drawable.ic_heart
+                    )
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
-    companion object {
-        @BindingAdapter("news_post_reference_time")
-        @JvmStatic
-        fun setReferenceTime(view: RelativeTimeTextView, time: Long) {
-            view.setReferenceTime(time)
-        }
-
-        @BindingAdapter("newsImageUrl")
-        @JvmStatic
-        fun loadImage(view: ImageView, imageUrl: String?) {
-            if (imageUrl?.isNotEmpty() == true) {
-                Log.d("TAG", imageUrl)
-                setAuthorizeMessage(
-                    imageUrl,
-                    view,
-                    android.R.color.white
-                )
-            }
-
-        }
-    }
 }

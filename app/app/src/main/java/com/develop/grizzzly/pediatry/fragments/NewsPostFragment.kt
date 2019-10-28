@@ -34,10 +34,10 @@ class NewsPostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val mainActivity = activity as? MainActivity
-        mainActivity?.supportActionBar?.show()
-        mainActivity?.toolbarTitle?.text = "Новость"
-        mainActivity?.bottom_nav?.visibility = View.VISIBLE
+        val activity = activity as? MainActivity
+        activity?.supportActionBar?.show()
+        activity?.toolbarTitle?.text = "Новость"
+        activity?.bottom_nav?.visibility = View.VISIBLE
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(NewsPostViewModel::class.java)
         viewModel.time = args.date
@@ -62,18 +62,20 @@ class NewsPostFragment : Fragment() {
                         tvText.settings.javaScriptEnabled = true
                         val model = activity?.run {
                             ViewModelProvider(this).get(NewsViewModel::class.java)
-                        }!!
-                        viewModel.liked.value = model.newsLiveData.value!![args.index]!!.liked
+                        } ?: throw Exception("activity is null")
+                        val news = model.newsLiveData.value!![args.index]!!
+                        viewModel.liked.value = news.liked
                         viewModel.liked.observe(this@NewsPostFragment, Observer {
                             tvLike.text = it.toString()
                         })
                         viewModel.imageView = ivLike
                         viewModel.newsViewModel = model
                         viewModel.index = args.index
-                        if (model.newsLiveData.value!![args.index]!!.likedByUsers.contains(WebAccess.token().id))
-                            glideLocal(ivLike, R.drawable.ic_heart)
-                        else
-                            glideLocal(ivLike, R.drawable.ic_unlike)
+                        glideLocal(
+                            ivLike,
+                            if (news.likedByUsers.contains(WebAccess.token().id)) R.drawable.ic_heart
+                            else R.drawable.ic_unlike
+                        )
                         tvText.webViewClient = object : WebViewClient() {
                             override fun onReceivedHttpAuthRequest(
                                 view: WebView?,
@@ -99,14 +101,11 @@ class NewsPostFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                delay(200)
+                e.printStackTrace()
                 withContext(Dispatchers.Main) {
-                    try {
-                        load.visibility = View.GONE
-                        errorMsg.visibility = View.VISIBLE
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                    delay(200)
+                    errorMsg?.visibility = View.VISIBLE
+                    load?.visibility = View.GONE
                 }
             }
         }

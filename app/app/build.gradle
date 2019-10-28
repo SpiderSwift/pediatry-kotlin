@@ -1,11 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: "kotlin-kapt"
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 29
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.develop.grizzzly.pediatrynew"
         minSdkVersion 23
@@ -13,6 +16,7 @@ android {
         versionCode 6
         versionName "6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary true
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
@@ -21,9 +25,6 @@ android {
                 ]
             }
         }
-    }
-    dataBinding {
-        enabled = true
     }
     buildTypes {
         release {
@@ -42,27 +43,28 @@ android {
     }
     buildToolsVersion = '29.0.2'
     compileOptions {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    kapt 'androidx.room:room-compiler:2.2.1'
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.50"
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-beta01'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-beta01'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc01'
     implementation 'androidx.core:core-ktx:1.1.0'
 
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.20'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.21'
     implementation 'com.github.curioustechizen.android-ago:library:1.4.0'
     implementation 'com.redmadrobot:input-mask-android:4.3.1'
 
@@ -72,13 +74,13 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-beta01'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-beta01'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-beta01'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-rc01'
 
-    implementation 'androidx.room:room-runtime:2.2.0'
-    implementation 'androidx.room:room-ktx:2.2.0'
+    implementation 'androidx.room:room-runtime:2.2.1'
+    implementation 'androidx.room:room-ktx:2.2.1'
 
     implementation 'org.sufficientlysecure:html-textview:3.6'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3'
@@ -101,9 +103,6 @@ dependencies {
 
     implementation "com.microsoft.appcenter:appcenter-analytics:2.2.0"
     implementation "com.microsoft.appcenter:appcenter-crashes:2.2.0"
-
-    kapt 'androidx.room:room-compiler:2.2.0'
-    kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -27,24 +27,22 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val myActivity = activity as MainActivity?
-        myActivity?.supportActionBar?.show()
-        myActivity?.toolbarTitle?.text = "Новости"
-        myActivity?.bottom_nav?.visibility = View.VISIBLE
-        myActivity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        myActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val activity = activity as MainActivity?
+        activity?.supportActionBar?.show()
+        activity?.toolbarTitle?.text = "Новости"
+        activity?.bottom_nav?.visibility = View.VISIBLE
+        activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         retainInstance = true
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = activity?.run {
-            ViewModelProvider(this).get(NewsViewModel::class.java)
-        }!!
+        viewModel = activity?.let {
+            ViewModelProvider(it).get(NewsViewModel::class.java)
+        } ?: return
         listNews.setHasFixedSize(true)
-        if (viewModel.adapter == null)
-            viewModel.adapter = NewsAdapter()
-        adapter = viewModel.adapter!!
+        adapter = viewModel.adapter ?: NewsAdapter().also { viewModel.adapter = it }
         listNews.adapter = adapter
         val llm = object : LinearLayoutManager(activity) {
             override fun isAutoMeasureEnabled(): Boolean = false

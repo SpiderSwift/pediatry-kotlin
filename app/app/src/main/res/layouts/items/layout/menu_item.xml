@@ -24,8 +24,8 @@
             android:layout_marginStart="10dp"
             android:alpha="@{model.menuItem.alpha}"
             android:padding="10dp"
-            app:resource="@{model.menuItem.icon}"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            zvaLoadImageFromRes="@{model.menuItem.icon}" />
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/menu_item_text"
