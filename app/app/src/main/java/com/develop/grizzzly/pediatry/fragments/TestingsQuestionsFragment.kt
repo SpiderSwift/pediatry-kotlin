@@ -21,17 +21,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class TestingsQuestionsFragment : Fragment() {
 
-//private lateinit var adapter: WebinarAdapter
+    //private lateinit var adapter: WebinarAdapter
     //private lateinit var viewModel: WebinarViewModel
 
-    public var size: Int = 0
+
+    companion object {
+        lateinit var binding: FragmentDoctorsTestingQuestionsBinding
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentDoctorsTestingQuestionsBinding>(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_doctors_testing_questions,
             container,
@@ -56,7 +59,7 @@ class TestingsQuestionsFragment : Fragment() {
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
-        val radioGroup = view.findViewById(R.id.radioGroup) as RadioGroup
+        val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
 //        val radioButton1 = RadioButton(context)
 //        radioButton1.setText("Ответ 1")
 //
