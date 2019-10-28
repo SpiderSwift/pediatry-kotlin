@@ -2,15 +2,12 @@ package com.develop.grizzzly.pediatry.viewmodel.news
 
 import android.view.View
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.images.glideLocal
-import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
 
 class NewsPostViewModel : ViewModel() {
@@ -52,14 +49,6 @@ class NewsPostViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
-    }
-
-    companion object {
-        @BindingAdapter("newsImageUrl")
-        @JvmStatic
-        fun loadImage(view: ImageView, imageUrl: String?) {
-            picassoRemoteWithAuth(imageUrl, view, android.R.color.white)
         }
     }
 

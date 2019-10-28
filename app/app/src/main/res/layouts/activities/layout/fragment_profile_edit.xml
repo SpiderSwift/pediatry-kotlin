@@ -31,12 +31,12 @@
                     android:layout_marginTop="24dp"
                     android:onClick="@{model::onChangePhoto}"
                     android:src="@android:color/white"
-                    app:avatarUrl="@{model.avatarUrl}"
                     app:civ_border_color="@color/colorWeakAccent"
                     app:civ_border_width="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    zvaLoadImageWithAuth="@{model.avatarUrl}" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

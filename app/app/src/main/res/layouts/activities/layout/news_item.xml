@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    app:newsImageUrl="@{model.news.announcePicture}" />
+                    zvaLoadImageWithAuth="@{model.news.announcePicture}" />
 
             </androidx.cardview.widget.CardView>
 
@@ -168,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    app:newsImageUrl="@{model.news.announcePicture}" />
+                    zvaLoadImageWithAuth="@{model.news.announcePicture}" />
 
             </androidx.cardview.widget.CardView>
 

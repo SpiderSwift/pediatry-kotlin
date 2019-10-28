@@ -4,19 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.adapters.news.NewsAdapter
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.fragments.NewsFragmentDirections
-import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
-import com.github.curioustechizen.ago.RelativeTimeTextView
 import kotlinx.coroutines.launch
 
 class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, val item: Int) :
@@ -65,14 +61,6 @@ class NewsItemViewModel constructor(val news: News, val adapter: NewsAdapter, va
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
-    }
-
-    companion object {
-        @BindingAdapter("newsImageUrl")
-        @JvmStatic
-        fun loadImage(view: ImageView, imageUrl: String?) {
-            picassoRemoteWithAuth(imageUrl, view, android.R.color.white)
         }
     }
 

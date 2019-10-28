@@ -27,8 +27,8 @@ fun glideLocal(imageView: ImageView, placeholderId: Int?) {
 
 fun glideRemote(path: String?, imageView: ImageView, placeholderId: Int) {
     if (!path.isNullOrBlank()) {
-        Log.d(TAG, "glideRemoteFit path: $path")
-        ImageAccess.picasso
+        Log.d(TAG, "glideRemote path: $path")
+        Glide.with(ThisApp.app)
             .load(path)
             .centerCrop()
             .placeholder(placeholderId)
