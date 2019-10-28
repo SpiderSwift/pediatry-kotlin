@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,44 +9,29 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RadioGroup
-import androidx.databinding.DataBindingUtil
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
-import com.develop.grizzzly.pediatry.databinding.FragmentDoctorsTestingQuestionsBinding
-import com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingQuestionsViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class TestingsQuestionsFragment : Fragment() {
 
     //private lateinit var adapter: WebinarAdapter
     //private lateinit var viewModel: WebinarViewModel
 
-
-    companion object {
-        lateinit var binding: FragmentDoctorsTestingQuestionsBinding
-    }
+    var questionNumber: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_doctors_testing_questions,
-            container,
-            false
-        )
-        val model = ViewModelProvider(this).get(TestingQuestionsViewModel::class.java)
-        binding.model = model
-        binding.lifecycleOwner = this
-        return binding.root
+        return inflater.inflate(R.layout.fragment_doctors_testing_questions, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val imageView = view.findViewById<ImageView>(R.id.testing_image)
         Picasso.get()
@@ -81,6 +67,20 @@ class TestingsQuestionsFragment : Fragment() {
             Log.println(Log.ASSERT, "msg", "$number")
         }
 
+        val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
+
+        (view.findViewById<View>(R.id.nextView)).setOnClickListener {
+            if(questionNumber<10)
+            ++questionNumber
+            questionNumberTextView.setText("$questionNumber " + getString(R.string.one_to_ten))
+        }
+        (view.findViewById<View>(R.id.backView)).setOnClickListener {
+            if(questionNumber>1)
+            --questionNumber
+            questionNumberTextView.setText("$questionNumber " + getString(R.string.one_to_ten))
+        }
+
+        val textBack = view.findViewById<TextView>(R.id.one_to_ten)
         //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
         // listWebinars.setHasFixedSize(true)
         // adapter = WebinarAdapter()

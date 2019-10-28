@@ -34,5 +34,5 @@
     <string name="practice_test">Тренировочный тест</string>
     <string name="text_question">Наиболее верояные сроки возникновения гипертермии, как специфической реакции на введение АКДС (дни):</string>
     <string name="to_answer">Ответить</string>
-
+    <string name="one_to_ten">из 10</string>
 </resources>
