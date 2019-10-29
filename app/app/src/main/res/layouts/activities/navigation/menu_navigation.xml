@@ -12,6 +12,9 @@
             android:id="@+id/action_menu_to_webinars"
             app:destination="@id/webinars" />
         <action
+            android:id="@+id/action_menu_to_testing"
+            app:destination="@id/testings" />
+        <action
             android:id="@+id/action_menu_to_profile"
             app:destination="@id/profile" />
     </fragment>
@@ -29,6 +32,20 @@
                 app:argType="long" />
         </action>
     </fragment>
+
+    <fragment
+        android:id="@+id/testings"
+        android:name="com.develop.grizzzly.pediatry.fragments.TestingFragment"
+        android:label="@string/testings">
+        <action
+            android:id="@+id/action_testings_to_question"
+            app:destination="@id/testings_questions" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/testings_questions"
+        android:name="com.develop.grizzzly.pediatry.fragments.TestingQuestionsFragment"
+        android:label="@string/testings"/>
 
     <fragment
         android:id="@+id/webinar_info"

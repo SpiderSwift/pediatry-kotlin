@@ -25,7 +25,7 @@ class WebinarsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbarTitle?.text = "Вебинары"
+        activity?.toolbarTitle?.text = getString(R.string.webinars)
         return inflater.inflate(R.layout.fragment_webinars, container, false)
     }
 
