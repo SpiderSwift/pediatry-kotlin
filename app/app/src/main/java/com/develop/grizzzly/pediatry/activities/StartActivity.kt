@@ -9,7 +9,6 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.Ad
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -29,7 +28,12 @@ class StartActivity : AppCompatActivity() {
             application, "b9feccee-76bf-402e-a033-d1c45613c559",
             Analytics::class.java, Crashes::class.java
         )
+        // val listQuestion = ArrayList<Question>()
+        //  listQuestion.add(Question(0,1,"2","5","6",7,8))
         GlobalScope.launch {
+            //DatabaseAccess.database.questionDao().saveQuestion(listQuestion)
+            //val list = DatabaseAccess.database.questionDao().getQuestions()
+            //Log.println(Log.ASSERT, "msg: ", list[0].toString())
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
                 if (adsUrl.isSuccessful) {
@@ -43,7 +47,7 @@ class StartActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+
             }
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d(TAG, "user: ${user.toString()}")

@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
+import android.util.Log
 import androidx.annotation.IntRange
 import androidx.paging.PositionalDataSource
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
