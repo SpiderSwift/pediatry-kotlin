@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class TestingFragment : Fragment() {
 
-    //private lateinit var adapter: WebinarAdapter
-    //private lateinit var viewModel: WebinarViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,19 +42,6 @@ class TestingFragment : Fragment() {
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
-        //viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
-        // listWebinars.setHasFixedSize(true)
-        // adapter = WebinarAdapter()
-        // listWebinars.adapter = adapter
-        //  listWebinars.layoutManager = GridLayoutManager(activity, 2)
-        //viewModel.conferenceLiveData.observe(this, Observer {
-        //    adapter.submitList(it)
-        //    refreshLayout.isRefreshing = false
-        //  })
-        //  refreshLayout.setOnRefreshListener {
-        //     viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
-        //  }
         super.onViewCreated(view, savedInstanceState)
     }
-
 }

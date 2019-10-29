@@ -49,11 +49,11 @@ class TestingQuestionsFragment : Fragment() {
             btnNext.isEnabled = true
         }
         (view.findViewById<View>(R.id.nextView)).setOnClickListener {
-            if (questionNumber < 10) {
+            if (questionNumber < 50) {
                 questionNumber++
                 radioGroup.clearCheck()
                 btnNext.isEnabled = false
-                questionNumberTextView.text = "$questionNumber " + getString(R.string.one_to_ten)
+                questionNumberTextView.text = "$questionNumber " + getString(R.string.one_to_infinity)
             }
         }
         (view.findViewById<View>(R.id.backView)).setOnClickListener {
@@ -61,7 +61,7 @@ class TestingQuestionsFragment : Fragment() {
                 questionNumber--
                 radioGroup.clearCheck()
                 btnNext.isEnabled = false
-                questionNumberTextView.text = "$questionNumber " + getString(R.string.one_to_ten)
+                questionNumberTextView.text = "$questionNumber " + getString(R.string.one_to_infinity)
             }
         }
         btnNext.setOnClickListener {
