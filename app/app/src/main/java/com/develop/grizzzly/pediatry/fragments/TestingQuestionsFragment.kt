@@ -7,15 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
+import com.develop.grizzzly.pediatry.db.DatabaseAccess
+import com.develop.grizzzly.pediatry.network.model.Question
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TestingQuestionsFragment : Fragment() {
 
@@ -29,12 +32,27 @@ class TestingQuestionsFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var list: List<Question>? = null
+        GlobalScope.launch(Dispatchers.Main) {
+            list = withContext(Dispatchers.Default) {
+                DatabaseAccess.database.questionDao().getQuestions()
+            }
+        }
+        Log.println(Log.ASSERT, "msg: ", list!!.size.toString())
         var questionNumber = 1
         val imageView = view.findViewById<ImageView>(R.id.testing_image)
         val mainActivity = activity as? MainActivity
         val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
         val btnNext = view.findViewById<Button>(R.id.btnAnswer)
         val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
+        val textQuestion = view.findViewById<TextView>(R.id.text_question)
+
+        val listRadioButton = listOf<RadioButton>(
+            view.findViewById(R.id.radioButton1),
+            view.findViewById(R.id.radioButton2),
+            view.findViewById(R.id.radioButton3),
+            view.findViewById(R.id.radioButton4)
+        )
         Picasso.get()
             .load("https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg")
             .into(imageView)
@@ -51,17 +69,31 @@ class TestingQuestionsFragment : Fragment() {
         (view.findViewById<View>(R.id.nextView)).setOnClickListener {
             if (questionNumber < 50) {
                 questionNumber++
-                radioGroup.clearCheck()
-                btnNext.isEnabled = false
-                questionNumberTextView.text = "$questionNumber " + getString(R.string.one_to_infinity)
+                editView(
+                    list!!,
+                    questionNumber,
+                    imageView,
+                    textQuestion,
+                    questionNumberTextView,
+                    listRadioButton,
+                    btnNext,
+                    radioGroup
+                )
             }
         }
         (view.findViewById<View>(R.id.backView)).setOnClickListener {
             if (questionNumber > 1) {
                 questionNumber--
-                radioGroup.clearCheck()
-                btnNext.isEnabled = false
-                questionNumberTextView.text = "$questionNumber " + getString(R.string.one_to_infinity)
+                editView(
+                    list!!,
+                    questionNumber,
+                    imageView,
+                    textQuestion,
+                    questionNumberTextView,
+                    listRadioButton,
+                    btnNext,
+                    radioGroup
+                )
             }
         }
         btnNext.setOnClickListener {
@@ -74,5 +106,29 @@ class TestingQuestionsFragment : Fragment() {
             }
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun editView(
+        list: List<Question>,
+        questionNumber: Int,
+        imageView: ImageView,
+        textQuestion: TextView,
+        questionNumberTextView: TextView,
+        listRadioButton: List<RadioButton>,
+        btnNext: Button,
+        radioGroup: RadioGroup
+    ) {
+        Picasso.get()
+            .load(list[questionNumber].imageUrl)
+            .into(imageView)
+        textQuestion.text = list[questionNumber].textQuestion
+        for ((x, btn) in listRadioButton.withIndex()) {
+            btn.text = list[questionNumber].listAnswers?.get(x)?.text
+        }
+        radioGroup.clearCheck()
+        btnNext.isEnabled = false
+        questionNumberTextView.text =
+            "$questionNumber " + getString(R.string.one_to_infinity)
     }
 }

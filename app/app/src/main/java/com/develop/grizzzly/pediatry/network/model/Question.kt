@@ -9,7 +9,7 @@ data class Question constructor(
     val id: Long,
     val timeStamp: Long,
     val tags: String, //Todo
-    //val listAnswers: ArrayList<Answer>?,
+    val listAnswers: ArrayList<Answer>?,
     val textQuestion: String?,
     val imageUrl: String?,
     val correctAnswer: Int,
