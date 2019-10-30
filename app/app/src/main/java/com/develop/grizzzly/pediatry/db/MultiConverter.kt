@@ -1,6 +1,9 @@
 package com.develop.grizzzly.pediatry.db
 
 import androidx.room.TypeConverter
+import com.develop.grizzzly.pediatry.network.model.Answer
+import com.develop.grizzzly.pediatry.network.model.Question
+import com.google.gson.Gson
 import java.util.*
 
 class MultiConverter {
@@ -59,4 +62,23 @@ class MultiConverter {
         return strList
     }
 
+    @TypeConverter
+    fun fromAnswer(list: MutableList<Answer>): String {
+        return Gson().toJson(list).toString()
+    }
+
+    @TypeConverter
+    fun toAnswer(str: String): MutableList<Answer> {
+        return Gson().fromJson<MutableList<Answer>>(str, Question.typeAnswers)
+    }
+
+    @TypeConverter
+    fun fromInts(list: MutableList<Int>): String {
+        return Gson().toJson(list).toString()
+    }
+
+    @TypeConverter
+    fun toInts(str: String): MutableList<Int> {
+        return Gson().fromJson<MutableList<Int>>(str, Question.typeInts)
+    }
 }

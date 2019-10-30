@@ -35,7 +35,7 @@ class TestingQuestionsFragment : Fragment() {
         GlobalScope.launch {
             val list = DatabaseAccess.database.questionDao().getQuestions()
             withContext(Dispatchers.Main) {
-                var questionNumber = 1
+                var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
                 val mainActivity = activity as? MainActivity
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
@@ -70,7 +70,7 @@ class TestingQuestionsFragment : Fragment() {
                     radioGroup
                 )
                 (view.findViewById<View>(R.id.nextView)).setOnClickListener {
-                    if (questionNumber < 50) {
+                    if (questionNumber < list.size-1) {
                         questionNumber++
                         editView(
                             list,
@@ -85,7 +85,7 @@ class TestingQuestionsFragment : Fragment() {
                     }
                 }
                 (view.findViewById<View>(R.id.backView)).setOnClickListener {
-                    if (questionNumber > 1) {
+                    if (questionNumber > 0) {
                         questionNumber--
                         editView(
                             list,
@@ -127,13 +127,13 @@ class TestingQuestionsFragment : Fragment() {
         Picasso.get()
             .load(list[questionNumber].imageUrl)
             .into(imageView)
-        textQuestion.text = list[questionNumber].textQuestion
+        textQuestion.text = list[questionNumber].text
         for ((x, btn) in listRadioButton.withIndex()) {
-            btn.text = list[questionNumber].listAnswers[x].text
+            btn.text = list[questionNumber].answers[x].text
         }
         radioGroup.clearCheck()
         btnNext.isEnabled = false
         questionNumberTextView.text =
-            "$questionNumber " + getString(R.string.one_to_infinity)
+            (questionNumber + 1).toString() + " " + getString(R.string.one_to_infinity)
     }
 }

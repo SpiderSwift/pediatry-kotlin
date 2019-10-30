@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@color/standard"
+                android:src="@android:color/white"
                 tools:ignore="ContentDescription"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="152dp" />
@@ -89,7 +89,6 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="25dp"
-            android:text="@string/text_question"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +139,6 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
                     android:gravity="fill"
-                    android:text="Какой-то ответ 1, который точно правильный"
                     android:textSize="13sp"
                     android:theme="@style/CustomButton" />
 
@@ -151,7 +149,6 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
                     android:gravity="fill"
-                    android:text="Какой-то ответ 2, который точно правильный"
                     android:textSize="13sp"
                     android:theme="@style/CustomButton" />
 
@@ -162,7 +159,6 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
                     android:gravity="fill"
-                    android:text="Какой-то ответ 3, который точно правильный"
                     android:textSize="13sp"
                     android:theme="@style/CustomButton" />
 
@@ -173,7 +169,6 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
                     android:gravity="fill"
-                    android:text="Какой-то ответ 4, который точно правильный"
                     android:textSize="13sp"
                     android:theme="@style/CustomButton" />
 
@@ -186,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Вопрос"
+            android:text="@string/question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -195,7 +190,6 @@
             android:id="@+id/one_to_ten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 из ∞"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />

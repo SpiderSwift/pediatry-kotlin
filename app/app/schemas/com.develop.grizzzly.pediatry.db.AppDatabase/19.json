@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 19,
-    "identityHash": "4018fffed2c88a41cd5e7ca4b6196e2f",
+    "identityHash": "e6fb782efbd0b342f7981aa5b19f5708",
     "entities": [
       {
         "tableName": "User",
@@ -470,7 +470,7 @@
       },
       {
         "tableName": "Question",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `timeStamp` INTEGER NOT NULL, `tags` TEXT NOT NULL, `listAnswers` TEXT NOT NULL, `textQuestion` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `correctAnswer` INTEGER NOT NULL, `hintAnswerCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `tsLastChange` INTEGER NOT NULL, `tags` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `text` TEXT NOT NULL, `answers` TEXT NOT NULL, `correctAnswersCombo` INTEGER NOT NULL, `hintAnswerCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -479,8 +479,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "timeStamp",
-            "columnName": "timeStamp",
+            "fieldPath": "tsLastChange",
+            "columnName": "tsLastChange",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -491,26 +491,26 @@
             "notNull": true
           },
           {
-            "fieldPath": "listAnswers",
-            "columnName": "listAnswers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "textQuestion",
-            "columnName": "textQuestion",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
             "fieldPath": "imageUrl",
             "columnName": "imageUrl",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "correctAnswer",
-            "columnName": "correctAnswer",
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answers",
+            "columnName": "answers",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "correctAnswersCombo",
+            "columnName": "correctAnswersCombo",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -534,7 +534,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4018fffed2c88a41cd5e7ca4b6196e2f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e6fb782efbd0b342f7981aa5b19f5708')"
     ]
   }
 }

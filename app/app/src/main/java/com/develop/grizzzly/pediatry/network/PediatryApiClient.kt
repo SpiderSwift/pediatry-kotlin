@@ -79,7 +79,7 @@ interface PediatryApiClient {
 
     @GET("questions")
     suspend fun getQuestions(
-        @Query("timeStamp") timeStamp: Long
+        @Query("tsLastChange") timeStamp: Long
     ): Response<BasicResponse<List<Question>>>
 
     @GET("news/{id}")

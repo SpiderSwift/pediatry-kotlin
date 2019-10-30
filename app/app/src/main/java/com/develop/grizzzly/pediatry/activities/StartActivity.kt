@@ -30,40 +30,45 @@ class StartActivity : AppCompatActivity() {
             application, "b9feccee-76bf-402e-a033-d1c45613c559",
             Analytics::class.java, Crashes::class.java
         )
-        // val listQuestion = ArrayList<Question>()
-        //  listQuestion.add(Question(0,1,"2","5","6",7,8))
         GlobalScope.launch {
-            val list = mutableListOf<Answer>()
-            list.add(Answer(0, "1"))
-            list.add(Answer(1, "2"))
-            list.add(Answer(2, "3"))
-            list.add(Answer(3, "4"))
+
+            //Todo delete {
+            val listAnswers = mutableListOf<Answer>()
+            listAnswers.add(Answer(0, "1"))
+            listAnswers.add(Answer(1, "2"))
+            listAnswers.add(Answer(2, "3"))
+            listAnswers.add(Answer(3, "4"))
+
+            val listInts = mutableListOf<Int>()
+            listInts.add(666)
+            listInts.add(999)
+
             DatabaseAccess.database.questionDao().saveQuestion(
                 Question(
-                    2,
-                    0,
-                    "tags",
-                    list,
-                    "Вопрос",
-                    "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
-                    1,
-                    0
+                    id = 0,
+                    tsLastChange = 0,
+                    tags = listInts,
+                    answers = listAnswers,
+                    text = "Вопрос 1",
+                    imageUrl = "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
+                    correctAnswersCombo = 1,
+                    hintAnswerCount = 0
                 )
             )
             DatabaseAccess.database.questionDao().saveQuestion(
                 Question(
-                    3,
-                    0,
-                    "tags",
-                    list,
-                    "Вопрос 2",
-                    "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
-                    1,
-                    0
+                    id = 1,
+                    tsLastChange = 0,
+                    tags = listInts,
+                    answers = listAnswers,
+                    text = "Вопрос 2",
+                    imageUrl = "https://edu-pediatrics.com/storage/news/186/360х250Kazan.jpg",
+                    correctAnswersCombo = 1,
+                    hintAnswerCount = 0
                 )
             )
-            //val list = DatabaseAccess.database.questionDao().getQuestions()
-            //Log.println(Log.ASSERT, "msg: ", list[0].toString())
+            //Todo delete }
+
             try {
                 val adsUrl = WebAccess.pediatryApi.getAdsUrl()
                 if (adsUrl.isSuccessful) {
