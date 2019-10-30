@@ -51,7 +51,7 @@ class StartActivity : AppCompatActivity() {
                     answers = listAnswers,
                     text = "Вопрос 1",
                     imageUrl = "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
-                    correctAnswersCombo = 1,
+                    correctAnswersCombo = 0,
                     hintAnswerCount = 0
                 )
             )
@@ -63,7 +63,7 @@ class StartActivity : AppCompatActivity() {
                     answers = listAnswers,
                     text = "Вопрос 2",
                     imageUrl = "https://edu-pediatrics.com/storage/news/186/360х250Kazan.jpg",
-                    correctAnswersCombo = 1,
+                    correctAnswersCombo = 3,
                     hintAnswerCount = 0
                 )
             )

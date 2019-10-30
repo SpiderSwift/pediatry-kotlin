@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,7 +34,7 @@ class TestingQuestionsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         GlobalScope.launch {
-            val list = DatabaseAccess.database.questionDao().getQuestions()
+            val listQuestions = DatabaseAccess.database.questionDao().getQuestions()
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
@@ -58,9 +59,9 @@ class TestingQuestionsFragment : Fragment() {
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnNext.isEnabled = true
                 }
-                Log.println(Log.ASSERT, "msg: ", list.size.toString())
+                Log.println(Log.ASSERT, "msg: ", listQuestions.size.toString())
                 editView(
-                    list,
+                    listQuestions,
                     questionNumber,
                     imageView,
                     textQuestion,
@@ -70,10 +71,10 @@ class TestingQuestionsFragment : Fragment() {
                     radioGroup
                 )
                 (view.findViewById<View>(R.id.nextView)).setOnClickListener {
-                    if (questionNumber < list.size-1) {
+                    if (questionNumber < listQuestions.size - 1) {
                         questionNumber++
                         editView(
-                            list,
+                            listQuestions,
                             questionNumber,
                             imageView,
                             textQuestion,
@@ -88,7 +89,7 @@ class TestingQuestionsFragment : Fragment() {
                     if (questionNumber > 0) {
                         questionNumber--
                         editView(
-                            list,
+                            listQuestions,
                             questionNumber,
                             imageView,
                             textQuestion,
@@ -101,10 +102,10 @@ class TestingQuestionsFragment : Fragment() {
                 }
                 btnNext.setOnClickListener {
                     when (radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId))) {
-                        0 -> Log.println(Log.ASSERT, "msg: ", "1")
-                        1 -> Log.println(Log.ASSERT, "msg: ", "2")
-                        2 -> Log.println(Log.ASSERT, "msg: ", "3")
-                        3 -> Log.println(Log.ASSERT, "msg: ", "4")
+                        0 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 0)
+                        1 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 1)
+                        2 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 2)
+                        3 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 3)
                         else -> Log.println(Log.ASSERT, "msg: ", "Error!!!")
                     }
                 }
@@ -114,7 +115,7 @@ class TestingQuestionsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun editView(
+    private fun editView(
         list: List<Question>,
         questionNumber: Int,
         imageView: ImageView,
@@ -134,6 +135,28 @@ class TestingQuestionsFragment : Fragment() {
         radioGroup.clearCheck()
         btnNext.isEnabled = false
         questionNumberTextView.text =
-            (questionNumber + 1).toString() + " " + getString(R.string.one_to_infinity)
+            (questionNumber + 1).toString() + " " + resources.getString(R.string.one_to_infinity)
+    }
+
+    private fun setButtonColor( //Todo api 23++: getColor(color,null)
+        listQuestions: List<Question>,
+        listRadioButton: List<RadioButton>,
+        questionNumber: Int,
+        selectedNumber: Int
+    ) {
+        if (listQuestions[questionNumber].correctAnswersCombo == selectedNumber) {
+            listRadioButton[selectedNumber].setTextColor(resources.getColor(android.R.color.holo_green_dark))
+            listRadioButton[selectedNumber].buttonTintList =
+                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
+        } else {
+            listRadioButton[selectedNumber].setTextColor(resources.getColor(android.R.color.holo_red_dark))
+            listRadioButton[selectedNumber].buttonTintList =
+                ColorStateList.valueOf(resources.getColor(android.R.color.holo_red_dark))
+            listRadioButton[listQuestions[questionNumber].correctAnswersCombo].setTextColor(
+                resources.getColor(android.R.color.holo_green_dark)
+            )
+            listRadioButton[listQuestions[questionNumber].correctAnswersCombo].buttonTintList =
+                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
+        }
     }
 }
