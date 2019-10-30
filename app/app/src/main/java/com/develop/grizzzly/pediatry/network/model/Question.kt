@@ -12,8 +12,8 @@ data class Question constructor(
     val timeStamp: Long,
     val tags: String, //Todo
     @TypeConverters(QuestionConverter::class) var listAnswers: MutableList<Answer>,
-    val textQuestion: String?,
-    val imageUrl: String?,
+    val textQuestion: String,
+    val imageUrl: String,
     val correctAnswer: Int,
     val hintAnswerCount: Int //Todo
 )

@@ -9,6 +9,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.Answer
 import com.develop.grizzzly.pediatry.network.model.Question
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
@@ -32,7 +33,35 @@ class StartActivity : AppCompatActivity() {
         // val listQuestion = ArrayList<Question>()
         //  listQuestion.add(Question(0,1,"2","5","6",7,8))
         GlobalScope.launch {
-            DatabaseAccess.database.questionDao().saveQuestion(Question(0,0,"tsgs", mutableListOf(),"Вопрос"," "))
+            val list = mutableListOf<Answer>()
+            list.add(Answer(0, "1"))
+            list.add(Answer(1, "2"))
+            list.add(Answer(2, "3"))
+            list.add(Answer(3, "4"))
+            DatabaseAccess.database.questionDao().saveQuestion(
+                Question(
+                    2,
+                    0,
+                    "tags",
+                    list,
+                    "Вопрос",
+                    "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
+                    1,
+                    0
+                )
+            )
+            DatabaseAccess.database.questionDao().saveQuestion(
+                Question(
+                    3,
+                    0,
+                    "tags",
+                    list,
+                    "Вопрос 2",
+                    "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
+                    1,
+                    0
+                )
+            )
             //val list = DatabaseAccess.database.questionDao().getQuestions()
             //Log.println(Log.ASSERT, "msg: ", list[0].toString())
             try {

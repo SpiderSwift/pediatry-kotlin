@@ -14,6 +14,9 @@ interface QuestionDao {
     @Query("SELECT * FROM question")
     suspend fun getQuestions(): List<Question>
 
+    @Query("SELECT * FROM question WHERE timeStamp >:timeStamp")
+    suspend fun getQuestions(timeStamp: Long): List<Question>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveQuestion(q: Question)
 }

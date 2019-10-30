@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 18,
-    "identityHash": "34d57881d2e3127ffea9a1d42fb1461a",
+    "identityHash": "4018fffed2c88a41cd5e7ca4b6196e2f",
     "entities": [
       {
         "tableName": "User",
@@ -470,7 +470,7 @@
       },
       {
         "tableName": "Question",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `timeStamp` INTEGER NOT NULL, `tags` TEXT NOT NULL, `listAnswers` TEXT, `textQuestion` TEXT, `imageUrl` TEXT, `correctAnswer` INTEGER NOT NULL, `hintAnswerCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `timeStamp` INTEGER NOT NULL, `tags` TEXT NOT NULL, `listAnswers` TEXT NOT NULL, `textQuestion` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `correctAnswer` INTEGER NOT NULL, `hintAnswerCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -494,19 +494,19 @@
             "fieldPath": "listAnswers",
             "columnName": "listAnswers",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "textQuestion",
             "columnName": "textQuestion",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "imageUrl",
             "columnName": "imageUrl",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "correctAnswer",
@@ -534,7 +534,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '34d57881d2e3127ffea9a1d42fb1461a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4018fffed2c88a41cd5e7ca4b6196e2f')"
     ]
   }
 }
