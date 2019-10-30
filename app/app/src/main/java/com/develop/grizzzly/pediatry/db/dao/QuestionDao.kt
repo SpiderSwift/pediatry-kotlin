@@ -9,8 +9,11 @@ import com.develop.grizzzly.pediatry.network.model.Question
 @Dao
 interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveQuestion(q: List<Question>)
+    suspend fun saveQuestions(q: List<Question>)
 
     @Query("SELECT * FROM question")
     suspend fun getQuestions(): List<Question>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveQuestion(q: Question)
 }

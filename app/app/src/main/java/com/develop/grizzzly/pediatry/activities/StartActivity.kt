@@ -9,6 +9,7 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.Question
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -31,7 +32,7 @@ class StartActivity : AppCompatActivity() {
         // val listQuestion = ArrayList<Question>()
         //  listQuestion.add(Question(0,1,"2","5","6",7,8))
         GlobalScope.launch {
-            //DatabaseAccess.database.questionDao().saveQuestion(listQuestion)
+            DatabaseAccess.database.questionDao().saveQuestion(Question(0,0,"tsgs", mutableListOf(),"Вопрос"," "))
             //val list = DatabaseAccess.database.questionDao().getQuestions()
             //Log.println(Log.ASSERT, "msg: ", list[0].toString())
             try {

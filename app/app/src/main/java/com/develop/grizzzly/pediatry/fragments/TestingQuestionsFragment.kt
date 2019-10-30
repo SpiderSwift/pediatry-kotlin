@@ -46,26 +46,32 @@ class TestingQuestionsFragment : Fragment() {
         val btnNext = view.findViewById<Button>(R.id.btnAnswer)
         val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
         val textQuestion = view.findViewById<TextView>(R.id.text_question)
-
         val listRadioButton = listOf<RadioButton>(
             view.findViewById(R.id.radioButton1),
             view.findViewById(R.id.radioButton2),
             view.findViewById(R.id.radioButton3),
             view.findViewById(R.id.radioButton4)
         )
-        Picasso.get()
-            .load("https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg")
-            .into(imageView)
         activity?.toolbarTitle?.visibility = View.GONE
         mainActivity?.supportActionBar?.hide()
         val window = activity?.window
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
+        //window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
         radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
             btnNext.isEnabled = true
         }
+        editView(
+            list!!,
+            questionNumber,
+            imageView,
+            textQuestion,
+            questionNumberTextView,
+            listRadioButton,
+            btnNext,
+            radioGroup
+        )
         (view.findViewById<View>(R.id.nextView)).setOnClickListener {
             if (questionNumber < 50) {
                 questionNumber++
@@ -124,7 +130,7 @@ class TestingQuestionsFragment : Fragment() {
             .into(imageView)
         textQuestion.text = list[questionNumber].textQuestion
         for ((x, btn) in listRadioButton.withIndex()) {
-            btn.text = list[questionNumber].listAnswers?.get(x)?.text
+            btn.text = list[questionNumber].listAnswers[x].text
         }
         radioGroup.clearCheck()
         btnNext.isEnabled = false
