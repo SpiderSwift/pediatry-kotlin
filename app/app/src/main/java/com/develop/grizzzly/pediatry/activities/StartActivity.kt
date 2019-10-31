@@ -31,52 +31,21 @@ class StartActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
         GlobalScope.launch {
+            WebAccess.tryLoginWithDb()  // FIXME: it most be login first
 
-            //Todo delete {
-            val listAnswers = mutableListOf<Answer>()
-            listAnswers.add(Answer(0, "1"))
-            listAnswers.add(Answer(1, "2"))
-            listAnswers.add(Answer(2, "3"))
-            listAnswers.add(Answer(3, "4"))
-
-            val listInts = mutableListOf<Int>()
-            listInts.add(666)
-            listInts.add(999)
-
-            val listCorrectAnswersCombo = mutableListOf<Int>()
-            listCorrectAnswersCombo.add(0)
-            listCorrectAnswersCombo.add(1)
-
-            DatabaseAccess.database.questionDao().saveQuestion(
-                Question(
-                    id = 0,
-                    tsLastChange = 5,
-                    tags = listInts,
-                    answers = listAnswers,
-                    text = "Вопрос 1",
-                    imageUrl = "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
-                    correctAnswersCombo = listCorrectAnswersCombo,
-                    hintAnswerCount = 0
-                )
-            )
-            DatabaseAccess.database.questionDao().saveQuestion(
-                Question(
-                    id = 1,
-                    tsLastChange = 5,
-                    tags = listInts,
-                    answers = listAnswers,
-                    text = "Вопрос 2",
-                    imageUrl = "https://edu-pediatrics.com/storage/news/186/360х250Kazan.jpg",
-                    correctAnswersCombo = listCorrectAnswersCombo,
-                    hintAnswerCount = 0
-                )
-            )
-            //Todo delete }
+            testAddData()  // TODO: delete
 
             try {
-                val adsUrl = WebAccess.pediatryApi.getAdsUrl()
-                if (adsUrl.isSuccessful) {
-                    WebAccess.adsUrl = adsUrl.body()?.response?.url.toString()
+                val questionsResult = WebAccess.pediatryApi.getQuestions()
+                Log.w(TAG, "questionsResult ${if (questionsResult.isSuccessful) "success" else "fail"}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            try {
+                val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
+                if (adsUrlResult.isSuccessful) {
+                    WebAccess.adsUrl = adsUrlResult.body()?.response?.url.toString()
                     WebAccess.adsApiUrl = "${WebAccess.adsUrl}${WebAccess.adsApiEndpoint}"
                     val adsResult = WebAccess.adsApi.getAds()
                     if  (adsResult.isSuccessful) {
@@ -88,26 +57,71 @@ class StartActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            val user = DatabaseAccess.database.userDao().findUser(0)
-            Log.d(TAG, "user: ${user.toString()}")
-            if (user != null) {
-                try {
-                    val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
-                    delay(1500)
-                    if (loginResult.isSuccessful)
-                        WebAccess.token(loginResult.body()?.response)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-                    val intent = Intent(baseContext, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                }
-            } else {
-                nav_host_fragment.findNavController()
-                    .navigateNoExcept(R.id.action_start_to_login)
-            }
+            login() // FIXME: it most be login first
         }
+    }
+
+    private suspend fun login() {
+        val user = DatabaseAccess.database.userDao().findUser(0)
+        Log.d(TAG, "user: ${user.toString()}")
+        if (user != null) {
+            try {
+                val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
+                delay(1500)
+                if (loginResult.isSuccessful)
+                    WebAccess.token(loginResult.body()?.response)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                val intent = Intent(baseContext, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+        } else {
+            nav_host_fragment.findNavController()
+                .navigateNoExcept(R.id.action_start_to_login)
+        }
+    }
+
+    private suspend fun testAddData() {
+        val listAnswers = mutableListOf<Answer>()
+        listAnswers.add(Answer(0, "1"))
+        listAnswers.add(Answer(1, "2"))
+        listAnswers.add(Answer(2, "3"))
+        listAnswers.add(Answer(3, "4"))
+
+        val listInts = mutableListOf<Int>()
+        listInts.add(666)
+        listInts.add(999)
+
+        val listCorrectAnswersCombo = mutableListOf<Int>()
+        listCorrectAnswersCombo.add(0)
+        listCorrectAnswersCombo.add(1)
+
+        DatabaseAccess.database.questionDao().saveQuestion(
+            Question(
+                id = 0,
+                tsLastChange = 5,
+                tags = listInts,
+                answers = listAnswers,
+                text = "Вопрос 1",
+                imageUrl = "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
+                correctAnswersCombo = listCorrectAnswersCombo,
+                hintAnswerCount = 0
+            )
+        )
+        DatabaseAccess.database.questionDao().saveQuestion(
+            Question(
+                id = 1,
+                tsLastChange = 5,
+                tags = listInts,
+                answers = listAnswers,
+                text = "Вопрос 2",
+                imageUrl = "https://edu-pediatrics.com/storage/news/186/360х250Kazan.jpg",
+                correctAnswersCombo = listCorrectAnswersCombo,
+                hintAnswerCount = 0
+            )
+        )
     }
 
     override fun onStart() {

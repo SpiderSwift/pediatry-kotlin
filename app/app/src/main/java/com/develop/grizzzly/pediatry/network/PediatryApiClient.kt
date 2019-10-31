@@ -77,9 +77,14 @@ interface PediatryApiClient {
         @Query("limit") limit: Long
     ): Response<BasicResponse<List<News>>>
 
-    @GET("questions")
+    @GET("question")
     suspend fun getQuestions(
-        @Query("tsLastChange") timeStamp: Long
+    ): Response<BasicResponse<List<Question>>>
+
+    @FormUrlEncoded
+    @POST("question")
+    suspend fun getQuestions(
+        @Field("tsLastChange") tsLastChange: Long
     ): Response<BasicResponse<List<Question>>>
 
     @GET("news/{id}")
