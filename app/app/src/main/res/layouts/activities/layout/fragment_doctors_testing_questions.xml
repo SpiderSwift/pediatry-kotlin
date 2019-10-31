@@ -139,8 +139,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
                     android:gravity="fill"
+                    android:textColor="@android:color/black"
                     android:textSize="13sp"
                     android:theme="@style/CustomButton" />
 
@@ -169,11 +169,11 @@
                 <RadioButton
                     android:id="@+id/radioButton4"
                     android:layout_width="wrap_content"
-                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
                     android:gravity="fill"
+                    android:textColor="@android:color/black"
                     android:textSize="13sp"
                     android:theme="@style/CustomButton" />
 

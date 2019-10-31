@@ -20,7 +20,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 class TestingQuestionsFragment : Fragment() {
 
     override fun onCreateView(
@@ -55,7 +54,8 @@ class TestingQuestionsFragment : Fragment() {
                 val window = activity?.window
                 window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                //window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0 //Todo api 23++
+                window?.statusBarColor =
+                    activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnNext.isEnabled = true
@@ -88,8 +88,7 @@ class TestingQuestionsFragment : Fragment() {
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black)) //Todo
-                            // btn.setTextAppearance(context, R.style.CustomButton)
+                            btn.setTextColor(resources.getColor(android.R.color.black, null))
                         }
                     }
                 }
@@ -110,14 +109,14 @@ class TestingQuestionsFragment : Fragment() {
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black)) //Todo
-                            //btn.setTextAppearance(context, R.style.CustomButton)
+                            btn.setTextColor(resources.getColor(android.R.color.black, null))
                         }
                     }
                 }
                 btnNext.setOnClickListener {
                     if (isAnswer) {
                         if (questionNumber < listQuestions.size - 1) {
+                            isAnswer = false
                             btnNext.text = getString(R.string.to_answer)
                             questionNumber++
                             editView(
@@ -132,8 +131,7 @@ class TestingQuestionsFragment : Fragment() {
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
-                                btn.setTextColor(resources.getColor(android.R.color.black)) //Todo
-                                // btn.setTextAppearance(context, R.style.CustomButton)
+                                btn.setTextColor(resources.getColor(android.R.color.black, null))
                             }
                         }
                     } else {
@@ -176,26 +174,29 @@ class TestingQuestionsFragment : Fragment() {
             (questionNumber + 1).toString() + " " + resources.getString(R.string.one_to_infinity)
     }
 
-    private fun setButtonColor( //Todo api 23++: getColor(color,null)
+    private fun setButtonColor(
         listQuestions: List<Question>,
         listRadioButton: MutableList<RadioButton>,
         questionNumber: Int,
         selectedNumber: Int
     ) {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
-            listRadioButton[selectedNumber].setTextColor(resources.getColor(android.R.color.holo_green_dark))
-//            listRadioButton[selectedNumber].buttonTintList =
-//                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
-        } else {
-            listRadioButton[selectedNumber].setTextColor(resources.getColor(android.R.color.holo_red_dark))
-//            listRadioButton[selectedNumber].buttonTintList =
-//                ColorStateList.valueOf(resources.getColor(android.R.color.holo_red_dark))
-
-            listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
-                resources.getColor(android.R.color.holo_green_dark)
+            listRadioButton[selectedNumber].setTextColor(
+                resources.getColor(
+                    android.R.color.holo_green_dark,
+                    null
+                )
             )
-//            listRadioButton[listQuestions[questionNumber].correctAnswersCombo].buttonTintList =
-//                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
+        } else {
+            listRadioButton[selectedNumber].setTextColor(
+                resources.getColor(
+                    android.R.color.holo_red_dark,
+                    null
+                )
+            )
+            listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
+                resources.getColor(android.R.color.holo_green_dark, null)
+            )
         }
         for (btn in listRadioButton) {
             btn.isClickable = false

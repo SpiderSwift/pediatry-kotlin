@@ -16,7 +16,6 @@ import java.util.*
 
 object WebAccess {
 
-
     // TODO: use https://dev.edu-pediatrics.com/ for debug?
     private val pediatryApiUrl = if (BuildConfig.DEBUG) {
         "https://edu-pediatrics.com/api/v1/"

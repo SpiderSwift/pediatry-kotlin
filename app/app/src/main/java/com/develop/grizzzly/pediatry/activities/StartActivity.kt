@@ -44,13 +44,13 @@ class StartActivity : AppCompatActivity() {
             listInts.add(999)
 
             val listCorrectAnswersCombo = mutableListOf<Int>()
-            listInts.add(0)
-            listInts.add(1)
+            listCorrectAnswersCombo.add(0)
+            listCorrectAnswersCombo.add(1)
 
             DatabaseAccess.database.questionDao().saveQuestion(
                 Question(
                     id = 0,
-                    tsLastChange = 0,
+                    tsLastChange = 5,
                     tags = listInts,
                     answers = listAnswers,
                     text = "Вопрос 1",
@@ -62,7 +62,7 @@ class StartActivity : AppCompatActivity() {
             DatabaseAccess.database.questionDao().saveQuestion(
                 Question(
                     id = 1,
-                    tsLastChange = 0,
+                    tsLastChange = 5,
                     tags = listInts,
                     answers = listAnswers,
                     text = "Вопрос 2",
@@ -79,14 +79,14 @@ class StartActivity : AppCompatActivity() {
                     WebAccess.adsUrl = adsUrl.body()?.response?.url.toString()
                     WebAccess.adsApiUrl = "${WebAccess.adsUrl}${WebAccess.adsApiEndpoint}"
                     val adsResult = WebAccess.adsApi.getAds()
-                    if (adsResult.isSuccessful) {
+                    if  (adsResult.isSuccessful) {
                         val ads = adsResult.body()?.ads ?: listOf()
                         ads.forEach { it.image_url = "${WebAccess.adsUrl}${it.image_url}" }
                         DatabaseAccess.database.adDao().saveAds(ads)
                     }
                 }
             } catch (e: Exception) {
-
+                e.printStackTrace()
             }
             val user = DatabaseAccess.database.userDao().findUser(0)
             Log.d(TAG, "user: ${user.toString()}")
@@ -114,5 +114,4 @@ class StartActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onStart()
     }
-
 }
