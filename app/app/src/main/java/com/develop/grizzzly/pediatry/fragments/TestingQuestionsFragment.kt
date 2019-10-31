@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +20,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
 class TestingQuestionsFragment : Fragment() {
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class TestingQuestionsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         GlobalScope.launch {
-            val listQuestions = DatabaseAccess.database.questionDao().getQuestions()
+            val listQuestions = DatabaseAccess.database.questionDao().getQuestions(0)
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
@@ -43,7 +43,8 @@ class TestingQuestionsFragment : Fragment() {
                 val btnNext = view.findViewById<Button>(R.id.btnAnswer)
                 val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
                 val textQuestion = view.findViewById<TextView>(R.id.text_question)
-                val listRadioButton = listOf<RadioButton>(
+                var isAnswer = false
+                val listRadioButton = mutableListOf<RadioButton>(
                     view.findViewById(R.id.radioButton1),
                     view.findViewById(R.id.radioButton2),
                     view.findViewById(R.id.radioButton3),
@@ -72,6 +73,8 @@ class TestingQuestionsFragment : Fragment() {
                 )
                 (view.findViewById<View>(R.id.nextView)).setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
+                        isAnswer = false
+                        btnNext.text = getString(R.string.to_answer)
                         questionNumber++
                         editView(
                             listQuestions,
@@ -83,10 +86,17 @@ class TestingQuestionsFragment : Fragment() {
                             btnNext,
                             radioGroup
                         )
+                        for (btn in listRadioButton) {
+                            btn.isClickable = true
+                            btn.setTextColor(resources.getColor(android.R.color.black)) //Todo
+                            // btn.setTextAppearance(context, R.style.CustomButton)
+                        }
                     }
                 }
                 (view.findViewById<View>(R.id.backView)).setOnClickListener {
                     if (questionNumber > 0) {
+                        isAnswer = false
+                        btnNext.text = getString(R.string.to_answer)
                         questionNumber--
                         editView(
                             listQuestions,
@@ -98,15 +108,43 @@ class TestingQuestionsFragment : Fragment() {
                             btnNext,
                             radioGroup
                         )
+                        for (btn in listRadioButton) {
+                            btn.isClickable = true
+                            btn.setTextColor(resources.getColor(android.R.color.black)) //Todo
+                            //btn.setTextAppearance(context, R.style.CustomButton)
+                        }
                     }
                 }
                 btnNext.setOnClickListener {
-                    when (radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId))) {
-                        0 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 0)
-                        1 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 1)
-                        2 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 2)
-                        3 -> setButtonColor(listQuestions, listRadioButton, questionNumber, 3)
-                        else -> Log.println(Log.ASSERT, "msg: ", "Error!!!")
+                    if (isAnswer) {
+                        if (questionNumber < listQuestions.size - 1) {
+                            btnNext.text = getString(R.string.to_answer)
+                            questionNumber++
+                            editView(
+                                listQuestions,
+                                questionNumber,
+                                imageView,
+                                textQuestion,
+                                questionNumberTextView,
+                                listRadioButton,
+                                btnNext,
+                                radioGroup
+                            )
+                            for (btn in listRadioButton) {
+                                btn.isClickable = true
+                                btn.setTextColor(resources.getColor(android.R.color.black)) //Todo
+                                // btn.setTextAppearance(context, R.style.CustomButton)
+                            }
+                        }
+                    } else {
+                        isAnswer = true
+                        btnNext.text = getString(R.string.next)
+                        setButtonColor(
+                            listQuestions,
+                            listRadioButton,
+                            questionNumber,
+                            radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId))
+                        )
                     }
                 }
                 super.onViewCreated(view, savedInstanceState)
@@ -140,23 +178,27 @@ class TestingQuestionsFragment : Fragment() {
 
     private fun setButtonColor( //Todo api 23++: getColor(color,null)
         listQuestions: List<Question>,
-        listRadioButton: List<RadioButton>,
+        listRadioButton: MutableList<RadioButton>,
         questionNumber: Int,
         selectedNumber: Int
     ) {
-        if (listQuestions[questionNumber].correctAnswersCombo == selectedNumber) {
+        if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
             listRadioButton[selectedNumber].setTextColor(resources.getColor(android.R.color.holo_green_dark))
-            listRadioButton[selectedNumber].buttonTintList =
-                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
+//            listRadioButton[selectedNumber].buttonTintList =
+//                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
         } else {
             listRadioButton[selectedNumber].setTextColor(resources.getColor(android.R.color.holo_red_dark))
-            listRadioButton[selectedNumber].buttonTintList =
-                ColorStateList.valueOf(resources.getColor(android.R.color.holo_red_dark))
-            listRadioButton[listQuestions[questionNumber].correctAnswersCombo].setTextColor(
+//            listRadioButton[selectedNumber].buttonTintList =
+//                ColorStateList.valueOf(resources.getColor(android.R.color.holo_red_dark))
+
+            listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
                 resources.getColor(android.R.color.holo_green_dark)
             )
-            listRadioButton[listQuestions[questionNumber].correctAnswersCombo].buttonTintList =
-                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
+//            listRadioButton[listQuestions[questionNumber].correctAnswersCombo].buttonTintList =
+//                ColorStateList.valueOf(resources.getColor(android.R.color.holo_green_dark))
+        }
+        for (btn in listRadioButton) {
+            btn.isClickable = false
         }
     }
 }

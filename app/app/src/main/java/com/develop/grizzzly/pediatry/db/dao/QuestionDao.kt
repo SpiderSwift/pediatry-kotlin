@@ -11,9 +11,6 @@ interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveQuestions(q: List<Question>)
 
-    @Query("SELECT * FROM question")
-    suspend fun getQuestions(): List<Question>
-
     @Query("SELECT * FROM question WHERE tsLastChange >:tsLastChange")
     suspend fun getQuestions(tsLastChange: Long): List<Question>
 

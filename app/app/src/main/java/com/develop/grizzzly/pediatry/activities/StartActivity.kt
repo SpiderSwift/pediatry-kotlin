@@ -43,6 +43,10 @@ class StartActivity : AppCompatActivity() {
             listInts.add(666)
             listInts.add(999)
 
+            val listCorrectAnswersCombo = mutableListOf<Int>()
+            listInts.add(0)
+            listInts.add(1)
+
             DatabaseAccess.database.questionDao().saveQuestion(
                 Question(
                     id = 0,
@@ -51,7 +55,7 @@ class StartActivity : AppCompatActivity() {
                     answers = listAnswers,
                     text = "Вопрос 1",
                     imageUrl = "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
-                    correctAnswersCombo = 0,
+                    correctAnswersCombo = listCorrectAnswersCombo,
                     hintAnswerCount = 0
                 )
             )
@@ -63,7 +67,7 @@ class StartActivity : AppCompatActivity() {
                     answers = listAnswers,
                     text = "Вопрос 2",
                     imageUrl = "https://edu-pediatrics.com/storage/news/186/360х250Kazan.jpg",
-                    correctAnswersCombo = 3,
+                    correctAnswersCombo = listCorrectAnswersCombo,
                     hintAnswerCount = 0
                 )
             )

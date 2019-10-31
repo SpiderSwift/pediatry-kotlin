@@ -15,7 +15,7 @@ data class Question constructor(
     val imageUrl: String,
     val text: String,
     @TypeConverters(MultiConverter::class) val answers: MutableList<Answer>,
-    @TypeConverters(MultiConverter::class) val correctAnswersCombo: Int, //Todo to list
+    @TypeConverters(MultiConverter::class) val correctAnswersCombo: MutableList<Int>,
     val hintAnswerCount: Int
 ) {
     companion object {
