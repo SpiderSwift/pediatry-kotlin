@@ -81,12 +81,6 @@ interface PediatryApiClient {
     suspend fun getQuestions(
     ): Response<BasicResponse<List<QuestionApi>>>
 
-    @FormUrlEncoded
-    @POST("question")
-    suspend fun getQuestions(
-        @Field("tsLastChange") tsLastChange: Long
-    ): Response<BasicResponse<List<Question>>>
-
     @GET("news/{id}")
     suspend fun getNewsById(
         @Path("id") newsId: Long
