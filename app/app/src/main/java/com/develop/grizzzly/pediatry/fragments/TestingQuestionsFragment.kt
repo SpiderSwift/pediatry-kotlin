@@ -31,7 +31,10 @@ class TestingQuestionsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) { //Todo List<Boolean> | isAnswered
         GlobalScope.launch {
             val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
             withContext(Dispatchers.Main) {
@@ -54,8 +57,8 @@ class TestingQuestionsFragment : Fragment() {
                 val window = activity?.window
                 window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                //window?.statusBarColor =
-                  //  activity?.resources?.getColor(android.R.color.white, null) ?: 0 Todo api<21
+                window?.statusBarColor =
+                    activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnNext.isEnabled = true

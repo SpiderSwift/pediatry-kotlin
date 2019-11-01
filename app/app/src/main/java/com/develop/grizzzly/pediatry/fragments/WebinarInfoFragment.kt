@@ -123,12 +123,14 @@ class WebinarInfoFragment : Fragment() {
                         val window = mainActivity?.window
                         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                      //  mainActivity?.resources?.getColor(R.color.colorAccent, null)?.let { window?.statusBarColor = it } Todo api<21
+                        mainActivity?.resources?.getColor(R.color.colorAccent, null)
+                            ?.let { window?.statusBarColor = it }
                         val web = response.body()!!.response!!
                         viewModel.data.value = web
                         mainContent.visibility = View.VISIBLE
                         load.visibility = View.GONE
-                        tvDate.text = "%s %s".format(viewModel.getTwoTimeDate(), viewModel.getMonth())
+                        tvDate.text =
+                            "%s %s".format(viewModel.getTwoTimeDate(), viewModel.getMonth())
                         registered = web.isRegistered
                         Log.d("TAG", "code ${web.youtubeCode}")
                         if ((web.status != 2L) or (web.status != 3L)) {
