@@ -33,7 +33,7 @@ class TestingQuestionsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         GlobalScope.launch {
-            val listQuestions = DatabaseAccess.database.questionDao().getQuestions(0)
+            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)

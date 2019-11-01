@@ -11,12 +11,12 @@ interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveQuestions(q: List<Question>)
 
-    @Query("SELECT * FROM question WHERE tsLastChange >:tsLastChange")
-    suspend fun getQuestions(tsLastChange: Long): List<Question>
+    @Query("SELECT * FROM question")
+    suspend fun getQuestionsAll(): List<Question>
 
-    @Query("SELECT *, MAX(tsLastChange) as tsLastChange FROM question")
-    suspend fun getQuestionsTime(): List<Question>
+    @Query("SELECT * FROM question WHERE tsLastChange = (SELECT MAX(tsLastChange) FROM question)")
+    suspend fun getQuestion(): Question
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) //Todo delete
     suspend fun saveQuestion(q: Question)
 }

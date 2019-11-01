@@ -37,7 +37,6 @@ class StartActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             try {
                 val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
                 if (adsUrlResult.isSuccessful) {
