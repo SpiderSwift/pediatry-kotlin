@@ -123,9 +123,7 @@ class WebinarInfoFragment : Fragment() {
                         val window = mainActivity?.window
                         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                        mainActivity?.resources?.getColor(R.color.colorAccent, null)?.let {
-                            window?.statusBarColor = it
-                        }
+                      //  mainActivity?.resources?.getColor(R.color.colorAccent, null)?.let { window?.statusBarColor = it } Todo api<21
                         val web = response.body()!!.response!!
                         viewModel.data.value = web
                         mainContent.visibility = View.VISIBLE

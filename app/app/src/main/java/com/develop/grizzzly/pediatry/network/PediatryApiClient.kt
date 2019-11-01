@@ -79,7 +79,7 @@ interface PediatryApiClient {
 
     @GET("question")
     suspend fun getQuestions(
-    ): Response<BasicResponse<List<Question>>>
+    ): Response<BasicResponse<List<QuestionApi>>>
 
     @FormUrlEncoded
     @POST("question")

@@ -18,7 +18,7 @@ object WebAccess {
 
     // TODO: use https://dev.edu-pediatrics.com/ for debug?
     private val pediatryApiUrl = if (BuildConfig.DEBUG) {
-        "https://edu-pediatrics.com/api/v1/"
+        "https://dev.edu-pediatrics.com/api/v1/"
     } else {
         "https://edu-pediatrics.com/api/v1/"
     }

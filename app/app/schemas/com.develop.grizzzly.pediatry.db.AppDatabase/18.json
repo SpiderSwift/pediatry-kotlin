@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 18,
-    "identityHash": "b78934119f2c4ca60cb064dc5f5b92f2",
+    "identityHash": "461717aaa47cb5991ae0a664d8f2273b",
     "entities": [
       {
         "tableName": "User",
@@ -470,12 +470,12 @@
       },
       {
         "tableName": "Question",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `tsLastChange` INTEGER NOT NULL, `tags` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `text` TEXT NOT NULL, `answers` TEXT NOT NULL, `correctAnswersCombo` TEXT NOT NULL, `hintAnswerCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `tsLastChange` INTEGER NOT NULL, `tags` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `text` TEXT NOT NULL, `answers` TEXT NOT NULL, `correctAnswersCombo` TEXT NOT NULL, `hintAnswerCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -534,7 +534,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b78934119f2c4ca60cb064dc5f5b92f2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '461717aaa47cb5991ae0a664d8f2273b')"
     ]
   }
 }

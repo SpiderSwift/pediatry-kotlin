@@ -9,8 +9,6 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.Answer
-import com.develop.grizzzly.pediatry.network.model.Question
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -32,12 +30,10 @@ class StartActivity : AppCompatActivity() {
         )
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
-
-            testAddData()  // TODO: delete
-
             try {
                 val questionsResult = WebAccess.pediatryApi.getQuestions()
-                Log.w(TAG, "questionsResult ${if (questionsResult.isSuccessful) "success" else "fail"}")
+                DatabaseAccess.database.questionDao()
+                    .saveQuestions(questionsResult.body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -48,7 +44,7 @@ class StartActivity : AppCompatActivity() {
                     WebAccess.adsUrl = adsUrlResult.body()?.response?.url.toString()
                     WebAccess.adsApiUrl = "${WebAccess.adsUrl}${WebAccess.adsApiEndpoint}"
                     val adsResult = WebAccess.adsApi.getAds()
-                    if  (adsResult.isSuccessful) {
+                    if (adsResult.isSuccessful) {
                         val ads = adsResult.body()?.ads ?: listOf()
                         ads.forEach { it.image_url = "${WebAccess.adsUrl}${it.image_url}" }
                         DatabaseAccess.database.adDao().saveAds(ads)
@@ -81,47 +77,6 @@ class StartActivity : AppCompatActivity() {
             nav_host_fragment.findNavController()
                 .navigateNoExcept(R.id.action_start_to_login)
         }
-    }
-
-    private suspend fun testAddData() {
-        val listAnswers = mutableListOf<Answer>()
-        listAnswers.add(Answer(0, "1"))
-        listAnswers.add(Answer(1, "2"))
-        listAnswers.add(Answer(2, "3"))
-        listAnswers.add(Answer(3, "4"))
-
-        val listInts = mutableListOf<Int>()
-        listInts.add(666)
-        listInts.add(999)
-
-        val listCorrectAnswersCombo = mutableListOf<Int>()
-        listCorrectAnswersCombo.add(0)
-        listCorrectAnswersCombo.add(1)
-
-        DatabaseAccess.database.questionDao().saveQuestion(
-            Question(
-                id = 0,
-                tsLastChange = 5,
-                tags = listInts,
-                answers = listAnswers,
-                text = "Вопрос 1",
-                imageUrl = "https://edu-pediatrics.com/storage/news/188/Nestle_Ukraintsev3_360x250px.jpg",
-                correctAnswersCombo = listCorrectAnswersCombo,
-                hintAnswerCount = 0
-            )
-        )
-        DatabaseAccess.database.questionDao().saveQuestion(
-            Question(
-                id = 1,
-                tsLastChange = 5,
-                tags = listInts,
-                answers = listAnswers,
-                text = "Вопрос 2",
-                imageUrl = "https://edu-pediatrics.com/storage/news/186/360х250Kazan.jpg",
-                correctAnswersCombo = listCorrectAnswersCombo,
-                hintAnswerCount = 0
-            )
-        )
     }
 
     override fun onStart() {
