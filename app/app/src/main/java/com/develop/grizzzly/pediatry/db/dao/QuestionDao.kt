@@ -14,7 +14,7 @@ interface QuestionDao {
     @Query("SELECT * FROM question")
     suspend fun getQuestionsAll(): List<Question>
 
-    @Query("SELECT * FROM question WHERE tsLastChange = (SELECT MAX(tsLastChange) FROM question)")
+    @Query("SELECT *, MAX(tsLastChange) as tsLastChange FROM question")
     suspend fun getQuestion(): Question
 
     @Insert(onConflict = OnConflictStrategy.REPLACE) //Todo delete

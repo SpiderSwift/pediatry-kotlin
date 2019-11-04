@@ -165,7 +165,7 @@ class TestingQuestionsFragment : Fragment() {
         radioGroup: RadioGroup
     ) {
         Picasso.get()
-            .load(list[questionNumber].imageUrl)
+            .load("https://edu-pediatrics.com/storage/news/189/kafedra_360x250px.jpg") //Todo delete and use .load(list[questionNumber].imageUrl)
             .into(imageView)
         textQuestion.text = list[questionNumber].text
         for ((x, btn) in listRadioButton.withIndex()) {
@@ -186,15 +186,13 @@ class TestingQuestionsFragment : Fragment() {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_green_dark,
-                    null
+                    android.R.color.holo_green_dark, null
                 )
             )
         } else {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_red_dark,
-                    null
+                    android.R.color.holo_red_dark, null
                 )
             )
             listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
