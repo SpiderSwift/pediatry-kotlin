@@ -31,8 +31,10 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
+                val tsLastChange = DatabaseAccess.database.questionDao().getQuestion()
+                    .tsLastChange.toString() //Todo получаем метку времени из базы
                 DatabaseAccess.database.questionDao()
-                    .saveQuestions(WebAccess.pediatryApi.getQuestions().body()?.response!!.map { it.convert() })
+                    .saveQuestions(WebAccess.pediatryApi.getQuestions().body()?.response!!.map { it.convert() }) //Todo saving data to local database
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -57,13 +59,13 @@ class StartActivity : AppCompatActivity() {
 
     private suspend fun login() {
         val user = DatabaseAccess.database.userDao().findUser(0)
-        Log.d(TAG, "user: ${user.toString()}")
+        Log.println(Log.ASSERT, "msg: ","user: ${user.toString()}")
         if (user != null) {
             try {
                 val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
                 delay(1500)
                 if (loginResult.isSuccessful)
-                    WebAccess.token(loginResult.body()?.response)
+                WebAccess.token(loginResult.body()?.response)
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
@@ -76,7 +78,6 @@ class StartActivity : AppCompatActivity() {
                 .navigateNoExcept(R.id.action_start_to_login)
         }
     }
-
     override fun onStart() {
         supportActionBar?.hide()
         super.onStart()
