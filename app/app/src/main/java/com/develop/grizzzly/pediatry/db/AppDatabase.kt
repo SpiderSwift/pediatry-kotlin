@@ -16,8 +16,9 @@ import com.develop.grizzzly.pediatry.network.model.*
         Speciality::class,
         Webinar::class,
         Ad::class,
-        Question::class
-    ], version = 18
+        Question::class,
+        Module::class
+    ], version = 19
 )
 @TypeConverters(MultiConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -29,4 +30,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun webinarDao(): WebinarDao
     abstract fun adDao(): AdDao
     abstract fun questionDao(): QuestionDao
+    abstract fun moduleDao(): ModuleDao
 }

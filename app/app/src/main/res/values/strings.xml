@@ -28,6 +28,8 @@
     <string name="edit">Редактировать</string>
     <string name="webinars">Вебинары</string>
     <string name="testings">Тестирование</string>
+    <string name="module">Модуль</string>
+    <string name="modules">Модули</string>
     <string name="conferentions">Конференции</string>
     <string name="conference_program">Программа конференции</string>
     <string name="enter_conference">Подать заявку</string>
