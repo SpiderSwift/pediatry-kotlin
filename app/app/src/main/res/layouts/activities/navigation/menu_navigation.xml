@@ -48,7 +48,7 @@
     <fragment
         android:id="@+id/module"
         android:name="com.develop.grizzzly.pediatry.fragments.ModuleFragment"
-        android:label="@string/testings">
+        android:label="@string/modules">
 <!--        <action-->
 <!--            android:id="@+id/action_testings_to_question"-->
 <!--            app:destination="@id/testings_questions" />-->

@@ -57,8 +57,8 @@ class TestingQuestionsFragment : Fragment() {
                 val window = activity?.window
                 window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                //window?.statusBarColor =
-                 //   activity?.resources?.getColor(android.R.color.white, null) ?: 0 Todo api != 21
+                window?.statusBarColor =
+                    activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnNext.isEnabled = true
@@ -91,7 +91,7 @@ class TestingQuestionsFragment : Fragment() {
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black, null))
+                           btn.setTextColor(resources.getColor(android.R.color.black))
                         }
                     }
                 }
@@ -112,7 +112,7 @@ class TestingQuestionsFragment : Fragment() {
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black, null))
+                            btn.setTextColor(resources.getColor(android.R.color.black))
                         }
                     }
                 }
@@ -134,7 +134,7 @@ class TestingQuestionsFragment : Fragment() {
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
-                                btn.setTextColor(resources.getColor(android.R.color.black, null))
+                                btn.setTextColor(resources.getColor(android.R.color.black))
                             }
                         }
                     } else {
@@ -186,17 +186,17 @@ class TestingQuestionsFragment : Fragment() {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_green_dark, null
+                    android.R.color.holo_green_dark
                 )
             )
         } else {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_red_dark, null
+                    android.R.color.holo_red_dark
                 )
             )
             listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
-                resources.getColor(android.R.color.holo_green_dark, null)
+                resources.getColor(android.R.color.holo_green_dark)
             )
         }
         for (btn in listRadioButton) {

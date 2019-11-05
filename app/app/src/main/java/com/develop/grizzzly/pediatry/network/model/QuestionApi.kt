@@ -18,6 +18,8 @@ data class QuestionApi constructor(
     val hintAnswerCount: Int
 ) {
     fun convert(): Question {
+        for (ans in answers)
+            ans.text = ans.text.trim()
         return Question(
             id,
             tsLastChange.toLong(),
