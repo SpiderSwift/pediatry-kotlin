@@ -77,6 +77,10 @@ interface PediatryApiClient {
         @Query("limit") limit: Long
     ): Response<BasicResponse<List<News>>>
 
+    @GET("question")
+    suspend fun getQuestions(
+    ): Response<BasicResponse<List<QuestionApi>>>
+
     @GET("news/{id}")
     suspend fun getNewsById(
         @Path("id") newsId: Long

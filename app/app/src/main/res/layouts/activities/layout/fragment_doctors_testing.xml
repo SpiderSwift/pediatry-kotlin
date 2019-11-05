@@ -2,13 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="model"
-            type="com.develop.grizzzly.pediatry.viewmodel.practicetest.TestingViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,14 +15,13 @@
             app:layout_constraintGuide_percent="0.65" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/maloy"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -47,16 +39,29 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/gothampro"
             android:lineSpacingExtra="10dp"
-            android:text="@string/practice_test"
+            android:text="@string/practice"
             android:textColor="@color/standard"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gothampro"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/test"
+            android:textColor="@color/standard"
+            android:textSize="28sp"
+            app:layout_constraintHorizontal_bias="0.251"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <Button
             android:id="@+id/btnStartTest"
@@ -68,7 +73,6 @@
             android:layout_marginBottom="40dp"
             android:background="@drawable/btn_selector"
             android:fontFamily="@font/gothampro"
-            android:onClick="@{model::start}"
             android:text="@string/start"
             android:textColor="@android:color/white"
             android:textSize="18sp"

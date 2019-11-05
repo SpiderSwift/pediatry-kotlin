@@ -2,7 +2,10 @@ package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
+import com.develop.grizzzly.pediatry.network.model.Answer
+import com.develop.grizzzly.pediatry.network.model.Question
 import com.develop.grizzzly.pediatry.network.model.UserToken
+import com.google.gson.Gson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
@@ -15,7 +18,7 @@ object WebAccess {
 
     // TODO: use https://dev.edu-pediatrics.com/ for debug?
     private val pediatryApiUrl = if (BuildConfig.DEBUG) {
-        "https://edu-pediatrics.com/api/v1/"
+        "https://dev.edu-pediatrics.com/api/v1/"
     } else {
         "https://edu-pediatrics.com/api/v1/"
     }
