@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.develop.grizzzly.pediatry.db.MultiConverter
 
 @Entity
-data class QuestionApi constructor(
+data class QuestionApi(
     @PrimaryKey
     val id: String,
     val tsLastChange: String,

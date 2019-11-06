@@ -7,7 +7,7 @@ import com.develop.grizzzly.pediatry.db.MultiConverter
 import com.google.gson.reflect.TypeToken
 
 @Entity
-data class Question constructor(
+data class Question(
     @PrimaryKey
     val id: String,
     val tsLastChange: Long,

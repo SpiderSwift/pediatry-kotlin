@@ -11,22 +11,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
-import com.develop.grizzzly.pediatry.adapters.webinar.WebinarAdapter
-import com.develop.grizzzly.pediatry.viewmodel.webinar.WebinarViewModel
+import com.develop.grizzzly.pediatry.adapters.module.ModuleAdabter
+import com.develop.grizzzly.pediatry.viewmodel.module.ModuleViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_webinars.*
+import kotlinx.android.synthetic.main.fragment_module.*
+import kotlinx.android.synthetic.main.fragment_webinars.refreshLayout
 
 class ModuleFragment : Fragment() {
 
-    private lateinit var adapter: WebinarAdapter
-    private lateinit var viewModel: WebinarViewModel
+    private lateinit var adapter: ModuleAdabter
+    private lateinit var viewModel: ModuleViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         activity?.toolbarTitle?.text = getString(R.string.webinars)
-        return inflater.inflate(R.layout.fragment_webinars, container, false)
+        return inflater.inflate(R.layout.fragment_module, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,11 +39,11 @@ class ModuleFragment : Fragment() {
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor =
             activity?.resources?.getColor(android.R.color.white, null) ?: 0
-        viewModel = ViewModelProvider(this).get(WebinarViewModel::class.java)
-        listWebinars.setHasFixedSize(true)
-        adapter = WebinarAdapter()
-        listWebinars.adapter = adapter
-        listWebinars.layoutManager = GridLayoutManager(activity, 2)
+        viewModel = ViewModelProvider(this).get(ModuleViewModel::class.java)
+        listModules.setHasFixedSize(true)
+        adapter = ModuleAdabter()
+        listModules.adapter = adapter
+        listModules.layoutManager = GridLayoutManager(activity, 2)
         viewModel.conferenceLiveData.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             refreshLayout.isRefreshing = false
@@ -51,5 +53,4 @@ class ModuleFragment : Fragment() {
         }
         super.onViewCreated(view, savedInstanceState)
     }
-
 }
