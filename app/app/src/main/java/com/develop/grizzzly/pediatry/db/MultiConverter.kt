@@ -2,7 +2,9 @@ package com.develop.grizzzly.pediatry.db
 
 import androidx.room.TypeConverter
 import com.develop.grizzzly.pediatry.network.model.Answer
+import com.develop.grizzzly.pediatry.network.model.Module
 import com.develop.grizzzly.pediatry.network.model.Question
+import com.develop.grizzzly.pediatry.network.model.Slide
 import com.google.gson.Gson
 import java.util.*
 
@@ -70,6 +72,16 @@ class MultiConverter {
     @TypeConverter
     fun toAnswer(str: String): MutableList<Answer> {
         return Gson().fromJson<MutableList<Answer>>(str, Question.typeAnswers)
+    }
+
+    @TypeConverter
+    fun fromSlide(list: MutableList<Slide>): String {
+        return Gson().toJson(list).toString()
+    }
+
+    @TypeConverter
+    fun toSlider(str: String): MutableList<Slide> {
+        return Gson().fromJson<MutableList<Slide>>(str, Module.typeSlides)
     }
 
     @TypeConverter
