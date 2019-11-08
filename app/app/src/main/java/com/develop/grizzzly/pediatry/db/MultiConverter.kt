@@ -1,12 +1,18 @@
 package com.develop.grizzzly.pediatry.db
 
 import androidx.room.TypeConverter
+import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Answer
-import com.develop.grizzzly.pediatry.network.model.Question
-import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.util.*
 
 class MultiConverter {
+
+    companion object {
+        val typeAnswers = object : TypeToken<MutableList<Answer>>() {}.type!!
+        val typeInts = object : TypeToken<MutableList<Int>>() {}.type!!
+        val typeLongs = object : TypeToken<MutableList<Long>>() {}.type!!
+    }
 
     @TypeConverter
     fun fromDate(date: Date?): Long? {
@@ -19,66 +25,33 @@ class MultiConverter {
     }
 
     @TypeConverter
-    fun fromLikedByUsers(liked: MutableList<Long>): String {
-        return liked.joinToString()
+    fun fromLongs(liked: MutableList<Long>): String {
+        return WebAccess.gson.toJson(liked).toString()
     }
 
     @TypeConverter
-    fun toLikedByUsers(data: String): MutableList<Long> {
-        val list = data.split(", ")
-        val longList = mutableListOf<Long>()
-        list.forEach {
-            if (it.isNotEmpty()) {
-                try {
-                    longList.add(it.toLong())
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-        }
-        return longList
+    fun toLongs(data: String): MutableList<Long> {
+        return WebAccess.gson.fromJson<MutableList<Long>>(data, typeLongs)
     }
 
     @TypeConverter
-    fun fromImageUrl(image_url: MutableList<String>): String {
-        return image_url.joinToString()
+    fun fromAnswers(list: MutableList<Answer>): String {
+        return WebAccess.gson.toJson(list).toString()
     }
 
     @TypeConverter
-    fun toImageUrl(data: String): MutableList<String> {
-        val list = data.split(", ")
-        val strList = mutableListOf<String>()
-        list.forEach {
-            if (it.isNotEmpty()) {
-                try {
-                    strList.add(it)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-        }
-        return strList
-    }
-
-    @TypeConverter
-    fun fromAnswer(list: MutableList<Answer>): String {
-        return Gson().toJson(list).toString()
-    }
-
-    @TypeConverter
-    fun toAnswer(str: String): MutableList<Answer> {
-        return Gson().fromJson<MutableList<Answer>>(str, Question.typeAnswers)
+    fun toAnswers(str: String): MutableList<Answer> {
+        return WebAccess.gson.fromJson<MutableList<Answer>>(str, typeAnswers)
     }
 
     @TypeConverter
     fun fromInts(list: MutableList<Int>): String {
-        return Gson().toJson(list).toString()
+        return WebAccess.gson.toJson(list).toString()
     }
 
     @TypeConverter
     fun toInts(str: String): MutableList<Int> {
-        return Gson().fromJson<MutableList<Int>>(str, Question.typeInts)
+        return WebAccess.gson.fromJson<MutableList<Int>>(str, typeInts)
     }
+
 }
