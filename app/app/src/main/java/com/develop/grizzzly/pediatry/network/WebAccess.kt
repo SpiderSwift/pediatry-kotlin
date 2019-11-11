@@ -25,6 +25,8 @@ object WebAccess {
 
     const val adsApiEndpoint = "/api/"
 
+    val gson = Gson()
+
     var adsUrl: String? = null
     var adsApiUrl: String? = null
 

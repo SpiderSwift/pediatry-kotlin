@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.develop.grizzzly.pediatry.db.MultiConverter
-import com.google.gson.reflect.TypeToken
 
 @Entity
 data class Question(
@@ -17,9 +16,4 @@ data class Question(
     @TypeConverters(MultiConverter::class) val answers: MutableList<Answer>,
     @TypeConverters(MultiConverter::class) val correctAnswersCombo: MutableList<Int>,
     val hintAnswerCount: Int
-) {
-    companion object {
-        val typeAnswers = object : TypeToken<MutableList<Answer>>() {}.type!!
-        val typeInts = object : TypeToken<MutableList<Int>>() {}.type!!
-    }
-}
+)

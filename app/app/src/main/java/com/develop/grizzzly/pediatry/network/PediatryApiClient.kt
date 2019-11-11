@@ -79,6 +79,7 @@ interface PediatryApiClient {
 
     @GET("question")
     suspend fun getQuestions(
+        @Query("fromTs") fromTs: String
     ): Response<BasicResponse<List<QuestionApi>>>
 
     @GET("news/{id}")
