@@ -29,5 +29,4 @@ class ModuleAdabter :
             binding.model = viewModel
         }
     }
-
 }

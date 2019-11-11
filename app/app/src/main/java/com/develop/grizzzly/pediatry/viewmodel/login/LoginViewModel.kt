@@ -1,6 +1,7 @@
 package com.develop.grizzzly.pediatry.viewmodel.login
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,6 +30,7 @@ class LoginViewModel : ViewModel() {
                 val passwordHash = password.value.toString().md5()
                 val loginResult = WebAccess.pediatryApi.login(email.value.toString(), passwordHash)
                 if (loginResult.isSuccessful) {
+                    Log.println(Log.ASSERT, "msg", loginResult.body()?.response.toString())
                     WebAccess.token(loginResult.body()?.response)
                     val user = User(0, email.value, passwordHash)
                     DatabaseAccess.database.userDao().saveUser(user)
@@ -42,7 +44,11 @@ class LoginViewModel : ViewModel() {
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     context.startActivity(intent)
                 } else {
-                    showToast(view.context, R.layout.custom_toast, "Неверный email или пароль ${loginResult.code()}")
+                    showToast(
+                        view.context,
+                        R.layout.custom_toast,
+                        "Неверный email или пароль ${loginResult.code()}"
+                    )
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

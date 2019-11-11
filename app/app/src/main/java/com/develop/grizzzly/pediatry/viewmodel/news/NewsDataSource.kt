@@ -51,6 +51,7 @@ class NewsDataSource : PositionalDataSource<News>() {
         } catch (e: Exception) {
             e.printStackTrace()
             news = database.newsDao().getNews(offset, limit).toMutableList()
+            Log.println(Log.ASSERT, "msg",news.size.toString())
         }
         mixin(ads, news, 4)
         return news
