@@ -12,11 +12,9 @@ data class Module(
     val title: String,
     val directionId: Int,
     val number: Int,
-    val youtubeCode: String,
+    val youtubeCode: String?,
     val clinicalAnalysisDescription: String,
-    val testStatus: Int,
-    @TypeConverters(MultiConverter::class) val slides: MutableList<Slide>,
-    @TypeConverters(MultiConverter::class) val articles: MutableList<Book>
+    val testStatus: Int
 ) {
     companion object {
         val typeSlides = object : TypeToken<MutableList<Slide>>() {}.type!!

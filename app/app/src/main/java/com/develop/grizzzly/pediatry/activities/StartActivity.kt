@@ -9,8 +9,6 @@ import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.Answer
-import com.develop.grizzzly.pediatry.network.model.Question
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -33,11 +31,11 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
-                DatabaseAccess.database.questionDao().saveQuestions(WebAccess.pediatryApi
-                    .getQuestions(DatabaseAccess.database.questionDao().getMaxTsLastChange()
-                        .toString()).body()?.response!!.map { it.convert() })
+                DatabaseAccess.database.questionDao()
+                    .saveQuestions(WebAccess.pediatryApi.getQuestions(DatabaseAccess.database.questionDao().getMaxTsLastChange().toString()).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
+                Log.println(Log.ASSERT, "msg", "Questions error")
             }
             try {
                 val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
@@ -55,12 +53,20 @@ class StartActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
             login() // FIXME: it most be login first
+            try {
+                DatabaseAccess.database.moduleDao()
+                    .saveModules(WebAccess.pediatryApi.getModules(0, 100).body()?.response!!)
+                Log.println(Log.ASSERT, "msg", "Modules size = " + DatabaseAccess.database.moduleDao().getModules().size.toString()
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.println(Log.ASSERT, "msg", "Modules error $e")
+            }
         }
     }
 
     private suspend fun login() {
         val user = DatabaseAccess.database.userDao().findUser(0)
-        Log.println(Log.ASSERT, "msg: ", "user: ${user.toString()}")
         if (user != null) {
             try {
                 val loginResult = WebAccess.pediatryApi.login(user.email, user.password)

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 19,
-    "identityHash": "21f8c8b1fb1c14f5f2ddc98f8e5880c1",
+    "identityHash": "74a047d810df61fba8b2d7022db2e70b",
     "entities": [
       {
         "tableName": "User",
@@ -532,7 +532,7 @@
       },
       {
         "tableName": "Module",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `directionId` INTEGER NOT NULL, `number` INTEGER NOT NULL, `youtubeCode` TEXT NOT NULL, `clinicalAnalysisDescription` TEXT NOT NULL, `testStatus` INTEGER NOT NULL, `slides` TEXT NOT NULL, `articles` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `directionId` INTEGER NOT NULL, `number` INTEGER NOT NULL, `youtubeCode` TEXT, `clinicalAnalysisDescription` TEXT NOT NULL, `testStatus` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -562,7 +562,7 @@
             "fieldPath": "youtubeCode",
             "columnName": "youtubeCode",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "clinicalAnalysisDescription",
@@ -574,18 +574,6 @@
             "fieldPath": "testStatus",
             "columnName": "testStatus",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "slides",
-            "columnName": "slides",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "articles",
-            "columnName": "articles",
-            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -602,7 +590,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '21f8c8b1fb1c14f5f2ddc98f8e5880c1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '74a047d810df61fba8b2d7022db2e70b')"
     ]
   }
 }
