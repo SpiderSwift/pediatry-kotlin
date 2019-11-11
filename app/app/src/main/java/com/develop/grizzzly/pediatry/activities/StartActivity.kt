@@ -31,11 +31,21 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
-                DatabaseAccess.database.questionDao().saveQuestions(WebAccess.pediatryApi
-                    .getQuestions(DatabaseAccess.database.questionDao().getMaxTsLastChange()
-                        .toString()).body()?.response!!.map { it.convert() })
+                if (DatabaseAccess.database.questionDao().getMaxTsLastChange() == null) {
+                    DatabaseAccess.database.questionDao()
+                        .saveQuestions(WebAccess.pediatryApi.getQuestions("0").body()?.response!!.map { it.convert() })
+                } else {
+                    DatabaseAccess.database.questionDao()
+                        .saveQuestions(WebAccess.pediatryApi.getQuestions(DatabaseAccess.database.questionDao().getMaxTsLastChange().toString()).body()?.response!!.map { it.convert() })
+                }
+                Log.println(
+                    Log.ASSERT,
+                    "msg",
+                    DatabaseAccess.database.questionDao().getQuestionsAll().size.toString()
+                )
             } catch (e: Exception) {
                 e.printStackTrace()
+                Log.println(Log.ASSERT, "msg", e.toString())
             }
             try {
                 val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
