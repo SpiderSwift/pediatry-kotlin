@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.viewmodel.news
 
-import android.util.Log
 import androidx.annotation.IntRange
 import androidx.paging.PositionalDataSource
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
@@ -8,8 +7,6 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.News
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.ArrayList
 
 class NewsDataSource : PositionalDataSource<News>() {
 
