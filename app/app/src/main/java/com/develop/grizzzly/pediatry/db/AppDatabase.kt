@@ -18,7 +18,7 @@ import com.develop.grizzzly.pediatry.network.model.*
         Ad::class,
         Question::class,
         Module::class
-    ], version = 22
+    ], version = 1
 )
 @TypeConverters(MultiConverter::class)
 abstract class AppDatabase : RoomDatabase() {

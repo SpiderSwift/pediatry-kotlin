@@ -15,9 +15,4 @@ data class Module(
     val youtubeCode: String?,
     val clinicalAnalysisDescription: String,
     val testStatus: Int
-) {
-    companion object {
-        val typeSlides = object : TypeToken<MutableList<Slide>>() {}.type!!
-        val typeBooks = object : TypeToken<MutableList<Book>>() {}.type!!
-    }
-}
+)

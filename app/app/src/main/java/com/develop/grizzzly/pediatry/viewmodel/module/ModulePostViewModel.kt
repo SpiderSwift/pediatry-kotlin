@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class ModulePostViewModel : ViewModel() { //todo
 
-    var id = 0
+    var id:Long = 0
 
     fun onLike(@Suppress("UNUSED_PARAMETER") v: View) {
         viewModelScope.launch {

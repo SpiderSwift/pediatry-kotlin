@@ -16,6 +16,8 @@ class MultiConverter {
         val typeAnswers = object : TypeToken<MutableList<Answer>>() {}.type!!
         val typeInts = object : TypeToken<MutableList<Int>>() {}.type!!
         val typeLongs = object : TypeToken<MutableList<Long>>() {}.type!!
+        val typeSlides = object : TypeToken<MutableList<Slide>>() {}.type!!
+        val typeBooks = object : TypeToken<MutableList<Book>>() {}.type!!
     }
 
     @TypeConverter
@@ -55,7 +57,7 @@ class MultiConverter {
 
     @TypeConverter
     fun toSlider(str: String): MutableList<Slide> {
-        return Gson().fromJson<MutableList<Slide>>(str, Module.typeSlides)
+        return Gson().fromJson<MutableList<Slide>>(str, typeSlides)
     }
 
     @TypeConverter
@@ -65,7 +67,7 @@ class MultiConverter {
 
     @TypeConverter
     fun toBook(str: String): MutableList<Book> {
-        return Gson().fromJson<MutableList<Book>>(str, Module.typeBooks)
+        return Gson().fromJson<MutableList<Book>>(str, typeBooks)
     }
 
     @TypeConverter

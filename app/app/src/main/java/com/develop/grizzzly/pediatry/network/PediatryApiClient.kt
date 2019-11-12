@@ -171,6 +171,11 @@ interface PediatryApiClient {
         @Query("limit") limit: Long
     ): Response<BasicResponse<List<Module>>>
 
+    @GET("module/{id}")
+    suspend fun getModuleById(
+        @Path("id") moduleId: Long
+    ): Response<BasicResponse<ModulePost>>
+
     @GET("webinar/archive")
     suspend fun getArchiveWebinars(): Response<BasicResponse<List<Webinar>>>
 
