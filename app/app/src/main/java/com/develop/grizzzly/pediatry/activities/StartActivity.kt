@@ -31,8 +31,9 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
-                DatabaseAccess.database.questionDao()
-                    .saveQuestions(WebAccess.pediatryApi.getQuestions(DatabaseAccess.database.questionDao().getMaxTsLastChange().toString()).body()?.response!!.map { it.convert() })
+                DatabaseAccess.database.questionDao().saveQuestions(WebAccess.pediatryApi.getQuestions(
+                        (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0)
+                            .toString()).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.println(Log.ASSERT, "msg", "Questions error")
