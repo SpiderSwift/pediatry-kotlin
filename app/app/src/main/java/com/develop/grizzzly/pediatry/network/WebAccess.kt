@@ -2,8 +2,6 @@ package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.BuildConfig
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
-import com.develop.grizzzly.pediatry.network.model.Answer
-import com.develop.grizzzly.pediatry.network.model.Question
 import com.develop.grizzzly.pediatry.network.model.UserToken
 import com.google.gson.Gson
 import com.squareup.moshi.Moshi
