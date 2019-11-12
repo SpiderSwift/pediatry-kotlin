@@ -49,15 +49,30 @@
         android:id="@+id/module"
         android:name="com.develop.grizzzly.pediatry.fragments.ModuleFragment"
         android:label="@string/modules">
-<!--        <action-->
-<!--            android:id="@+id/action_testings_to_question"-->
-<!--            app:destination="@id/testings_questions" />-->
+        <action
+            android:id="@+id/action_news_to_module_post"
+            app:destination="@id/module_post">
+            <argument
+                android:name="moduleId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/module_post"
+        android:name="com.develop.grizzzly.pediatry.fragments.ModulePostFragment"
+        android:label="@string/testings">
+        <argument
+            android:name="moduleId"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/testings_questions"
         android:name="com.develop.grizzzly.pediatry.fragments.TestingQuestionsFragment"
-        android:label="@string/testings"/>
+        android:label="@string/testings" />
 
     <fragment
         android:id="@+id/webinar_info"

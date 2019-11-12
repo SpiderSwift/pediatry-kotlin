@@ -1,27 +1,20 @@
 package com.develop.grizzzly.pediatry.viewmodel.module
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.develop.grizzzly.pediatry.network.model.Module
-import com.develop.grizzzly.pediatry.network.model.Webinar
-import com.develop.grizzzly.pediatry.util.TimeUtil
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-class ModulePostViewModel : ViewModel() {
+class ModulePostViewModel : ViewModel() { //todo
 
-    val data: MutableLiveData<Module> = MutableLiveData()
+    var id = 0
 
-  //  private fun startTimeMs() : Long = data.value?.startTime?.toLong() ?: 0L
+    fun onLike(@Suppress("UNUSED_PARAMETER") v: View) {
+        viewModelScope.launch {
 
-//    fun getMonth() : String = TimeUtil.printableMonth(startTimeMs())
-//    fun getStartTimeHour(): String = TimeUtil.printableDayTime(startTimeMs())
-//    fun getTwoTimeDate() : String = TimeUtil.printableMonthDay(startTimeMs())
-//
-//    fun getDetailDescription(): String {
-//        val desc = data.value?.description
-//        return if (desc != null && desc.isNotEmpty())
-//            desc.toString()
-//        else
-//            "Описание отсутствует"
-//    }
+        }
+    }
 
+    fun onChoto(view: View) {}
 }

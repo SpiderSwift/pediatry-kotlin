@@ -24,7 +24,7 @@ class ModuleDataSource : PositionalDataSource<Module>() {
                     database.moduleDao().saveModules(modules)
                     callback.onResult(modules, 0)
                 } else {
-                    throw Exception("fail: loadInitial webinars from server, fallback to offline")
+                    throw Exception("fail: loadInitial modules from server, fallback to offline")
                 }
             } catch (e: Exception) {
                 val modules = database.moduleDao().getModules()
@@ -36,13 +36,13 @@ class ModuleDataSource : PositionalDataSource<Module>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Module>) {
         GlobalScope.launch {
             try {
-                val webinarsResult = apiService.getModules(params.startPosition.toLong(), params.loadSize.toLong())
-                if (webinarsResult.isSuccessful) {
-                    val webinars = webinarsResult.body()?.response.orEmpty()
-                    database.moduleDao().saveModules(webinars)
-                    callback.onResult(webinars)
+                val modulesResult = apiService.getModules(params.startPosition.toLong(), params.loadSize.toLong())
+                if (modulesResult.isSuccessful) {
+                    val modules = modulesResult.body()?.response.orEmpty()
+                    database.moduleDao().saveModules(modules)
+                    callback.onResult(modules)
                 } else {
-                    throw Exception("fail: loadRange webinars from server, fallback to offline")
+                    throw Exception("fail: loadRange modules from server, fallback to offline")
                 }
             } catch (e: Exception) {
                 val modules = database.moduleDao().getModules()
@@ -50,5 +50,4 @@ class ModuleDataSource : PositionalDataSource<Module>() {
             }
         }
     }
-
 }

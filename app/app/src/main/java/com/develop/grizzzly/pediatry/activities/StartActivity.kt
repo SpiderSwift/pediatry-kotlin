@@ -36,7 +36,7 @@ class StartActivity : AppCompatActivity() {
                             .toString()).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
-                Log.println(Log.ASSERT, "msg", "Questions error")
+                Log.println(Log.ASSERT, "msg", "Questions error $e")
             }
             try {
                 val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
@@ -54,15 +54,15 @@ class StartActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
             login() // FIXME: it most be login first
-            try {
-                DatabaseAccess.database.moduleDao()
-                    .saveModules(WebAccess.pediatryApi.getModules(0, 100).body()?.response!!)
-                Log.println(Log.ASSERT, "msg", "Modules size = " + DatabaseAccess.database.moduleDao().getModules().size.toString()
-                )
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Log.println(Log.ASSERT, "msg", "Modules error $e")
-            }
+//            try {
+//                DatabaseAccess.database.moduleDao()
+//                    .saveModules(WebAccess.pediatryApi.getModules(0, 100).body()?.response!!)
+//                Log.println(Log.ASSERT, "msg", "Modules size = " + DatabaseAccess.database.moduleDao().getModules().size.toString()
+//                )
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//                Log.println(Log.ASSERT, "msg", "Modules error $e")
+//            }
         }
     }
 
