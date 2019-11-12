@@ -31,21 +31,11 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
-                if (DatabaseAccess.database.questionDao().getMaxTsLastChange() == null) {
-                    DatabaseAccess.database.questionDao()
-                        .saveQuestions(WebAccess.pediatryApi.getQuestions("0").body()?.response!!.map { it.convert() })
-                } else {
-                    DatabaseAccess.database.questionDao()
-                        .saveQuestions(WebAccess.pediatryApi.getQuestions(DatabaseAccess.database.questionDao().getMaxTsLastChange().toString()).body()?.response!!.map { it.convert() })
-                }
-                Log.println(
-                    Log.ASSERT,
-                    "msg",
-                    DatabaseAccess.database.questionDao().getQuestionsAll().size.toString()
-                )
+                DatabaseAccess.database.questionDao().saveQuestions(WebAccess.pediatryApi.getQuestions(
+                        (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0)
+                            .toString()).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
-                Log.println(Log.ASSERT, "msg", e.toString())
             }
             try {
                 val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
@@ -68,7 +58,6 @@ class StartActivity : AppCompatActivity() {
 
     private suspend fun login() {
         val user = DatabaseAccess.database.userDao().findUser(0)
-        Log.println(Log.ASSERT, "msg: ", "user: ${user.toString()}")
         if (user != null) {
             try {
                 val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
