@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.db.dao
 
+import androidx.annotation.Nullable
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,8 +15,9 @@ interface QuestionDao {
     @Query("SELECT * FROM question")
     suspend fun getQuestionsAll(): List<Question>
 
-    @Query("SELECT *, MAX(tsLastChange) as tsLastChange FROM question")
-    suspend fun getQuestion(): Question
+    @Nullable
+    @Query("SELECT MAX(tsLastChange) FROM question")
+    suspend fun getMaxTsLastChange(): Long?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE) //Todo delete
     suspend fun saveQuestion(q: Question)

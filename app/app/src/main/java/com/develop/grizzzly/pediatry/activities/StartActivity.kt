@@ -31,14 +31,9 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
-                val tsLastChange = DatabaseAccess.database.questionDao().getQuestion()
-                    .tsLastChange.toString() //Todo получаем метку времени из базы
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            try {
-                DatabaseAccess.database.questionDao()
-                    .saveQuestions(WebAccess.pediatryApi.getQuestions().body()?.response!!.map { it.convert() }) //Todo saving data to local database
+                DatabaseAccess.database.questionDao().saveQuestions(WebAccess.pediatryApi.getQuestions(
+                        (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0)
+                            .toString()).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -63,7 +58,6 @@ class StartActivity : AppCompatActivity() {
 
     private suspend fun login() {
         val user = DatabaseAccess.database.userDao().findUser(0)
-        Log.println(Log.ASSERT, "msg: ", "user: ${user.toString()}")
         if (user != null) {
             try {
                 val loginResult = WebAccess.pediatryApi.login(user.email, user.password)
