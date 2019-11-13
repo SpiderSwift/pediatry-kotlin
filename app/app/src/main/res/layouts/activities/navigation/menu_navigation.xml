@@ -67,6 +67,24 @@
             android:name="moduleId"
             android:defaultValue="0"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_module_to_questions"
+            app:destination="@id/module_post_questions">
+            <argument
+                android:name="moduleId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/module_post_questions"
+        android:name="com.develop.grizzzly.pediatry.fragments.ModuleQuestionFragment"
+        android:label="@string/testings">
+        <argument
+            android:name="moduleId"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
     <fragment

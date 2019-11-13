@@ -77,11 +77,6 @@ interface PediatryApiClient {
         @Query("limit") limit: Long
     ): Response<BasicResponse<List<News>>>
 
-    @GET("question")
-    suspend fun getQuestions(
-        @Query("fromTs") fromTs: String
-    ): Response<BasicResponse<List<QuestionApi>>>
-
     @GET("news/{id}")
     suspend fun getNewsById(
         @Path("id") newsId: Long
@@ -96,6 +91,9 @@ interface PediatryApiClient {
     suspend fun unlikeNews(
         @Path("id") newsId: Long?
     ): Response<ResponseBody>
+
+    @GET("ads-url")
+    suspend fun getAdsUrl(): Response<BasicResponse<AdUrl>>
 
     @GET("specialty/main")
     suspend fun getMainSpecs(): Response<BasicResponse<List<Speciality>>>
@@ -165,17 +163,6 @@ interface PediatryApiClient {
         @Query("limit") limit: Long
     ): Response<BasicResponse<List<Webinar>>>
 
-    @GET("module")
-    suspend fun getModules(
-        @Query("offset") offset: Long,
-        @Query("limit") limit: Long
-    ): Response<BasicResponse<List<Module>>>
-
-    @GET("module/{id}")
-    suspend fun getModuleById(
-        @Path("id") moduleId: Long
-    ): Response<BasicResponse<ModulePost>>
-
     @GET("webinar/archive")
     suspend fun getArchiveWebinars(): Response<BasicResponse<List<Webinar>>>
 
@@ -206,6 +193,24 @@ interface PediatryApiClient {
         @Field("message") message: String
     ): Response<ResponseBody>
 
-    @GET("ads-url")
-    suspend fun getAdsUrl(): Response<BasicResponse<AdUrl>>
+    @GET("question")
+    suspend fun getQuestions(
+        @Query("fromTs") fromTs: String
+    ): Response<BasicResponse<List<QuestionApi>>>
+
+    @GET("module")
+    suspend fun getModules(
+        @Query("offset") offset: Long,
+        @Query("limit") limit: Long
+    ): Response<BasicResponse<List<Module>>>
+
+    @GET("module/{id}")
+    suspend fun getModuleById(
+        @Path("id") moduleId: Long
+    ): Response<BasicResponse<ModulePost>>
+
+    @GET("module/{id}/question")
+    suspend fun getModulesQuestion(
+        @Query("id") id: Long
+    ): Response<BasicResponse<List<QuestionApi>>>
 }
