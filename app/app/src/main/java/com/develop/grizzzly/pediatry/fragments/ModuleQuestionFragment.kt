@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
+import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Question
 import com.squareup.picasso.Picasso
@@ -39,8 +40,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         savedInstanceState: Bundle?
     ) { //Todo List<Boolean> | isAnswered
         GlobalScope.launch {
-            val listQuestions =
-                WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toLong()).body()!!.response!!.map { it.convert() }
+            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsFromModule(args.moduleId.toLong())
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
@@ -178,7 +178,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         radioGroup.clearCheck()
         btnNext.isEnabled = false
         questionNumberTextView.text =
-            (questionNumber + 1).toString() + " " + resources.getString(R.string.one_to_fifteen)
+            (questionNumber + 1).toString() + " " + resources.getString(R.string.one_to_ten)
     }
 
     private fun setButtonColor(

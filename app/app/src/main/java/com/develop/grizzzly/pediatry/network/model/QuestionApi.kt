@@ -9,7 +9,6 @@ data class QuestionApi(
     val id: String,
     val tsLastChange: String,
     val tags: MutableList<Int>,
-    val imageUrl: String,
     val text: String,
     val answers: MutableList<Answer>,
     val correctAnswersCombo: MutableList<Int>,
@@ -22,8 +21,7 @@ data class QuestionApi(
             id,
             tsLastChange.toLong(),
             tags,
-            imageUrl,
-            text,
+            text.trim(),
             answers,
             correctAnswersCombo,
             hintAnswerCount

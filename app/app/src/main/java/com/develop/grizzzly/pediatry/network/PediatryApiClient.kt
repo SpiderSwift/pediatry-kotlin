@@ -195,8 +195,9 @@ interface PediatryApiClient {
 
     @GET("question")
     suspend fun getQuestions(
-        @Query("fromTs") fromTs: String
+        @Query("fromTs") fromTs: String?
     ): Response<BasicResponse<List<QuestionApi>>>
+
 
     @GET("module")
     suspend fun getModules(
@@ -209,8 +210,8 @@ interface PediatryApiClient {
         @Path("id") moduleId: Long
     ): Response<BasicResponse<ModulePost>>
 
-    @GET("module/{id}/question")
-    suspend fun getModulesQuestion(
-        @Query("id") id: Long
-    ): Response<BasicResponse<List<QuestionApi>>>
+//    @GET("module/{id}/question")
+//    suspend fun getModulesQuestion(
+//        @Query("id") id: Long
+//    ): Response<BasicResponse<List<QuestionApi>>>
 }

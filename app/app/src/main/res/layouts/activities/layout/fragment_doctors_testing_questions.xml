@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.48" />
+            app:layout_constraintGuide_percent="0.35" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/nextView"
@@ -56,32 +56,32 @@
                 tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/one_to_ten">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:cardCornerRadius="10dp"-->
+<!--            app:cardElevation="0dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/guideline"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/one_to_infinity">-->
 
-            <ImageView
-                android:id="@+id/testing_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@android:color/white"
-                tools:ignore="ContentDescription"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="152dp" />
+<!--            <ImageView-->
+<!--                android:id="@+id/testing_image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="fitXY"-->
+<!--                android:src="@android:color/white"-->
+<!--                tools:ignore="ContentDescription"-->
+<!--                tools:layout_editor_absoluteX="1dp"-->
+<!--                tools:layout_editor_absoluteY="152dp" />-->
 
-        </androidx.cardview.widget.CardView>
+<!--        </androidx.cardview.widget.CardView>-->
 
         <TextView
             android:id="@+id/text_question"
@@ -119,7 +119,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/btnAnswer"
@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="fill"
                     android:textColor="@android:color/black"
                     android:textSize="13sp"
@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="fill"
                     android:textColor="@android:color/black"
                     android:textSize="13sp"
@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="fill"
                     android:textColor="@android:color/black"
                     android:textSize="13sp"
@@ -171,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="fill"
                     android:textColor="@android:color/black"
                     android:textSize="13sp"
@@ -192,7 +192,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/one_to_ten"
+            android:id="@+id/one_to_infinity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_btn"
     app:startDestination="@id/menu">
 
@@ -48,6 +49,7 @@
     <fragment
         android:id="@+id/module"
         android:name="com.develop.grizzzly.pediatry.fragments.ModuleFragment"
+        tools:layout="@layout/fragment_module"
         android:label="@string/modules">
         <action
             android:id="@+id/action_news_to_module_post"
@@ -62,7 +64,8 @@
     <fragment
         android:id="@+id/module_post"
         android:name="com.develop.grizzzly.pediatry.fragments.ModulePostFragment"
-        android:label="@string/testings">
+        tools:layout="@layout/fragment_module_post"
+        android:label="@string/module">
         <argument
             android:name="moduleId"
             android:defaultValue="0"
@@ -75,11 +78,15 @@
                 android:defaultValue="0"
                 app:argType="integer" />
         </action>
+        <action
+            android:id="@+id/action_module_post_to_module_post_questions"
+            app:destination="@id/module_post_questions" />
     </fragment>
 
     <fragment
         android:id="@+id/module_post_questions"
         android:name="com.develop.grizzzly.pediatry.fragments.ModuleQuestionFragment"
+        tools:layout="@layout/fragment_module_question"
         android:label="@string/testings">
         <argument
             android:name="moduleId"

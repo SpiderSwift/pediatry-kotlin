@@ -39,11 +39,11 @@ class TestingQuestionsFragment : Fragment() {
             val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
-                val imageView = view.findViewById<ImageView>(R.id.testing_image)
+              //  val imageView = view.findViewById<ImageView>(R.id.testing_image)
                 val mainActivity = activity as? MainActivity
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
                 val btnNext = view.findViewById<Button>(R.id.btnAnswer)
-                val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
+                val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_infinity)
                 val textQuestion = view.findViewById<TextView>(R.id.text_question)
                 var isAnswer = false
                 val listRadioButton = mutableListOf<RadioButton>(
@@ -67,7 +67,6 @@ class TestingQuestionsFragment : Fragment() {
                 editView(
                     listQuestions,
                     questionNumber,
-                    imageView,
                     textQuestion,
                     questionNumberTextView,
                     listRadioButton,
@@ -82,7 +81,6 @@ class TestingQuestionsFragment : Fragment() {
                         editView(
                             listQuestions,
                             questionNumber,
-                            imageView,
                             textQuestion,
                             questionNumberTextView,
                             listRadioButton,
@@ -103,7 +101,6 @@ class TestingQuestionsFragment : Fragment() {
                         editView(
                             listQuestions,
                             questionNumber,
-                            imageView,
                             textQuestion,
                             questionNumberTextView,
                             listRadioButton,
@@ -125,7 +122,6 @@ class TestingQuestionsFragment : Fragment() {
                             editView(
                                 listQuestions,
                                 questionNumber,
-                                imageView,
                                 textQuestion,
                                 questionNumberTextView,
                                 listRadioButton,
@@ -157,16 +153,16 @@ class TestingQuestionsFragment : Fragment() {
     private fun editView(
         list: List<Question>,
         questionNumber: Int,
-        imageView: ImageView,
+        //imageView: ImageView,
         textQuestion: TextView,
         questionNumberTextView: TextView,
         listRadioButton: List<RadioButton>,
         btnNext: Button,
         radioGroup: RadioGroup
     ) {
-        Picasso.get()
-            .load("https://edu-pediatrics.com/storage/news/189/kafedra_360x250px.jpg") //Todo delete and use .load(list[questionNumber].imageUrl)
-            .into(imageView)
+//        Picasso.get()
+//            .load("https://edu-pediatrics.com/storage/news/189/kafedra_360x250px.jpg") //Todo delete and use .load(list[questionNumber].imageUrl)
+//            .into(imageView)
         textQuestion.text = list[questionNumber].text
         for ((x, btn) in listRadioButton.withIndex()) {
             btn.text = list[questionNumber].answers[x].text
