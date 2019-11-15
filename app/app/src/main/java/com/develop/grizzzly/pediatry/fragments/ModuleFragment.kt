@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
-import com.develop.grizzzly.pediatry.adapters.module.ModuleAdabter
+import com.develop.grizzzly.pediatry.adapters.module.ModuleAdapter
 import com.develop.grizzzly.pediatry.viewmodel.module.ModuleViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_module.*
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_webinars.refreshLayout
 
 class ModuleFragment : Fragment() {
 
-    private lateinit var adapter: ModuleAdabter
+    private lateinit var adapter: ModuleAdapter
     private lateinit var viewModel: ModuleViewModel
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class ModuleFragment : Fragment() {
 //            activity?.resources?.getColor(android.R.color.white, null) ?: 0 TODO api < 23
         viewModel = ViewModelProvider(this).get(ModuleViewModel::class.java)
         listModules.setHasFixedSize(true)
-        adapter = ModuleAdabter()
+        adapter = ModuleAdapter()
         listModules.adapter = adapter
         listModules.layoutManager = GridLayoutManager(activity, 2)
         viewModel.conferenceLiveData.observe(viewLifecycleOwner, Observer {
