@@ -8,8 +8,8 @@ import com.develop.grizzzly.pediatry.databinding.ModuleItemBinding
 import com.develop.grizzzly.pediatry.network.model.Module
 import com.develop.grizzzly.pediatry.viewmodel.module.ModuleItemViewModel
 
-class ModuleAdabter :
-    PagedListAdapter<Module, ModuleAdabter.ModuleViewHolder>(ModuleDiffUtilCallBack()) {
+class ModuleAdapter :
+    PagedListAdapter<Module, ModuleAdapter.ModuleViewHolder>(ModuleDiffUtilCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ModuleItemBinding.inflate(inflater, parent, false)

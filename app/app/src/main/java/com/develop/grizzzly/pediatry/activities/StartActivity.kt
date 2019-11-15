@@ -33,8 +33,8 @@ class StartActivity : AppCompatActivity() {
             try {
                 DatabaseAccess.database.questionDao()
                     .saveQuestions(WebAccess.pediatryApi.getQuestions(
-                        (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0)
-                            .toString()
+                       // (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0).toString() todo будет работать когда починят сервер
+                    null
                     ).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -56,7 +56,7 @@ class StartActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
             login() // FIXME: it most be login first
-//            try {
+//            try { todo: if need save modules to database
 //                DatabaseAccess.database.moduleDao()
 //                    .saveModules(WebAccess.pediatryApi.getModules(0, 100).body()?.response!!)
 //                Log.println(Log.ASSERT, "msg", "Modules size = " + DatabaseAccess.database.moduleDao().getModules().size.toString()

@@ -210,8 +210,8 @@ interface PediatryApiClient {
         @Path("id") moduleId: Long
     ): Response<BasicResponse<ModulePost>>
 
-//    @GET("module/{id}/question")
-//    suspend fun getModulesQuestion(
-//        @Query("id") id: Long
-//    ): Response<BasicResponse<List<QuestionApi>>>
+    @GET("module/{id}/question")
+    suspend fun getModulesQuestion(
+        @Path("id") id: String
+    ): Response<BasicResponse<List<String>>>
 }

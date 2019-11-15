@@ -16,7 +16,7 @@ interface QuestionDao {
     suspend fun getQuestionsAll(): List<Question>
 
     @Query("SELECT * FROM question WHERE id = :id")
-    suspend fun getQuestionsFromModule(id : Long): List<Question>
+    suspend fun getQuestionsFromModule(id : String): Question
 
     @Nullable
     @Query("SELECT MAX(tsLastChange) FROM question")

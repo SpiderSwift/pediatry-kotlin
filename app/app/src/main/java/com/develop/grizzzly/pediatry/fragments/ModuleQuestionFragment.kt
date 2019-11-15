@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
+import com.develop.grizzzly.pediatry.adapters.module.ResultModuleAdapter
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Question
@@ -40,7 +43,16 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         savedInstanceState: Bundle?
     ) { //Todo List<Boolean> | isAnswered
         GlobalScope.launch {
-            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsFromModule(args.moduleId.toLong())
+            val listQuestions = mutableListOf<Question>()
+            WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!.forEach {
+                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it))
+            }
+            Log.println(Log.ASSERT, "msg", listQuestions.size.toString())
+            // 0 - no answer
+            // 1 - true
+            // -1 - false
+            val listResult = view.findViewById<RecyclerView>(R.id.listResults)
+            val listCorrectAnswers = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
@@ -67,7 +79,6 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnNext.isEnabled = true
                 }
-                Log.println(Log.ASSERT, "msg: ", listQuestions.size.toString())
                 editView(
                     listQuestions,
                     questionNumber,
@@ -144,12 +155,20 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                     } else {
                         isAnswer = true
                         btnNext.text = getString(R.string.next)
-                        setButtonColor(
+                        setAnswer(
                             listQuestions,
                             listRadioButton,
                             questionNumber,
-                            radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId))
+                            radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId)),
+                            listCorrectAnswers
                         )
+                        if (!listCorrectAnswers.contains(0)) {
+                            listResult.adapter = ResultModuleAdapter(listCorrectAnswers, context!!)
+                            view.findViewById<ConstraintLayout>(R.id.moduleQuestionConstraintLayout)
+                                .visibility = View.GONE
+                            view.findViewById<ConstraintLayout>(R.id.moduleQuestionResult)
+                                .visibility = View.VISIBLE
+                        }
                     }
                 }
                 super.onViewCreated(view, savedInstanceState)
@@ -181,19 +200,22 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
             (questionNumber + 1).toString() + " " + resources.getString(R.string.one_to_ten)
     }
 
-    private fun setButtonColor(
+    private fun setAnswer(
         listQuestions: List<Question>,
         listRadioButton: MutableList<RadioButton>,
         questionNumber: Int,
-        selectedNumber: Int
+        selectedNumber: Int,
+        listCorrectAnswers: MutableList<Int>
     ) {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
+            listCorrectAnswers[questionNumber] = 1
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
                     android.R.color.holo_green_dark
                 )
             )
         } else {
+            listCorrectAnswers[questionNumber] = -1
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
                     android.R.color.holo_red_dark
