@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
@@ -28,31 +28,36 @@ import kotlinx.coroutines.withContext
 class ModuleQuestionFragment : Fragment() { //todo сократить
 
     private val args: ModuleQuestionFragmentArgs by navArgs()
+    private lateinit var listResult: RecyclerView
+    private lateinit var adapter: ResultModuleAdapter
+    private val listCorrectAnswers = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)   // 0 - no answer   // 1 - true   // -1 - false
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_module_question, container, false)
+        val view = inflater.inflate(R.layout.fragment_module_question, container, false)
+        listResult = view.findViewById(R.id.listResults)
+        listResult.setHasFixedSize(true)
+        listResult.layoutManager = object : LinearLayoutManager(activity) {
+            override fun isAutoMeasureEnabled(): Boolean = false
+        }
+        adapter = ResultModuleAdapter(listCorrectAnswers, view.context)
+        listResult.adapter = adapter
+        return view
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
-    ) { //Todo List<Boolean> | isAnswered
+    ) {
         GlobalScope.launch {
             val listQuestions = mutableListOf<Question>()
             WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!.forEach {
-                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it))
+                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it)) //todo сделать 1 запрос
             }
-            Log.println(Log.ASSERT, "msg", listQuestions.size.toString())
-            // 0 - no answer
-            // 1 - true
-            // -1 - false
-            val listResult = view.findViewById<RecyclerView>(R.id.listResults)
-            val listCorrectAnswers = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
@@ -106,7 +111,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black))
+                            btn.setTextColor(resources.getColor(android.R.color.black, null))
                         }
                     }
                 }
@@ -127,7 +132,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black))
+                            btn.setTextColor(resources.getColor(android.R.color.black, null))
                         }
                     }
                 }
@@ -149,7 +154,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
-                                btn.setTextColor(resources.getColor(android.R.color.black))
+                                btn.setTextColor(resources.getColor(android.R.color.black, null))
                             }
                         }
                     } else {
@@ -163,11 +168,11 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                             listCorrectAnswers
                         )
                         if (!listCorrectAnswers.contains(0)) {
-                            listResult.adapter = ResultModuleAdapter(listCorrectAnswers, context!!)
                             view.findViewById<ConstraintLayout>(R.id.moduleQuestionConstraintLayout)
                                 .visibility = View.GONE
                             view.findViewById<ConstraintLayout>(R.id.moduleQuestionResult)
                                 .visibility = View.VISIBLE
+                            adapter.notifyDataSetChanged()
                         }
                     }
                 }
@@ -211,18 +216,18 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
             listCorrectAnswers[questionNumber] = 1
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_green_dark
+                    android.R.color.holo_green_dark, null
                 )
             )
         } else {
             listCorrectAnswers[questionNumber] = -1
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_red_dark
+                    android.R.color.holo_red_dark, null
                 )
             )
             listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
-                resources.getColor(android.R.color.holo_green_dark)
+                resources.getColor(android.R.color.holo_green_dark, null)
             )
         }
         for (btn in listRadioButton) {

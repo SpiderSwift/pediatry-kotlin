@@ -22,5 +22,5 @@ class ModulePostViewModel : ViewModel() { //todo
         Navigation.findNavController(view).navigateNoExcept(bib)
     }
 
-    fun onBook(view: View) {}
+   // fun onBook(view: View) {}
 }

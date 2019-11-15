@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.*
+import android.widget.Button
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.model.Question
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,7 +41,7 @@ class TestingQuestionsFragment : Fragment() {
             val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
-              //  val imageView = view.findViewById<ImageView>(R.id.testing_image)
+                //  val imageView = view.findViewById<ImageView>(R.id.testing_image)
                 val mainActivity = activity as? MainActivity
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
                 val btnNext = view.findViewById<Button>(R.id.btnAnswer)
@@ -89,7 +91,7 @@ class TestingQuestionsFragment : Fragment() {
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                           btn.setTextColor(resources.getColor(android.R.color.black))
+                            btn.setTextColor(resources.getColor(android.R.color.black, null))
                         }
                     }
                 }
@@ -109,7 +111,7 @@ class TestingQuestionsFragment : Fragment() {
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black))
+                            btn.setTextColor(resources.getColor(android.R.color.black, null))
                         }
                     }
                 }
@@ -130,7 +132,7 @@ class TestingQuestionsFragment : Fragment() {
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
-                                btn.setTextColor(resources.getColor(android.R.color.black))
+                                btn.setTextColor(resources.getColor(android.R.color.black, null))
                             }
                         }
                     } else {
@@ -182,17 +184,17 @@ class TestingQuestionsFragment : Fragment() {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_green_dark
+                    android.R.color.holo_green_dark, null
                 )
             )
         } else {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(
-                    android.R.color.holo_red_dark
+                    android.R.color.holo_red_dark, null
                 )
             )
             listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
-                resources.getColor(android.R.color.holo_green_dark)
+                resources.getColor(android.R.color.holo_green_dark, null)
             )
         }
         for (btn in listRadioButton) {
