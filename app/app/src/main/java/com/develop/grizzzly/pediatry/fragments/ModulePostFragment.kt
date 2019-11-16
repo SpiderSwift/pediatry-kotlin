@@ -12,8 +12,11 @@ import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentModulePostBinding
+import com.develop.grizzzly.pediatry.images.ImageAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.ModulePost
 import com.develop.grizzzly.pediatry.viewmodel.module.ModulePostViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -32,7 +35,9 @@ class ModulePostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var activeSlide = 0
         val activity = activity as? MainActivity
+        val picasso = ImageAccess.picasso
         activity?.supportActionBar?.show()
         activity?.toolbarTitle?.text = "Модуль"
         activity?.bottom_nav?.visibility = View.VISIBLE
@@ -48,10 +53,16 @@ class ModulePostFragment : Fragment() {
         binding.lifecycleOwner = this
         GlobalScope.launch {
             val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response
-            withContext(Dispatchers.Main) {
+            withContext(Dispatchers.Main) { //todo book and slides
                 binding.moduleNum.text = "Модуль ${module!!.number}"
                 binding.tvTitle.text = module.title
-                //todo book and slides
+                picasso.load(module.slides[activeSlide].image).into(binding.moduleImage)
+                loadImages(module, picasso, activeSlide)
+                binding.nextView.setOnClickListener {
+                    activeSlide++
+                    picasso.load(module.slides[activeSlide].image).into(binding.moduleImage)
+                    loadImages(module, picasso, activeSlide)
+                }
             }
         }
         return binding.root
@@ -62,5 +73,12 @@ class ModulePostFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-
+    private fun loadImages(modulePost: ModulePost, picasso: Picasso, activeSlide: Int) {
+        var num: Int =
+            activeSlide + if ((activeSlide + 2) > modulePost.slides.size) if ((activeSlide + 1) > modulePost.slides.size) return else 1 else 2
+        while (num != activeSlide) {
+            num--
+            picasso.load(modulePost.slides[num].image)
+        }
+    }
 }

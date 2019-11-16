@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <data>
@@ -20,6 +21,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/border"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -33,35 +35,75 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:id="@+id/cardView"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="200dp"-->
-                <!--                    app:cardCornerRadius="10dp"-->
-                <!--                    app:cardElevation="0dp"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent">-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="10dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toStartOf="@+id/nextView"
+                    app:layout_constraintStart_toEndOf="@+id/backView"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-                <!--                    <ImageView-->
-                <!--                        android:id="@+id/module_image"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:scaleType="fitXY" />-->
+                    <ImageView
+                        android:id="@+id/moduleImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        tools:ignore="ContentDescription" />
 
-                <!--                </androidx.cardview.widget.CardView>-->
+                </androidx.cardview.widget.CardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/nextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="85dp"
+                    app:layout_constraintEnd_toEndOf="@id/border"
+                    app:layout_constraintTop_toTopOf="@+id/cardView">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_fatty_arrow_right"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/backView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="85dp"
+                    app:layout_constraintStart_toStartOf="@id/border"
+                    app:layout_constraintTop_toTopOf="@+id/cardView">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_fatty_arrow_left"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/moduleNum"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/gothampromedium"
                     android:lineSpacingExtra="10dp"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
-                    android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,18 +130,18 @@
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="48dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/accent_btn_drawable"
                     android:fontFamily="@font/gothampro"
-                    android:text="Тест"
                     android:onClick="@{model::onTest}"
+                    android:text="Тест"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

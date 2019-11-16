@@ -61,6 +61,10 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it)) //todo сделать в 1 запрос
             }
             withContext(Dispatchers.Main) {
+                if (listQuestions.size != 10) {
+                    Toast.makeText(context!!, "Произошла ошибка!", Toast.LENGTH_LONG).show() //todo delete
+                    return@withContext
+                }
                 var questionNumber = 0
                 val imageView = view.findViewById<ImageView>(R.id.testing_image)
                 val mainActivity = activity as? MainActivity
@@ -179,8 +183,12 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                                 "Результат: ${Collections.frequency(
                                     listCorrectAnswers,
                                     1
-                                )} из ${listCorrectAnswers.size}\n" + if (Collections.frequency(listCorrectAnswers, 1)>=8) "Зачёт сдан" else "Зачёт не сдан"
-                                    //todo отправить результат на сервер
+                                )} из ${listCorrectAnswers.size}\n" + if (Collections.frequency(
+                                        listCorrectAnswers,
+                                        1
+                                    ) >= 8
+                                ) "Зачёт сдан" else "Зачёт не сдан"
+                            //todo отправить результат на сервер
                         }
                     }
                 }
