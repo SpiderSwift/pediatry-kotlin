@@ -24,13 +24,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class ModuleQuestionFragment : Fragment() { //todo сократить
 
     private val args: ModuleQuestionFragmentArgs by navArgs()
     private lateinit var listResult: RecyclerView
     private lateinit var adapter: ResultModuleAdapter
-    private val listCorrectAnswers = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)   // 0 - no answer   // 1 - true   // -1 - false
+    private val listCorrectAnswers =
+        mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)   // 0 - no answer   // 1 - true   // -1 - false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +58,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         GlobalScope.launch {
             val listQuestions = mutableListOf<Question>()
             WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!.forEach {
-                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it)) //todo сделать 1 запрос
+                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it)) //todo сделать в 1 запрос
             }
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
@@ -173,6 +175,12 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                             view.findViewById<ConstraintLayout>(R.id.moduleQuestionResult)
                                 .visibility = View.VISIBLE
                             adapter.notifyDataSetChanged()
+                            view.findViewById<TextView>(R.id.result).text =
+                                "Результат: ${Collections.frequency(
+                                    listCorrectAnswers,
+                                    1
+                                )} из ${listCorrectAnswers.size}\n" + if (Collections.frequency(listCorrectAnswers, 1)>=8) "Зачёт сдан" else "Зачёт не сдан"
+                                    //todo отправить результат на сервер
                         }
                     }
                 }

@@ -37,8 +37,8 @@ class ModuleFragment : Fragment() {
         val window = activity?.window
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//        window?.statusBarColor =
-//            activity?.resources?.getColor(android.R.color.white, null) ?: 0 TODO api < 23
+        window?.statusBarColor =
+            activity?.resources?.getColor(android.R.color.white, null) ?: 0
         viewModel = ViewModelProvider(this).get(ModuleViewModel::class.java)
         listModules.setHasFixedSize(true)
         adapter = ModuleAdapter()

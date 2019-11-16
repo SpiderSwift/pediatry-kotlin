@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ class ModulePostFragment : Fragment() {
 
     private val args: ModulePostFragmentArgs by navArgs()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,9 +49,9 @@ class ModulePostFragment : Fragment() {
         GlobalScope.launch {
             val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response
             withContext(Dispatchers.Main) {
-                binding.test1.text = module!!.id.toString()
-                binding.test2.text = module.title
-                binding.test3.text = module.number.toString()
+                binding.moduleNum.text = "Модуль ${module!!.number}"
+                binding.tvTitle.text = module.title
+                //todo book and slides
             }
         }
         return binding.root
