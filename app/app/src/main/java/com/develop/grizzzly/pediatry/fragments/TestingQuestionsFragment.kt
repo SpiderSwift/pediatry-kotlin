@@ -39,7 +39,7 @@ class TestingQuestionsFragment : Fragment() {
     ) {
         //Todo List<Boolean> | isAnswered
         GlobalScope.launch {
-            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
+            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll().shuffled()
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 //  val imageView = view.findViewById<ImageView>(R.id.testing_image) //todo если будет картинка
@@ -152,7 +152,7 @@ class TestingQuestionsFragment : Fragment() {
             btn.text = list[questionNumber].answers[radioButton].text
         radioGroup.clearCheck()
         btnNext.isEnabled = false
-        questionNumberTextView.text = "${(questionNumber + 1)} $questionSize"
+        questionNumberTextView.text = "${(questionNumber + 1)} из $questionSize"
     }
 
     private fun setButtonColor(
