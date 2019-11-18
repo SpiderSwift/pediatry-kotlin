@@ -58,18 +58,21 @@ class ModulePostFragment : Fragment() {
                 //todo book and slides
                 binding.moduleNum.text = "Модуль ${module!!.number}"
                 binding.tvTitle.text = module.title
-                picasso.load(module.slides[activeSlide].image).into(binding.moduleImage)
+                picasso.load(module.slides[activeSlide].image).placeholder(R.drawable.loading)
+                    .into(binding.moduleImage)
                 // loadImages(module, picasso, activeSlide)
                 binding.nextView.setOnClickListener {
                     activeSlide++
-                    if (activeSlide > module.slides.size) activeSlide = 0
-                    picasso.load(module.slides[activeSlide].image).fit().into(binding.moduleImage)
+                    if (activeSlide > module.slides.size - 1) activeSlide = 0
+                    picasso.load(module.slides[activeSlide].image).fit()
+                        .placeholder(R.drawable.loading).into(binding.moduleImage)
                     // loadImages(module, picasso, activeSlide)
                 }
                 binding.backView.setOnClickListener {
                     activeSlide--
                     if (activeSlide < 0) activeSlide = module.slides.size - 1
-                    picasso.load(module.slides[activeSlide].image).fit().into(binding.moduleImage)
+                    picasso.load(module.slides[activeSlide].image).fit()
+                        .placeholder(R.drawable.loading).into(binding.moduleImage)
                     //   loadImages(module, picasso, activeSlide)
                 }
             }
