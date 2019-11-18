@@ -35,9 +35,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)   // 0 - no answer   // 1 - true   // -1 - false
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_module_question, container, false)
         listResult = view.findViewById(R.id.listResults)
@@ -52,8 +50,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
+        view: View, savedInstanceState: Bundle?
     ) {
         GlobalScope.launch {
             val listQuestions = mutableListOf<Question>()
@@ -62,7 +59,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
             }
             withContext(Dispatchers.Main) {
                 if (listQuestions.size != 10) {
-                    Toast.makeText(context!!, "Произошла ошибка!", Toast.LENGTH_LONG).show() //todo delete
+                    Toast.makeText(context!!, "Произошла ошибка!", Toast.LENGTH_LONG)
+                        .show() //todo delete
                     return@withContext
                 }
                 var questionNumber = 0
@@ -74,10 +72,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 val textQuestion = view.findViewById<TextView>(R.id.text_question)
                 var isAnswer = false
                 val listRadioButton = mutableListOf<RadioButton>(
-                    view.findViewById(R.id.radioButton1),
-                    view.findViewById(R.id.radioButton2),
-                    view.findViewById(R.id.radioButton3),
-                    view.findViewById(R.id.radioButton4)
+                    view.findViewById(R.id.radioButton1), view.findViewById(R.id.radioButton2),
+                    view.findViewById(R.id.radioButton3), view.findViewById(R.id.radioButton4)
                 )
                 activity?.toolbarTitle?.visibility = View.GONE
                 mainActivity?.supportActionBar?.hide()
@@ -91,14 +87,10 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                     btnNext.isEnabled = true
                 }
                 editView(
-                    listQuestions,
-                    questionNumber,
-                    imageView,
-                    textQuestion,
-                    questionNumberTextView,
-                    listRadioButton,
-                    btnNext,
-                    radioGroup
+                    listQuestions, questionNumber,
+                    imageView, textQuestion,
+                    questionNumberTextView, listRadioButton,
+                    btnNext, radioGroup
                 )
                 (view.findViewById<View>(R.id.nextView)).setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
@@ -106,14 +98,10 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         btnNext.text = getString(R.string.to_answer)
                         questionNumber++
                         editView(
-                            listQuestions,
-                            questionNumber,
-                            imageView,
-                            textQuestion,
-                            questionNumberTextView,
-                            listRadioButton,
-                            btnNext,
-                            radioGroup
+                            listQuestions, questionNumber,
+                            imageView, textQuestion,
+                            questionNumberTextView, listRadioButton,
+                            btnNext, radioGroup
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
@@ -127,14 +115,10 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         btnNext.text = getString(R.string.to_answer)
                         questionNumber--
                         editView(
-                            listQuestions,
-                            questionNumber,
-                            imageView,
-                            textQuestion,
-                            questionNumberTextView,
-                            listRadioButton,
-                            btnNext,
-                            radioGroup
+                            listQuestions, questionNumber,
+                            imageView, textQuestion,
+                            questionNumberTextView, listRadioButton,
+                            btnNext, radioGroup
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
@@ -149,14 +133,10 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                             btnNext.text = getString(R.string.to_answer)
                             questionNumber++
                             editView(
-                                listQuestions,
-                                questionNumber,
-                                imageView,
-                                textQuestion,
-                                questionNumberTextView,
-                                listRadioButton,
-                                btnNext,
-                                radioGroup
+                                listQuestions, questionNumber,
+                                imageView, textQuestion,
+                                questionNumberTextView, listRadioButton,
+                                btnNext, radioGroup
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
@@ -167,9 +147,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         isAnswer = true
                         btnNext.text = getString(R.string.next)
                         setAnswer(
-                            listQuestions,
-                            listRadioButton,
-                            questionNumber,
+                            listQuestions, listRadioButton, questionNumber,
                             radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId)),
                             listCorrectAnswers
                         )
@@ -180,12 +158,9 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                                 .visibility = View.VISIBLE
                             adapter.notifyDataSetChanged()
                             view.findViewById<TextView>(R.id.result).text =
-                                "Результат: ${Collections.frequency(
-                                    listCorrectAnswers,
-                                    1
-                                )} из ${listCorrectAnswers.size}\n" + if (Collections.frequency(
-                                        listCorrectAnswers,
-                                        1
+                                "Результат: ${Collections.frequency(listCorrectAnswers, 1)} из " +
+                                        "${listCorrectAnswers.size}\n" + if (Collections.frequency(
+                                        listCorrectAnswers, 1
                                     ) >= 8
                                 ) "Зачёт сдан" else "Зачёт не сдан"
                             //todo отправить результат на сервер
@@ -199,48 +174,36 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
 
     @SuppressLint("SetTextI18n")
     private fun editView(
-        list: List<Question>,
-        questionNumber: Int,
-        imageView: ImageView,
-        textQuestion: TextView,
-        questionNumberTextView: TextView,
-        listRadioButton: List<RadioButton>,
-        btnNext: Button,
-        radioGroup: RadioGroup
+        list: List<Question>, questionNumber: Int,
+        imageView: ImageView, textQuestion: TextView,
+        questionNumberTextView: TextView, listRadioButton: List<RadioButton>,
+        btnNext: Button, radioGroup: RadioGroup
     ) {
         Picasso.get()
             .load("https://edu-pediatrics.com/storage/news/189/kafedra_360x250px.jpg") //Todo delete and use .load(list[questionNumber].imageUrl)
             .into(imageView)
         textQuestion.text = list[questionNumber].text
-        for ((x, btn) in listRadioButton.withIndex()) {
-            btn.text = list[questionNumber].answers[x].text
-        }
+        for ((x, btn) in listRadioButton.withIndex()) btn.text =
+            list[questionNumber].answers[x].text
         radioGroup.clearCheck()
         btnNext.isEnabled = false
         questionNumberTextView.text =
-            (questionNumber + 1).toString() + " " + resources.getString(R.string.one_to_ten)
+            "${(questionNumber + 1)} " + resources.getString(R.string.one_to_ten)
     }
 
     private fun setAnswer(
-        listQuestions: List<Question>,
-        listRadioButton: MutableList<RadioButton>,
-        questionNumber: Int,
-        selectedNumber: Int,
-        listCorrectAnswers: MutableList<Int>
+        listQuestions: List<Question>, listRadioButton: MutableList<RadioButton>,
+        questionNumber: Int, selectedNumber: Int, listCorrectAnswers: MutableList<Int>
     ) {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
             listCorrectAnswers[questionNumber] = 1
             listRadioButton[selectedNumber].setTextColor(
-                resources.getColor(
-                    android.R.color.holo_green_dark, null
-                )
+                resources.getColor(android.R.color.holo_green_dark, null)
             )
         } else {
             listCorrectAnswers[questionNumber] = -1
             listRadioButton[selectedNumber].setTextColor(
-                resources.getColor(
-                    android.R.color.holo_red_dark, null
-                )
+                resources.getColor(android.R.color.holo_red_dark, null)
             )
             listRadioButton[listQuestions[questionNumber].correctAnswersCombo[0]].setTextColor(
                 resources.getColor(android.R.color.holo_green_dark, null)

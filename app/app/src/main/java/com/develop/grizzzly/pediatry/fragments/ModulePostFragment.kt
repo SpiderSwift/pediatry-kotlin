@@ -52,33 +52,38 @@ class ModulePostFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
         GlobalScope.launch {
-            val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response
-            withContext(Dispatchers.Main) { //todo book and slides
+            val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()
+                ?.response //todo прихотдят пдф файлы
+            withContext(Dispatchers.Main) {
+                //todo book and slides
                 binding.moduleNum.text = "Модуль ${module!!.number}"
                 binding.tvTitle.text = module.title
                 picasso.load(module.slides[activeSlide].image).into(binding.moduleImage)
-                loadImages(module, picasso, activeSlide)
+                // loadImages(module, picasso, activeSlide)
                 binding.nextView.setOnClickListener {
                     activeSlide++
-                    picasso.load(module.slides[activeSlide].image).into(binding.moduleImage)
-                    loadImages(module, picasso, activeSlide)
+                    if (activeSlide > module.slides.size) activeSlide = 0
+                    picasso.load(module.slides[activeSlide].image).fit().into(binding.moduleImage)
+                    // loadImages(module, picasso, activeSlide)
+                }
+                binding.backView.setOnClickListener {
+                    activeSlide--
+                    if (activeSlide < 0) activeSlide = module.slides.size - 1
+                    picasso.load(module.slides[activeSlide].image).fit().into(binding.moduleImage)
+                    //   loadImages(module, picasso, activeSlide)
                 }
             }
         }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //todo
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     private fun loadImages(modulePost: ModulePost, picasso: Picasso, activeSlide: Int) {
-        var num: Int =
-            activeSlide + if ((activeSlide + 2) > modulePost.slides.size) if ((activeSlide + 1) > modulePost.slides.size) return else 1 else 2
-        while (num != activeSlide) {
-            num--
-            picasso.load(modulePost.slides[num].image)
-        }
+//        var num: Int =
+//            activeSlide + if ((activeSlide + 2) > modulePost.slides.size) if ((activeSlide + 1) > modulePost.slides.size) return else 1 else 2
+//        while (num != activeSlide) {
+//            Log.println(Log.ASSERT, "msg",num.toString())
+//            picasso.load(modulePost.slides[num].image)
+//            num--
+//        }
     }
 }

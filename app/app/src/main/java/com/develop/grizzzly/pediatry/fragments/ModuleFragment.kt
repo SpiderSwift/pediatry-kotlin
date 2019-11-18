@@ -23,9 +23,7 @@ class ModuleFragment : Fragment() {
     private lateinit var viewModel: ModuleViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         activity?.toolbarTitle?.text = getString(R.string.modules)
         return inflater.inflate(R.layout.fragment_module, container, false)

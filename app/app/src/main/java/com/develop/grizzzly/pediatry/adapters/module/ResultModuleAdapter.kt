@@ -19,33 +19,19 @@ class ResultModuleAdapter(private val results: MutableList<Int>, val context: Co
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.result_module_item,
-                parent,
-                false
-            )
+            LayoutInflater.from(context).inflate(R.layout.result_module_item, parent, false)
         )
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.numText.text = (position + 1).toString() + ")"
+        holder.numText.text = "${(position + 1)})"
         holder.resultText.text = results[position].toString()
-        if (results[position] == 1) {
-            holder.constraintLayout.setBackgroundColor(
-                context.resources.getColor(
-                    android.R.color.holo_green_light,
-                    null
-                )
-            )
-        } else {
-            holder.constraintLayout.setBackgroundColor(
-                context.resources.getColor(
-                    android.R.color.holo_red_light,
-                    null
-                )
-            )
-        }
+        if (results[position] == 1)
+            holder.constraintLayout.background =
+                context.getDrawable(R.drawable.result_item_green_bg)
+        else
+            holder.constraintLayout.background = context.getDrawable(R.drawable.result_item_red_bg)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
