@@ -10,15 +10,11 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
-import com.develop.grizzzly.pediatry.adapters.module.ResultModuleAdapter
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Question
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,8 +25,8 @@ import java.util.*
 class ModuleQuestionFragment : Fragment() { //todo сократить
 
     private val args: ModuleQuestionFragmentArgs by navArgs()
-    private lateinit var listResult: RecyclerView
-    private lateinit var adapter: ResultModuleAdapter
+    // private lateinit var listResult: RecyclerView
+    //   private lateinit var adapter: ResultModuleAdapter
     private val listCorrectAnswers =
         mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)   // 0 - no answer   // 1 - true   // -1 - false
 
@@ -38,13 +34,13 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_module_question, container, false)
-        listResult = view.findViewById(R.id.listResults)
-        listResult.setHasFixedSize(true)
-        listResult.layoutManager = object : LinearLayoutManager(activity) {
-            override fun isAutoMeasureEnabled(): Boolean = false
-        }
-        adapter = ResultModuleAdapter(listCorrectAnswers, view.context)
-        listResult.adapter = adapter
+        //listResult = view.findViewById(R.id.listResults)
+        //  listResult.setHasFixedSize(true)
+        // listResult.layoutManager = object : LinearLayoutManager(activity) {
+        //      override fun isAutoMeasureEnabled(): Boolean = false
+        // }
+        // adapter = ResultModuleAdapter(listCorrectAnswers, view.context)
+        // listResult.adapter = adapter
         return view
     }
 
@@ -64,11 +60,11 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                     return@withContext
                 }
                 var questionNumber = 0
-                val imageView = view.findViewById<ImageView>(R.id.testing_image)
+                // val imageView = view.findViewById<ImageView>(R.id.testing_image)
                 val mainActivity = activity as? MainActivity
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
                 val btnNext = view.findViewById<Button>(R.id.btnAnswer)
-                val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_ten)
+                val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_infinity)
                 val textQuestion = view.findViewById<TextView>(R.id.text_question)
                 var isAnswer = false
                 val listRadioButton = mutableListOf<RadioButton>(
@@ -88,7 +84,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 }
                 editView(
                     listQuestions, questionNumber,
-                    imageView, textQuestion,
+                    //imageView,
+                    textQuestion,
                     questionNumberTextView, listRadioButton,
                     btnNext, radioGroup
                 )
@@ -99,7 +96,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         questionNumber++
                         editView(
                             listQuestions, questionNumber,
-                            imageView, textQuestion,
+//                             imageView,
+                            textQuestion,
                             questionNumberTextView, listRadioButton,
                             btnNext, radioGroup
                         )
@@ -116,7 +114,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         questionNumber--
                         editView(
                             listQuestions, questionNumber,
-                            imageView, textQuestion,
+//                              imageView,
+                            textQuestion,
                             questionNumberTextView, listRadioButton,
                             btnNext, radioGroup
                         )
@@ -134,7 +133,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                             questionNumber++
                             editView(
                                 listQuestions, questionNumber,
-                                imageView, textQuestion,
+                                //  imageView,
+                                textQuestion,
                                 questionNumberTextView, listRadioButton,
                                 btnNext, radioGroup
                             )
@@ -152,13 +152,13 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                             listCorrectAnswers
                         )
                         if (!listCorrectAnswers.contains(0)) {
-                            view.findViewById<ConstraintLayout>(R.id.moduleQuestionConstraintLayout)
-                                .visibility = View.GONE
+//                            view.findViewById<ConstraintLayout>(R.id.moduleQuestionConstraintLayout)
+//                                .visibility = View.GONE
                             view.findViewById<ConstraintLayout>(R.id.moduleQuestionResult)
                                 .visibility = View.VISIBLE
-                            adapter.notifyDataSetChanged()
+//                            adapter.notifyDataSetChanged()
                             view.findViewById<TextView>(R.id.result).text =
-                                "Результат: ${Collections.frequency(listCorrectAnswers, 1)} из " +
+                                "${Collections.frequency(listCorrectAnswers, 1)} из " +
                                         "${listCorrectAnswers.size}\n" + if (Collections.frequency(
                                         listCorrectAnswers, 1
                                     ) >= 8
@@ -175,13 +175,14 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
     @SuppressLint("SetTextI18n")
     private fun editView(
         list: List<Question>, questionNumber: Int,
-        imageView: ImageView, textQuestion: TextView,
+        //imageView: ImageView,
+        textQuestion: TextView,
         questionNumberTextView: TextView, listRadioButton: List<RadioButton>,
         btnNext: Button, radioGroup: RadioGroup
     ) {
-        Picasso.get()
-            .load("https://edu-pediatrics.com/storage/news/189/kafedra_360x250px.jpg") //Todo delete and use .load(list[questionNumber].imageUrl)
-            .into(imageView)
+//        Picasso.get()
+//            .load("https://edu-pediatrics.com/storage/news/189/kafedra_360x250px.jpg") //Todo delete and use .load(list[questionNumber].imageUrl)
+//            .into(imageView)
         textQuestion.text = list[questionNumber].text
         for ((x, btn) in listRadioButton.withIndex()) btn.text =
             list[questionNumber].answers[x].text

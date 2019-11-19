@@ -13,13 +13,6 @@
             android:background="@android:color/white"
             android:visibility="visible">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.48" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nextView"
                 android:layout_width="wrap_content"
@@ -62,46 +55,46 @@
                     tools:ignore="ContentDescription" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="5dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/one_to_ten">
+            <!--        <androidx.cardview.widget.CardView-->
+            <!--            android:id="@+id/cardView"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_height="0dp"-->
+            <!--            android:layout_marginStart="25dp"-->
+            <!--            android:layout_marginEnd="25dp"-->
+            <!--            android:layout_marginBottom="5dp"-->
+            <!--            android:layout_marginTop="10dp"-->
+            <!--            app:cardCornerRadius="10dp"-->
+            <!--            app:cardElevation="0dp"-->
+            <!--            app:layout_constraintBottom_toTopOf="@+id/guideline"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/one_to_infinity">-->
 
-                <ImageView
-                    android:id="@+id/testing_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@android:color/white"
-                    tools:ignore="ContentDescription"
-                    tools:layout_editor_absoluteX="1dp"
-                    tools:layout_editor_absoluteY="152dp" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/testing_image"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:scaleType="fitXY"-->
+            <!--                android:src="@android:color/white"-->
+            <!--                tools:ignore="ContentDescription"-->
+            <!--                tools:layout_editor_absoluteX="1dp"-->
+            <!--                tools:layout_editor_absoluteY="152dp" />-->
 
-            </androidx.cardview.widget.CardView>
+            <!--        </androidx.cardview.widget.CardView>-->
 
             <TextView
                 android:id="@+id/text_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="25dp"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
+                android:textSize="19sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline" />
+                app:layout_constraintTop_toBottomOf="@+id/one_to_infinity" />
 
             <Button
                 android:id="@+id/btnAnswer"
@@ -125,7 +118,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnAnswer"
@@ -144,10 +137,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="fill"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"
+                        android:textSize="18sp"
                         android:theme="@style/CustomButton" />
 
                     <RadioButton
@@ -155,10 +148,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="25dp"
                         android:gravity="fill"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"
+                        android:textSize="18sp"
                         android:theme="@style/CustomButton" />
 
                     <RadioButton
@@ -166,10 +159,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="25dp"
                         android:gravity="fill"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"
+                        android:textSize="18sp"
                         android:theme="@style/CustomButton" />
 
                     <RadioButton
@@ -177,10 +170,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="25dp"
                         android:gravity="fill"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"
+                        android:textSize="18sp"
                         android:theme="@style/CustomButton" />
 
                 </RadioGroup>
@@ -198,7 +191,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/one_to_ten"
+                android:id="@+id/one_to_infinity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -211,31 +204,61 @@
             android:id="@+id/moduleQuestionResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alpha="10.0"
+            android:background="#33000000"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:textColor="@android:color/black"
-                android:textSize="40sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listResults"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp"
-                android:layoutAnimation="@anim/recyclerview_animation"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/conf_item_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/resultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Результат:"
+                    android:textColor="@color/standard"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/resultText" />
+
+                <Button
+                    android:id="@+id/btnResult"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/btn_selector"
+                    android:fontFamily="@font/gothampro"
+                    android:text="Back to module"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
