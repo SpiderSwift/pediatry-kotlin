@@ -31,11 +31,9 @@ class StartActivity : AppCompatActivity() {
         GlobalScope.launch {
             WebAccess.tryLoginWithDb()  // FIXME: it most be login first
             try {
-                // val list = WebAccess.pediatryApi.getQuestions(null).body()!!.response //todo delete
                 DatabaseAccess.database.questionDao()
                     .saveQuestions(WebAccess.pediatryApi.getQuestions(
-                        // (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0).toString() todo будет работать когда починят сервер
-                        null
+                        (DatabaseAccess.database.questionDao().getMaxTsLastChange() ?: 0).toString()
                     ).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()

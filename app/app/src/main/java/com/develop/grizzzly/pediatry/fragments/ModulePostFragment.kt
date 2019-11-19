@@ -30,7 +30,7 @@ class ModulePostFragment : Fragment() {
     private val args: ModulePostFragmentArgs by navArgs()
 
     @SuppressLint("SetTextI18n")
-    override fun onCreateView(
+    override fun onCreateView( //todo изменить картинку load
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -80,7 +80,7 @@ class ModulePostFragment : Fragment() {
         return binding.root
     }
 
-    private fun loadImages(modulePost: ModulePost, picasso: Picasso, activeSlide: Int) {
+//    private fun loadImages(modulePost: ModulePost, picasso: Picasso, activeSlide: Int) {
 //        var num: Int =
 //            activeSlide + if ((activeSlide + 2) > modulePost.slides.size) if ((activeSlide + 1) > modulePost.slides.size) return else 1 else 2
 //        while (num != activeSlide) {
@@ -88,5 +88,5 @@ class ModulePostFragment : Fragment() {
 //            picasso.load(modulePost.slides[num].image)
 //            num--
 //        }
-    }
+//    }
 }
