@@ -17,17 +17,13 @@ class NewsDataSource : PositionalDataSource<News>() {
         src: List<T>,
         dst: MutableList<T>,
         @Suppress("SameParameterValue")
-        @IntRange(from = 1)
+        @IntRange(from = 2)
         step: Int
     ): MutableList<T> {
-        for ((i) in src.withIndex()) {
-            try {
-                dst.add(step * (i + 1), src[i])
-            } catch (e: Exception) {
-                e.printStackTrace()
-                dst.add(src[i])
-                break
-            }
+        for ((insertNumber, insertValue) in src.withIndex()) {
+            val insertIndex = insertNumber.inc().times(step).dec()
+            if (insertIndex < dst.size)
+                dst.add(insertIndex, insertValue)
         }
         return dst
     }
