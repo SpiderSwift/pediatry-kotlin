@@ -28,6 +28,13 @@ class ModuleAdapter :
             binding.textView2.text = "Модуль ${module.number}"
             binding.text.text = module.title
             binding.model = ModuleItemViewModel(module)
+            binding.testStatus.text =
+                when (module.testStatus) {
+                    1 -> "Тест еще не был пройден"
+                    2 -> "Успешно пройденный модуль"
+                    3 -> "Заваленный модуль"
+                    else -> "Что-то пошло не так"
+                }
         }
     }
 }

@@ -34,6 +34,8 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_module_question, container, false)
+        val mainActivity = activity as? MainActivity
+        mainActivity?.supportActionBar?.hide()
         //listResult = view.findViewById(R.id.listResults)
         //  listResult.setHasFixedSize(true)
         // listResult.layoutManager = object : LinearLayoutManager(activity) {
@@ -61,18 +63,18 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 }
                 var questionNumber = 0
                 // val imageView = view.findViewById<ImageView>(R.id.testing_image)
-                val mainActivity = activity as? MainActivity
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
                 val btnNext = view.findViewById<Button>(R.id.btnAnswer)
                 val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_infinity)
                 val textQuestion = view.findViewById<TextView>(R.id.text_question)
                 var isAnswer = false
+                val backButton = view.findViewById<View>(R.id.backView)
+                val nextButton = view.findViewById<View>(R.id.nextView)
                 val listRadioButton = mutableListOf<RadioButton>(
                     view.findViewById(R.id.radioButton1), view.findViewById(R.id.radioButton2),
                     view.findViewById(R.id.radioButton3), view.findViewById(R.id.radioButton4)
                 )
                 activity?.toolbarTitle?.visibility = View.GONE
-                mainActivity?.supportActionBar?.hide()
                 val window = activity?.window
                 window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -82,6 +84,9 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnNext.isEnabled = true
                 }
+                (view.findViewById<Button>(R.id.btnResult)).setOnClickListener {
+                    activity!!.onBackPressed()
+                }
                 editView(
                     listQuestions, questionNumber,
                     //imageView,
@@ -89,7 +94,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                     questionNumberTextView, listRadioButton,
                     btnNext, radioGroup
                 )
-                (view.findViewById<View>(R.id.nextView)).setOnClickListener {
+                nextButton.setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
                         isAnswer = false
                         btnNext.text = getString(R.string.to_answer)
@@ -107,7 +112,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         }
                     }
                 }
-                (view.findViewById<View>(R.id.backView)).setOnClickListener {
+                backButton.setOnClickListener {
                     if (questionNumber > 0) {
                         isAnswer = false
                         btnNext.text = getString(R.string.to_answer)
@@ -154,6 +159,10 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         if (!listCorrectAnswers.contains(0)) {
 //                            view.findViewById<ConstraintLayout>(R.id.moduleQuestionConstraintLayout)
 //                                .visibility = View.GONE
+                            btnNext.isClickable = false
+                            backButton.isClickable = false
+                            nextButton.isClickable = false
+                            listRadioButton.forEach { it.isClickable = false }
                             view.findViewById<ConstraintLayout>(R.id.moduleQuestionResult)
                                 .visibility = View.VISIBLE
 //                            adapter.notifyDataSetChanged()

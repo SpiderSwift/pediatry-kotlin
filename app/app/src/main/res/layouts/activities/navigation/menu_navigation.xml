@@ -49,8 +49,8 @@
     <fragment
         android:id="@+id/module"
         android:name="com.develop.grizzzly.pediatry.fragments.ModuleFragment"
-        tools:layout="@layout/fragment_module"
-        android:label="@string/modules">
+        android:label="@string/modules"
+        tools:layout="@layout/fragment_module">
         <action
             android:id="@+id/action_news_to_module_post"
             app:destination="@id/module_post">
@@ -64,8 +64,8 @@
     <fragment
         android:id="@+id/module_post"
         android:name="com.develop.grizzzly.pediatry.fragments.ModulePostFragment"
-        tools:layout="@layout/fragment_module_post"
-        android:label="@string/module">
+        android:label="@string/module"
+        tools:layout="@layout/fragment_module_post">
         <argument
             android:name="moduleId"
             android:defaultValue="0"
@@ -86,8 +86,8 @@
     <fragment
         android:id="@+id/module_post_questions"
         android:name="com.develop.grizzzly.pediatry.fragments.ModuleQuestionFragment"
-        tools:layout="@layout/fragment_module_question"
-        android:label="@string/testings">
+        android:label="@string/testings"
+        tools:layout="@layout/fragment_module_question">
         <argument
             android:name="moduleId"
             android:defaultValue="0"
