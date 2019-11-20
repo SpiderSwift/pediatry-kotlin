@@ -1,11 +1,11 @@
 package com.develop.grizzzly.pediatry.network
 
-import com.develop.grizzzly.pediatry.BuildConfig
+import com.develop.grizzzly.pediatry.application.ThisApp
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.model.UserToken
-import com.google.gson.Gson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,7 +15,7 @@ import java.util.*
 object WebAccess {
 
     // TODO: use https://dev.edu-pediatrics.com/ for debug?
-    private val pediatryApiUrl = if (BuildConfig.DEBUG) {
+    private val pediatryApiUrl = if (ThisApp.dev) {
         "https://dev.edu-pediatrics.com/api/v1/"
     } else {
         "https://edu-pediatrics.com/api/v1/"
@@ -23,25 +23,29 @@ object WebAccess {
 
     const val adsApiEndpoint = "/api/"
 
-    val gson = Gson()
-
     var adsUrl: String? = null
     var adsApiUrl: String? = null
 
+    private var userToken: UserToken? = null
+
+    // TODO: review logic with disabling work without log-in
     var isLoggedIn: Boolean = false
         private set
-        get() = token != null
+        get() = userToken != null
 
-    private val defaultToken: UserToken = UserToken("", 0L)
-    private var token: UserToken? = null
+    // TODO: review logic with disabling work without log-in
+    fun token() : UserToken = userToken ?: defaultUserToken
 
-    fun token() : UserToken = token ?: defaultToken
+    // TODO: review logic with disabling work without log-in
+    private val defaultUserToken: UserToken = UserToken("", 0L)
 
+    // TODO: review logic with disabling work without log-in
     fun token(token: UserToken?) {
         if (token != null)
-            this.token = token
+            this.userToken = token
     }
 
+    // TODO: review logic with disabling work without log-in
     suspend fun tryLoginWithDb() {
         try {
             val user = DatabaseAccess.database.userDao().findUser(0)
@@ -51,10 +55,18 @@ object WebAccess {
         }
     }
 
+    // TODO: review logic with disabling work without log-in
     private suspend fun tryLogin(email: String?, password: String?) {
         val loginResult = pediatryApi.login(email, password)
         if (loginResult.isSuccessful)
-            token = loginResult.body()?.response
+            userToken = loginResult.body()?.response
+    }
+
+    val moshi : Moshi by lazy {
+        return@lazy Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .add(Date::class.java, Rfc3339DateJsonAdapter())
+            .build()
     }
 
     val pediatryApi: PediatryApiClient by lazy {
@@ -64,16 +76,13 @@ object WebAccess {
 
         val client = OkHttpClient.Builder()
             .addInterceptor {
-                val request = it.request().newBuilder()
-                    .addHeader("Authorization", "Bearer ${token?.token}")
-                    .build()
-                return@addInterceptor it.proceed(request)
+                val requestBuilder = it.request().newBuilder()
+                userToken?.token?.let { tokenString ->
+                    requestBuilder.addHeader("Authorization", "Bearer $tokenString")
+                }
+                return@addInterceptor it.proceed(requestBuilder.build())
             }
             .addInterceptor(loggingInterceptor)
-            .build()
-
-        val moshi = Moshi.Builder()
-            .add(Date::class.java, Rfc3339DateJsonAdapter())
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -92,10 +101,6 @@ object WebAccess {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .build()
-
-        val moshi = Moshi.Builder()
-            .add(Date::class.java, Rfc3339DateJsonAdapter())
             .build()
 
         val retrofit = Retrofit.Builder()

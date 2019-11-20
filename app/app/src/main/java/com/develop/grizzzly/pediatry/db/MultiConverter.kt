@@ -4,80 +4,104 @@ import androidx.room.TypeConverter
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Answer
 import com.develop.grizzzly.pediatry.network.model.Book
-import com.develop.grizzzly.pediatry.network.model.Module
 import com.develop.grizzzly.pediatry.network.model.Slide
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Types
 import java.util.*
 
-class MultiConverter {
+object MultiConverter {
 
-    companion object {
-        val typeAnswers = object : TypeToken<MutableList<Answer>>() {}.type!!
-        val typeInts = object : TypeToken<MutableList<Int>>() {}.type!!
-        val typeLongs = object : TypeToken<MutableList<Long>>() {}.type!!
-        val typeSlides = object : TypeToken<MutableList<Slide>>() {}.type!!
-        val typeBooks = object : TypeToken<MutableList<Book>>() {}.type!!
-    }
+    private val answerListAdapter: JsonAdapter<MutableList<Answer>> =
+        WebAccess.moshi.adapter<MutableList<Answer>>(
+            Types.newParameterizedType(MutableList::class.java, Answer::class.java)
+        )
+    private val intListAdapter: JsonAdapter<MutableList<Int>> =
+        WebAccess.moshi.adapter<MutableList<Int>>(
+            Types.newParameterizedType(MutableList::class.java, Int::class.javaObjectType)
+        )
+    private val longListAdapter: JsonAdapter<MutableList<Long>> =
+        WebAccess.moshi.adapter<MutableList<Long>>(
+            Types.newParameterizedType(MutableList::class.java, Long::class.javaObjectType)
+        )
+    private val slideListAdapter: JsonAdapter<MutableList<Slide>> =
+        WebAccess.moshi.adapter<MutableList<Slide>>(
+            Types.newParameterizedType(MutableList::class.java, Slide::class.java)
+        )
+    private val bookListAdapter: JsonAdapter<MutableList<Book>> =
+        WebAccess.moshi.adapter<MutableList<Book>>(
+            Types.newParameterizedType(MutableList::class.java, Book::class.java)
+        )
 
     @TypeConverter
+    @JvmStatic
     fun fromDate(date: Date?): Long? {
         return date?.time
     }
 
     @TypeConverter
+    @JvmStatic
     fun toDate(stamp: Long): Date? {
         return Date(stamp)
     }
 
     @TypeConverter
-    fun fromLongs(liked: MutableList<Long>): String {
-        return WebAccess.gson.toJson(liked).toString()
+    @JvmStatic
+    fun fromLongs(list: MutableList<Long>): String {
+        return longListAdapter.toJson(list)
     }
 
     @TypeConverter
-    fun toLongs(data: String): MutableList<Long> {
-        return WebAccess.gson.fromJson<MutableList<Long>>(data, typeLongs)
+    @JvmStatic
+    fun toLongs(str: String): MutableList<Long> {
+        return longListAdapter.fromJson(str)!!
     }
 
     @TypeConverter
+    @JvmStatic
     fun fromAnswers(list: MutableList<Answer>): String {
-        return WebAccess.gson.toJson(list).toString()
+        return answerListAdapter.toJson(list)
     }
 
     @TypeConverter
+    @JvmStatic
     fun toAnswers(str: String): MutableList<Answer> {
-        return WebAccess.gson.fromJson<MutableList<Answer>>(str, typeAnswers)
+        return answerListAdapter.fromJson(str)!!
     }
 
     @TypeConverter
+    @JvmStatic
     fun fromSlide(list: MutableList<Slide>): String {
-        return Gson().toJson(list).toString()
+        return slideListAdapter.toJson(list)
     }
 
     @TypeConverter
+    @JvmStatic
     fun toSlider(str: String): MutableList<Slide> {
-        return Gson().fromJson<MutableList<Slide>>(str, typeSlides)
+        return slideListAdapter.fromJson(str)!!
     }
 
     @TypeConverter
+    @JvmStatic
     fun fromBook(list: MutableList<Book>): String {
-        return Gson().toJson(list).toString()
+        return bookListAdapter.toJson(list)
     }
 
     @TypeConverter
+    @JvmStatic
     fun toBook(str: String): MutableList<Book> {
-        return Gson().fromJson<MutableList<Book>>(str, typeBooks)
+        return bookListAdapter.fromJson(str)!!
     }
 
     @TypeConverter
+    @JvmStatic
     fun fromInts(list: MutableList<Int>): String {
-        return WebAccess.gson.toJson(list).toString()
+        return intListAdapter.toJson(list)
     }
 
     @TypeConverter
+    @JvmStatic
     fun toInts(str: String): MutableList<Int> {
-        return WebAccess.gson.fromJson<MutableList<Int>>(str, typeInts)
+        return intListAdapter.fromJson(str)!!
     }
 
 }

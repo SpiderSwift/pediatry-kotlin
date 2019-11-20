@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.develop.grizzzly.pediatry.network.model.Module
 
-
 @Dao
 interface ModuleDao { //Todo
     @Query("SELECT * FROM module")

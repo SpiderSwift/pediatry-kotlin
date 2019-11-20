@@ -5,7 +5,7 @@ data class ModulePost (
     val title: String,
     val directionId: Int,
     val number: Int,
-    val youtubeCode: String,
+    val youtubeCode: String?,
     val clinicalAnalysisDescription: String,
     val testStatus: Int,
     val slides: MutableList<Slide>,
