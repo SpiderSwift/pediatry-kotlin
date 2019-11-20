@@ -1,7 +1,6 @@
 package com.develop.grizzzly.pediatry.network
 
 import com.develop.grizzzly.pediatry.network.model.*
-import com.fasterxml.jackson.databind.JsonNode
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -58,12 +57,6 @@ interface PediatryApiClient {
         @Part("additional_specialty_2_id") additionalId2: RequestBody?,
         @Part("avatar\"; filename=\"file.jpg\" ") avatar: RequestBody?
     ): Response<ResponseBody>
-
-    @POST("user/password")
-    suspend fun changePassword(
-        @Field("password") password: String,
-        @Field("confirm_password") confirm: String
-    ): Response<JsonNode>
 
     @FormUrlEncoded
     @POST("user/password/restore")
@@ -124,49 +117,11 @@ interface PediatryApiClient {
         @Path("id") conferenceId: Long
     ): Response<ResponseBody>
 
-    @GET("broadcast")
-    suspend fun getBroadcasts(): Response<BasicResponse<List<Broadcast>>>
-
-    @GET("broadcast/{id}")
-    suspend fun getBroadcast(
-        @Path("id") broadcastId: Long
-    ): Response<JsonNode>
-
-    @POST("broadcast/{id}/register")
-    suspend fun registerForBroadcast(
-        @Path("id") broadcastId: Long
-    ): Response<JsonNode>
-
-    @POST("broadcast/{id}/confirm")
-    suspend fun confirmForBroadcast(
-        @Path("id") broadcastId: Long
-    ): Response<JsonNode>
-
-    @DELETE("broadcast/{id}/register")
-    suspend fun unregisterForBroadcast(
-        @Path("id") broadcastId: Long
-    ): Response<JsonNode>
-
-    @GET("broadcast/{id}/times")
-    suspend fun getBroadcastTime(
-        @Path("id") broadcastId: Long
-    ): Response<JsonNode>
-
-    @FormUrlEncoded
-    @POST("broadcast/{id}/message")
-    suspend fun sendMessageForBroadcast(
-        @Path("id") broadcastId: Long,
-        @Field("message") message: String
-    ): Response<JsonNode>
-
     @GET("webinar")
     suspend fun getWebinars(
         @Query("offset") offset: Long,
         @Query("limit") limit: Long
     ): Response<BasicResponse<List<Webinar>>>
-
-    @GET("webinar/archive")
-    suspend fun getArchiveWebinars(): Response<BasicResponse<List<Webinar>>>
 
     @GET("webinar/{id}")
     suspend fun getWebinar(
@@ -182,11 +137,6 @@ interface PediatryApiClient {
     suspend fun unregisterForWebinar(
         @Path("id") webinarId: Long
     ): Response<ResponseBody>
-
-    @GET("webinar/{id}/times")
-    suspend fun getWebinarTime(
-        @Path("id") webinarId: Long
-    ): Response<JsonNode>
 
     @FormUrlEncoded
     @POST("webinar/{id}/message")

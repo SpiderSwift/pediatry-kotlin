@@ -9,16 +9,16 @@ import okhttp3.OkHttpClient
 object ImageAccess {
 
     val picasso: Picasso by lazy {
-        val client = OkHttpClient.Builder()
-            .authenticator { _, response ->
-                val credential = Credentials.basic("m5edu_dev", "_p3Y3QPGuG")
-                response.request().newBuilder()
-                    .header("Authorization", credential)
-                    .build()
-            }
-            .build()
+        val clientBuilder = OkHttpClient.Builder()
+        if (ThisApp.dev)
+            clientBuilder
+                .authenticator { _, response ->
+                    response.request().newBuilder()
+                        .header("Authorization", Credentials.basic("m5edu_dev", "_p3Y3QPGuG"))
+                        .build()
+                }
         return@lazy Picasso.Builder(ThisApp.app)
-            .downloader(OkHttp3Downloader(client))
+            .downloader(OkHttp3Downloader(clientBuilder.build()))
             .build()
     }
 
