@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R
@@ -37,7 +36,6 @@ class StartActivity : AppCompatActivity() {
                     ).body()?.response!!.map { it.convert() })
             } catch (e: Exception) {
                 e.printStackTrace()
-                Log.println(Log.ASSERT, "msg", "Questions error $e")
             }
             try {
                 val adsUrlResult = WebAccess.pediatryApi.getAdsUrl()
@@ -58,11 +56,9 @@ class StartActivity : AppCompatActivity() {
 //            try { todo: if need save modules to database
 //                DatabaseAccess.database.moduleDao()
 //                    .saveModules(WebAccess.pediatryApi.getModules(0, 100).body()?.response!!)
-//                Log.println(Log.ASSERT, "msg", "Modules size = " + DatabaseAccess.database.moduleDao().getModules().size.toString()
 //                )
 //            } catch (e: Exception) {
 //                e.printStackTrace()
-//                Log.println(Log.ASSERT, "msg", "Modules error $e")
 //            }
         }
     }

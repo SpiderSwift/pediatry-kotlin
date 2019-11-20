@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.develop.grizzzly.pediatry.network.model.Module
-import com.develop.grizzzly.pediatry.network.model.Webinar
 
 class ModuleViewModel : ViewModel() {
 

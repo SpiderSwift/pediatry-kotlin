@@ -47,7 +47,6 @@ class NewsAdapter : PagedListAdapter<News, NewsAdapter.NewsViewHolder>(NewsDiffU
                         binding.adImage.visibility = View.GONE
                     }
                     binding.adVideo.setOnCompletionListener {
-                        Log.println(Log.ASSERT,"msg","Completion")
                         //Todo начинаем крутить видео снова?
                         // Показываем превью?
                         // Или просто чёрный экран?

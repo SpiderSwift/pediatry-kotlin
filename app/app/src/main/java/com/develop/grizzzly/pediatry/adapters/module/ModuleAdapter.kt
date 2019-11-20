@@ -1,10 +1,10 @@
 package com.develop.grizzzly.pediatry.adapters.module
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.databinding.ModuleItemBinding
 import com.develop.grizzzly.pediatry.network.model.Module
 import com.develop.grizzzly.pediatry.viewmodel.module.ModuleItemViewModel
@@ -23,9 +23,9 @@ class ModuleAdapter :
 
     class ModuleViewHolder(val binding: ModuleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind(module: Module) {
-            binding.textView2.text = "Модуль ${module.number}"
+            binding.textView2.text =
+                binding.root.context.getString(R.string.module_is, module.number)
             binding.text.text = module.title
             binding.model = ModuleItemViewModel(module)
             binding.testStatus.text =

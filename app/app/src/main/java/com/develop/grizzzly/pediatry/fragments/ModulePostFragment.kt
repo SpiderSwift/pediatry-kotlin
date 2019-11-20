@@ -1,6 +1,5 @@
 package com.develop.grizzzly.pediatry.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +13,7 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentModulePostBinding
 import com.develop.grizzzly.pediatry.images.ImageAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
-import com.develop.grizzzly.pediatry.network.model.ModulePost
 import com.develop.grizzzly.pediatry.viewmodel.module.ModulePostViewModel
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,8 +26,7 @@ class ModulePostFragment : Fragment() {
 
     private val args: ModulePostFragmentArgs by navArgs()
 
-    @SuppressLint("SetTextI18n")
-    override fun onCreateView( //todo изменить картинку load
+    override fun onCreateView( //todo изменить картинку load and create books
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,41 +48,26 @@ class ModulePostFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
         GlobalScope.launch {
-            val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()
-                ?.response //todo прихотдят пдф файлы
+            val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()!!.response!!
             withContext(Dispatchers.Main) {
-                //todo book and slides
-                binding.moduleNum.text = "Модуль ${module!!.number}"
+                binding.moduleNum.text = getString(R.string.module_is, module.number)
                 binding.tvTitle.text = module.title
                 picasso.load(module.slides[activeSlide].image).placeholder(R.drawable.loading)
                     .into(binding.moduleImage)
-                // loadImages(module, picasso, activeSlide)
                 binding.nextView.setOnClickListener {
                     activeSlide++
                     if (activeSlide > module.slides.size - 1) activeSlide = 0
                     picasso.load(module.slides[activeSlide].image).fit()
                         .placeholder(R.drawable.loading).into(binding.moduleImage)
-                    // loadImages(module, picasso, activeSlide)
                 }
                 binding.backView.setOnClickListener {
                     activeSlide--
                     if (activeSlide < 0) activeSlide = module.slides.size - 1
                     picasso.load(module.slides[activeSlide].image).fit()
                         .placeholder(R.drawable.loading).into(binding.moduleImage)
-                    //   loadImages(module, picasso, activeSlide)
                 }
             }
         }
         return binding.root
     }
-
-//    private fun loadImages(modulePost: ModulePost, picasso: Picasso, activeSlide: Int) {
-//        var num: Int =
-//            activeSlide + if ((activeSlide + 2) > modulePost.slides.size) if ((activeSlide + 1) > modulePost.slides.size) return else 1 else 2
-//        while (num != activeSlide) {
-//            Log.println(Log.ASSERT, "msg",num.toString())
-//            picasso.load(modulePost.slides[num].image)
-//            num--
-//        }
-//    }
 }

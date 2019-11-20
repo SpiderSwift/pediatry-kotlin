@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.develop.grizzzly.pediatry.network.model.Module
 
 @Dao
-interface ModuleDao { //Todo
+interface ModuleDao {
     @Query("SELECT * FROM module")
     fun getModules():List<Module>
 
