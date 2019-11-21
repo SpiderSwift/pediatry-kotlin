@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 class NewsDataSource : PositionalDataSource<News>() {
 
-    private val apiService = WebAccess.pediatryApi
-    private val database = DatabaseAccess.database
+    private val api = WebAccess.pediatryApi
+    private val db = DatabaseAccess.database
 
     private fun <T> mixin(
         src: List<T>,
@@ -31,20 +31,17 @@ class NewsDataSource : PositionalDataSource<News>() {
     suspend fun load(offset: Long, limit: Long): MutableList<News> {
         if (!WebAccess.isLoggedIn)
             WebAccess.tryLoginWithDb()
-        val ads = database.adDao().loadAds().map { it.convert() }
-        var news: MutableList<News>
         try {
-            val responseNews = apiService.getNews(offset, limit)
-            if (responseNews.isSuccessful) {
-                news = responseNews.body()?.response?.toMutableList()!!
-                database.newsDao().saveNews(news)
-            } else {
-                news = mutableListOf()
-            }
+            val newsResponse = api.getNews(offset, limit)
+            if (newsResponse.isSuccessful)
+                db.newsDao().saveNews(
+                    newsResponse.body()?.response.orEmpty()
+                )
         } catch (e: Exception) {
             e.printStackTrace()
-            news = database.newsDao().getNews(offset, limit).toMutableList()
         }
+        val ads = db.adDao().loadAds().map { it.convert() }
+        val news = db.newsDao().getNews(offset, limit).toMutableList()
         mixin(ads, news, 4)
         return news
     }

@@ -10,7 +10,7 @@ object ImageAccess {
 
     val picasso: Picasso by lazy {
         val clientBuilder = OkHttpClient.Builder()
-        if (ThisApp.dev)
+        if (true)  // TODO: replace with if (ThisApp.dev) when auth for prod ll be fixed
             clientBuilder
                 .authenticator { _, response ->
                     response.request().newBuilder()
