@@ -7,7 +7,7 @@ class ThisApp : Application() {
 
     companion object {
         lateinit var app: ThisApp
-        val dev = false
+        val dev = BuildConfig.DEBUG
     }
 
     override fun onCreate() {
