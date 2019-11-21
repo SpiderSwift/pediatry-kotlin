@@ -3,7 +3,7 @@ package com.develop.grizzzly.pediatry.db
 import androidx.room.TypeConverter
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Answer
-import com.develop.grizzzly.pediatry.network.model.Book
+import com.develop.grizzzly.pediatry.network.model.Article
 import com.develop.grizzzly.pediatry.network.model.Slide
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Types
@@ -27,9 +27,9 @@ object MultiConverter {
         WebAccess.moshi.adapter<MutableList<Slide>>(
             Types.newParameterizedType(MutableList::class.java, Slide::class.java)
         )
-    private val bookListAdapter: JsonAdapter<MutableList<Book>> =
-        WebAccess.moshi.adapter<MutableList<Book>>(
-            Types.newParameterizedType(MutableList::class.java, Book::class.java)
+    private val bookListAdapter: JsonAdapter<MutableList<Article>> =
+        WebAccess.moshi.adapter<MutableList<Article>>(
+            Types.newParameterizedType(MutableList::class.java, Article::class.java)
         )
 
     @TypeConverter
@@ -82,13 +82,13 @@ object MultiConverter {
 
     @TypeConverter
     @JvmStatic
-    fun fromBook(list: MutableList<Book>): String {
+    fun fromBook(list: MutableList<Article>): String {
         return bookListAdapter.toJson(list)
     }
 
     @TypeConverter
     @JvmStatic
-    fun toBook(str: String): MutableList<Book> {
+    fun toBook(str: String): MutableList<Article> {
         return bookListAdapter.fromJson(str)!!
     }
 

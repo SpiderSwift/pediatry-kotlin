@@ -53,13 +53,6 @@ class StartActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
             login() // FIXME: it most be login first
-//            try { todo: if need save modules to database
-//                DatabaseAccess.database.moduleDao()
-//                    .saveModules(WebAccess.pediatryApi.getModules(0, 100).body()?.response!!)
-//                )
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
         }
     }
 

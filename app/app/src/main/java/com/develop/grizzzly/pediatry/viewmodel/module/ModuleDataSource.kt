@@ -4,7 +4,6 @@ import androidx.paging.PositionalDataSource
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Module
-import com.develop.grizzzly.pediatry.network.model.Webinar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -17,37 +16,28 @@ class ModuleDataSource : PositionalDataSource<Module>() {
         GlobalScope.launch {
             if (!WebAccess.isLoggedIn)
                 WebAccess.tryLoginWithDb()
-            try {
-                val modulesResult = apiService.getModules(0, params.requestedLoadSize.toLong())
-                if (modulesResult.isSuccessful) {
-                    val modules = modulesResult.body()?.response.orEmpty()
-                    database.moduleDao().saveModules(modules)
-                    callback.onResult(modules, 0)
-                } else {
-                    throw Exception("fail: loadInitial modules from server, fallback to offline")
-                }
-            } catch (e: Exception) {
-                val modules = database.moduleDao().getModules()
-                callback.onResult(modules, 0)
-            }
+            callback.onResult(load(0, 10), 0)
         }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Module>) {
         GlobalScope.launch {
-            try {
-                val modulesResult = apiService.getModules(params.startPosition.toLong(), params.loadSize.toLong())
-                if (modulesResult.isSuccessful) {
-                    val modules = modulesResult.body()?.response.orEmpty()
-                    database.moduleDao().saveModules(modules)
-                    callback.onResult(modules)
-                } else {
-                    throw Exception("fail: loadRange modules from server, fallback to offline")
-                }
-            } catch (e: Exception) {
-                val modules = database.moduleDao().getModules()
-                callback.onResult(modules)
+            callback.onResult(load(params.startPosition.toLong(), params.loadSize.toLong()))
+        }
+    }
+
+    suspend fun load(offset: Long, limit: Long): MutableList<Module> {
+        return try {
+            val modulesResult = apiService.getModules(offset, limit)
+            if (modulesResult.isSuccessful) {
+                val modules = modulesResult.body()?.response.orEmpty()
+                database.moduleDao().saveModules(modules)
+                modules.toMutableList()
+            } else {
+                throw Exception("fail: loadRange modules from server, fallback to offline")
             }
+        } catch (e: Exception) {
+            database.moduleDao().getModules().toMutableList()
         }
     }
 }

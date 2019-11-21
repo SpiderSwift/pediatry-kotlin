@@ -44,12 +44,12 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         GlobalScope.launch {
             val listQuestions = mutableListOf<Question>()
             WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!.forEach {
-                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsFromModule(it)) //todo сделать в 1 запрос
+                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsById(it)) //todo сделать в 1 запрос
             }
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
-                val btnNext = view.findViewById<Button>(R.id.btnAnswer)
+                val btnAnswer = view.findViewById<Button>(R.id.btnAnswer)
                 val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_infinity)
                 val textQuestion = view.findViewById<TextView>(R.id.text_question)
                 var isAnswer = false
@@ -67,24 +67,24 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                     activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
-                    btnNext.isEnabled = true
+                    btnAnswer.isEnabled = true
                 }
                 (view.findViewById<Button>(R.id.btnResult)).setOnClickListener { activity!!.onBackPressed() }
-                editView(
+                updateScreen(
                     listQuestions, questionNumber, textQuestion,
                     questionNumberTextView, listRadioButton,
-                    btnNext, radioGroup
+                    btnAnswer, radioGroup
                 )
                 nextButton.setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
                         isAnswer = false
-                        btnNext.text = getString(R.string.to_answer)
+                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber++
-                        editView(
+                        updateScreen(
                             listQuestions, questionNumber,
                             textQuestion,
                             questionNumberTextView, listRadioButton,
-                            btnNext, radioGroup
+                            btnAnswer, radioGroup
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
@@ -95,11 +95,11 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 backButton.setOnClickListener {
                     if (questionNumber > 0) {
                         isAnswer = false
-                        btnNext.text = getString(R.string.to_answer)
+                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber--
-                        editView(
+                        updateScreen(
                             listQuestions, questionNumber, textQuestion, questionNumberTextView,
-                            listRadioButton, btnNext, radioGroup
+                            listRadioButton, btnAnswer, radioGroup
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
@@ -107,15 +107,15 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         }
                     }
                 }
-                btnNext.setOnClickListener {
+                btnAnswer.setOnClickListener {
                     if (isAnswer) {
                         if (questionNumber < listQuestions.size - 1) {
                             isAnswer = false
-                            btnNext.text = getString(R.string.to_answer)
+                            btnAnswer.text = getString(R.string.to_answer)
                             questionNumber++
-                            editView(
+                            updateScreen(
                                 listQuestions, questionNumber, textQuestion,
-                                questionNumberTextView, listRadioButton, btnNext, radioGroup
+                                questionNumberTextView, listRadioButton, btnAnswer, radioGroup
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
@@ -124,14 +124,14 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                         }
                     } else {
                         isAnswer = true
-                        btnNext.text = getString(R.string.next)
+                        btnAnswer.text = getString(R.string.next)
                         setAnswer(
                             listQuestions, listRadioButton, questionNumber,
                             radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId)),
                             listCorrectAnswers
                         )
                         if (!listCorrectAnswers.contains(0)) {
-                            btnNext.isClickable = false
+                            btnAnswer.isClickable = false
                             backButton.isClickable = false
                             nextButton.isClickable = false
                             listRadioButton.forEach { it.isClickable = false }
@@ -154,7 +154,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         }
     }
 
-    private fun editView(
+    private fun updateScreen (
         list: List<Question>, questionNumber: Int,
         textQuestion: TextView,
         questionNumberTextView: TextView, listRadioButton: List<RadioButton>,

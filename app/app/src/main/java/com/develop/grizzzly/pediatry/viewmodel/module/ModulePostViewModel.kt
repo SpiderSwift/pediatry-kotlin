@@ -15,5 +15,4 @@ class ModulePostViewModel : ViewModel() {
         transition.moduleId = id.toInt()
         Navigation.findNavController(view).navigateNoExcept(transition)
     }
-    // fun onBook(view: View) {}
 }

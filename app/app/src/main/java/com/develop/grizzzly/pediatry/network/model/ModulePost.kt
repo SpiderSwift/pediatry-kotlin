@@ -9,5 +9,5 @@ data class ModulePost (
     val clinicalAnalysisDescription: String,
     val testStatus: Int,
     val slides: MutableList<Slide>,
-    val articles: MutableList<Book>
+    val articles: MutableList<Article>
 )
