@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_btn"
     app:startDestination="@id/menu">
 
@@ -14,6 +15,9 @@
         <action
             android:id="@+id/action_menu_to_testing"
             app:destination="@id/testings" />
+        <action
+            android:id="@+id/action_menu_to_modules"
+            app:destination="@id/module" />
         <action
             android:id="@+id/action_menu_to_profile"
             app:destination="@id/profile" />
@@ -43,9 +47,57 @@
     </fragment>
 
     <fragment
+        android:id="@+id/module"
+        android:name="com.develop.grizzzly.pediatry.fragments.ModuleFragment"
+        android:label="@string/modules"
+        tools:layout="@layout/fragment_module">
+        <action
+            android:id="@+id/action_news_to_module_post"
+            app:destination="@id/module_post">
+            <argument
+                android:name="moduleId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/module_post"
+        android:name="com.develop.grizzzly.pediatry.fragments.ModulePostFragment"
+        android:label="@string/module"
+        tools:layout="@layout/fragment_module_post">
+        <argument
+            android:name="moduleId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_module_to_questions"
+            app:destination="@id/module_post_questions">
+            <argument
+                android:name="moduleId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_module_post_to_module_post_questions"
+            app:destination="@id/module_post_questions" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/module_post_questions"
+        android:name="com.develop.grizzzly.pediatry.fragments.ModuleQuestionFragment"
+        android:label="@string/testings"
+        tools:layout="@layout/fragment_module_question">
+        <argument
+            android:name="moduleId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
         android:id="@+id/testings_questions"
         android:name="com.develop.grizzzly.pediatry.fragments.TestingQuestionsFragment"
-        android:label="@string/testings"/>
+        android:label="@string/testings" />
 
     <fragment
         android:id="@+id/webinar_info"

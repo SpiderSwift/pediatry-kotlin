@@ -28,6 +28,8 @@
     <string name="edit">Редактировать</string>
     <string name="webinars">Вебинары</string>
     <string name="testings">Тестирование</string>
+    <string name="module">Модуль</string>
+    <string name="modules">Модули</string>
     <string name="conferentions">Конференции</string>
     <string name="conference_program">Программа конференции</string>
     <string name="enter_conference">Подать заявку</string>
@@ -35,7 +37,12 @@
     <string name="test">тест</string>
     <string name="text_question">Наиболее верояные сроки возникновения гипертермии, как специфической реакции на введение АКДС (дни):</string>
     <string name="to_answer">Ответить</string>
-    <string name="one_to_infinity">из ∞</string>
+    <string name="one_to_infinity">%1$d из %2$d</string>
+    <string name="one_to_ten">%1$d из 10</string>
     <string name="question">Вопрос</string>
+    <string name="module_is">Модуль %1$d</string>
+    <string name="exam_passed">Зачёт сдан</string>
+    <string name="exam_not_passed">Зачёт не сдан</string>
+    <string name="result_exam">%1$d из %2$d\n%3$s</string>
 
 </resources>

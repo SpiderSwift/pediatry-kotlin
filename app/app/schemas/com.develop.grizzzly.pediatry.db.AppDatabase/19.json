@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 19,
-    "identityHash": "461717aaa47cb5991ae0a664d8f2273b",
+    "identityHash": "74a047d810df61fba8b2d7022db2e70b",
     "entities": [
       {
         "tableName": "User",
@@ -529,12 +529,68 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Module",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `directionId` INTEGER NOT NULL, `number` INTEGER NOT NULL, `youtubeCode` TEXT, `clinicalAnalysisDescription` TEXT NOT NULL, `testStatus` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "directionId",
+            "columnName": "directionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "youtubeCode",
+            "columnName": "youtubeCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "clinicalAnalysisDescription",
+            "columnName": "clinicalAnalysisDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "testStatus",
+            "columnName": "testStatus",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '461717aaa47cb5991ae0a664d8f2273b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '74a047d810df61fba8b2d7022db2e70b')"
     ]
   }
 }

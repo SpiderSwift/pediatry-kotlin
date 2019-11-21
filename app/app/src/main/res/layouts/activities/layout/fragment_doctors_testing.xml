@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/maloy"
+            android:src="@drawable/baby"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="ContentDescription" />

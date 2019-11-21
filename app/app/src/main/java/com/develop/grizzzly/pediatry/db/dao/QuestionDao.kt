@@ -15,10 +15,10 @@ interface QuestionDao {
     @Query("SELECT * FROM question")
     suspend fun getQuestionsAll(): List<Question>
 
+    @Query("SELECT * FROM question WHERE id = :id")
+    suspend fun getQuestionsById(id : String): Question
+
     @Nullable
     @Query("SELECT MAX(tsLastChange) FROM question")
     suspend fun getMaxTsLastChange(): Long?
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE) //Todo delete
-    suspend fun saveQuestion(q: Question)
 }
