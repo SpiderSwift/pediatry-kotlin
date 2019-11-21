@@ -69,7 +69,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnAnswer.isEnabled = true
                 }
-                (view.findViewById<Button>(R.id.btnResult)).setOnClickListener { activity!!.onBackPressed() }
+                (view.findViewById<Button>(R.id.btnResult)).setOnClickListener { activity?.onBackPressed() }
                 updateScreen(
                     listQuestions, questionNumber, textQuestion,
                     questionNumberTextView, listRadioButton,
