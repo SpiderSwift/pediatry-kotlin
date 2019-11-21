@@ -43,8 +43,13 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
     ) {
         GlobalScope.launch {
             val listQuestions = mutableListOf<Question>()
-            WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!.forEach {
-                listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsById(it)) //todo сделать в 1 запрос
+            try {
+                WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()
+                    ?.response?.forEach {
+                    listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsById(it)) //todo сделать в 1 запрос
+                }
+            } catch (e: Exception) {
+                return@launch
             }
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
@@ -69,7 +74,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnAnswer.isEnabled = true
                 }
-                (view.findViewById<Button>(R.id.btnResult)).setOnClickListener { activity!!.onBackPressed() }
+                (view.findViewById<Button>(R.id.btnResult)).setOnClickListener { activity?.onBackPressed() }
                 updateScreen(
                     listQuestions, questionNumber, textQuestion,
                     questionNumberTextView, listRadioButton,
@@ -154,7 +159,7 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         }
     }
 
-    private fun updateScreen (
+    private fun updateScreen(
         list: List<Question>, questionNumber: Int,
         textQuestion: TextView,
         questionNumberTextView: TextView, listRadioButton: List<RadioButton>,

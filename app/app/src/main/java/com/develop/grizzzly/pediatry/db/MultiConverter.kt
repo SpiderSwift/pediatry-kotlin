@@ -70,25 +70,25 @@ object MultiConverter {
 
     @TypeConverter
     @JvmStatic
-    fun fromSlide(list: MutableList<Slide>): String {
+    fun fromSlides(list: MutableList<Slide>): String {
         return slideListAdapter.toJson(list)
     }
 
     @TypeConverter
     @JvmStatic
-    fun toSlider(str: String): MutableList<Slide> {
+    fun toSlides(str: String): MutableList<Slide> {
         return slideListAdapter.fromJson(str)!!
     }
 
     @TypeConverter
     @JvmStatic
-    fun fromBook(list: MutableList<Article>): String {
+    fun fromBooks(list: MutableList<Article>): String {
         return bookListAdapter.toJson(list)
     }
 
     @TypeConverter
     @JvmStatic
-    fun toBook(str: String): MutableList<Article> {
+    fun toBooks(str: String): MutableList<Article> {
         return bookListAdapter.fromJson(str)!!
     }
 

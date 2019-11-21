@@ -48,24 +48,28 @@ class ModulePostFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
         GlobalScope.launch {
-            val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()!!.response!!
-            withContext(Dispatchers.Main) {
-                binding.moduleNum.text = getString(R.string.module_is, module.number)
-                binding.tvTitle.text = module.title
-                picasso.load(module.slides[activeSlide].image).placeholder(R.drawable.loading)
-                    .into(binding.moduleImage)
-                binding.nextView.setOnClickListener {
-                    activeSlide++
-                    if (activeSlide > module.slides.size - 1) activeSlide = 0
-                    picasso.load(module.slides[activeSlide].image).fit()
-                        .placeholder(R.drawable.loading).into(binding.moduleImage)
+            try {
+                val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response!!
+                withContext(Dispatchers.Main) {
+                    binding.moduleNum.text = getString(R.string.module_is, module.number)
+                    binding.tvTitle.text = module.title
+                    picasso.load(module.slides[activeSlide].image).placeholder(R.drawable.loading)
+                        .into(binding.moduleImage)
+                    binding.nextView.setOnClickListener {
+                        activeSlide++
+                        if (activeSlide > module.slides.size - 1) activeSlide = 0
+                        picasso.load(module.slides[activeSlide].image).fit()
+                            .placeholder(R.drawable.loading).into(binding.moduleImage)
+                    }
+                    binding.backView.setOnClickListener {
+                        activeSlide--
+                        if (activeSlide < 0) activeSlide = module.slides.size - 1
+                        picasso.load(module.slides[activeSlide].image).fit()
+                            .placeholder(R.drawable.loading).into(binding.moduleImage)
+                    }
                 }
-                binding.backView.setOnClickListener {
-                    activeSlide--
-                    if (activeSlide < 0) activeSlide = module.slides.size - 1
-                    picasso.load(module.slides[activeSlide].image).fit()
-                        .placeholder(R.drawable.loading).into(binding.moduleImage)
-                }
+            } catch (e: Exception) {
+                return@launch
             }
         }
         return binding.root
