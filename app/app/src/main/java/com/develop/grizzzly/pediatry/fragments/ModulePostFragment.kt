@@ -37,7 +37,7 @@ class ModulePostFragment : Fragment() {
         var activeSlide = 0
         val activity = activity as? MainActivity
         val picasso = ImageAccess.picasso
-        activity?.supportActionBar?.show()
+        activity?.supportActionBar?.hide()
         activity?.toolbarTitle?.text = "Модуль"
         activity?.bottom_nav?.visibility = View.GONE
         viewModel = ViewModelProvider(this).get(ModulePostViewModel::class.java)

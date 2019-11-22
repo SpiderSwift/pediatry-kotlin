@@ -28,6 +28,7 @@ class MenuFragment : Fragment() {
             container,
             false
         )
+        activity?.bottom_nav?.visibility = View.VISIBLE
         activity?.toolbarTitle?.text = "Меню"
         val model = activity?.run {
             ViewModelProvider(this).get(MenuViewModel::class.java)
