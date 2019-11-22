@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentModulePostBinding
 import com.develop.grizzzly.pediatry.images.ImageAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.ModulePost
 import com.develop.grizzzly.pediatry.viewmodel.module.ModulePostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
@@ -31,12 +33,13 @@ class ModulePostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         var activeSlide = 0
         val activity = activity as? MainActivity
         val picasso = ImageAccess.picasso
         activity?.supportActionBar?.show()
         activity?.toolbarTitle?.text = "Модуль"
-        activity?.bottom_nav?.visibility = View.VISIBLE
+        activity?.bottom_nav?.visibility = View.GONE
         viewModel = ViewModelProvider(this).get(ModulePostViewModel::class.java)
         viewModel.id = args.moduleId.toLong()
         val binding = DataBindingUtil.inflate<FragmentModulePostBinding>(
@@ -48,8 +51,13 @@ class ModulePostFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
         GlobalScope.launch {
+            var module: ModulePost? = null
             try {
-                val module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response!!
+                module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            if (module != null || module?.slides!!.isNotEmpty())
                 withContext(Dispatchers.Main) {
                     binding.moduleNum.text = getString(R.string.module_is, module.number)
                     binding.tvTitle.text = module.title
@@ -68,9 +76,6 @@ class ModulePostFragment : Fragment() {
                             .placeholder(R.drawable.loading).into(binding.moduleImage)
                     }
                 }
-            } catch (e: Exception) {
-                return@launch
-            }
         }
         return binding.root
     }

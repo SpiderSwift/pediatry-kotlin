@@ -24,11 +24,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class ModuleQuestionFragment : Fragment() { //todo сократить
+class ModuleQuestionFragment : Fragment() {
 
     private val args: ModuleQuestionFragmentArgs by navArgs()
-    private val listCorrectAnswers =
-        mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)   // 0 - no answer   // 1 - true   // -1 - false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,15 +40,16 @@ class ModuleQuestionFragment : Fragment() { //todo сократить
         view: View, savedInstanceState: Bundle?
     ) {
         GlobalScope.launch {
-            val listQuestions = mutableListOf<Question>()
+            val listQuestions: List<Question>
+            val listCorrectAnswers = mutableListOf<Int>()
             try {
-                WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()
-                    ?.response?.forEach {
-                    listQuestions.add(DatabaseAccess.database.questionDao().getQuestionsById(it)) //todo сделать в 1 запрос
-                }
+                listQuestions = DatabaseAccess.database.questionDao()
+                    .getListQuestionsByIds(WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!)
             } catch (e: Exception) {
                 return@launch
             }
+            // 0 - no answer   // 1 - true   // -1 - false
+            listQuestions.forEach { _ -> listCorrectAnswers.add(0) }
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)

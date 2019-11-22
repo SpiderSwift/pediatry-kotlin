@@ -15,8 +15,8 @@ interface QuestionDao {
     @Query("SELECT * FROM question")
     suspend fun getQuestionsAll(): List<Question>
 
-    @Query("SELECT * FROM question WHERE id = :id")
-    suspend fun getQuestionsById(id : String): Question
+    @Query("SELECT * FROM question WHERE id IN(:list)")
+    suspend fun getListQuestionsByIds(list : List<String>): List<Question>
 
     @Nullable
     @Query("SELECT MAX(tsLastChange) FROM question")

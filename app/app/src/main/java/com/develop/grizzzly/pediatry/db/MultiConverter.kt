@@ -82,13 +82,13 @@ object MultiConverter {
 
     @TypeConverter
     @JvmStatic
-    fun fromBooks(list: MutableList<Article>): String {
+    fun fromArticles(list: MutableList<Article>): String {
         return bookListAdapter.toJson(list)
     }
 
     @TypeConverter
     @JvmStatic
-    fun toBooks(str: String): MutableList<Article> {
+    fun toArticles(str: String): MutableList<Article> {
         return bookListAdapter.fromJson(str)!!
     }
 

@@ -13,8 +13,8 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
     private val list: List<MenuItem> = listOf(
         MenuItem("Вебинары", R.drawable.ic_webinars, R.id.action_menu_to_webinars, 1f),
         //MenuItem("Трансляции", R.drawable.ic_translations, null, 0.3f),
-        MenuItem("Тестирование", R.drawable.ic_testing, null, 0.3f),
-        MenuItem("Модули", R.drawable.ic_open_book, null, 0.3f),
+        MenuItem("Тестирование", R.drawable.ic_testing, R.id.action_menu_to_testing, 1f),
+        MenuItem("Модули", R.drawable.ic_open_book, R.id.action_menu_to_modules, 1f),
         MenuItem("Разборы", R.drawable.ic_details, null, 0.3f),
         MenuItem("Поддержка", R.drawable.ic_support, null, 0.3f)
     )
