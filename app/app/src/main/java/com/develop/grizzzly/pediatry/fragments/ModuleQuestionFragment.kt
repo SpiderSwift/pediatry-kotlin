@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.fragments
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ class ModuleQuestionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         val mainActivity = activity as? MainActivity
         mainActivity?.supportActionBar?.hide()
         return inflater.inflate(R.layout.fragment_module_question, container, false)
