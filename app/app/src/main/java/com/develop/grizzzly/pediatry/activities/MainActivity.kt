@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-    fun onError(view: View) {
+    fun onError(@Suppress("UNUSED_PARAMETER") view: View) {
         onBackPressed()
     }
 }
