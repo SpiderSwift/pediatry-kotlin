@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        //bottom_nav.visibility = View.VISIBLE todo так ли должно быть? || оно всё портит :\ || испавил, добавив в некоторых местках показ бара
+        //bottom_nav.visibility = View.VISIBLE todo так ли должно быть? || оно всё портит :\ || испавил, добавив в некоторых местках бар
         if (this.resources.configuration.orientation == 2) {
             Log.println(Log.ASSERT, "msg", "SCREEN_ORIENTATION")
             this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
