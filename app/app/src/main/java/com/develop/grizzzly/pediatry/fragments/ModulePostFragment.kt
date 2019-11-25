@@ -2,6 +2,7 @@ package com.develop.grizzzly.pediatry.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.ModulePost
 import com.develop.grizzzly.pediatry.viewmodel.module.ModulePostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_error.*
+import kotlinx.android.synthetic.main.fragment_module_post.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -41,7 +44,6 @@ class ModulePostFragment : Fragment() {
         activity?.toolbarTitle?.text = "Модуль"
         activity?.bottom_nav?.visibility = View.GONE
         viewModel = ViewModelProvider(this).get(ModulePostViewModel::class.java)
-        viewModel.id = args.moduleId.toLong()
         val binding = DataBindingUtil.inflate<FragmentModulePostBinding>(
             inflater,
             R.layout.fragment_module_post,
@@ -51,14 +53,15 @@ class ModulePostFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
         GlobalScope.launch {
-            var module: ModulePost? = null
             try {
-                module = WebAccess.pediatryApi.getModuleById(viewModel.id).body()?.response
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            if (module != null || module?.slides!!.isNotEmpty())
+                val module: ModulePost? =
+                    WebAccess.pediatryApi.getModuleById(args.moduleId.toLong()).body()?.response
                 withContext(Dispatchers.Main) {
+                    progressBarView.visibility = View.GONE
+                    border.visibility = View.VISIBLE
+                    if (module!!.testStatus == 2 || module.testStatus == 3) {
+                        toTesting.visibility = View.GONE
+                    }
                     binding.moduleNum.text = getString(R.string.module_is, module.number)
                     binding.tvTitle.text = module.title
                     picasso.load(module.slides[activeSlide].image).placeholder(R.drawable.loading)
@@ -76,6 +79,13 @@ class ModulePostFragment : Fragment() {
                             .placeholder(R.drawable.loading).into(binding.moduleImage)
                     }
                 }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    progressBarView.visibility = View.GONE
+                    includeError.visibility = View.VISIBLE
+                    errorMsg.text = "Ошибка :("
+                }
+            }
         }
         return binding.root
     }

@@ -2,6 +2,7 @@ package com.develop.grizzzly.pediatry.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,9 @@ import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.Question
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_error.*
+import kotlinx.android.synthetic.main.fragment_module_post.includeError
+import kotlinx.android.synthetic.main.fragment_module_question.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -43,16 +47,24 @@ class ModuleQuestionFragment : Fragment() {
     ) {
         GlobalScope.launch {
             val listQuestions: List<Question>
-            val listCorrectAnswers = mutableListOf<Int>()
+            val listCorrectAnswers =
+                mutableListOf<Int>() // 0 - no answer   // 1 - true   // -1 - false
             try {
                 listQuestions = DatabaseAccess.database.questionDao()
                     .getListQuestionsByIds(WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!)
             } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    progressBarView.visibility = View.GONE
+                    includeError.visibility = View.VISIBLE
+                    errorMsg.text = "Ошибка :("
+
+                }
                 return@launch
             }
-            // 0 - no answer   // 1 - true   // -1 - false
             listQuestions.forEach { _ -> listCorrectAnswers.add(0) }
             withContext(Dispatchers.Main) {
+                progressBarView.visibility = View.GONE
+                moduleQuestionConstraintLayout.visibility = View.VISIBLE
                 var questionNumber = 0
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
                 val btnAnswer = view.findViewById<Button>(R.id.btnAnswer)

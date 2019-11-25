@@ -2,7 +2,7 @@ package com.develop.grizzzly.pediatry.activities
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -105,9 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        //bottom_nav.visibility = View.VISIBLE todo так ли должно быть? || оно всё портит :\ || испавил, добавив в некоторых местках бар
         if (this.resources.configuration.orientation == 2) {
-            Log.println(Log.ASSERT, "msg", "SCREEN_ORIENTATION")
             this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
         super.onBackPressed()
@@ -117,4 +115,7 @@ class MainActivity : AppCompatActivity() {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
+    fun onError(view: View) {
+        onBackPressed()
+    }
 }
