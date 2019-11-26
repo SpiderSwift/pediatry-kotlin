@@ -32,6 +32,8 @@ class ModulePostFragment : Fragment() {
 
     private var isTooltips = true
 
+    private var isVisibleTest = true
+
     override fun onCreateView( //todo изменить картинку load and create books
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,16 +67,21 @@ class ModulePostFragment : Fragment() {
                             moduleNum.visibility = View.GONE
                             tvTitle.visibility = View.GONE
                             toTesting.visibility = View.GONE
+                            nextView.visibility = View.GONE
+                            backView.visibility = View.GONE
                         } else {
                             isTooltips = true
                             moduleNum.visibility = View.VISIBLE
                             tvTitle.visibility = View.VISIBLE
-                            toTesting.visibility = View.VISIBLE
+                            nextView.visibility = View.VISIBLE
+                            backView.visibility = View.VISIBLE
+                            toTesting.visibility = if (isVisibleTest) View.VISIBLE else View.GONE
                         }
                     }
                     progressBarView.visibility = View.GONE
                     border.visibility = View.VISIBLE
                     if (module!!.testStatus == 2 || module.testStatus == 3) {
+                        isVisibleTest = false
                         toTesting.visibility = View.GONE
                     }
                     binding.moduleNum.text = getString(R.string.module_is, module.number)
