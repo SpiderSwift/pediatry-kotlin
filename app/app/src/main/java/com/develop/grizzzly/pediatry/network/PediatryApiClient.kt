@@ -163,4 +163,13 @@ interface PediatryApiClient {
     suspend fun getModulesQuestion(
         @Path("id") id: String
     ): Response<BasicResponse<List<String>>>
+
+    @FormUrlEncoded
+    @POST("module/{id}/question")
+    suspend fun setModuleResult(
+        @Path("id") id: String,
+        @Field("answers") answers: Int,
+        @Field("correct") correct: Int
+    ): Response<ResponseBody>
+
 }

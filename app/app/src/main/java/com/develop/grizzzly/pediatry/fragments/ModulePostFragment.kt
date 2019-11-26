@@ -30,6 +30,8 @@ class ModulePostFragment : Fragment() {
 
     private val args: ModulePostFragmentArgs by navArgs()
 
+    private var isTooltips = true
+
     override fun onCreateView( //todo изменить картинку load and create books
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,12 +52,26 @@ class ModulePostFragment : Fragment() {
             false
         )
         binding.model = viewModel
+        viewModel.id = args.moduleId.toLong()
         binding.lifecycleOwner = this
         GlobalScope.launch {
             try {
                 val module: ModulePost? =
                     WebAccess.pediatryApi.getModuleById(args.moduleId.toLong()).body()?.response
                 withContext(Dispatchers.Main) {
+                    cardView.setOnClickListener {
+                        if (isTooltips) {
+                            isTooltips = false
+                            moduleNum.visibility = View.GONE
+                            tvTitle.visibility = View.GONE
+                            toTesting.visibility = View.GONE
+                        } else {
+                            isTooltips = true
+                            moduleNum.visibility = View.VISIBLE
+                            tvTitle.visibility = View.VISIBLE
+                            toTesting.visibility = View.VISIBLE
+                        }
+                    }
                     progressBarView.visibility = View.GONE
                     border.visibility = View.VISIBLE
                     if (module!!.testStatus == 2 || module.testStatus == 3) {

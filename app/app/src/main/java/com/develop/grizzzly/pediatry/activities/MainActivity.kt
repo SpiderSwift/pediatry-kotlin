@@ -93,10 +93,10 @@ class MainActivity : AppCompatActivity() {
             R.navigation.menu_navigation
         )
         val controller = bottom_nav.setupWithNavController(
-            navGraphIds = navGraphIds,
-            fragmentManager = supportFragmentManager,
-            containerId = R.id.bottomNavFragment,
-            intent = intent
+            navGraphIds,
+            supportFragmentManager,
+            R.id.bottomNavFragment,
+            intent
         )
         controller.observe(this, Observer { navController ->
             NavigationUI.setupActionBarWithNavController(this, navController)
@@ -105,9 +105,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (this.resources.configuration.orientation == 2) {
+        if (this.resources.configuration.orientation == 2)
             this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
         super.onBackPressed()
     }
 

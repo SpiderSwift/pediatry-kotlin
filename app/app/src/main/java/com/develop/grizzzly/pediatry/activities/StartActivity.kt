@@ -2,6 +2,7 @@ package com.develop.grizzzly.pediatry.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.develop.grizzzly.pediatry.R

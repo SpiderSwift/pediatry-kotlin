@@ -2,7 +2,6 @@ package com.develop.grizzzly.pediatry.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,17 +51,24 @@ class ModuleQuestionFragment : Fragment() {
             try {
                 listQuestions = DatabaseAccess.database.questionDao()
                     .getListQuestionsByIds(WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!)
+                if (listQuestions.isEmpty()) {
+                    throw IllegalArgumentException("Этот тест сейчас пустой :(")
+                }
+            } catch (e: IllegalArgumentException) {
+                withContext(Dispatchers.Main) {
+                    errorView()
+                    errorMsg.text = e.message.toString()
+                }
+                return@launch
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    progressBarView.visibility = View.GONE
-                    includeError.visibility = View.VISIBLE
+                    errorView()
                     errorMsg.text = "Ошибка :("
-
                 }
                 return@launch
             }
-            listQuestions.forEach { _ -> listCorrectAnswers.add(0) }
             withContext(Dispatchers.Main) {
+                listQuestions.forEach { _ -> listCorrectAnswers.add(0) }
                 progressBarView.visibility = View.GONE
                 moduleQuestionConstraintLayout.visibility = View.VISIBLE
                 var questionNumber = 0
@@ -163,7 +169,13 @@ class ModuleQuestionFragment : Fragment() {
                                     if (Collections.frequency(listCorrectAnswers, 1) >= 8)
                                         getString(R.string.exam_passed) else getString(R.string.exam_not_passed)
                                 )
-                            //todo отправить результат на сервер
+                            GlobalScope.launch {
+                                WebAccess.pediatryApi.setModuleResult(
+                                    args.moduleId.toString(),
+                                    listQuestions.size + 1,
+                                    Collections.frequency(listCorrectAnswers, 1)
+                                )
+                            }
                         }
                     }
                 }
@@ -207,5 +219,10 @@ class ModuleQuestionFragment : Fragment() {
         for (btn in listRadioButton) {
             btn.isClickable = false
         }
+    }
+
+    private fun errorView() {
+        progressBarView.visibility = View.GONE
+        includeError.visibility = View.VISIBLE
     }
 }
