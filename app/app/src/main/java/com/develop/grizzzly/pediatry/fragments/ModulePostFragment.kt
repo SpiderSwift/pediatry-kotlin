@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.databinding.FragmentModulePostBinding
-import com.develop.grizzzly.pediatry.images.ImageAccess
+import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.ModulePost
 import com.develop.grizzzly.pediatry.viewmodel.module.ModulePostViewModel
@@ -23,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class ModulePostFragment : Fragment() {
 
@@ -39,10 +42,13 @@ class ModulePostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        activity?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         var activeSlide = 0
         val activity = activity as? MainActivity
-        val picasso = ImageAccess.picasso
         activity?.supportActionBar?.hide()
         activity?.toolbarTitle?.text = "Модуль"
         activity?.bottom_nav?.visibility = View.GONE
@@ -61,23 +67,15 @@ class ModulePostFragment : Fragment() {
                 val module: ModulePost? =
                     WebAccess.pediatryApi.getModuleById(args.moduleId.toLong()).body()?.response
                 withContext(Dispatchers.Main) {
+                    updateScreen()
+//                    val gestureDetector =
+//                        GestureDetector(context, GestureListener(context!!, cardView))
                     cardView.setOnClickListener {
-                        if (isTooltips) {
-                            isTooltips = false
-                            moduleNum.visibility = View.GONE
-                            tvTitle.visibility = View.GONE
-                            toTesting.visibility = View.GONE
-                            nextView.visibility = View.GONE
-                            backView.visibility = View.GONE
-                        } else {
-                            isTooltips = true
-                            moduleNum.visibility = View.VISIBLE
-                            tvTitle.visibility = View.VISIBLE
-                            nextView.visibility = View.VISIBLE
-                            backView.visibility = View.VISIBLE
-                            toTesting.visibility = if (isVisibleTest) View.VISIBLE else View.GONE
-                        }
+                        updateScreen()
                     }
+//                    cardView.setOnTouchListener { _, event ->
+//                        gestureDetector.onTouchEvent(event)
+//                    }
                     progressBarView.visibility = View.GONE
                     border.visibility = View.VISIBLE
                     if (module!!.testStatus == 2 || module.testStatus == 3) {
@@ -86,19 +84,38 @@ class ModulePostFragment : Fragment() {
                     }
                     binding.moduleNum.text = getString(R.string.module_is, module.number)
                     binding.tvTitle.text = module.title
-                    picasso.load(module.slides[activeSlide].image).placeholder(R.drawable.loading)
-                        .into(binding.moduleImage)
+                    picassoRemoteWithAuth(
+                        module.slides[activeSlide].image,
+                        binding.moduleImage,
+                        R.drawable.loading
+                    )
                     binding.nextView.setOnClickListener {
+                        cardView.startAnimation(
+                            AnimationUtils.loadAnimation(context, R.anim.slide_anim_right)
+                        )
                         activeSlide++
                         if (activeSlide > module.slides.size - 1) activeSlide = 0
-                        picasso.load(module.slides[activeSlide].image).fit()
-                            .placeholder(R.drawable.loading).into(binding.moduleImage)
+                        picassoRemoteWithAuth(
+                            module.slides[activeSlide].image,
+                            binding.moduleImage,
+                            R.drawable.loading
+                        )
+                        isTooltips = true
+                        updateScreen()
                     }
                     binding.backView.setOnClickListener {
+                        cardView.startAnimation(
+                            AnimationUtils.loadAnimation(context, R.anim.slide_anim_left)
+                        )
                         activeSlide--
                         if (activeSlide < 0) activeSlide = module.slides.size - 1
-                        picasso.load(module.slides[activeSlide].image).fit()
-                            .placeholder(R.drawable.loading).into(binding.moduleImage)
+                        picassoRemoteWithAuth(
+                            module.slides[activeSlide].image,
+                            binding.moduleImage,
+                            R.drawable.loading
+                        )
+                        isTooltips = true
+                        updateScreen()
                     }
                 }
             } catch (e: Exception) {
@@ -111,4 +128,56 @@ class ModulePostFragment : Fragment() {
         }
         return binding.root
     }
+
+    private fun updateScreen() {
+        if (isTooltips) {
+            cardView.alpha = (1).toFloat()
+            isTooltips = false
+            moduleNum.visibility = View.GONE
+            tvTitle.visibility = View.GONE
+            toTesting.visibility = View.GONE
+            nextView.visibility = View.GONE
+            backView.visibility = View.GONE
+        } else {
+            cardView.alpha = (0.5).toFloat()
+            isTooltips = true
+            moduleNum.visibility = View.VISIBLE
+            tvTitle.visibility = View.VISIBLE
+            nextView.visibility = View.VISIBLE
+            backView.visibility = View.VISIBLE
+            toTesting.visibility = if (isVisibleTest) View.VISIBLE else View.GONE
+        }
+    }
+
+//    private class GestureListener(context: Context, cardView: CardView) :
+//        GestureDetector.SimpleOnGestureListener() {
+//
+//        private val swipeMinDistance = 120
+//        private val swipeThresholdVelocity = 200
+//        var thisContext = context
+//        var thisCardView = cardView
+//
+//        override fun onFling(
+//            e1: MotionEvent?,
+//            e2: MotionEvent?,
+//            velocityX: Float,
+//            velocityY: Float
+//        ): Boolean {
+//            if (e1!!.x - e2!!.x > swipeMinDistance && abs(velocityX) > swipeThresholdVelocity)
+//                thisCardView.startAnimation(
+//                    AnimationUtils.loadAnimation(thisContext, R.anim.slide_anim_left)
+//                )
+//            else if (e2.x - e1.x > swipeMinDistance && abs(velocityX) > swipeThresholdVelocity)
+//                thisCardView.startAnimation(
+//                    AnimationUtils.loadAnimation(thisContext, R.anim.slide_anim_right)
+//                )
+//            return true
+//        }
+//
+////        override fun onDown(event: MotionEvent): Boolean {
+////            //updateScreen()
+////            Log.println(Log.ASSERT, "msg", "onDown")
+////            return true
+////        }
+//    }
 }

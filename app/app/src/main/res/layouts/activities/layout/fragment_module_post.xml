@@ -19,13 +19,13 @@
             android:id="@+id/border"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/layout_bg"
             android:elevation="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,8 +53,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nextView"
-                android:layout_width="50dp"
-                android:layout_height="60dp"
+                android:layout_width="60dp"
+                android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,9 +62,9 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView">
 
                 <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_fatty_arrow_right"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_fatty_arrow_right_violet"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -73,8 +73,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/backView"
-                android:layout_width="50dp"
-                android:layout_height="60dp"
+                android:layout_width="60dp"
+                android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -82,9 +82,9 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView">
 
                 <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_fatty_arrow_left"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_fatty_arrow_left_violet"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -100,8 +100,8 @@
                 android:fontFamily="@font/gothampromedium"
                 android:lineSpacingExtra="10dp"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,23 +111,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="6dp"
+                android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/gothampromedium"
                 android:lineSpacingExtra="10dp"
                 android:maxLines="1"
-                android:layout_marginEnd="10dp"
                 android:scrollHorizontally="true"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/toTesting"
                 app:layout_constraintStart_toEndOf="@+id/moduleNum"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/toTesting"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="6dp"
                 android:alpha="0.70"
@@ -151,7 +151,7 @@
             layout="@layout/fragment_progressbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
