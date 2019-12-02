@@ -6,17 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
+import com.develop.grizzzly.pediatry.adapters.module.SlidePagerAdapter
 import com.develop.grizzzly.pediatry.databinding.FragmentModulePostBinding
-import com.develop.grizzzly.pediatry.images.picassoRemoteWithAuth
 import com.develop.grizzzly.pediatry.network.WebAccess
 import com.develop.grizzzly.pediatry.network.model.ModulePost
+import com.develop.grizzzly.pediatry.util.ZoomPager
 import com.develop.grizzzly.pediatry.viewmodel.module.ModulePostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_error.*
@@ -29,11 +30,7 @@ import kotlinx.coroutines.withContext
 
 class ModulePostFragment : Fragment() {
 
-    private lateinit var viewModel: ModulePostViewModel
-
     private val args: ModulePostFragmentArgs by navArgs()
-
-    private var isTooltips = true
 
     private var isVisibleTest = true
 
@@ -46,75 +43,47 @@ class ModulePostFragment : Fragment() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        val listSlidesFragment = mutableListOf<SlidePagerFragment>()
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        var activeSlide = 0
         val activity = activity as? MainActivity
         activity?.supportActionBar?.hide()
         activity?.toolbarTitle?.text = "Модуль"
         activity?.bottom_nav?.visibility = View.GONE
-        viewModel = ViewModelProvider(this).get(ModulePostViewModel::class.java)
+        ModulePostViewModel.viewModel = ViewModelProvider(this).get(ModulePostViewModel::class.java)
+        ModulePostViewModel.viewModel.isClick.observe(
+            viewLifecycleOwner, Observer<Boolean> { updateScreen() })
         val binding = DataBindingUtil.inflate<FragmentModulePostBinding>(
-            inflater,
-            R.layout.fragment_module_post,
-            container,
-            false
+            inflater, R.layout.fragment_module_post, container, false
         )
-        binding.model = viewModel
-        viewModel.id = args.moduleId.toLong()
+        binding.model = ModulePostViewModel.viewModel
+        ModulePostViewModel.viewModel.id = args.moduleId.toLong()
         binding.lifecycleOwner = this
         GlobalScope.launch {
             try {
                 val module: ModulePost? =
                     WebAccess.pediatryApi.getModuleById(args.moduleId.toLong()).body()?.response
+                ModulePostViewModel.listSlides = module!!.slides
+                for (x in module.slides.indices)
+                    listSlidesFragment.add(SlidePagerFragment(x))
                 withContext(Dispatchers.Main) {
+                    viewPager.adapter = SlidePagerAdapter(parentFragmentManager, listSlidesFragment)
+                    viewPager.setPageTransformer(true, ZoomPager())
+                    viewPager.offscreenPageLimit = 2
                     updateScreen()
-//                    val gestureDetector =
-//                        GestureDetector(context, GestureListener(context!!, cardView))
-                    cardView.setOnClickListener {
-                        updateScreen()
-                    }
-//                    cardView.setOnTouchListener { _, event ->
-//                        gestureDetector.onTouchEvent(event)
-//                    }
                     progressBarView.visibility = View.GONE
                     border.visibility = View.VISIBLE
-                    if (module!!.testStatus == 2 || module.testStatus == 3) {
+                    if (module.testStatus == 2 || module.testStatus == 3) {
                         isVisibleTest = false
                         toTesting.visibility = View.GONE
                     }
                     binding.moduleNum.text = getString(R.string.module_is, module.number)
                     binding.tvTitle.text = module.title
-                    picassoRemoteWithAuth(
-                        module.slides[activeSlide].image,
-                        binding.moduleImage,
-                        R.drawable.loading
-                    )
                     binding.nextView.setOnClickListener {
-                        cardView.startAnimation(
-                            AnimationUtils.loadAnimation(context, R.anim.slide_anim_right)
-                        )
-                        activeSlide++
-                        if (activeSlide > module.slides.size - 1) activeSlide = 0
-                        picassoRemoteWithAuth(
-                            module.slides[activeSlide].image,
-                            binding.moduleImage,
-                            R.drawable.loading
-                        )
-                        isTooltips = true
+                        viewPager.currentItem += 1
                         updateScreen()
                     }
                     binding.backView.setOnClickListener {
-                        cardView.startAnimation(
-                            AnimationUtils.loadAnimation(context, R.anim.slide_anim_left)
-                        )
-                        activeSlide--
-                        if (activeSlide < 0) activeSlide = module.slides.size - 1
-                        picassoRemoteWithAuth(
-                            module.slides[activeSlide].image,
-                            binding.moduleImage,
-                            R.drawable.loading
-                        )
-                        isTooltips = true
+                        viewPager.currentItem -= 1
                         updateScreen()
                     }
                 }
@@ -130,17 +99,17 @@ class ModulePostFragment : Fragment() {
     }
 
     private fun updateScreen() {
-        if (isTooltips) {
-            cardView.alpha = (1).toFloat()
-            isTooltips = false
+        if (ModulePostViewModel.isTooltips) {
+            viewPager.alpha = (1).toFloat()
+            ModulePostViewModel.isTooltips = false
             moduleNum.visibility = View.GONE
             tvTitle.visibility = View.GONE
             toTesting.visibility = View.GONE
             nextView.visibility = View.GONE
             backView.visibility = View.GONE
         } else {
-            cardView.alpha = (0.5).toFloat()
-            isTooltips = true
+            viewPager.alpha = (0.5).toFloat()
+            ModulePostViewModel.isTooltips = true
             moduleNum.visibility = View.VISIBLE
             tvTitle.visibility = View.VISIBLE
             nextView.visibility = View.VISIBLE
@@ -148,36 +117,4 @@ class ModulePostFragment : Fragment() {
             toTesting.visibility = if (isVisibleTest) View.VISIBLE else View.GONE
         }
     }
-
-//    private class GestureListener(context: Context, cardView: CardView) :
-//        GestureDetector.SimpleOnGestureListener() {
-//
-//        private val swipeMinDistance = 120
-//        private val swipeThresholdVelocity = 200
-//        var thisContext = context
-//        var thisCardView = cardView
-//
-//        override fun onFling(
-//            e1: MotionEvent?,
-//            e2: MotionEvent?,
-//            velocityX: Float,
-//            velocityY: Float
-//        ): Boolean {
-//            if (e1!!.x - e2!!.x > swipeMinDistance && abs(velocityX) > swipeThresholdVelocity)
-//                thisCardView.startAnimation(
-//                    AnimationUtils.loadAnimation(thisContext, R.anim.slide_anim_left)
-//                )
-//            else if (e2.x - e1.x > swipeMinDistance && abs(velocityX) > swipeThresholdVelocity)
-//                thisCardView.startAnimation(
-//                    AnimationUtils.loadAnimation(thisContext, R.anim.slide_anim_right)
-//                )
-//            return true
-//        }
-//
-////        override fun onDown(event: MotionEvent): Boolean {
-////            //updateScreen()
-////            Log.println(Log.ASSERT, "msg", "onDown")
-////            return true
-////        }
-//    }
 }

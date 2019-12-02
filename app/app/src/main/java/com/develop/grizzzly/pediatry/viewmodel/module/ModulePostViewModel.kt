@@ -1,12 +1,22 @@
 package com.develop.grizzzly.pediatry.viewmodel.module
 
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import com.develop.grizzzly.pediatry.fragments.ModulePostFragmentDirections
+import com.develop.grizzzly.pediatry.network.model.Slide
 
 class ModulePostViewModel : ViewModel() {
+
+    companion object {
+        lateinit var viewModel: ModulePostViewModel //todo create Singleton?
+        lateinit var listSlides: MutableList<Slide>
+        var isTooltips = false
+    }
+
+    var isClick: MutableLiveData<Boolean> = MutableLiveData(true)
 
     var id: Long = 0
 
