@@ -74,8 +74,8 @@ class ModuleQuestionFragment : Fragment() {
                 var questionNumber = 0
                 val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
                 val btnAnswer = view.findViewById<Button>(R.id.btnAnswer)
-                val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_infinity)
-                val textQuestion = view.findViewById<TextView>(R.id.text_question)
+                val questionNumberTextView = view.findViewById<TextView>(R.id.oneToInfinity)
+                val textQuestion = view.findViewById<TextView>(R.id.textQuestion)
                 var isAnswer = false
                 val backButton = view.findViewById<View>(R.id.backView)
                 val nextButton = view.findViewById<View>(R.id.nextView)

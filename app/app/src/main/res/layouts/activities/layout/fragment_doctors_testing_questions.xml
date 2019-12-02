@@ -50,7 +50,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/text_question"
+            android:id="@+id/textQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -61,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/one_to_infinity" />
+            app:layout_constraintTop_toBottomOf="@+id/oneToInfinity" />
 
         <Button
             android:id="@+id/btnAnswer"
@@ -91,7 +91,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btnAnswer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_question">
+            app:layout_constraintTop_toBottomOf="@+id/textQuestion">
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -158,7 +158,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/one_to_infinity"
+            android:id="@+id/oneToInfinity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

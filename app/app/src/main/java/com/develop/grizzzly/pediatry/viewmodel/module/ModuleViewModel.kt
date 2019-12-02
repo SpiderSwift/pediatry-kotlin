@@ -12,7 +12,7 @@ class ModuleViewModel : ViewModel() {
         const val pageSize = 10
     }
 
-    var conferenceLiveData: LiveData<PagedList<Module>>
+    var moduleLiveData: LiveData<PagedList<Module>>
     var dataSourceFactory: ModuleDataSourceFactory = ModuleDataSourceFactory()
 
     init {
@@ -20,6 +20,6 @@ class ModuleViewModel : ViewModel() {
             .setPageSize(pageSize)
             .setEnablePlaceholders(false)
             .build()
-        conferenceLiveData = LivePagedListBuilder<Int, Module>(dataSourceFactory, config).build()
+        moduleLiveData = LivePagedListBuilder<Int, Module>(dataSourceFactory, config).build()
     }
 }

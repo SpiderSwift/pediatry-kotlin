@@ -18,7 +18,6 @@ class ModulePostViewModel : ViewModel() {
         transition.moduleId = id.toInt()
         Navigation.findNavController(view).navigateNoExcept(transition)
     }
-
     companion object {
         lateinit var viewModel: ModulePostViewModel //todo create Singleton?
         lateinit var listSlides: MutableList<Slide>

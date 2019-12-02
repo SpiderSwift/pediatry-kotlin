@@ -42,7 +42,7 @@ class ModuleFragment : Fragment() {
         adapter = ModuleAdapter()
         listModules.adapter = adapter
         listModules.layoutManager = GridLayoutManager(activity, 2)
-        viewModel.conferenceLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.moduleLiveData.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             refreshLayout.isRefreshing = false
         })

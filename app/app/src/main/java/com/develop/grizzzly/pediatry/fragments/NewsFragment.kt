@@ -57,7 +57,6 @@ class NewsFragment : Fragment() {
             viewModel.dataSourceFactory.postLiveData?.value?.invalidate()
         }
         super.onViewCreated(view, savedInstanceState)
-
     }
 
 }

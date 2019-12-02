@@ -15,6 +15,7 @@ import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.model.Question
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_doctors_testing_questions.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,18 +36,14 @@ class TestingQuestionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ) {
         GlobalScope.launch {
-            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll().shuffled()
+            val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
+                .shuffled() //todo загружать всё сразу не нужно? слишком много данных
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
                 val mainActivity = activity as? MainActivity
-                val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
-                val btnNext = view.findViewById<Button>(R.id.btnAnswer)
-                val questionNumberTextView = view.findViewById<TextView>(R.id.one_to_infinity)
-                val textQuestion = view.findViewById<TextView>(R.id.text_question)
                 var isAnswer = false
                 val listRadioButton = mutableListOf<RadioButton>(
-                    view.findViewById(R.id.radioButton1), view.findViewById(R.id.radioButton2),
-                    view.findViewById(R.id.radioButton3), view.findViewById(R.id.radioButton4)
+                    radioButton1, radioButton2, radioButton3, radioButton4
                 )
                 activity?.toolbarTitle?.visibility = View.GONE
                 mainActivity?.supportActionBar?.hide()
@@ -57,20 +54,20 @@ class TestingQuestionsFragment : Fragment() {
                     activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
-                    btnNext.isEnabled = true
+                    btnAnswer.isEnabled = true
                 }
-                editView(
-                    listQuestions, questionNumber, textQuestion, questionNumberTextView,
-                    listRadioButton, btnNext, radioGroup, listQuestions.size
+                updateScreen(
+                    listQuestions, questionNumber, textQuestion, oneToInfinity,
+                    listRadioButton, btnAnswer, radioGroup, listQuestions.size
                 )
                 (view.findViewById<View>(R.id.nextView)).setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
                         isAnswer = false
-                        btnNext.text = getString(R.string.to_answer)
+                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber++
-                        editView(
-                            listQuestions, questionNumber, textQuestion, questionNumberTextView,
-                            listRadioButton, btnNext, radioGroup, listQuestions.size
+                        updateScreen(
+                            listQuestions, questionNumber, textQuestion, oneToInfinity,
+                            listRadioButton, btnAnswer, radioGroup, listQuestions.size
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
@@ -81,11 +78,11 @@ class TestingQuestionsFragment : Fragment() {
                 (view.findViewById<View>(R.id.backView)).setOnClickListener {
                     if (questionNumber > 0) {
                         isAnswer = false
-                        btnNext.text = getString(R.string.to_answer)
+                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber--
-                        editView(
-                            listQuestions, questionNumber, textQuestion, questionNumberTextView,
-                            listRadioButton, btnNext, radioGroup, listQuestions.size
+                        updateScreen(
+                            listQuestions, questionNumber, textQuestion, oneToInfinity,
+                            listRadioButton, btnAnswer, radioGroup, listQuestions.size
                         )
                         for (btn in listRadioButton) {
                             btn.isClickable = true
@@ -93,15 +90,15 @@ class TestingQuestionsFragment : Fragment() {
                         }
                     }
                 }
-                btnNext.setOnClickListener {
+                btnAnswer.setOnClickListener {
                     if (isAnswer) {
                         if (questionNumber < listQuestions.size - 1) {
                             isAnswer = false
-                            btnNext.text = getString(R.string.to_answer)
+                            btnAnswer.text = getString(R.string.to_answer)
                             questionNumber++
-                            editView(
-                                listQuestions, questionNumber, textQuestion, questionNumberTextView,
-                                listRadioButton, btnNext, radioGroup, listQuestions.size
+                            updateScreen(
+                                listQuestions, questionNumber, textQuestion, oneToInfinity,
+                                listRadioButton, btnAnswer, radioGroup, listQuestions.size
                             )
                             for (btn in listRadioButton) {
                                 btn.isClickable = true
@@ -110,7 +107,7 @@ class TestingQuestionsFragment : Fragment() {
                         }
                     } else {
                         isAnswer = true
-                        btnNext.text = getString(R.string.next)
+                        btnAnswer.text = getString(R.string.next)
                         setButtonColor(
                             listQuestions, listRadioButton, questionNumber,
                             radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId))
@@ -122,7 +119,7 @@ class TestingQuestionsFragment : Fragment() {
         }
     }
 
-    private fun editView(
+    private fun updateScreen(
         list: List<Question>, questionNumber: Int,
         textQuestion: TextView, questionNumberTextView: TextView,
         listRadioButton: List<RadioButton>, btnNext: Button,
