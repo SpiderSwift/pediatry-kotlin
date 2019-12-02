@@ -50,7 +50,7 @@ class ModulePostFragment : Fragment() {
         activity?.toolbarTitle?.text = "Модуль"
         activity?.bottom_nav?.visibility = View.GONE
         ModulePostViewModel.viewModel = ViewModelProvider(this).get(ModulePostViewModel::class.java)
-        ModulePostViewModel.viewModel.isClick.observe(
+        ModulePostViewModel.viewModel.isClicked.observe(
             viewLifecycleOwner, Observer<Boolean> { updateScreen() })
         val binding = DataBindingUtil.inflate<FragmentModulePostBinding>(
             inflater, R.layout.fragment_module_post, container, false
@@ -72,7 +72,7 @@ class ModulePostFragment : Fragment() {
                     updateScreen()
                     progressBarView.visibility = View.GONE
                     border.visibility = View.VISIBLE
-                    if (module.testStatus == 2 || module.testStatus == 3) {
+                    if (module.testStatus != 1) {
                         isVisibleTest = false
                         toTesting.visibility = View.GONE
                     }
@@ -108,7 +108,7 @@ class ModulePostFragment : Fragment() {
             nextView.visibility = View.GONE
             backView.visibility = View.GONE
         } else {
-            viewPager.alpha = (0.5).toFloat()
+            viewPager.alpha = (0.4).toFloat()
             ModulePostViewModel.isTooltips = true
             moduleNum.visibility = View.VISIBLE
             tvTitle.visibility = View.VISIBLE

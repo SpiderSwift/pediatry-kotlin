@@ -10,19 +10,18 @@ import com.develop.grizzzly.pediatry.network.model.Slide
 
 class ModulePostViewModel : ViewModel() {
 
-    companion object {
-        lateinit var viewModel: ModulePostViewModel //todo create Singleton?
-        lateinit var listSlides: MutableList<Slide>
-        var isTooltips = false
-    }
-
-    var isClick: MutableLiveData<Boolean> = MutableLiveData(true)
-
+    var isClicked: MutableLiveData<Boolean> = MutableLiveData(true)
     var id: Long = 0
 
     fun onTest(view: View) {
         val transition = ModulePostFragmentDirections.actionModuleToQuestions()
         transition.moduleId = id.toInt()
         Navigation.findNavController(view).navigateNoExcept(transition)
+    }
+
+    companion object {
+        lateinit var viewModel: ModulePostViewModel //todo create Singleton?
+        lateinit var listSlides: MutableList<Slide>
+        var isTooltips = false
     }
 }

@@ -24,7 +24,7 @@ class SlidePagerFragment(private val position: Int) : Fragment() {
             view.findViewById(R.id.moduleImage), R.drawable.loading
         )
         view.findViewById<ImageView>(R.id.moduleImage).setOnClickListener {
-            ModulePostViewModel.viewModel.isClick.value = !ModulePostViewModel.isTooltips
+            ModulePostViewModel.viewModel.isClicked.value = !ModulePostViewModel.isTooltips
         }
         return view
     }
