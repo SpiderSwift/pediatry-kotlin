@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
@@ -24,91 +22,57 @@ import kotlinx.coroutines.withContext
 class TestingQuestionsFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_doctors_testing_questions, container, false)
-    }
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_doctors_testing_questions, container, false)
 
     override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
+        view: View, savedInstanceState: Bundle?
     ) {
         GlobalScope.launch {
             val listQuestions = DatabaseAccess.database.questionDao().getQuestionsAll()
                 .shuffled() //todo загружать всё сразу не нужно? слишком много данных
             withContext(Dispatchers.Main) {
                 var questionNumber = 0
-                val mainActivity = activity as? MainActivity
                 var isAnswer = false
                 val listRadioButton = mutableListOf<RadioButton>(
                     radioButton1, radioButton2, radioButton3, radioButton4
                 )
                 activity?.toolbarTitle?.visibility = View.GONE
-                mainActivity?.supportActionBar?.hide()
-                val window = activity?.window
-                window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                window?.statusBarColor =
+                (activity as? MainActivity)?.supportActionBar?.hide()
+                activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                activity?.window?.statusBarColor =
                     activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
                 radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
                     btnAnswer.isEnabled = true
                 }
-                updateScreen(
-                    listQuestions, questionNumber, textQuestion, oneToInfinity,
-                    listRadioButton, btnAnswer, radioGroup, listQuestions.size
-                )
-                (view.findViewById<View>(R.id.nextView)).setOnClickListener {
+                updateScreen(listQuestions, questionNumber, listRadioButton)
+                nextView.setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
                         isAnswer = false
-                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber++
-                        updateScreen(
-                            listQuestions, questionNumber, textQuestion, oneToInfinity,
-                            listRadioButton, btnAnswer, radioGroup, listQuestions.size
-                        )
-                        for (btn in listRadioButton) {
-                            btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black, null))
-                        }
+                        transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                     }
                 }
                 (view.findViewById<View>(R.id.backView)).setOnClickListener {
                     if (questionNumber > 0) {
                         isAnswer = false
-                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber--
-                        updateScreen(
-                            listQuestions, questionNumber, textQuestion, oneToInfinity,
-                            listRadioButton, btnAnswer, radioGroup, listQuestions.size
-                        )
-                        for (btn in listRadioButton) {
-                            btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black, null))
-                        }
+                        transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                     }
                 }
                 btnAnswer.setOnClickListener {
                     if (isAnswer) {
                         if (questionNumber < listQuestions.size - 1) {
                             isAnswer = false
-                            btnAnswer.text = getString(R.string.to_answer)
                             questionNumber++
-                            updateScreen(
-                                listQuestions, questionNumber, textQuestion, oneToInfinity,
-                                listRadioButton, btnAnswer, radioGroup, listQuestions.size
-                            )
-                            for (btn in listRadioButton) {
-                                btn.isClickable = true
-                                btn.setTextColor(resources.getColor(android.R.color.black, null))
-                            }
+                            transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                         }
                     } else {
                         isAnswer = true
                         btnAnswer.text = getString(R.string.next)
-                        setButtonColor(
+                        setAnswer(
                             listQuestions, listRadioButton, questionNumber,
                             radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId))
                         )
@@ -120,21 +84,19 @@ class TestingQuestionsFragment : Fragment() {
     }
 
     private fun updateScreen(
-        list: List<Question>, questionNumber: Int,
-        textQuestion: TextView, questionNumberTextView: TextView,
-        listRadioButton: List<RadioButton>, btnNext: Button,
-        radioGroup: RadioGroup, questionSize: Int
+        listQuestions: List<Question>, questionNumber: Int,
+        listRadioButton: List<RadioButton>
     ) {
-        textQuestion.text = list[questionNumber].text
+        textQuestion.text = listQuestions[questionNumber].text
         for ((radioButton, btn) in listRadioButton.withIndex())
-            btn.text = list[questionNumber].answers[radioButton].text
+            btn.text = listQuestions[questionNumber].answers[radioButton].text
         radioGroup.clearCheck()
-        btnNext.isEnabled = false
-        questionNumberTextView.text =
-            getString(R.string.one_to_infinity, (questionNumber + 1), questionSize)
+        btnAnswer.isEnabled = false
+        oneToInfinity.text =
+            getString(R.string.one_to_infinity, (questionNumber + 1), listQuestions.size)
     }
 
-    private fun setButtonColor(
+    private fun setAnswer(
         listQuestions: List<Question>, listRadioButton: MutableList<RadioButton>,
         questionNumber: Int, selectedNumber: Int
     ) {
@@ -151,5 +113,16 @@ class TestingQuestionsFragment : Fragment() {
             )
         }
         for (btn in listRadioButton) btn.isClickable = false
+    }
+
+    private fun transitionToQuestion(
+        listQuestions: List<Question>, questionNumber: Int, listRadioButton: List<RadioButton>
+    ) {
+        btnAnswer.text = getString(R.string.to_answer)
+        updateScreen(listQuestions, questionNumber, listRadioButton)
+        for (btn in listRadioButton) {
+            btn.isClickable = true
+            btn.setTextColor(resources.getColor(android.R.color.black, null))
+        }
     }
 }

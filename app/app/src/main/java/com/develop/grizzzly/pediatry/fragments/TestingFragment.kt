@@ -22,13 +22,12 @@ class TestingFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val mainActivity = activity as? MainActivity
         activity?.toolbarTitle?.visibility = View.GONE
-        mainActivity?.supportActionBar?.hide()
-        val window = activity?.window
-        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window?.statusBarColor = activity?.resources?.getColor(android.R.color.white, null) ?: 0
+        (activity as? MainActivity)?.supportActionBar?.hide()
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        activity?.window?.statusBarColor =
+            activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
         (view.findViewById<Button>(R.id.btnStartTest)).setOnClickListener {
             Navigation.findNavController(view).navigateNoExcept(R.id.action_testings_to_question)

@@ -30,9 +30,9 @@ class ModuleAdapter :
             binding.model = ModuleItemViewModel(module)
             binding.testStatus.text =
                 when (module.testStatus) {
-                    1 -> "Тест еще не был пройден"
-                    2 -> "Успешно пройденный тест"
-                    3 -> "Неудачно пройденный тест"
+                    Module.noTesting -> "Тест еще не был пройден"
+                    Module.correctTesting -> "Успешно пройденный тест"
+                    Module.incorrectTesting -> "Неудачно пройденный тест"
                     else -> "Что-то пошло не так"
                 }
         }

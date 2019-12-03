@@ -6,27 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.db.DatabaseAccess
 import com.develop.grizzzly.pediatry.network.WebAccess
+import com.develop.grizzzly.pediatry.network.model.AnswerInstance
 import com.develop.grizzzly.pediatry.network.model.Question
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_error.*
-import kotlinx.android.synthetic.main.fragment_module_post.includeError
 import kotlinx.android.synthetic.main.fragment_module_question.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class ModuleQuestionFragment : Fragment() {
 
@@ -46,14 +41,12 @@ class ModuleQuestionFragment : Fragment() {
     ) {
         GlobalScope.launch {
             val listQuestions: List<Question>
-            val listCorrectAnswers =
-                mutableListOf<Int>() // 0 - no answer   // 1 - true   // -1 - false
+            val listCorrectAnswers = mutableListOf<AnswerInstance>()
             try {
                 listQuestions = DatabaseAccess.database.questionDao()
                     .getListQuestionsByIds(WebAccess.pediatryApi.getModulesQuestion(args.moduleId.toString()).body()!!.response!!)
-                if (listQuestions.isEmpty()) {
+                if (listQuestions.isEmpty())
                     throw IllegalArgumentException("Этот тест сейчас пустой :(")
-                }
             } catch (e: IllegalArgumentException) {
                 withContext(Dispatchers.Main) {
                     errorView()
@@ -68,20 +61,17 @@ class ModuleQuestionFragment : Fragment() {
                 return@launch
             }
             withContext(Dispatchers.Main) {
-                listQuestions.forEach { _ -> listCorrectAnswers.add(0) }
+                listQuestions.forEach {
+                    listCorrectAnswers.add(
+                        AnswerInstance(it.correctAnswersCombo[0], AnswerInstance.noAnswered)
+                    )
+                }
                 progressBarView.visibility = View.GONE
                 moduleQuestionConstraintLayout.visibility = View.VISIBLE
                 var questionNumber = 0
-                val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup)
-                val btnAnswer = view.findViewById<Button>(R.id.btnAnswer)
-                val questionNumberTextView = view.findViewById<TextView>(R.id.oneToInfinity)
-                val textQuestion = view.findViewById<TextView>(R.id.textQuestion)
                 var isAnswer = false
-                val backButton = view.findViewById<View>(R.id.backView)
-                val nextButton = view.findViewById<View>(R.id.nextView)
                 val listRadioButton = mutableListOf<RadioButton>(
-                    view.findViewById(R.id.radioButton1), view.findViewById(R.id.radioButton2),
-                    view.findViewById(R.id.radioButton3), view.findViewById(R.id.radioButton4)
+                    radioButton1, radioButton2, radioButton3, radioButton4
                 )
                 activity?.toolbarTitle?.visibility = View.GONE
                 val window = activity?.window
@@ -90,61 +80,29 @@ class ModuleQuestionFragment : Fragment() {
                 window?.statusBarColor =
                     activity?.resources?.getColor(android.R.color.white, null) ?: 0
                 activity?.bottom_nav?.visibility = View.GONE
-                radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
-                    btnAnswer.isEnabled = true
-                }
-                (view.findViewById<Button>(R.id.btnResult)).setOnClickListener { activity?.onBackPressed() }
-                updateScreen(
-                    listQuestions, questionNumber, textQuestion,
-                    questionNumberTextView, listRadioButton,
-                    btnAnswer, radioGroup
-                )
-                nextButton.setOnClickListener {
+                radioGroup.setOnCheckedChangeListener { _, _ -> btnAnswer.isEnabled = true }
+                btnResult.setOnClickListener { activity?.onBackPressed() }
+                updateScreen(listQuestions, questionNumber, listRadioButton)
+                nextView.setOnClickListener {
                     if (questionNumber < listQuestions.size - 1) {
                         isAnswer = false
-                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber++
-                        updateScreen(
-                            listQuestions, questionNumber,
-                            textQuestion,
-                            questionNumberTextView, listRadioButton,
-                            btnAnswer, radioGroup
-                        )
-                        for (btn in listRadioButton) {
-                            btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black, null))
-                        }
+                        transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                     }
                 }
-                backButton.setOnClickListener {
+                backView.setOnClickListener {
                     if (questionNumber > 0) {
                         isAnswer = false
-                        btnAnswer.text = getString(R.string.to_answer)
                         questionNumber--
-                        updateScreen(
-                            listQuestions, questionNumber, textQuestion, questionNumberTextView,
-                            listRadioButton, btnAnswer, radioGroup
-                        )
-                        for (btn in listRadioButton) {
-                            btn.isClickable = true
-                            btn.setTextColor(resources.getColor(android.R.color.black, null))
-                        }
+                        transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                     }
                 }
                 btnAnswer.setOnClickListener {
                     if (isAnswer) {
                         if (questionNumber < listQuestions.size - 1) {
                             isAnswer = false
-                            btnAnswer.text = getString(R.string.to_answer)
                             questionNumber++
-                            updateScreen(
-                                listQuestions, questionNumber, textQuestion,
-                                questionNumberTextView, listRadioButton, btnAnswer, radioGroup
-                            )
-                            for (btn in listRadioButton) {
-                                btn.isClickable = true
-                                btn.setTextColor(resources.getColor(android.R.color.black, null))
-                            }
+                            transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                         }
                     } else {
                         isAnswer = true
@@ -154,29 +112,7 @@ class ModuleQuestionFragment : Fragment() {
                             radioGroup.indexOfChild(view.findViewById(radioGroup.checkedRadioButtonId)),
                             listCorrectAnswers
                         )
-                        if (!listCorrectAnswers.contains(0)) {
-                            btnAnswer.isClickable = false
-                            backButton.isClickable = false
-                            nextButton.isClickable = false
-                            listRadioButton.forEach { it.isClickable = false }
-                            view.findViewById<ConstraintLayout>(R.id.moduleQuestionResult)
-                                .visibility = View.VISIBLE
-                            view.findViewById<TextView>(R.id.result).text =
-                                getString(
-                                    R.string.result_exam,
-                                    Collections.frequency(listCorrectAnswers, 1),
-                                    listCorrectAnswers.size,
-                                    if (Collections.frequency(listCorrectAnswers, 1) >= 8)
-                                        getString(R.string.exam_passed) else getString(R.string.exam_not_passed)
-                                )
-                            GlobalScope.launch {
-                                WebAccess.pediatryApi.setModuleResult(
-                                    args.moduleId.toString(),
-                                    listQuestions.size + 1,
-                                    Collections.frequency(listCorrectAnswers, 1)
-                                )
-                            }
-                        }
+                        isAllAnswered(listCorrectAnswers, listQuestions.size, listRadioButton)
                     }
                 }
                 super.onViewCreated(view, savedInstanceState)
@@ -185,30 +121,26 @@ class ModuleQuestionFragment : Fragment() {
     }
 
     private fun updateScreen(
-        list: List<Question>, questionNumber: Int,
-        textQuestion: TextView,
-        questionNumberTextView: TextView, listRadioButton: List<RadioButton>,
-        btnNext: Button, radioGroup: RadioGroup
+        listQuestions: List<Question>, questionNumber: Int, listRadioButton: List<RadioButton>
     ) {
-        textQuestion.text = list[questionNumber].text
-        for ((x, btn) in listRadioButton.withIndex()) btn.text =
-            list[questionNumber].answers[x].text
+        textQuestion.text = listQuestions[questionNumber].text
+        for ((x, btn) in listRadioButton.withIndex())
+            btn.text = listQuestions[questionNumber].answers[x].text
         radioGroup.clearCheck()
-        btnNext.isEnabled = false
-        questionNumberTextView.text = getString(R.string.one_to_ten, (questionNumber + 1))
+        btnAnswer.isEnabled = false
+        oneToTen.text = getString(R.string.one_to_ten, (questionNumber + 1))
     }
 
     private fun setAnswer(
         listQuestions: List<Question>, listRadioButton: MutableList<RadioButton>,
-        questionNumber: Int, selectedNumber: Int, listCorrectAnswers: MutableList<Int>
+        questionNumber: Int, selectedNumber: Int, listCorrectAnswers: MutableList<AnswerInstance>
     ) {
         if (listQuestions[questionNumber].correctAnswersCombo[0] == selectedNumber) {
-            listCorrectAnswers[questionNumber] = 1
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(android.R.color.holo_green_dark, null)
             )
-        } else {
-            listCorrectAnswers[questionNumber] = -1
+        }
+        else {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(android.R.color.holo_red_dark, null)
             )
@@ -216,13 +148,49 @@ class ModuleQuestionFragment : Fragment() {
                 resources.getColor(android.R.color.holo_green_dark, null)
             )
         }
-        for (btn in listRadioButton) {
-            btn.isClickable = false
-        }
+        listCorrectAnswers[questionNumber].selectedAnswer = selectedNumber
+        for (btn in listRadioButton) btn.isClickable = false
     }
 
     private fun errorView() {
         progressBarView.visibility = View.GONE
         includeError.visibility = View.VISIBLE
+    }
+
+    private fun isAllAnswered(
+        listCorrectAnswers: List<AnswerInstance>,
+        listQuestionsSize: Int, listRadioButton: List<RadioButton>
+    ) {
+        if (!listCorrectAnswers.map { it.selectedAnswer }.contains(AnswerInstance.noAnswered)) {
+            btnAnswer.isClickable = false
+            backView.isClickable = false
+            nextView.isClickable = false
+            listRadioButton.forEach { it.isClickable = false }
+            moduleQuestionResult.visibility = View.VISIBLE
+            result.text = getString(
+                R.string.result_exam,
+                listCorrectAnswers.filter { it.correctAnswer == it.selectedAnswer }.size,
+                listCorrectAnswers.size,
+                if (listCorrectAnswers.filter { it.correctAnswer == it.selectedAnswer }.size >= 8)
+                    getString(R.string.exam_passed) else getString(R.string.exam_not_passed)
+            )
+            GlobalScope.launch {
+                WebAccess.pediatryApi.setModuleResult(
+                    args.moduleId.toString(), listQuestionsSize,
+                    listCorrectAnswers.filter { it.correctAnswer == it.selectedAnswer }.size
+                )
+            }
+        }
+    }
+
+    private fun transitionToQuestion(
+        listQuestions: List<Question>, questionNumber: Int, listRadioButton: List<RadioButton>
+    ) {
+        btnAnswer.text = getString(R.string.to_answer)
+        updateScreen(listQuestions, questionNumber, listRadioButton)
+        for (btn in listRadioButton) {
+            btn.isClickable = true
+            btn.setTextColor(resources.getColor(android.R.color.black, null))
+        }
     }
 }

@@ -30,12 +30,10 @@ class ModuleFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val mainActivity = activity as? MainActivity
-        mainActivity?.supportActionBar?.show()
-        val window = activity?.window
-        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window?.statusBarColor =
+        (activity as? MainActivity)?.supportActionBar?.show()
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        activity?.window?.statusBarColor =
             activity?.resources?.getColor(android.R.color.white, null) ?: 0
         viewModel = ViewModelProvider(this).get(ModuleViewModel::class.java)
         listModules.setHasFixedSize(true)

@@ -12,4 +12,10 @@ data class Module(
     val youtubeCode: String?,
     val clinicalAnalysisDescription: String,
     val testStatus: Int
-)
+){
+    companion object TestStatus {
+        var noTesting = 1
+        var correctTesting = 2
+        var incorrectTesting = 3
+    }
+}
