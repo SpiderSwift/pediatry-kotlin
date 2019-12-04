@@ -2,17 +2,28 @@ package com.develop.grizzzly.pediatry.images
 
 import android.content.ContentResolver
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.develop.grizzzly.pediatry.application.ThisApp
+import com.develop.grizzzly.pediatry.network.model.BasicAuthorization
 import java.io.InputStream
 import kotlin.math.floor
 import kotlin.math.sqrt
+
 
 private const val TAG = "ImageUtil"
 
@@ -33,6 +44,41 @@ fun glideRemote(path: String?, imageView: ImageView, placeholderId: Int) {
             .centerCrop()
             .placeholder(placeholderId)
             .error(placeholderId)
+            .into(imageView)
+    }
+}
+
+fun glideRemoteWithAuth(path: String?, imageView: ImageView, progressBar: ProgressBar) {
+    if (!path.isNullOrBlank()) {
+        Glide.with(ThisApp.app)
+            .load(
+                GlideUrl(
+                    path,
+                    LazyHeaders.Builder()
+                        .addHeader(
+                            "Authorization",
+                            BasicAuthorization("m5edu_dev", "_p3Y3QPGuG")
+                        ).build()
+                )
+            )
+            .listener(
+                object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?, model: Any?, target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        progressBar.visibility = View.VISIBLE
+                        return false
+                    }
+                    override fun onResourceReady(
+                        resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                        dataSource: DataSource?, isFirstResource: Boolean
+                    ): Boolean {
+                        progressBar.visibility = View.GONE
+                        return false
+                    }
+                }
+            )
             .into(imageView)
     }
 }
@@ -85,7 +131,8 @@ fun rotateImageIfRequired(inputStream: InputStream, bitmap: Bitmap): Bitmap {
     val exif = ExifInterface(inputStream)
     val orientation = exif.getAttributeInt(
         ExifInterface.TAG_ORIENTATION,
-        ExifInterface.ORIENTATION_UNDEFINED)
+        ExifInterface.ORIENTATION_UNDEFINED
+    )
     rotatedBitmap = when (orientation) {
         ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90)
         ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180)

@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.develop.grizzzly.pediatry.R
 import com.develop.grizzzly.pediatry.activities.MainActivity
 import com.develop.grizzzly.pediatry.extensions.navigateNoExcept
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_doctors_testing.*
 
 class TestingFragment : Fragment() {
 
@@ -29,7 +29,7 @@ class TestingFragment : Fragment() {
         activity?.window?.statusBarColor =
             activity?.resources?.getColor(android.R.color.white, null) ?: 0
         activity?.bottom_nav?.visibility = View.GONE
-        (view.findViewById<Button>(R.id.btnStartTest)).setOnClickListener {
+        btnStartTest.setOnClickListener {
             Navigation.findNavController(view).navigateNoExcept(R.id.action_testings_to_question)
         }
         super.onViewCreated(view, savedInstanceState)

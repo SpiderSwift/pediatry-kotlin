@@ -1,5 +1,6 @@
 package com.develop.grizzzly.pediatry.images
 
+import com.bumptech.glide.Glide
 import com.develop.grizzzly.pediatry.application.ThisApp
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
@@ -21,5 +22,4 @@ object ImageAccess {
             .downloader(OkHttp3Downloader(clientBuilder.build()))
             .build()
     }
-
 }
