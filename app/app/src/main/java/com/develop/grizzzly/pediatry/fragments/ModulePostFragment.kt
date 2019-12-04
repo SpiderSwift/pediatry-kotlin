@@ -109,7 +109,7 @@ class ModulePostFragment : Fragment() {
             nextView.visibility = View.GONE
             backView.visibility = View.GONE
         } else {
-            viewPager.alpha = (0.4).toFloat()
+            viewPager.alpha = (0.1).toFloat()
             ModulePostViewModel.isTooltips = true
             moduleNum.visibility = View.VISIBLE
             tvTitle.visibility = View.VISIBLE
