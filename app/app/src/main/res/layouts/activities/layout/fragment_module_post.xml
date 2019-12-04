@@ -25,7 +25,7 @@
             android:layout_marginBottom="12dp"
             android:background="@drawable/layout_bg"
             android:elevation="10dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,7 @@
                 android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/border"
                 app:layout_constraintTop_toTopOf="@+id/viewPager">
@@ -67,6 +68,7 @@
                 android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/border"
                 app:layout_constraintTop_toTopOf="@+id/viewPager">
@@ -93,6 +95,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,6 +114,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/toTesting"
                 app:layout_constraintStart_toEndOf="@+id/moduleNum"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,9 +125,9 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="6dp"
-                android:alpha="0.70"
                 android:onClick="@{model::onTest}"
                 android:src="@drawable/ic_checklist"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
@@ -142,7 +146,7 @@
             layout="@layout/fragment_progressbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

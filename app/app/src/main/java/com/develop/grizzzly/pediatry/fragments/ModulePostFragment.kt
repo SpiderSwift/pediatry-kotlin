@@ -61,10 +61,9 @@ class ModulePostFragment : Fragment() {
         GlobalScope.launch {
             val listSlidesFragment = mutableListOf<SlidePagerFragment>()
             try {
-                val module: ModulePost? =
-                    WebAccess.pediatryApi.getModuleById(ModulePostViewModel.viewModel.id)
-                        .body()?.response
-                ModulePostViewModel.listSlides = module!!.slides
+                val module: ModulePost =
+                    WebAccess.pediatryApi.getModuleById(ModulePostViewModel.viewModel.id).body()!!.response!!
+                ModulePostViewModel.listSlides = module.slides
                 for (x in module.slides.indices)
                     listSlidesFragment.add(SlidePagerFragment(x))
                 withContext(Dispatchers.Main) {
@@ -116,7 +115,8 @@ class ModulePostFragment : Fragment() {
             tvTitle.visibility = View.VISIBLE
             nextView.visibility = View.VISIBLE
             backView.visibility = View.VISIBLE
-            toTesting.visibility = if (moduleTestStatus == Module.noTesting) View.VISIBLE else View.GONE
+            toTesting.visibility =
+                if (moduleTestStatus == Module.noTesting) View.VISIBLE else View.GONE
         }
     }
 }

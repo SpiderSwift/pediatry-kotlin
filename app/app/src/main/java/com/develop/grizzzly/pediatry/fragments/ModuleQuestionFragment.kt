@@ -87,14 +87,28 @@ class ModuleQuestionFragment : Fragment() {
                     if (questionNumber < listQuestions.size - 1) {
                         isAnswer = false
                         questionNumber++
-                        transitionToQuestion(listQuestions, questionNumber, listRadioButton)
+                        if (listCorrectAnswers[questionNumber].selectedAnswer != AnswerInstance.noAnswered)
+                            blockQuestion(
+                                listQuestions,
+                                questionNumber,
+                                listRadioButton,
+                                listCorrectAnswers[questionNumber]
+                            )
+                        else transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                     }
                 }
                 backView.setOnClickListener {
                     if (questionNumber > 0) {
                         isAnswer = false
                         questionNumber--
-                        transitionToQuestion(listQuestions, questionNumber, listRadioButton)
+                        if (listCorrectAnswers[questionNumber].selectedAnswer != AnswerInstance.noAnswered)
+                            blockQuestion(
+                                listQuestions,
+                                questionNumber,
+                                listRadioButton,
+                                listCorrectAnswers[questionNumber]
+                            )
+                        else transitionToQuestion(listQuestions, questionNumber, listRadioButton)
                     }
                 }
                 btnAnswer.setOnClickListener {
@@ -102,7 +116,18 @@ class ModuleQuestionFragment : Fragment() {
                         if (questionNumber < listQuestions.size - 1) {
                             isAnswer = false
                             questionNumber++
-                            transitionToQuestion(listQuestions, questionNumber, listRadioButton)
+                            if (listCorrectAnswers[questionNumber].selectedAnswer != AnswerInstance.noAnswered)
+                                blockQuestion(
+                                    listQuestions,
+                                    questionNumber,
+                                    listRadioButton,
+                                    listCorrectAnswers[questionNumber]
+                                )
+                            else transitionToQuestion(
+                                listQuestions,
+                                questionNumber,
+                                listRadioButton
+                            )
                         }
                     } else {
                         isAnswer = true
@@ -139,8 +164,7 @@ class ModuleQuestionFragment : Fragment() {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(android.R.color.holo_green_dark, null)
             )
-        }
-        else {
+        } else {
             listRadioButton[selectedNumber].setTextColor(
                 resources.getColor(android.R.color.holo_red_dark, null)
             )
@@ -192,5 +216,32 @@ class ModuleQuestionFragment : Fragment() {
             btn.isClickable = true
             btn.setTextColor(resources.getColor(android.R.color.black, null))
         }
+    }
+
+    private fun blockQuestion(
+        listQuestions: List<Question>,
+        questionNumber: Int,
+        listRadioButton: List<RadioButton>,
+        instance: AnswerInstance
+    ) {
+        btnAnswer.text = getString(R.string.next)
+        updateScreen(listQuestions, questionNumber, listRadioButton)
+        btnAnswer.isEnabled = true
+        for (btn in listRadioButton) {
+            btn.isClickable = false
+            btn.setTextColor(resources.getColor(android.R.color.black, null))
+        }
+        listRadioButton[instance.selectedAnswer].setTextColor(
+            resources.getColor(
+                android.R.color.holo_red_light,
+                null
+            )
+        )
+        listRadioButton[instance.correctAnswer].setTextColor(
+            resources.getColor(
+                android.R.color.holo_green_light,
+                null
+            )
+        )
     }
 }
